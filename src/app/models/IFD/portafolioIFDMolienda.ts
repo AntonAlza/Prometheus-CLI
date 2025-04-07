@@ -1,0 +1,64 @@
+import { number } from "echarts";
+
+export class PortafolioIFDMolienda{
+
+  s208_Operacion: number;
+  s208_FechaPacto: Date;
+  s208_Underlying: String;
+  s208_DescUnderlying: String;
+  s208_IdTicker: String;
+  s208_Ticker: String;
+  s208_FechaExpiracion: Date;
+  s208_IdInstrumento: String;
+  s208_Instrumento: String;
+  s208_TipoInstrumento: String;
+  s208_Cobertura: String;
+  s208_IdCompraVenta: string;
+  s208_CompraVenta: String;
+  s208_Estado: String;
+  s208_IdTipoLiquidacion: string;
+  s208_TipoLiquidacion: String;
+  s208_IdBrokerReference: string;
+  s208_CodigoBroker: String;
+  s208_IdSociedad: string;
+  s208_Sociedad: String;
+  s208_NumeroContratos: number;
+  s208_Bushels: number;
+  s208_PrecioEjercicio: number;
+  s208_Prima: number;
+  s208_IdBroker:string;
+  s208_Broker: String;
+  s208_MesContrato: String;
+  s208_Costo: number;
+  s208_CodigoEstrategia: number;
+  s208_Estrategia: String;
+  s208_MesEstrategia: String;
+  s208_TipoCobertura: String;
+  s208_M2M: number;
+  s208_Ficha: String;
+  s208_CuentaBroker: String;
+  s208_Barrera: number;
+  s208_Binary: number;
+  s208_DailyBinary: number;    
+  s208_TipoBarrera: String;
+  s208_IdTipoOperacion: string;
+  s208_TipoOperacion: String;
+  s208_Base: String;
+  s208_AcumulacionEstrategia: number;
+  s208_IdBenchmark:string;
+  s208_DescBenchmark:string;
+  s208_IdExchange: string;
+  s208_IdTypeContract:string;
+  s208_elegir: Boolean;
+  s208_Trimestre:string;
+  s208_Portfolio:string;
+  s208_ByAgrupDelta:string;
+  s208_ByApertura:string;
+  s208_HedgeType:string;
+  s208_VolumeNetTM:number;
+  s208_VolumeMaxTM:number;
+  s208_Limit:string;
+  s208_AsianOption:number;
+  s208_InicioAsianOption:number;
+
+}

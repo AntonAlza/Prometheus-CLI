@@ -1,0 +1,48 @@
+
+            <!--app header-->
+            <div class="app-header header top-header">
+                <div class="container">
+                    <div class="d-flex">
+                        <!-- <a class="header-brand text-start" routerLink="/ventasMoliendaComponent/ventasMoliendaComponent"> -->
+                        <!-- <a class="header-brand text-start" routerLink="/auth/login"> -->
+                             <a class="header-brand text-start" routerLink="/paginaInicio">
+                                
+                            <img src="../../assets/images/brand/logoMR.png" class="header-brand-img desktop-lgo" alt="Dashtic logo">
+                            <img src="../../assets/images/brand/logo1.png" class="header-brand-img dark-logo" alt="Dashtic logo">
+                            <img src="../../assets/images/brand/favicon.png" class="header-brand-img mobile-logo" alt="Dashtic logo">
+                            <img src="../../assets/images/brand/favicon1.png" class="header-brand-img darkmobile-logo" alt="Dashtic logo">
+                        </a>
+                        <a id="horizontal-navtoggle" class="animated-arrow hor-toggle" (click)="toggleSidebar()"><span></span></a>
+                        <!-- sidebar-toggle-->
+                        
+                        <div class="col d-flex justify-content-end"> 
+                            <h3> Bienvenido(a) {{nombre}}</h3>
+                            <mat-icon mat-icon-button [matMenuTriggerFor]="menu" class="profile-icon">
+                                account_circle
+                            </mat-icon>
+                            
+                            <!-- Menú de opciones -->
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item *ngIf="isLogged && isGestorUsuarios" (click)="registrarUsuario()">
+                                    <mat-icon>person_add</mat-icon>
+                                    <span>Registrar nuevo usuario</span>
+                                </button>
+                                <button mat-menu-item *ngIf="isLogged" (click)="cerrarSesion()">
+                                    <mat-icon>logout</mat-icon>
+                                    <span>Cerrar sesión</span>
+                                </button>
+                                <button mat-menu-item *ngIf="!isLogged" (click)="iniciarSesion()">
+                                    <mat-icon>login</mat-icon>
+                                    <span>Iniciar sesión</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!--/app header-->
+
+            <!-- Centerlogo app header-->
+            
+            <!--/Centerlogo app header -->

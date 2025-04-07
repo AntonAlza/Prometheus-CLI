@@ -1,0 +1,155 @@
+<div role="document" class="card">
+    <!--class="msg_card_body" -->
+
+      <div class="modal-header">
+        <h5 *ngIf="flgDescargaTransito" class="modal-title">Mover a Tránsito</h5>
+        <h5 *ngIf="!flgDescargaTransito" class="modal-title">Mover a Inventario</h5>
+          <button type="button" class="close" aria-label="Close" (click)="cerrarDescargaOperacion()">
+            <mat-icon  >close</mat-icon>
+          </button>
+      </div>
+      <div class="modal-body">
+        <div class="py-1">
+          <form class="form" novalidate="">
+            <div class="card shadow-none">
+              <div class="row">
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Código Fisico:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="objInitDescargar.fisico.t039_ID"
+                        [(ngModel)]="objInitDescargar.fisico.t039_ID" readonly/>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Código Descarga:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="objInitDescargar.codDescarga" 
+                        [(ngModel)]="objInitDescargar.codDescarga" readonly/>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div  *ngIf="flgDescargaTransito" class="row">
+                    <div class="col-xl-2 col-lg-12 col-md-12">
+                      <label class="custom-control custom-checkbox">
+                        <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        name="pasarFacturadaVP"
+                        [(ngModel)]="pasarTransito"
+                        (change)="obtenerPrecioFOB()"/>
+                       <span class="custom-control-label"></span>                    
+                      </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-12 col-md-12">
+                      <label class="form-label">Pasar a Facturada</label>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Fecha:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            class="form-control"
+                            type="date"
+                            placeholder="YYYY-MM-DD"
+                            ngbDatepicker
+                            [(ngModel)]="fecha"
+                            (click)="d1.toggle()"
+                            #d1="ngbDatepicker"
+                            name="fecha"
+                            readonly/>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Número de Contratos:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="objInitDescargar.numContratos" 
+                        [(ngModel)]="objInitDescargar.numContratos" readonly/>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Toneladas Metricas:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="objInitDescargar.tm" 
+                        [(ngModel)]="objInitDescargar.tm"
+                        (change)="obtenerNumContratos()"/>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <span class="br"></span>
+                  <div class="row" *ngIf="pasarTransito">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Precio Final FOB:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="precioFinal"
+                        [(ngModel)]="precioFinal"/>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                  <label class="form-label">Sustento:</label>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                    <textarea class="input" [maxLength]="222" [(ngModel)]="unloadingGuardar.t115_DownloadSupport" matInput></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col d-flex justify-content-end">
+                <button
+                  *ngIf="flgDescargaTransito"
+                  class="btn btn-green"
+                  type="submit"
+                  (click)="guardarDescarga()">
+                  Aceptar
+                </button>
+                <button
+                  *ngIf="!flgDescargaTransito"
+                  class="btn btn-green"
+                  type="submit"
+                  (click)="guardarPasajeInventario()">
+                  Aceptar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>

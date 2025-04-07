@@ -1,0 +1,41 @@
+<!-- paginaInicio.component.html -->
+<div class="finance-background">
+  <!-- Gráficos de barras financieras generados con CSS -->
+  <div class="chart-container">
+    <div class="bar bar-1"></div>
+    <div class="bar bar-2"></div>
+    <div class="bar bar-3"></div>
+    <div class="bar bar-4"></div>
+    <div class="bar bar-5"></div>
+    <div class="bar bar-6"></div>
+    <div class="bar bar-7"></div>
+    <div class="bar bar-8"></div>
+    <div class="bar bar-9"></div>
+    <div class="bar bar-10"></div>
+    <div class="bar bar-11"></div>
+    <div class="bar bar-12"></div>
+    <div class="bar bar-13"></div>
+    <div class="bar bar-14"></div>
+    <div class="bar bar-15"></div>
+    <div class="bar bar-16"></div>
+    <div class="bar bar-17"></div>
+    <div class="bar bar-18"></div>
+    <div class="bar bar-19"></div>
+    <div class="bar bar-20"></div>
+  </div>
+  
+  <!-- Overlay difuminado blanco -->
+  <div class="white-overlay"></div>
+  
+  <!-- Contenido de texto centrado -->
+  <div class="content-overlay">
+    <h2 class="welcome-title">
+      BIENVENIDO(A) A <span class="prometheus-text">Prometheus</span>
+    </h2>
+  </div>
+</div>
+
+<!-- Plantilla para modales si es necesario -->
+<ng-template #registrolimitecampanhaForm let-modal>
+  <app-registrolimitecampanha [visible]="myModal" (close)="cerrarModal($event)"></app-registrolimitecampanha>     
+</ng-template>

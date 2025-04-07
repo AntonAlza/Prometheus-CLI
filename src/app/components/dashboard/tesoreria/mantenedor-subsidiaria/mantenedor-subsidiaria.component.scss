@@ -1,0 +1,62 @@
+.mat-row:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+}
+
+.scroll-container {
+    position: relative;
+    min-height: 200px;
+    max-height: 800px;
+    max-width: 100%;
+    overflow: auto;
+}
+
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}   
+
+.mat-cell {
+    text-align: center;
+    justify-content:center;
+    vertical-align: middle;
+}
+
+.btn-green {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.39);
+    box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+}
+
+.btn-green:hover {
+    color: #fff !important;
+    background-color: rgba(120, 185, 40, 0.397);;
+    border-color: rgb(120, 185, 40);
+}
+
+:host ::ng-deep  .mat-checkbox-checked .mat-checkbox-background {
+    background-color: #37aaf1;
+    border-color: black;
+} 
+
+:ng-deep .mat-checkbox-indeterminate  .mat-checkbox .mat-checkbox-frame { 
+    border-color: black;
+}
+
+mat-form-field {
+    align-content: center;
+    text-align: center;
+}
+
+.redondeado {
+    border-radius: 5px;
+    border: 1px solid rgb(146, 146, 146) !important;
+}

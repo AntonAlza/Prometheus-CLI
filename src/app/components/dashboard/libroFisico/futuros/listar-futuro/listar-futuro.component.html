@@ -1,0 +1,134 @@
+<div role="document" class="card">
+    <div class="card-header">
+        <h3 class="card-title">Lista de Futuros</h3>
+          <!-- <button class="card-options" ngbDropdown (click)="cerrargestionOperacion()">
+                <div class="btn-group ms-5 mb-0">
+                        <mat-icon  >close</mat-icon>
+                </div>
+            
+          </button> -->
+                <div class="card-options" ngbDropdown>
+                        <!-- <div class="btn-group ms-5 mb-0">
+                                <button
+                                type="button"
+                                class="btn btn-white"
+                                aria-expanded="false"
+                                data-toggle="modal"
+                                (click)="ingresarBaseModal(IngresarBase)">
+                                <i class="fe fe-plus"></i>Agregar Bases
+                                </button>
+                        </div> -->
+                </div>
+      </div>
+
+    <div class="card-body">
+            <div>
+                      <input type="text" class="redondeado buscador"  size="100"    (keyup)="applyFilterListaFuturo($event)" placeholder=" Buscar Futuro" autocomplete="off">
+                     <br><br>
+             </div>
+           <div  class="table-responsive">
+             <div class="tabla-table-container">
+                     <table mat-table 
+                      class="table table-bordered text-nowrap"  
+                      class="example-table table-bordered"
+                      matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+                      style="width:100%" 
+                     [dataSource]="listaFuturosCMDS" >
+
+                        <ng-container  matColumnDef="opciones">
+                                <th  mat-header-cell *matHeaderCellDef mat-sort-header>Opciones</th>
+                                <td mat-cell *matCellDef="let element"
+                                (click)="onContextMenu($event, element.s022_CodigoPricing)" [matMenuTriggerFor]="contextMenu"> 
+                                <button mat-icon-button class="opcion">
+                                <mat-icon>more_vert</mat-icon>
+                                </button>
+                                </td>
+                        </ng-container>
+
+                             <ng-container matColumnDef="s022_CodigoFisico">
+                               <th class="thead" class="border-bottom-0" mat-header-cell *matHeaderCellDef mat-sort-header> Código de Físico </th>
+                               <td mat-cell *matCellDef="let element"> {{element.s022_CodigoFisico}} </td>
+                             </ng-container>
+
+                             <ng-container class="border-bottom-0" matColumnDef="s022_CodigoFuturo">
+                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Código de Futuro </th>
+                               <td mat-cell *matCellDef="let element"> {{element.s022_CodigoFuturo}} </td>
+                             </ng-container>
+                             <ng-container class="border-bottom-0" matColumnDef="s022_Futuro">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Futuro </th>
+                                <td mat-cell *matCellDef="let element"> {{element.s022_Futuro}} </td>
+                              </ng-container>
+                             <ng-container class="border-bottom-0" matColumnDef="s022_CodigoPricing">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Código de Pricing </th>
+                                <td mat-cell *matCellDef="let element"> {{element.s022_CodigoPricing}} </td>
+                              </ng-container>
+                             <ng-container  class="border-bottom-0" matColumnDef="s022_Fecha">
+                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                               <td mat-cell *matCellDef="let element"> {{element.s022_Fecha | date: "dd/MM/yyyy"}} </td>
+                             </ng-container>
+                             <ng-container  class="border-bottom-0" matColumnDef="s022_TipoOperacion">
+                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Operación </th>
+                                     <td mat-cell *matCellDef="let element"> {{element.s022_TipoOperacion}} </td>
+                             </ng-container>                      
+                             <ng-container class="border-bottom-0" matColumnDef="s022_NumeroContratos">
+                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Número de Contratos </th> 
+                                     <td mat-cell *matCellDef="let element">  {{element.s022_NumeroContratos}} </td>
+                             </ng-container>
+                             <ng-container matColumnDef="s022_ToneladasMetricas">
+                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Toneladas Métricas </th>
+                                     <td mat-cell *matCellDef="let element"> {{element.s022_ToneladasMetricas | number:'1.0-0' }} </td>
+                             </ng-container>
+                             <ng-container matColumnDef="s022_Precio">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+                                    <td mat-cell *matCellDef="let element" matTooltip= {{element.s022_Precio}} > {{element.s022_Precio | number:'1.2-2'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="s022_PrecioCosto">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Costo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.s022_PrecioCosto | number:'1.2-2'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="s022_PANDL_Costo">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> P&L Costo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.s022_PANDL_Costo | number:'1.2-2'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="s022_Comment">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Comentario </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.s022_Comment}} </td>
+                            </ng-container>
+                             <tr mat-header-row *matHeaderRowDef="columnsFuturos sticky: true" 
+                             style="text-align: center; vertical-align: middle;" ></tr>
+                             
+                             <tr class="tbody" mat-row *matRowDef="let element; columns: columnsFuturos;"
+                             style="text-align: center; vertical-align: middle;" 
+                             [class.selected]="element.selected"
+                             (click)="element.selected= !element.selected"
+                             >
+                             </tr>
+                     </table>
+             </div>
+            </div>
+            <mat-paginator [pageSizeOptions]="[15, 25, 100]"></mat-paginator>
+    </div>
+
+</div>
+
+<mat-menu #contextMenu="matMenu" #contextMenu2="matMenu">
+  <ng-template matMenuContent let-item="item">
+    <button mat-menu-item (click)="modificarFuturo(modificarFuturoModal)">Modificar Futuro</button>
+    <button mat-menu-item (click)="eliminarFuturo()">Eliminar Futuro</button>
+  </ng-template>
+</mat-menu>
+
+<!-- <ng-template #IngresarBase let-modal >
+        <app-ingresar-bases (closeAgregarBase)="cerrarModalOperacion(modal)" [objInitIngresoBase] = "objetoInitIngresoBase"></app-ingresar-bases>
+</ng-template> -->
+
+<ng-template #modificarFuturoModal let-modal >
+        <app-modificar-futuro-cm (cerrarModificarFuturo)="cerrarModalFuturo(modal)" [objetoInitModificarFuturo] = "objetoInitModificarFuturo"></app-modificar-futuro-cm>
+</ng-template>
+
+<mat-spinner  class="custom-spinner"
+        *ngIf="loading$ | async"  
+        [mode]="'indeterminate'"
+        [value]=50
+        [diameter]="50">
+</mat-spinner>

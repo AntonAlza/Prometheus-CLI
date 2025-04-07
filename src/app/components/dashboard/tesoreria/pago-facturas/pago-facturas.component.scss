@@ -1,0 +1,194 @@
+.mat-row:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+}
+
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}
+
+.mat-sort-header-container{
+  justify-content: center;
+  position: relative;
+}
+
+:host ::ng-deep .mat-sort-header-container { 
+  display: flex;  
+  justify-content: center; 
+  vertical-align: middle;
+  padding: 0 3ex 0  2ex;
+}
+
+::ng-deep  .mat-sort-header-arrow {
+  color: #fff;
+  justify-content:center;
+  vertical-align: middle;
+}
+
+.btn-green {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.39);
+    box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+}
+
+.btn-green:hover {
+    color: #fff !important;
+    background-color: rgba(120, 185, 40, 0.397);;
+    border-color: rgb(120, 185, 40);
+}
+
+:host ::ng-deep  .mat-checkbox-checked .mat-checkbox-background {
+    background-color: #37aaf1;
+    border-color: black;
+}
+
+mat-form-field {
+    align-content: center;
+    text-align: center;
+    border: 0px;
+}
+
+// input {
+//     width: 250px;
+//     padding: 6px 0;
+//   }
+.redondeado {
+    border-radius: 5px;
+    border: 1px solid rgb(146, 146, 146) !important;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: #4b822d;
+  }
+  
+  ::ng-deep .mat-progress-bar-buffer {
+    background: #37aaf1;
+  }
+
+   .mat-form-field {
+    height: 35px !important;
+    align-content: center;
+    text-align: center;
+  }
+
+  ::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    height: 35px !important;
+  }
+
+  ::ng-deep .mat-form-field-outline{
+    height: 35px !important;
+  }
+  
+  .resaltarFilaCoberturaTotal{
+    // background-color: rgb(75, 130, 45);
+    background-color:rgba(200, 15, 30, 0.205);
+  }
+
+  .resaltarFilaCoberturaParcial{
+    // background-color: rgb(75, 130, 45);
+    background-color:rgba(185, 161, 40, 0.205);
+  }
+
+  ::ng-deep .my-classModal .modal-dialog { 
+    max-width: 70%;
+    width: 70%;
+    max-height: 50%;
+    height: 50%;
+    position: relative;
+    }
+
+    th, td{
+      padding: 0 !important;
+    }
+
+
+
+
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0;
+    }
+    
+    .container label {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .btn-right {
+      margin-left: auto;
+    }
+    
+.card-body{
+  position: relative;
+}
+
+.panel-fijo{
+  // position: fixed;
+  // top: 137px;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th {
+  z-index: 0 !important;
+}
+
+label {
+  display: inline-flex;      /* Cambiar el comportamiento de la etiqueta para usar flexbox */
+  justify-content: center;   /* Centrar el contenido horizontalmente */
+  align-items: center;       /* Centrar el contenido verticalmente */
+}
+
+::ng-deep .ng-select-container .ng-value-container{
+  min-height: 40px !important;
+  z-index: 1;
+  max-height: 80px;  /* Limita la altura máxima a 80px */
+  overflow-y: auto;   /* Activa el scroll cuando se exceda la altura máxima */
+  overflow-x: hidden;    /* Desactiva el scroll horizontal */
+}
+
+mat-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+:host ::ng-deep .custom-spinner circle {
+  stroke: rgb(75, 130, 45);
+  stroke-opacity: 1 !important;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  /* Oscurecer el fondo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  /* Asegurarse que esté sobre el contenido */
+}

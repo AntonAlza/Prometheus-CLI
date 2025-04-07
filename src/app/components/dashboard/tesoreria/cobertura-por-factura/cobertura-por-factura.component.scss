@@ -1,0 +1,59 @@
+.mat-row:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+}
+
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}
+
+.btn-eliminar {
+    color: #fff !important;
+    background-color: #37aaf1;
+    border-color: #a1000096;
+    -webkit-box-shadow: 0 0px 10px -5px rgba(200, 15, 30, 0.5);
+            box-shadow: 0 0px 10px -5px rgba(200, 15, 30, 0.5);
+  }
+  
+  .btn-eliminar:hover {
+    color: #fff !important;
+    background-color: #a1000096;;
+    border-color:  #37aaf1;
+  }
+  
+  
+  .btn-eliminar:active {
+    background-color: #37aaf1;
+  
+  }
+
+
+
+
+
+  .btn-revertir {
+    color: #fff !important;
+    background-color: #dba703;
+    border-color: #dba90396;
+    -webkit-box-shadow: 0 0px 10px -5px #dba90396;
+            box-shadow: 0 0px 10px -5px #dba90396;
+  }
+  
+  .btn-revertir:hover {
+    color: #fff !important;
+    background-color: #dba90396;;
+    border-color:  #dba703;
+  }
+  
+  
+  .btn-revertir:active {
+    background-color: #dba703;
+  
+  }

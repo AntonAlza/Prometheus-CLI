@@ -1,0 +1,635 @@
+<div id="myModal" tabindex="-1" data-keyboard="false" role="dialog">
+  <div role="document">
+
+    <div class="modal-header">
+      <!-- <h5 *ngIf="!flgIngresarContrato" class="modal-title">Modificar IFD</h5> -->
+      <h5 class="modal-title">Modificar IFD</h5>
+      <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+        <mat-icon>close</mat-icon>
+      </button>
+
+    </div>
+
+
+    <div class="modal-body">
+      <div class="py-1">
+        <form class="form" novalidate="">
+          <div class="row">
+            <div class="col col-xl-6 col-lg-6 col-md-6">
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Código </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input style="width: 55%;" id="deshabilitado" class="form-control" type="text" placeholder="Código"
+                    name="idSQL" [(ngModel)]="idSQL" readonly />
+                </div>
+              </div>
+              <span class="br"></span>
+              <!-- <div style="border: 1px solid black;  box-shadow: 0px 0px 10px grey " > -->
+              <div class="card shadow-none border">
+                <h3 class="modal-title">Contrato</h3>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Tipo Contrato </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select style="width:  55%;" class="form-control form-select" name="idTipoContrato"
+                      [(ngModel)]="idTipoContrato" (change)="onSelectTipoContrato($event)">
+                      <ng-option value="{{lista.t019_ID}}" *ngFor="let lista of listaTipoContrato">{{
+                        lista.t019_Description }}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Bolsa </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select style="width:  55%;" [disabled]="true" class="form-control form-select" name="idBolsa"
+                      [(ngModel)]="idBolsa" (change)="onSelectBolsa($event)">
+                      <ng-option value="{{lista.t003_ID}}" *ngFor="let lista of listaBolsa">{{ lista.t003_Ticker }}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Ticker </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select style="width:  55%;" class="form-control form-select" name="idTicker"
+                      [(ngModel)]="idTicker" (change)="onSelectTicker($event)" [disabled]="true">
+                      <ng-option value="{{lista.t004_ID}}" *ngFor="let lista of listaContratos">{{
+                        lista.t004_Nomenclature }}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Fecha Expiración</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select style="width: 83%;" class="form-control form-select" name="idContrato"
+                      [(ngModel)]="idContrato">
+                      <ng-option value="{{lista.t004_ID}}" *ngFor="let lista of listaMesExpiracion">{{
+                        lista.t004_mesExpiracion}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Nueva Fecha Expiración</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <table>
+                      <tr>
+                        <td style="width: 55%;">
+                          <input style="width: 83%;" class="form-control" type="date" placeholder="yyyy-mm-dd"
+                            [(ngModel)]="pNuevaFechaVcto" ngbDatepicker (click)="d1.toggle()" #d1="ngbDatepicker"
+                            name="pNuevaFechaVcto" readonly />
+                        </td>
+                        <!-- <td >
+                          <button style="text-align:left;  padding-right:1.3%; width: 60px;"
+                          class="btn btn-green"
+                          type="submit"
+                          (click)="aprobacionFechaExpiracion()">
+                          VB
+                          <i class="fa fa-check" style="color:white;" aria-hidden="true"></i> 
+                          </button>
+                        </td> -->
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+              <span class="br"></span>
+
+
+              <div class="card shadow-none border">
+                <h3 class="modal-title">Sociedad</h3>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Sociedad </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select style="width: 83%;" class="form-control form-select" name="idSociedad"
+                      [(ngModel)]="idSociedad" [disabled]="true">
+                      <ng-option value="{{lista.t033_ID}}" *ngFor="let lista of listaSociedad">{{ lista.t033_Name }}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Cuenta Broker </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select style="width: 83%;" class="form-control form-select" name="idSubordinateAccount"
+                      [(ngModel)]="idSubordinateAccount">
+                      <ng-option value="{{lista.t175_ID}}" *ngFor="let lista of listaSubordinateAccount"><span
+                          class="ng-option-label" [title]="lista.t175_Description + '-' + lista.t175_Explanation">{{
+                          lista.t175_Description }} - {{ lista.t175_Explanation}}</span>
+                      </ng-option>
+                    </ng-select>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card shadow-none border">
+                <h3 class="modal-title">Otros</h3>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Instrumento </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select style="width:  83%;" class="form-control form-select" name="idInstrumento"
+                      [(ngModel)]="idInstrumento" (change)="onSelectInstrumento($event)" [disabled]="true">
+                      <ng-option value="{{lista.s114_Codigo}}" *ngFor="let lista of listaInstrumento">{{
+                        lista.s114_Descripcion}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Tipo Liquidación</label>
+                  </div>
+
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select style="width:  83%;" class="form-control form-select" name="idTipoLiquidacion"
+                      [(ngModel)]="idTipoLiquidacion" (change)="onSelectTipoLiquidacion($event)">
+                      <ng-option value="{{lista.t020_ID}}" *ngFor="let lista of listaTipoLiquidacion">{{
+                        lista.t020_Description}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Largo/Corto</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select style="width:  83%;" class="form-control form-select" name="idSellBuy"
+                      [(ngModel)]="idSellBuy" (change)="onSelectSellBuy($event)" [disabled]="true">
+                      <ng-option value="{{lista.t008_ID}}" *ngFor="let lista of listaSellBuy">{{
+                        lista.t008_Description}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Benchmark </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select style="width: 83%;" class="form-control form-select" name="idBenchmark"
+                      [(ngModel)]="idBenchmark" (change)="onSelectBenchmark($event)">
+                      <ng-option value="{{lista.t130_ID}}" *ngFor="let lista of listaBenchmark">{{
+                        lista.t130_Description }}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+
+                </div>
+                <span class="br"></span>
+
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Tipo Operación</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <mat-select style="width: 83%; " class="form-control form-select" name="idTipoOperacion"
+                      [(ngModel)]="idTipoOperacion" (selectionChange)="onSelectTipoOperacion(registroPricing, $event)">
+                      <mat-option value="{{lista.t021_ID}}" *ngFor="let lista of listaTipoOperacion">{{
+                        lista.t021_Description }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Tipo Promedio</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <mat-select style="width: 83%; " class="form-control form-select" name="idAsianOptionOriginal"
+                      [(ngModel)]="idAsianOptionOriginal" (selectionChange)="onSelectTipoPromedio($event)"
+                      [disabled]="(idInstrumento == '18' || idInstrumento == '19')  ? false : true">
+                      <mat-option value="{{lista.t475_ID}}" *ngFor="let lista of listaTipoPromedio">{{
+                        lista.t475_Description }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+
+                </div>
+                <span class="br"></span>
+                <div *ngIf="(idInstrumento == '18' || idInstrumento == '19')  ? true : false" class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Inicio Promedio</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <td style="width: 55%;">
+                      <input style="width: 91%;" class="form-control" type="date" placeholder="yyyy-mm-dd"
+                        [(ngModel)]="pNuevaFechaAvg" ngbDatepicker (click)="d1.toggle()" #d1="ngbDatepicker"
+                        name="pNuevaFechaAvg" readonly />
+                    </td>
+                  </div>
+                </div>
+                <!-- Fin de Barrera  o Binary -->
+  
+
+
+
+
+
+
+
+                <span class="br"></span>
+              </div>
+            </div>
+
+            <div class="col col-xl-6 col-lg-6 col-md-6" style=" padding: 0% 0% 0% 5%;">
+              <div class="card shadow-none border">
+                <h3 class="modal-title">Broker Reference</h3>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Broker </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select style="width: 55%;" class="form-control form-select" name="idBroker"
+                      [(ngModel)]="idBroker" (change)="onSelectBroker($event)" [disabled]="true">
+                      <ng-option value="{{lista.t006_ID}}" *ngFor="let lista of listaBroker">{{ lista.t006_Name }}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                    <label class="form-label">Reference </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input style="width: 55%;" id="deshabilitado" class="form-control" type="text"
+                      placeholder="Reference" name="descdBrokerReference" [(ngModel)]="descdBrokerReference"
+                      (ngModelChange)="onSelectBrokerCode()" />
+                  </div>
+                </div>
+              </div>
+              <span class="br"></span>
+
+
+              <div class="card shadow-none border">
+
+                <h3 style="padding: 0% 0% 0% 2%;" class="modal-title">Contratos</h3>
+                <span class="br"></span><span class="br"></span><span class="br"></span>
+
+                <div style="margin-right: 20px; ">
+                  <table style="border: 4; border-collapse: collapse;  border-color: black;">
+                    <tr>
+                      <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">Cantidad </label></td>
+                      <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">Libra </label></td>
+                      <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">TM </label></td>
+                    </tr>
+                    <tr>
+                      <td style=" padding: 0% 0% 0% 2%;">
+                        <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                          placeholder="Cantidad" name="t005_VolumeContract"
+                          [(ngModel)]="operacionSQL.t005_VolumeContract " (ngModelChange)="onSelectCantidad()" />
+                      </td>
+                      <td style=" padding: 0% 0% 0% 2%;">
+                        <input style="width: 100%;" class="form-control" type="number" min="0" placeholder="Libra"
+                          name="t005_VolumeUnitMeasure" [(ngModel)]="operacionSQL.t005_VolumeUnitMeasure" readonly />
+                      </td>
+                      <td style=" padding: 0% 0% 0% 2%;">
+                        <input style="width: 100%;" class="form-control" type="text" placeholder="TM"
+                          name="t005_Volumetons" [ngModel]="operacionSQL.t005_VolumeTons | number" readonly />
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <span class="br"></span>
+              </div>
+
+
+              <div class="card shadow-none border">
+                <h3 class="modal-title">Precio Ejercicio</h3>
+                <span class="br"></span>
+                <div style="margin-right: 100px; ">
+                  <table style="border: 4; border-collapse: collapse;  border-color: black;">
+                    <tr>
+                      <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">{{descUnitMeasureCent}} </label></td>
+                      <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">{{descUnitMeasureUSD}} </label></td>
+                    </tr>
+                    <tr>
+                      <td style=" padding: 0% 0% 0% 2%;">
+                        <!--3:Grano
+                  4: Harina Soya USD
+                  7: Aceite Palma USD
+                  Resto Cent USD
+                   -->
+                        <div ngSwitch="{{idUnderlying}}">
+                          <div *ngSwitchCase="'4'">
+                            <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                              placeholder="Strike Price Cent" name="t005_StrikePriceCent"
+                              [(ngModel)]="operacionSQL.t005_StrikePriceCent  " readonly />
+                          </div>
+                          <div *ngSwitchCase="'7'">
+                            <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                              placeholder="Strike Price Cent" name="t005_StrikePriceCent"
+                              [(ngModel)]="operacionSQL.t005_StrikePriceCent " readonly />
+                          </div>
+                          <div *ngSwitchDefault>
+                            <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                              placeholder="Strike Price Cent" name="t005_StrikePriceCent"
+                              [(ngModel)]="operacionSQL.t005_StrikePriceCent " (ngModelChange)="onSelectPrecioCent()" />
+                          </div>
+                        </div>
+
+
+                      </td>
+                      <td style=" padding: 0% 0% 0% 2%;">
+                        <!--3:Grano
+                  4: Harina Soya USD
+                  7: Aceite Palma USD
+                  Resto Cent USD
+                   -->
+                        <div ngSwitch="{{idUnderlying}}">
+                          <div *ngSwitchCase="'4'">
+                            <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                              placeholder="Strike Price USD" name="t005_StrikePriceUSD"
+                              [(ngModel)]="operacionSQL.t005_StrikePriceUSD " (ngModelChange)="onSelectPrecioUSD()" />
+                          </div>
+                          <div *ngSwitchCase="'7'">
+                            <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                              placeholder="Strike Price USD" name="t005_StrikePriceUSD"
+                              [(ngModel)]="operacionSQL.t005_StrikePriceUSD " (ngModelChange)="onSelectPrecioUSD()" />
+                          </div>
+                          <div *ngSwitchDefault>
+                            <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                              placeholder="Strike Price USD" name="t005_StrikePriceUSD"
+                              [(ngModel)]="operacionSQL.t005_StrikePriceUSD" readonly />
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <span class="br"></span>
+              </div>
+
+              <div class="card shadow-none border">
+                <h3 class="modal-title">Prima</h3>
+                <span class="br"></span>
+                <div style="margin-right: 100px; ">
+                  <table style="border: 4; border-collapse: collapse;  border-color: black;">
+                    <tr>
+                      <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">{{descUnitMeasureCent}} </label></td>
+                      <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">{{descUnitMeasureUSD}} </label></td>
+                    </tr>
+                    <tr>
+                      <td style=" padding: 0% 0% 0% 2%;">
+                        <!--3:Grano
+                4: Harina Soya USD
+                7: Aceite Palma USD
+                Resto Cent USD
+                 -->
+                        <div ngSwitch="{{idUnderlying}}">
+                          <div *ngSwitchCase="'4'">
+                            <input style="width: 100%;" class="form-control" placeholder="Premium Cent"
+                              name="t005_PremiumCent" [(ngModel)]="operacionSQL.t005_PremiumCent " readonly />
+                          </div>
+                          <div *ngSwitchCase="'7'">
+                            <input style="width: 100%;" class="form-control" placeholder="Premium Cent"
+                              name="t005_PremiumCent" [(ngModel)]="operacionSQL.t005_PremiumCent " readonly />
+                          </div>
+                          <div *ngSwitchDefault>
+                            <input style="width: 100%;" class="form-control" placeholder="Premium Cent"
+                              name="t005_PremiumCent" [(ngModel)]="operacionSQL.t005_PremiumCent "
+                              (ngModelChange)="onSelectPremiumCent()" />
+                          </div>
+                        </div>
+
+
+                      </td>
+                      <td style=" padding: 0% 0% 0% 2%;">
+                        <!--3:Grano
+                4: Harina Soya USD
+                7: Aceite Palma USD
+                Resto Cent USD
+                 -->
+                        <div ngSwitch="{{idUnderlying}}">
+                          <div *ngSwitchCase="'4'">
+                            <input style="width: 100%;" class="form-control" placeholder="Premiusm USD"
+                              name="operacionSQL.t005_PremiumUSD" [(ngModel)]="operacionSQL.t005_PremiumUSD  "
+                              (ngModelChange)="onSelectPremiumUSD()" />
+                          </div>
+                          <div *ngSwitchCase="'7'">
+                            <input style="width: 100%;" class="form-control" placeholder="Premium USD"
+                              name="operacionSQL.t005_PremiumUSD" [(ngModel)]="operacionSQL.t005_PremiumUSD   "
+                              (ngModelChange)="onSelectPremiumUSD()" />
+                          </div>
+                          <div *ngSwitchDefault>
+                            <input style="width: 100%;" class="form-control" placeholder="Premium USD"
+                              name="operacionSQL.t005_PremiumUSD" [(ngModel)]="operacionSQL.t005_PremiumUSD   "
+                              readonly />
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <span class="br"></span>
+              </div>
+
+              <div class="card shadow-none border">
+                <h3 class="modal-title">Costo</h3>
+                <span class="br"></span>
+                <div style="margin-right: 100px; ">
+                  <table style="border: 4; border-collapse: collapse;  border-color: black;">
+                    <tr>
+                      <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">{{descUnitMeasureCent}} </label></td>
+                      <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">{{descUnitMeasureUSD}} </label></td>
+                    </tr>
+                    <tr>
+                      <td style=" padding: 0% 0% 0% 2%;">
+                        <!--3:Grano
+              4: Harina Soya USD
+              7: Aceite Palma USD
+              Resto Cent USD
+               -->
+                        <div ngSwitch="{{idUnderlying}}">
+                          <div *ngSwitchCase="'4'">
+                            <input style="width: 100%;" class="form-control" placeholder="Cost Cent"
+                              name="t005_CostCent" [(ngModel)]="operacionSQL.t005_CostCent" readonly />
+                          </div>
+                          <div *ngSwitchCase="'7'">
+                            <input style="width: 100%;" class="form-control" placeholder="Cost Cent"
+                              name="t005_CostCent" [(ngModel)]="operacionSQL.t005_CostCent" readonly />
+                          </div>
+                          <div *ngSwitchDefault>
+                            <input style="width: 100%;" class="form-control" placeholder="Cost Cent"
+                              name="t005_CostCent" [(ngModel)]="operacionSQL.t005_CostCent"
+                              (ngModelChange)="onSelectCostCent()" />
+                          </div>
+                        </div>
+
+
+                      </td>
+                      <td style=" padding: 0% 0% 0% 2%;">
+                        <!--3:Grano
+              4: Harina Soya USD
+              7: Aceite Palma USD
+              Resto Cent USD
+               -->
+                        <div ngSwitch="{{idUnderlying}}">
+                          <div *ngSwitchCase="'4'">
+                            <input style="width: 100%;" class="form-control" placeholder="Cost USD"
+                              name="operacionSQL.t005_CostUSD" [(ngModel)]="operacionSQL.t005_CostUSD"
+                              (ngModelChange)="onSelectCostUSD()" />
+                          </div>
+                          <div *ngSwitchCase="'7'">
+                            <input style="width: 100%;" class="form-control" placeholder="Cost USD"
+                              name="operacionSQL.t005_CostUSD" [(ngModel)]="operacionSQL.t005_CostUSD"
+                              (ngModelChange)="onSelectCostUSD()" />
+                          </div>
+                          <div *ngSwitchDefault>
+                            <input style="width: 100%;" class="form-control" placeholder="Cost USD"
+                              name="operacionSQL.t005_CostUSD" [(ngModel)]="operacionSQL.t005_CostUSD" readonly />
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <span class="br"></span>
+              </div>
+              <!-- Barrera o Binary -->
+              <div *ngIf="tipoBarerra != ''" class="card shadow-none border">
+                <h3 class="modal-title">{{ tipoBarerra }}</h3>
+                <span class="br"></span>
+                <div style="margin-right: 100px; ">
+                  <table style="border: 4; border-collapse: collapse;  border-color: black;">
+                    <tr>
+                      <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">{{descUnitMeasureCent}} </label></td>
+                      <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">{{descUnitMeasureUSD}} </label></td>
+                    </tr>
+                    <tr>
+                      <td style=" padding: 0% 0% 0% 2%;">
+                        <!--3:Grano
+            4: Harina Soya USD
+            7: Aceite Palma USD
+            Resto Cent USD
+             -->
+                        <div ngSwitch="{{idUnderlying}}">
+                          <div *ngSwitchCase="'4'">
+                            <input style="width: 100%;" class="form-control" placeholder="Cost Cent"
+                              name="precioMostrarExoticoCentUSD"
+                              [ngModel]="precioMostrarExoticoCentUSD  | number:'1.1-2'" readonly />
+                          </div>
+                          <div *ngSwitchCase="'7'">
+                            <input style="width: 100%;" class="form-control" placeholder="Cost Cent"
+                              name="precioMostrarExoticoCentUSD"
+                              [ngModel]="precioMostrarExoticoCentUSD | number:'1.1-2'" readonly />
+                          </div>
+                          <div *ngSwitchDefault>
+                            <input style="width: 100%;" class="form-control" placeholder="Cost Cent"
+                              name="precioMostrarExoticoCentUSD"
+                              [ngModel]="precioMostrarExoticoCentUSD | number:'1.1-2'"
+                              (ngModelChange)="onSelectExoticoCent()" readonly />
+                          </div>
+                        </div>
+
+
+                      </td>
+                      <td style=" padding: 0% 0% 0% 2%;">
+                        <!--3:Grano
+            4: Harina Soya USD
+            7: Aceite Palma USD
+            Resto Cent USD
+             -->
+                        <div ngSwitch="{{idUnderlying}}">
+                          <div *ngSwitchCase="'4'">
+                            <input style="width: 100%;" class="form-control" placeholder="Cost USD"
+                              name="precioMostrarExoticoUSD" [ngModel]="precioMostrarExoticoUSD | number:'1.1-2'"
+                              (ngModelChange)="onSelectExoticoUSD()" readonly />
+                          </div>
+                          <div *ngSwitchCase="'7'">
+                            <input style="width: 100%;" class="form-control" placeholder="Cost USD"
+                              name="precioMostrarExoticoUSD" [ngModel]="precioMostrarExoticoUSD | number:'1.1-2'"
+                              (ngModelChange)="onSelectExoticoUSD()" readonly />
+                          </div>
+                          <div *ngSwitchDefault>
+                            <input style="width: 100%;" class="form-control" placeholder="Cost USD"
+                              name="precioMostrarExoticoUSD" [ngModel]="precioMostrarExoticoUSD | number:'1.1-2'"
+                              readonly />
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <span class="br"></span>
+              </div>
+              <!-- Fin de Barrera  o Binary -->
+
+              <span class="br"></span>
+              <div class="row">
+                <table>
+                  <tr>
+                    <td style="width: 20%;" style=" padding: 0% 0% 0% 4%;">
+                      <label class="form-label">Total USD </label>
+                    </td>
+                    <td style="text-align: left;">
+                      <input style="width: 120px;" class="form-control" type="text" placeholder="Total Premium USD"
+                        name="t005_TotalPremiumUSD" [ngModel]="operacionSQL.t005_TotalPremiumUSD  | number " readonly />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <span class="br"></span>
+          <mat-spinner class="custom-spinner" *ngIf="loading$ | async" [mode]="'indeterminate'" [value]=50
+            [diameter]="50">
+
+          </mat-spinner>
+
+
+          <div class="row">
+            <div class="col d-flex justify-content-end">
+              <button class="btn btn-green" type="submit" (click)="ActualizarRegistro()">
+                <!-- <button
+                class="btn btn-green"
+                type="submit"> -->
+
+                Actualizar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #registroPricing let-modal>
+    <app-registroPricing [visible]="myModal" (close)="modal.dismiss('Cross click')"></app-registroPricing>
+    <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+    <!-- <app-asociarSQL_RJO [visible]="myModal"   (close)="modal.dismiss('Cross click')"></app-asociarSQL_RJO>     -->
+
+  </ng-template>
+
+</div>

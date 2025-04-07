@@ -1,0 +1,177 @@
+<div style="border: 1px solid #ccc; border-radius: 5px; padding: 15px; position: relative; margin-left: 20px; max-width: 400px;">
+    <div style="position: absolute; top: -10px; left: 15px; background-color: white; padding: 0 10px; font-weight: bold; font-size: 14px;">
+      Mantenedor
+    </div>
+    <div class="btn-group w-100 mb-1">
+      <button type="button" class="btn btn-white w-100" (click)="modalsubyacente(mantenedorsubyacente)"><i class="fe fe-plus"></i> Subyacente
+      </button>
+    </div>
+    <div class="btn-group w-100 mb-1">
+      <button type="button" class="btn btn-white w-100" (click)="modalPuerto_origen(mantenedorpuerto_origen)"><i class="fe fe-plus"></i> Puerto Origen
+      </button>
+    </div>
+    <div class="btn-group w-100 mb-1">
+      <button type="button" class="btn btn-white w-100" (click)="modalPuerto_destino(mantenedorpuerto_destino)"><i class="fe fe-plus"></i> Puerto Destino
+      </button>
+    </div>
+  </div>
+  
+
+<ng-template #mantenedorsubyacente let-modal>
+   <div role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+              <h5 class="modal-title">Mantenedor Subyacente {{SociedadHeader}}</h5>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><mat-icon>close</mat-icon></button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <button class="btn btn-success btn-sm"  (click)="addRowToEnd_subyacente()" id="update-button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button class="btn btn-danger btn-sm ml-1" type="button" (click)="deleteLastRow_subyacente()"><i class="fa fa-minus" aria-hidden="true"></i></button>
+            <button class="btn btn-danger btn-sm ml-1" type="button" (click)="refrescar_row_subyacente()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+              <table mat-table class="example-table table-bordered"      matSort matSortActive="created" 
+                  matSortDisableClear matSortDirection="desc"    style="width:100%"  [dataSource]="ListaRelacionUnderluing" >
+                  <ng-container  class="border-bottom-0" matColumnDef="t001_Description">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Subyacente </th>
+                    <td mat-cell *matCellDef="let element">
+                      <div *ngIf="element.editing">
+                        <mat-form-field appearance="outline" style="width: 120px;">
+                        <mat-select [(ngModel)]="element.t001_Description" (ngModelChange)="onIDChange_subyacente(element)" >
+                          <mat-option *ngFor="let suby of ListaUnderlying" [value]="suby.t001_Description" style="width: 120px;">{{suby.t001_Description}}</mat-option>
+                        </mat-select>	
+                        </mat-form-field>
+                        </div>
+                        <div *ngIf="!element.editing" >
+                                      {{element.t001_Description}}
+                        </div>	  
+                    </td>
+                  </ng-container> 
+
+                  <ng-container  matColumnDef="actions">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                      <td mat-cell *matCellDef="let element">                               
+                          <button class="btn btn-green" type="submit" mat-icon-button  (click)="editarfila_subyacente(element)">
+                            <mat-icon class="customIconSize" color = "primary">edit</mat-icon>
+                          </button>
+                            &nbsp;&nbsp;
+                          <button class="btn btn-eliminar" type="submit" mat-icon-button (click)="eliminarfila_subyacente(element)">
+                            <mat-icon class="customIconSize" color = "primary">delete</mat-icon>
+                          </button>
+                      </td>
+                  </ng-container>                    
+                  <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true" style="text-align: center; vertical-align: middle;"></tr>
+                  <tr mat-row *matRowDef="let element columns: displayedColumns;" style="text-align: center; vertical-align: middle;"  class="my-mat-row" ></tr>
+
+              </table>
+          </div>
+        </div>
+     </div>
+   </div>
+</ng-template>
+<ng-template #mantenedorpuerto_origen let-modal>
+  <div role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+             <h5 class="modal-title">Mantenedor Puerto Origen {{SociedadHeader}}</h5>
+             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><mat-icon>close</mat-icon></button>
+       </div>
+       <div class="modal-body">
+         <div class="card-body">
+           <button class="btn btn-success btn-sm"  (click)="addRowToEnd_puerto_origen()" id="update-button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+           <button class="btn btn-danger btn-sm ml-1" type="button" (click)="deleteLastRow_puerto_origen()"><i class="fa fa-minus" aria-hidden="true"></i></button>
+           <button class="btn btn-danger btn-sm ml-1" type="button" (click)="refrescar_row_puerto_origen()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+             <table mat-table class="example-table table-bordered"      matSort matSortActive="created" 
+                 matSortDisableClear matSortDirection="desc"    style="width:100%"  [dataSource]="listapuertoOrigen" >
+                 <ng-container  class="border-bottom-0" matColumnDef="s204_Description">
+                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Puerto </th>
+                   <td mat-cell *matCellDef="let element">
+                     <div *ngIf="element.editing">
+                       <mat-form-field appearance="outline" style="width: 120px;">
+                       <mat-select [(ngModel)]="element.s204_Description" (ngModelChange)="onIDChange_puerto_origen(element)" >
+                         <mat-option *ngFor="let suby of combopuerto" [value]="suby.s204_Description" style="width: 120px;">{{suby.s204_Description}}</mat-option>
+                       </mat-select>	
+                       </mat-form-field>
+                       </div>
+                       <div *ngIf="!element.editing" >
+                                     {{element.s204_Description}}
+                       </div>	  
+                   </td>
+                 </ng-container> 
+
+                 <ng-container  matColumnDef="actions">
+                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                     <td mat-cell *matCellDef="let element">                               
+                         <button class="btn btn-green" type="submit" mat-icon-button  (click)="editarfila_puerto_origen(element)">
+                           <mat-icon class="customIconSize" color = "primary">edit</mat-icon>
+                         </button>
+                           &nbsp;&nbsp;
+                         <button class="btn btn-eliminar" type="submit" mat-icon-button (click)="eliminarfila_puerto_origen(element)">
+                           <mat-icon class="customIconSize" color = "primary">delete</mat-icon>
+                         </button>
+                     </td>
+                 </ng-container>                    
+                 <tr  mat-header-row *matHeaderRowDef="displayedColumns_puerto sticky: true" style="text-align: center; vertical-align: middle;"></tr>
+                 <tr mat-row *matRowDef="let element columns: displayedColumns_puerto;" style="text-align: center; vertical-align: middle;"  class="my-mat-row" ></tr>
+
+             </table>
+         </div>
+       </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #mantenedorpuerto_destino let-modal>
+  <div role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+             <h5 class="modal-title">Mantenedor Puerto Destino {{SociedadHeader}}</h5>
+             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><mat-icon>close</mat-icon></button>
+       </div>
+       <div class="modal-body">
+         <div class="card-body">
+           <button class="btn btn-success btn-sm"  (click)="addRowToEnd_puerto_destino()" id="update-button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+           <button class="btn btn-danger btn-sm ml-1" type="button" (click)="deleteLastRow_puerto_destino()"><i class="fa fa-minus" aria-hidden="true"></i></button>
+           <button class="btn btn-danger btn-sm ml-1" type="button" (click)="refrescar_row_puerto_destino()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+             <table mat-table class="example-table table-bordered"      matSort matSortActive="created" 
+                 matSortDisableClear matSortDirection="desc"    style="width:100%"  [dataSource]="listapuertoDestino" >
+                 <ng-container  class="border-bottom-0" matColumnDef="s204_Description">
+                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Puerto </th>
+                   <td mat-cell *matCellDef="let element">
+                     <div *ngIf="element.editing">
+                       <mat-form-field appearance="outline" style="width: 120px;">
+                       <mat-select [(ngModel)]="element.s204_Description" (ngModelChange)="onIDChange_puerto_destino(element)" >
+                         <mat-option *ngFor="let suby of combopuerto" [value]="suby.s204_Description" style="width: 120px;">{{suby.s204_Description}}</mat-option>
+                       </mat-select>	
+                       </mat-form-field>
+                       </div>
+                       <div *ngIf="!element.editing" >
+                                     {{element.s204_Description}}
+                       </div>	  
+                   </td>
+                 </ng-container> 
+
+                 <ng-container  matColumnDef="actions">
+                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                     <td mat-cell *matCellDef="let element">                               
+                         <button class="btn btn-green" type="submit" mat-icon-button  (click)="editarfila_puerto_destino(element)">
+                           <mat-icon class="customIconSize" color = "primary">edit</mat-icon>
+                         </button>
+                           &nbsp;&nbsp;
+                         <button class="btn btn-eliminar" type="submit" mat-icon-button (click)="eliminarfila_puerto_destino(element)">
+                           <mat-icon class="customIconSize" color = "primary">delete</mat-icon>
+                         </button>
+                     </td>
+                 </ng-container>                    
+                 <tr  mat-header-row *matHeaderRowDef="displayedColumns_puerto sticky: true" style="text-align: center; vertical-align: middle;"></tr>
+                 <tr mat-row *matRowDef="let element columns: displayedColumns_puerto;" style="text-align: center; vertical-align: middle;"  class="my-mat-row" ></tr>
+
+             </table>
+         </div>
+       </div>
+    </div>
+  </div>
+</ng-template>
+
+
+
+  

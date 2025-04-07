@@ -1,0 +1,120 @@
+<div id="myModal" tabindex="-1" appJpDraggableDialog>
+  <div>
+    <div role="document" class="msg_card_body">
+
+      <div class="modal-header">
+        <!-- <h5 *ngIf="!flgIngresarContrato" class="modal-title">Modificar IFD</h5> -->
+        <h5 class="modal-title">Modificar Mes Cobertura</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+
+      <div class="card-body">
+        <div class="table-responsive">
+
+          <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+            [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+          </div>
+
+        </div>
+        <div class="card shadow-none border">
+          <span class="br"></span>
+          <h3 class="modal-title">&nbsp; Datos Estrategia</h3>
+          <br>
+          <div class="row">
+            <div style="width: 16%;padding: 1% 0% 0% 3% ">
+              <label class="form-label">Estrategia </label>
+            </div>
+            <div style="width: 30%;">
+              <input style="width: 95%;" id="deshabilitado" class="form-control" type="text" placeholder=" 1234"
+                name="idEstrategia" [(ngModel)]="idEstrategia" readonly />
+            </div>
+            <div style="width: 20%;padding: 1% 0% 0% 3%">
+              <label class="form-label">Descripción </label>
+            </div>
+            <div style="width: 25%;">
+              <input style="width: 95%;" id="deshabilitado" class="form-control" type="text" placeholder=" Long Call"
+                name="nombreEstrategia" [(ngModel)]="nombreEstrategia" readonly />
+            </div>
+
+          </div>
+          <br>
+          <div class="row">
+            <div *ngIf="existeCobertura"  style="width: 16%;padding: 1% 0% 0% 3%;">
+              <label class="form-label">Cobertura </label>
+            </div>
+            <div *ngIf="!existeCobertura" style="width: 16%;padding: 1% 0% 0% 3%;">
+              <label class="form-label">IFD </label>
+            </div>
+
+            <div style="width: 30%;">
+              <input style="width: 95%;" id="deshabilitado" class="form-control" type="text" placeholder=" Inventario"
+                name="descCobertura" [(ngModel)]="descCobertura" readonly />
+            </div>
+            <div style="width: 20%;padding: 1% 0% 0% 3%">
+              <label class="form-label">Mes Cobertura </label>
+            </div>
+            <div style="width: 25%;">
+              <input style="width: 95%;" id="deshabilitado" class="form-control" type="text" placeholder=" Mar23"
+                name="mesCobertura" [(ngModel)]="mesCobertura" readonly />
+            </div>
+
+          </div>
+          <br>
+        </div>
+
+        <div class="card shadow-none border">
+          <span class="br"></span>
+          <h3 class="modal-title">&nbsp;Datos Modificar Estrategia</h3>
+          <br>
+          <div class="row">
+            <div *ngIf="existeCobertura" style="width: 16%;padding: 0% 0% 0% 3%">
+              <label style="margin: 15% 0%;">Cobertura </label>
+            </div>
+            <div *ngIf="existeCobertura"  style="width: 30%;">
+              <ng-select style="width:  95%;" class="form-control form-select" name="idEstadio" [(ngModel)]="idEstadio"
+                (change)="onSelectEstadio($event)" >
+                <ng-option value="{{lista.s114_Codigo}}" *ngFor="let lista of listaEstadio"
+                (change)="onSelectEstadio($event)" >
+                  {{
+                  lista.s114_Descripcion }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div style="width: 20%;padding: 0% 0% 0% 3% ">
+              <label style="margin: 15% 0%;">Mes Cobertura </label>
+            </div>
+            <div style="width: 25%;">
+              <mat-select style="width: 95%; " class="form-control form-select" name="idMes"
+                [(ngModel)]="idMes" (selectionChange)="onSelectMes($event)">
+                <mat-option value="{{lista.s114_Codigo}}" *ngFor="let lista of listaMeses">{{
+                  lista.s114_Descripcion }}
+                </mat-option>
+              </mat-select>
+
+            </div>
+          </div>
+          <br>
+        </div>
+
+        <div>
+          <table>
+            <tr>
+              <td style="width: 50%; text-align: right;">
+                <button class="btn btn-green" type="submit" (click)="guardarMesCoberturaModificada()">
+                  <!-- <button class="btn btn-green" type="submit" (click)="enviarWhatsapp()"></button> -->
+                  Aceptar
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>

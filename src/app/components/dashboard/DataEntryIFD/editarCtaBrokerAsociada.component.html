@@ -1,0 +1,122 @@
+<div role="document" class="msg_card_body">
+
+  <div class="modal-header">
+    <!-- <h5 *ngIf="!flgIngresarContrato" class="modal-title">Modificar IFD</h5> -->
+    <h5 class="modal-title">Cuenta Broker Asociada</h5>
+    <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="py-1">
+      <form class="form" novalidate="">
+        <div class="row">
+          <div style="width: 40%;">
+            <label style="padding: 5% 0% 0% 0%;">Sociedad Administradora </label>
+          </div>
+          <div style="width: 45%;">
+            <input style="width: 100%; " id="deshabilitado" class="form-control" type="text" placeholder="Código"
+              name="desSociedadAdministradora" [(ngModel)]="desSociedadAdministradora" readonly />
+          </div>
+        </div>
+        <span class="br"></span>
+        <div class="row">
+          <div style="width: 40%;">
+            <label style="padding: 5% 0% 0% 0%;">Cuenta Broker</label>
+          </div>
+          <div style="width: 45%;">
+            <input style="width: 100%;" id="deshabilitado" class="form-control" type="text" placeholder="Código"
+              name="desCuentaBrokerAsociada" [(ngModel)]="desCuentaBrokerAsociada" readonly />
+          </div>
+        </div>
+        <span class="br"></span>
+        <div class="row">
+          <div style="width: 40%;">
+            <label style="padding: 5% 0% 0% 0%;">Sociedad Administrada</label>
+          </div>
+          <div style="width: 45%;">
+            <input style="width: 100%;" id="deshabilitado" class="form-control" type="text" placeholder="Código"
+              name="desSociedadAdministrada" [(ngModel)]="desSociedadAdministrada" readonly />
+          </div>
+        </div>
+        <span class="br"></span>
+        <div class="row">
+          <div style="width: 40%; ">
+            <label style="padding: 5% 0% 0% 0%;">Campaña </label>
+          </div>
+          <div style="width: 45%;">
+            <input style="width: 100%;" id="deshabilitado" class="form-control" type="text" placeholder="Código"
+              name="desCampanha" [(ngModel)]="desCampanha" readonly />
+          </div>
+        </div>
+        <span class="br"></span>
+        <div class="row">
+          <div style="width: 40%;">
+            <label style="padding: 5% 0% 0% 0%;">Producto</label>
+          </div>
+          <div style="width: 45%;">
+            <input style="width: 100%;" id="deshabilitado" class="form-control" type="text" placeholder="Código"
+              name="desProducto" [(ngModel)]="desProducto" readonly />
+          </div>
+        </div>
+        <span class="br"></span>
+        <div class="row">
+          <div style="width: 40%;">
+            <label style="padding: 5% 0% 0% 0%;">Contrato Marco</label>
+          </div>
+          <div style="width: 45%;">
+            <input style="width: 100%;" id="deshabilitado" class="form-control" type="text" placeholder="Código"
+              name="desContratoMarco" [(ngModel)]="desContratoMarco" readonly />
+          </div>
+        </div>
+        <span class="br"></span>
+        <div class="row">
+          <div style="width: 40%;">
+            <label style="padding: 5% 0% 0% 0%;">Tipo Cuenta</label>
+          </div>
+          <div style="width: 45%;">
+            <input style="width: 100%;" id="deshabilitado" class="form-control" type="text" placeholder="Código"
+              name="desTipoCuenta" [(ngModel)]="desTipoCuenta" readonly />
+          </div>
+        </div>
+        <span class="br"></span>
+        <div class="row">
+          <div style="width: 40%;">
+            <label style="padding: 5% 0% 0% 0%;">Estado</label>
+          </div>
+          <div style="width: 45%; padding: 0% 0% 0% 0%;">
+            <mat-checkbox 
+                class="checkCierre" 
+                name="flgEstado" 
+                [(ngModel)]="flgEstado"  >
+            </mat-checkbox>
+          </div>
+        </div>
+        <span class="br"></span>
+        <div class="row">
+            <table>
+              <tr>
+                <br>
+              </tr>
+              <tr>
+                <td style="width: 50%; text-align: right;">
+                  <button class="btn btn-green" type="submit" (click)="actualizarCuentaBroker()">
+                    Aceptar
+                  </button>
+                </td>
+                <td style="width: 50%;   text-align: left;">
+                  <div style="text-align: left;">
+                    <button class="btn btn-green" type="submit" (click)="cerrar()">
+                      Cancelar
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        
+
+      </form>
+    </div>
+  </div>
+</div>

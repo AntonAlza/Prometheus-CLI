@@ -1,0 +1,136 @@
+<div class="page-header">
+    <div class="page-leftheader">
+      <h4 class="page-title">Configuraciones</h4>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a class="d-flex">
+                <svg
+                class="svg-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path
+                        d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+                <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" /></svg><span class="breadcrumb-icon"> Home</span></a>
+        </li>
+        <li class="breadcrumb-item"><span>Fret</span></li>
+        <li class="breadcrumb-item">Data Entry</li>
+        <li class="breadcrumb-item active" aria-current="page">Configuración</li>
+      </ol>
+    </div>
+</div>
+
+<br>
+
+<div class="row row-deck">
+    <div class="container">
+      <div class="row">
+        <!-- <div class="col-xl-4 col-lg-6 col-md-6">
+          <div class="card">
+            <div class="card-body">
+             
+            </div>
+          
+          </div>
+        </div> -->
+       
+        
+        <!-- </div> -->
+        
+        <div class="col-xl-12 col-lg-12 col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div role="listbox" aria-label="Fish selection" class="mat-chip-listbox">
+                  <div class="mat-chip-option" (click)="toggleSelection('CommoditiesLlegadas')" [ngClass]="{'selected': selectedOptions.includes('CommoditiesLlegadas')}">Commodities Llegadas</div>
+                  <div class="mat-chip-option" (click)="toggleSelection('CommoditiesFletes')" [ngClass]="{'selected': selectedOptions.includes('CommoditiesFletes')}">Commodities Fletes</div>
+                  <div class="mat-chip-option" (click)="toggleSelection('CommoditiesDiasGiro')" [ngClass]="{'selected': selectedOptions.includes('CommoditiesDiasGiro')}">Commodities Días Giro</div>
+                  <div class="mat-chip-option" (click)="toggleSelection('CommoditiesPresupuestoBase')" [ngClass]="{'selected': selectedOptions.includes('CommoditiesPresupuestoBase')}">Commodities Presupuesto Base</div>
+                  <div class="mat-chip-option" (click)="toggleSelection('CommoditiesProyecto')" [ngClass]="{'selected': selectedOptions.includes('CommoditiesProyecto')}">Commodities Proyecto del Mes</div>
+                  <div class="mat-chip-option" (click)="toggleSelection('CommoditiesCalidad')" [ngClass]="{'selected': selectedOptions.includes('CommoditiesCalidad')}">Commodities Calidad</div>
+                  <div class="mat-chip-option" (click)="toggleSelection('CommoditiesMercadoFOB')" [ngClass]="{'selected': selectedOptions.includes('CommoditiesMercadoFOB')}">Commodities Mercado FOB</div>
+                  <div class="mat-chip-option" (click)="toggleSelection('CommoditiesAjuste')" [ngClass]="{'selected': selectedOptions.includes('CommoditiesAjuste')}">Commodities Ajuste</div>
+                  <div class="mat-chip-option" (click)="toggleSelection('CommoditiesSpread')" [ngClass]="{'selected': selectedOptions.includes('CommoditiesSpread')}">Commodities Spread</div>
+                </div>
+                <div class="card-options" ngbDropdown>
+              
+
+                  <div class="btn-group ms-5 mb-0">
+                    <button
+                      type="button"
+                      class="btn btn-white"
+                      aria-expanded="false"
+                      data-toggle="modal"
+                      (click)="agregarCommoditie()"
+                    >
+                      <i class="fe fe-plus"></i>Agregar Commoditie
+                    </button>
+                  </div>
+                </div>
+            </div>
+            <div class="card-body">
+              <div  class="table-responsive">
+                <div class="tabla-table-container">
+                        <table mat-table 
+                        class="table table-bordered text-nowrap"  
+                        class="example-table table-bordered"
+                        matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+                        style="width:100%"  
+                        [dataSource]="portafolioDS" >
+                                <ng-container *ngFor="let column of columnas; let i = index">
+                                  <ng-container [matColumnDef]="column.nombre_Columna">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.descripcion }}</th>
+                                    <td mat-cell *matCellDef="let element" [style.border-color]="getBackgroundColor(element, column)">
+                                      <ng-container *ngIf="i === 0; else inputCell">
+                                        <input matInput [(ngModel)]="element[column.nombre_Columna]"  (change)="guardadoAutomatico(element, column)">
+                                      </ng-container>
+                                      <ng-template #inputCell>
+                                        <ng-container *ngIf="i !== 1">
+                                            <mat-checkbox [(ngModel)]="element[column.nombre_Columna]" (ngModelChange)="onCellValueChange(element, column)" [disabled]="flgDisabled" (click)="$event.stopPropagation()"></mat-checkbox>
+                                        </ng-container>
+                                        <ng-container *ngIf="i === 1">
+                                          <!-- {{ element[column.nombre_Columna] }} -->
+
+                                          <input matInput [(ngModel)]="element[column.nombre_Columna]"  (change)="guardadoAutomatico(element, column)">
+                                        </ng-container>
+                                      </ng-template>
+                                    </td>
+                                  </ng-container>
+                                </ng-container>
+                         
+                          <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true" 
+                          style="text-align: center; vertical-align: middle;"></tr>
+                                
+                          <tr class="tbody" (contextmenu)="onContextMenu($event, element.idFretboardPortfolio)" mat-row *matRowDef="let element; columns: displayedColumns;"
+                          style="text-align: center; vertical-align: middle;" 
+                          [class.selected]="element.selected"
+                          (click)="element.selected= !element.selected">>         
+                          </tr>
+                        </table>
+                </div>
+        </div>
+        <mat-paginator [pageSizeOptions]="[25, 100]"></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="visibility: hidden; position: fixed"
+    [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y"
+    [matMenuTriggerFor]="contextMenu"
+  ></div>
+  <mat-menu #contextMenu="matMenu" #contextMenu2="matMenu">
+    <ng-template matMenuContent let-item="item">
+      <button mat-menu-item (click)="asignarCommodities(mantenedorCommodities)">Asignar Commodities</button> 
+    </ng-template>
+  </mat-menu>
+
+  <ng-template #mantenedorCommodities let-modal >
+    <app-asignacion-commodities (closegestionCommodities)="cerrarModal(modal)" [listaGrupoFret] = "listaGrupoFretPadre" [idFretPortafolio] = "idFretPortafolioPadre"></app-asignacion-commodities>
+  </ng-template>

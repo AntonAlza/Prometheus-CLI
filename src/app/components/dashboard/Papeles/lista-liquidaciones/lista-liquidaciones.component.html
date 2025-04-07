@@ -1,0 +1,275 @@
+<div role="document" class="card">
+    <div class="modal-header">
+        <h5 class="modal-title">Lista de Liquidaciones</h5>
+              <button type="button" class="close" aria-label="Close" (click)="cerrarListaLiquidaciones()"> 
+                <mat-icon  >close</mat-icon>
+              </button>
+      </div>
+
+    <div class="card-body">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <!-- <div>
+                      <input type="text" class="redondeado buscador"  size="100"    (keyup)="applyFilterListaLiquidaciones($event)" placeholder=" Buscar Base" autocomplete="off">
+                     <br><br>
+             </div> -->
+             <!-- <div class="card-options" ngbDropdown>
+                   <div class="btn-group ms-5 mb-0">
+                        <button
+                        type="button"
+                        class="btn btn-white"
+                        aria-expanded="false"
+                        data-toggle="modal"
+                        (click)="modalLiquidarPapel(LiquidarPapel)">
+                        <i class="fe fe-plus"></i>Agregar Liquidación
+                        </button>
+                    </div>
+             </div> -->
+             
+        </div>    
+    <div  class="table-responsive">
+        <div class="tabla-table-container">
+        <table mat-table  class="table table-bordered text-nowrap"  class="example-table table-bordered" matSort 
+                     matSortActive="created" matSortDisableClear matSortDirection="desc" style="width:100%" [dataSource]="listaLiquidacionesDS" >
+
+        <ng-container  matColumnDef="opciones">
+                <th  mat-header-cell *matHeaderCellDef mat-sort-header class="header-red">Opciones</th>
+                <td mat-cell *matCellDef="let element"(click)="onContextMenu($event, element.s136_Codigo)" [matMenuTriggerFor]="contextMenu"> 
+                                    <button mat-icon-button class="opcion"><mat-icon>more_vert</mat-icon></button></td>
+        </ng-container>
+
+        <ng-container matColumnDef="s136_Papel">
+                <th class="thead" class="border-bottom-0" mat-header-cell *matHeaderCellDef mat-sort-header class="header-red"> Código </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_Papel}} </td>
+        </ng-container>
+
+        <ng-container class="border-bottom-0" matColumnDef="s136_FechaPapel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-red"> Fecha </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_FechaPapel | date: "dd/MM/yyyy"}} </td>
+        </ng-container>
+        <ng-container  class="border-bottom-0" matColumnDef="s136_OperacionPapel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-red"> Compra / Venta </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_OperacionPapel}} </td>
+        </ng-container>
+        <ng-container  class="border-bottom-0" matColumnDef="s136_ContrapartePapel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-red"> Contraparte </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_ContrapartePapel}} </td>
+        </ng-container>                      
+        <ng-container class="border-bottom-0" matColumnDef="s136_ContratoExternoPapel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-red"> Contrato Externo </th> 
+                <td mat-cell *matCellDef="let element">  {{element.s136_ContratoExternoPapel}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_OrigenPapel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-red"> Orígen </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_OrigenPapel}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_DesdePapel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-red"> Desde </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_DesdePapel}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_HastaPapel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-red"> Hasta </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_HastaPapel}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_PrecioPapel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-red"> Precio </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_PrecioPapel | number:'1.2-2'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_ContratoFuturoPapel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-red"> Contrato Futuro </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_ContratoFuturoPapel}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_Campagna">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-red"> Campaña </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_Campagna}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_Codigo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-blue"> Código </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_Codigo}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_CompraVenta">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-blue"> Compra / Venta </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_CompraVenta}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_ContratoExterno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-blue"> Contrato Externo </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_ContratoExterno}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_Fecha">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-blue"> Fecha </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_Fecha | date: "dd/MM/yyyy"}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_TM">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-blue"> TM </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_TM|number: '1.0-0'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_Precio">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-blue"> Precio </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_Precio|number: '1.2-2'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_PnL">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-blue"> P&L USD </th>
+                <td mat-cell *matCellDef="let element"  [ngStyle]="{'color': element.s136_PnL< 0 ? 'red' : 'blue'}"> {{element.s136_PnL|number: '1.2-2'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="s136_Comentarios">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-blue"> Comentarios </th>
+                <td mat-cell *matCellDef="let element"> {{element.s136_Comentarios}} </td>
+        </ng-container>
+                             <!-- Header para Encabezado Papel -->
+        <!-- <ng-container matColumnDef="header-row-first-group">
+                             <th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="12" class="header-red"> Papel</th>
+        </ng-container>       -->
+                          <!-- Header para Encabezado Liquidacion -->
+        <!-- <ng-container matColumnDef="header-row-second-group">
+                    <th mat-header-cell *matHeaderCellDef [attr.colspan]="8" class="header-blue"> Liquidación </th>
+        </ng-container> -->
+
+        <!-- <tr mat-header-row *matHeaderRowDef="['header-row-first-group', 'header-row-second-group']"></tr>     -->
+        <tr mat-header-row *matHeaderRowDef="columnsLista sticky: true" style="text-align: center; vertical-align: middle;" ></tr>                             
+        <tr class="tbody" mat-row *matRowDef="let element; columns: columnsLista;"style="text-align: center; vertical-align: middle;" 
+                             [class.selected]="element.selected" (click)="element.selected= !element.selected"></tr>
+        </table>
+        </div>
+        </div>
+        
+    </div>
+
+</div>
+<!-- <div style="visibility: hidden; position: fixed" [matMenuTriggerFor]="contextMenu"></div> -->
+
+<mat-menu #contextMenu="matMenu" #contextMenu2="matMenu">
+  <ng-template matMenuContent let-item="item">
+    <button mat-menu-item (click)="modificarLiquidacion(ModificarLiquidacion)">Modificar Liquidación</button>
+    <button mat-menu-item (click)="cancelarLiquidacion()">Cancelar Liquidación</button>
+  </ng-template>
+</mat-menu>
+
+<ng-template #LiquidarPapel let-modal >
+    <app-liquidar-papeles (closeLiquidarPapel)="cerrarModalPapel(modal)" [objLiquidar] = "objLiquidarPadre" ></app-liquidar-papeles>
+</ng-template>
+<ng-template #ModificarLiquidacion let-modal >
+        <div role="document" class="card"> 
+                <div class="modal-header">
+                    <h5 class="modal-title">Modificar Liquidación</h5>
+                    <button type="button" class="close" aria-label="Close" (click)="cerrarMOdificarLiquidarPapel()">
+                      <mat-icon  >close</mat-icon>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <div class="py-1">
+                    <form class="form" novalidate="">
+                      <div class="row">
+                        <div class="col col-xl-6 col-lg-6 col-md-6">
+                            <div class="row">
+                              <div class="col-xl-4 col-lg-4 col-md-4">
+                                <label class="form-label">Código</label>
+                              </div>
+                              <div class="col-xl-8 col-lg-8 col-md-8">
+                                  <input id="deshabilitado" class="form-control" type="text" placeholder="Código"
+                                    name="codigomod" [(ngModel)]="codigomod" readonly/>
+                              </div>
+                            </div>
+                            <span class="br"></span>
+                            <div class="row">
+                              <div class="col-xl-4 col-lg-4 col-md-4">
+                                <label class="form-label">Papel</label>
+                              </div>
+                              <div class="col-xl-8 col-lg-8 col-md-8">
+                                  <input id="deshabilitado" class="form-control" type="text" placeholder="Papel"
+                                    name="papelmod" [(ngModel)]="papelmod" readonly/>
+                              </div>
+                            </div>
+                            <span class="br"></span>
+                            <div class="row">
+                              <div class="col-xl-4 col-lg-4 col-md-4">
+                                <label class="form-label">Fecha</label>
+                              </div>
+                              <div class="col-xl-8 col-lg-8 col-md-8">
+                                <input class="form-control" type="date" placeholder="YYYY-MM-DD" ngbDatepicker
+                                [(ngModel)]="fechamodliqui" [minDate]="minDate" [maxDate]="maxDate" (click)="d1.toggle()"
+                                #d1="ngbDatepicker" name="fechamodliqui" readonly/>
+                              </div>
+                            </div>
+                            <span class="br"></span>
+                            <div class="row">
+                              <div class="col-xl-4 col-lg-4 col-md-4">
+                                <label class="form-label">Operación</label>
+                              </div>
+                              <div class="col-xl-8 col-lg-8 col-md-8">
+                                  <input id="deshabilitado" class="form-control" type="text" placeholder="Operación"
+                                    name="operacionmod" [(ngModel)]="operacionmod" readonly/>
+                              </div>
+                            </div>
+                            <span class="br"></span>
+                            <div class="row">
+                              <div class="col-xl-4 col-lg-4 col-md-4">
+                                <label class="form-label">Contrato Externo</label>
+                              </div>
+                              <div class="col-xl-8 col-lg-8 col-md-8">
+                                  <input class="form-control" type="text" placeholder="Contrato Externo" name="contratoextmod" [(ngModel)]="contratoextmod"/>
+                              </div>
+                            </div>
+                            <span class="br"></span>
+                        </div>
+                        <div class="col col-xl-6 col-lg-6 col-md-6">
+                            <div class="row">
+                              <div class="col-xl-4 col-lg-4 col-md-4">
+                                <label class="form-label"> Toneladas M.</label>
+                              </div>
+                              <div class="col-xl-8 col-lg-8 col-md-8">
+                                  <input id="deshabilitado"   class="form-control" type="number" placeholder="TM" name="toneladamod" [(ngModel)]="toneladamod" disabled/>
+                              </div>
+                            </div>
+                            <span class="br"></span>
+                            <div class="row">
+                              <div class="col-xl-4 col-lg-4 col-md-4">
+                                <label class="form-label">Precio</label>
+                              </div>
+                              <div class="col-xl-8 col-lg-8 col-md-8">
+                                  <input id="deshabilitado"  class="form-control" type="number" placeholder="Precio" name="preciomod" [(ngModel)]="preciomod" disabled />
+                              </div>
+                            </div>
+                            <span class="br"></span>
+                            <div class="row">
+                              <div class="col-xl-4 col-lg-4 col-md-4">
+                                <label class="form-label">P&L USD/TM</label>
+                              </div>
+                              <div class="col-xl-8 col-lg-8 col-md-8">
+                                  <input id="deshabilitado" class="form-control" type="number" placeholder="P&L USD/TM"  name="profitmod" 
+                                  [(ngModel)]="profitmod" readonly/>
+                              </div>
+                            </div>
+                            <span class="br"></span>
+                            <div class="row">
+                              <div class="col-xl-4 col-lg-4 col-md-4">
+                                <label class="form-label">Comentarios</label>
+                              </div>
+                              <div class="col-xl-8 col-lg-8 col-md-8">
+                                  <input id="deshabilitado"  class="form-control" type="text" placeholder="Comentarios" name="comenmod" [(ngModel)]="comenmod"/>
+                              </div>
+                            </div>
+                            <span class="br"></span>
+                         
+                        </div>
+                      </div>
+                      <br>
+                      <!-- <div><b><span class="text-red">*</span> Campo no necesario.</b></div> -->
+                      <span class="br"></span>
+                      <div class="row">
+                        <div class="col d-flex justify-content-end">
+                          <button class="btn btn-green" type="submit"  (click)="registrarmodificacionliquidarPapel()">
+                            Modificar
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+</ng-template>
+
+<mat-spinner  class="custom-spinner"
+        *ngIf="loading$ | async"  
+        [mode]="'indeterminate'"
+        [value]=50
+        [diameter]="50">
+</mat-spinner>

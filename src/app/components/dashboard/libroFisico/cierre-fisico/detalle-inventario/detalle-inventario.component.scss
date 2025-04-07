@@ -1,0 +1,108 @@
+tbody tr:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+}
+#deshabilitado{
+    color: rgb(168 168 167 / 68%);
+}
+.modal-header {
+    background-color: white;
+    color: black;
+}
+
+.btn-green:hover {
+    color: #fff !important;
+    background-color: rgba(120, 185, 40, 0.397);;
+    border-color: rgb(120, 185, 40);
+}
+
+mat-spinner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+}
+:host ::ng-deep .custom-spinner circle{   
+    stroke:  rgb(75, 130, 45);
+    stroke-opacity: 1 !important;
+}
+
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+    text-align: center !important;
+}  
+.mat-row:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+}
+
+:host ::ng-deep .mat-sort-header-container { 
+    display: flex;  
+    justify-content: center; 
+    vertical-align: middle;
+    padding: 0 5ex 0  5ex;
+}
+
+::ng-deep  .mat-sort-header-arrow {
+    color: #fff;
+    justify-content:center;
+    vertical-align: middle;
+}
+
+.checkCierre {
+    margin: 10px;
+}
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+    background-color: rgb(255, 0, 0) !important;
+}
+  
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #37aaf1 !important;
+}
+  
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: rgb(75, 130, 45) !important;
+}
+
+.mat-column-flgCerrar {
+  flex: 0 0 20px;
+  min-width: 100px;
+  max-width: 240px;
+  align-items: center;
+  align-content:center;
+  
+}
+
+.mat-checkbox {
+    padding: 10px;
+}
+
+.mat-column-select {
+  flex: 0 0 20px;
+  min-width: 100px;
+  max-width: 240px;
+  align-items: center;
+  align-content:center;
+  
+}
+
+::ng-deep .class-DetalleCierreInventario-CM .modal-dialog { 
+    max-width: 45%;
+    width: 45%;
+}
+
+.buscador {
+    width: 18%;
+    padding: 6px 0;
+}
+.redondeado {
+    border-radius: 5px;
+    border: 1px solid rgb(146, 146, 146) !important;
+} 

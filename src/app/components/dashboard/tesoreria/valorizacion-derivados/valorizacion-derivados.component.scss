@@ -1,0 +1,108 @@
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}   
+
+.mat-cell {
+    text-align: center;
+    justify-content:center;
+    vertical-align: middle;
+}
+
+.mat-row:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+}
+
+.mat-sort-header-container{
+    justify-content: center;
+    position: relative;
+}
+
+:host ::ng-deep .mat-sort-header-container { 
+    display: flex;  
+    justify-content: center; 
+    vertical-align: middle;
+    padding: 0 3ex 0  2ex;
+}
+
+::ng-deep  .mat-sort-header-arrow {
+    color: #fff;
+    justify-content:center;
+    vertical-align: middle;
+}
+
+.btn-green {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.39);
+    box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+}
+
+.btn-green:hover {
+    color: #fff !important;
+    background-color: rgba(120, 185, 40, 0.397);;
+    border-color: rgb(120, 185, 40);
+}
+
+mat-form-field {
+    align-content: center;
+    text-align: center;
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.6em 0px !important;}
+
+button{
+    padding: 0.6em 0px !important;
+}
+
+.mtmTotal{
+    font-size: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+    // background-color: #37aaf1;
+    border: 2px solid rgb(75, 130, 45);
+    border-radius: 10px;
+    // color: #fff;
+    height: 45px;
+    padding: 0 5px;
+}
+
+
+
+
+
+
+
+
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px; /* Espacio entre las celdas */
+    width: 100%;
+  }
+  
+  .grid-item {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .single-row {
+    grid-row: span 2; /* Ocupa dos filas */
+  }
+
+  .double-row{
+    text-align: right;
+  }

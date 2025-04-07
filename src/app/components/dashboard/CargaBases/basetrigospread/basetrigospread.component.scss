@@ -1,0 +1,82 @@
+//scroll bar vertcal
+.mat-row {
+  height: 5px;
+ }
+ .mat-header-row {
+  height: 5px; /* ajusta la altura del encabezado según tu preferencia */
+}
+.mat-cell {
+  text-align: center;
+  justify-content:center;
+  vertical-align: middle;
+  padding: 0.5ex 1ex 0.5ex 1ex;
+}
+
+.mat-header-cell {
+  background:  #37aaf1;
+  color: white;
+  justify-content:center;
+  vertical-align: middle;
+  font-size: 14px;
+  height: 10px !important;
+  min-height: 10px !important;
+  max-height: 10px !important;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  padding: 0.5ex 1ex 0.5ex 1ex;
+  text-align: center !important;
+  position: relative;
+}
+
+.btn-green {
+  color: #fff !important;
+  background-color: rgb(75, 130, 45);
+  border-color: rgb(75, 130, 45);
+  -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.39);
+          box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+}
+
+.btn-abierto {
+  color: #fff !important;
+  background-color: rgb(75, 130, 45);
+  border-color: rgb(75, 130, 45);
+  -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.336);
+          box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+}
+.btn-cerrado {
+  color: #fff !important;
+  background-color: #37aaf1;
+  border-color: #a1000096;
+  -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+          box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+}
+
+.btn-green:hover {
+  color: #fff !important;
+  background-color: rgba(120, 185, 40, 0.397);;
+  border-color: rgb(120, 185, 40);
+}
+
+.caksutilizar ::ng-deep .mat-form-field-infix {
+  
+  width: 180px !important;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+.button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  float: right;
+}
+.mat-step-label {
+  z-index: 9999; /* Valor alto para asegurarse de que estén por encima de la lista desplegable */
+}
+
+/* Aplicar z-index a la lista desplegable de ng-select */
+.ng-dropdown-panel {
+  z-index: 10000; /* Valor menor que las etiquetas del mat-stepper */
+}

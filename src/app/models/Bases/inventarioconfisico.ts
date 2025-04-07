@@ -1,0 +1,20 @@
+export class Listainventariofisico{
+s056_Contador:number;
+s056_TipoPrecio:string;
+s056_Sociedad:string;
+s56_FechaActualizacion:string;
+s056_CodigoFisico:number;
+s056_ToneladasMetricas:number;
+s056_Contratos:number;
+s056_Producto:string;
+s056_Proteina:string;
+s056_Puerto:string;
+s056_Mercado:string;
+s056_FOB:number;
+s056_CodigoSociedad:number;
+s056_CodigoProducto:number;
+s056_CodigoFecha:number;
+s056_FactorConversion:number;
+s056_FactorUnidadMedida:number;
+s056_FactorToneladas:number
+}

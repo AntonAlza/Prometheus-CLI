@@ -1,0 +1,42 @@
+.cdk-overlay-container {
+    z-index: 99999 !important;
+}
+
+::ng-deep .class-modalDetalleHijos-CM .modal-dialog { 
+    max-width: 50%;
+    width: 50%;
+}
+
+tbody tr:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+}
+#deshabilitado{
+    color: rgb(168 168 167 / 68%);
+}
+.modal-header {
+    background-color: #37aaf1;
+    color: white;
+}
+
+.btn-green:hover {
+    color: #fff !important;
+    background-color: rgba(120, 185, 40, 0.397);;
+    border-color: rgb(120, 185, 40);
+}
+
+table thead {
+    background-color: #37aaf1;
+}
+
+mat-progress-bar {
+    height: 2em;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: #4b822d;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    background: #adacacf6;
+}

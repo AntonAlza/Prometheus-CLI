@@ -1,0 +1,166 @@
+<div class="page-header">
+    <div class="page-leftheader">
+            <h4 class="page-title">{{tituloTabla}}</h4>
+    </div>
+
+    <div style="text-align: right;">
+        <div class="page-rightheader ms-auto d-lg-flex d-none">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a class="d-flex">
+                        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+                            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/>
+                        </svg>
+                        <span class="breadcrumb-icon">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">RDT</li>
+                <li class="breadcrumb-item active" aria-current="page">Valorización de Derivados</li>
+            </ol>
+        </div>
+    
+        <div class="page-rightheader">
+            <button style="width: 150px; margin: 10px 10px 0 0;" class="btn btn-green" type="submit" (click)="descargarExcel()">
+                <i _ngcontent-juj-c346="" class="fa fa-file-excel-o"></i> Exportar Excel 
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row row-deck">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12">                
+                <div class="card">
+                    <div class="card-body">
+                        <div style="width:100%; height:130%">
+                            <div>
+                                <div style="width: 20%; float: right">
+                                    <div class="card">
+                                        <div class="card-body text-center" style="height: 90px; padding: 5px;">
+                                            <span class="fs-15 icon-muted">
+                                                <i class="si si-wallet icon-dropshadow-danger text-danger"></i>
+                                            </span>
+                                            <p class=" mb-1 ">Mark to Market Recibe Total</p>
+                                            <h2 class="mb-1 fs-21 font-weight-bold" [ngStyle]="{'color': totalMTM > 0 ? 'rgb(75, 130, 45)' : (totalMTM < 0 ? '#37aaf1' : 'black') }">USD {{totalMTM | number:'1.2-2'}}</h2>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div style="width: 80%; float: left">
+                                    <div class="row" style="width:100%; height: 60px;">
+                                        <div style="width: 20%; ">
+                                            <label class="form-label"> Fecha Consulta </label>
+                                            <mat-form-field appearance="outline" (click)="picker?.open()" style="width: 100%">
+                                                <input matInput [ngModel]="this.strFecIni | date: 'yyyy/MM/dd'" name="dateFieldView" style="width: 100%; cursor: pointer" (focus)="picker?.open()" (dateChange)="setDateInicio(dateField.value)" readonly/>
+                                                <input style="width: 100%;" matInput [matDatepicker]="picker" name="dateField" #dateField required (dateChange)="setDateInicio(dateField.value)" hidden/>
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+        
+                                        <div style="width: 20%; ">
+                                            <label class="form-label"> Pais </label>
+                                            <ng-select style="margin-top: 10px;" class="form-control form-select" [(ngModel)]="idPaisSeleccionado" (change)="onSelectPais($event)" [multiple]="true">
+                                                <ng-option value="{{ pais.t018_code_alpha2 }}" *ngFor="let pais of listPais" >
+                                                {{ pais.t018_country_name }}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+        
+                                        <div style="width: 20%; ">
+                                            <label class="form-label"> Subsidiaria </label>
+                                            <ng-select style="margin-top: 10px;" class="form-control form-select" [(ngModel)]="idSubsidiariaSeleccionada" (change)="onSelectSubsidiaria($event)" [multiple]="true">
+                                                <ng-option value="{{ subsidiaria.t453Id }}" *ngFor="let subsidiaria of listSubsidiarias" >
+                                                {{ subsidiaria.t453DescriptionTreasury }}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+        
+                                        <div style="width: 20%; ">
+                                            <label class="form-label"> Tipo Cobertura </label>
+                                            <ng-select style="margin-top: 10px;" class="form-control form-select" [(ngModel)]="idTipoCoberturaSeleccionado" (change)="onSelectTipoCobertura($event)" [multiple]="true">
+                                                <ng-option value="{{ tipoCobertura.t447Id }}" *ngFor="let tipoCobertura of listTipoCobertura" >
+                                                {{ tipoCobertura.t447Description }}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+        
+                                        <div style="width: 20%; ">
+                                            <label class="form-label"> Tipo Instrumento </label>
+                                            <ng-select style="margin-top: 10px;" class="form-control form-select" [(ngModel)]="idTipoInstrumentoSeleccionado" (change)="onSelectTipoInstrumento($event)" [multiple]="true">
+                                                <ng-option value="{{ tipoInstrumento.t455Id }}" *ngFor="let tipoInstrumento of listTipoInstrumento" >
+                                                {{ tipoInstrumento.t455Description }}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+        
+                                        <!-- <div style="width: 20%; margin-left: auto; margin-right: 0;">
+                                            <div class="card">
+                                                <div class="card-body text-center" style="height: 90px; padding: 5px;">
+                                                    <span class="fs-15 icon-muted">
+                                                        <i class="si si-wallet icon-dropshadow-danger text-danger"></i>
+                                                    </span>
+                                                    <p class=" mb-1 ">Mark to Market Recibe Total</p>
+                                                    <h2 class="mb-1 fs-21 font-weight-bold" [ngStyle]="{'color': totalMTM > 0 ? 'rgb(75, 130, 45)' : (totalMTM < 0 ? '#37aaf1' : 'black') }">USD {{totalMTM | number:'1.2-2'}}</h2>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+        
+                                    <!-- <div class="row" style="width:100%; margin-bottom: 20px;">
+                                        <div style="width: 15%; margin-left: auto; margin-right: 0;">
+                                            <label>&nbsp;</label>
+                                            <button style="width: 100%;" class="btn btn-green" type="submit" (click)="descargarExcel()">
+                                                <i _ngcontent-juj-c346="" class="fa fa-file-excel-o"></i> Exportar Excel 
+                                            </button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <div class="scroll-container" style="width:100%;">
+                                <table mat-table #dsSort="matSort" matSort matSortActive="created" matSortDisableClear matSortDirection="desc" style="width:100%" [dataSource]="dataSource" >
+                                    
+                                    <ng-container matColumnDef="t467_date">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.t467_date | date:'yyyy-MM-dd'}} </td>
+                                    </ng-container>
+                                    
+                                    <ng-container  matColumnDef="cod_ci">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+                                        <td mat-cell *matCellDef="let element"><b>{{element.cod_ci}}</b></td>
+                                    </ng-container>
+
+                                    <ng-container  matColumnDef="t467_mtm_rec">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> MTM Recibe </th>
+                                        <td mat-cell *matCellDef="let element">{{element.t463_currency_rec + ' '}}{{element.t467_mtm_rec | number:'1.2-2'}}</td>
+                                    </ng-container>
+
+                                    <ng-container  matColumnDef="t467_mtm_del">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> MTM Entrega </th>
+                                        <td mat-cell *matCellDef="let element">{{element.t463_currency_del + ' '}}{{element.t467_mtm_del | number:'1.2-2'}}</td>
+                                    </ng-container>
+
+                                    <!-- <ng-container  matColumnDef="mtm_total">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> MTM Total </th>
+                                        <td mat-cell *matCellDef="let element"><b>USD {{element.mtm_total | number:'1.2-2'}}</b></td>
+                                    </ng-container> -->
+
+                                    <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true" style="text-align: center; vertical-align: middle;">
+                                    </tr>
+                                    
+                                    <tr class="tbody" mat-row *matRowDef="let element; columns: displayedColumns;" style="text-align: center; vertical-align: middle;" (contextmenu)="onContextMenu($event, element)">       
+                                    </tr>
+                                </table>
+                            </div> 
+                        </div>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

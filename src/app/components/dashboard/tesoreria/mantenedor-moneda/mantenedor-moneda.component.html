@@ -1,0 +1,93 @@
+<div class="page-header">
+    <div class="page-leftheader">
+            <h4 class="page-title">{{tituloTabla}}</h4>
+    </div>
+
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a class="d-flex"
+              ><svg
+                class="svg-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path
+                  d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"
+                />
+                <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" /></svg><span class="breadcrumb-icon"> Home</span></a
+            >
+          </li>
+          <li class="breadcrumb-item">RDT</li>
+          <li class="breadcrumb-item">Mantenedor</li>
+          <li class="breadcrumb-item active" aria-current="page">Moneda</li>
+        </ol>
+      </div>
+</div>
+
+<div class="row row-deck">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12">                
+                <div class="card">
+                    <div class="card-body">
+                        <div style="display: inline-flex; width: 100%;">
+                            <div style="text-align:left; width: 49%;">
+                                <input style="width: 300px; padding: 6px 0; margin-right: 20px;" type="text" class="redondeado" size="100" (keyup)="applyFilter($event)" placeholder=" Buscar en Monedas" autocomplete="off">
+                                <mat-checkbox name="flgFiltrarHabilitadas" [(ngModel)]="flgFiltrarHabilitadas" (ngModelChange)="filtrarMonedasHabilitadas()">{{flgFiltrarHabilitadas ? 'Monedas habilitadas' : 'Monedas deshabilitadas'}}</mat-checkbox>
+                            </div>
+                            <div style="text-align:right; align-items: center; display: inline-block; width: 50%;">
+                                <mat-icon style="color: #c80f1e; font-size: 44px; cursor: pointer;" (click)="agregarFila()">add_circle</mat-icon>
+                            </div>
+                        </div>
+                        <div style="width:100%;">
+                            <div class="scroll-container" style="width:100%;">
+                                <table mat-table style="width:100%" [dataSource]="dsMonedas">
+                    
+                                    <ng-container  matColumnDef="t064Id">
+                                        <th mat-header-cell  *matHeaderCellDef> Código </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <mat-form-field style="width: 200px;">
+                                                <input matInput id="element.t064Id" class="form-control" type="text" maxlength="3" name="element.t064Id" style="width: 200px; text-transform: uppercase;" autocomplete="off" [(ngModel)]="element.t064Id" [disabled]="!esNuevaFila(element)">
+                                                <div style="color: #c80f1e;" *ngIf="element.t064Id.length < 3">Faltan {{3 - element.t064Id.length}} caracteres</div>
+                                                <div style="color: #c80f1e;" *ngIf="element.t064Id.length == 3 && existeCodigo(element)">Este código ya existe</div>
+                                            </mat-form-field>
+                                        </td>
+                                    </ng-container>
+                    
+                                    <ng-container matColumnDef="t064Description">
+                                        <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <mat-form-field style="width: 350px;">
+                                                <input matInput class="form-control" type="text" name="element.t064Description" style="width: 350px;" autocomplete="off" [(ngModel)]="element.t064Description">
+                                                <div style="color: #c80f1e;" *ngIf="existeDescripcion(element)">Esta descripción ya existe</div>
+                                            </mat-form-field>
+                                        </td>
+                                    </ng-container>
+                    
+                                    <ng-container matColumnDef="t064Status">
+                                        <th mat-header-cell *matHeaderCellDef> Estado </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <mat-checkbox (change)="onChangeEstado(element)" [(ngModel)]="element.t064Status"></mat-checkbox>
+                                        </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsMonedas sticky: true" style="text-align: center; vertical-align: middle;"></tr>
+                                    <tr class="tbody" style="text-align: center; vertical-align: middle;" mat-row *matRowDef="let element columns: displayedColumnsMonedas;"></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="text-align: right;">
+                        <button class="btn btn-green" type="submit" (click)="guardarMoneda()" [disabled]="!(this.listMonedaModificada.length > 0)">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

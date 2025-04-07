@@ -1,0 +1,536 @@
+
+.mat-chip-listbox {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+.mat-chip-option {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    margin: 4px;
+    border-radius: 16px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    font-size: 16px; /* Tamaño de la letra ajustable */
+  }
+  
+  .mat-chip-option:hover {
+    background-color: #bdbdbd;
+  }
+  
+  .mat-chip-option.selected {
+    background-color: #dba703;//#1e5532;
+    color: #ffffff;
+  }
+  
+  .exportarExcel {
+    background-color: #1e5532;
+    color: #ffffff;
+  }
+  
+  .mat-chip-option.accent {
+    background-color: #ff4081;
+    color: #ffffff;
+  }
+  
+  .mat-chip-option.warn {
+    background-color: #ff5722;
+    color: #ffffff;
+  }
+  
+  .mat-chip-option.selected::before {
+    content: '\2713';
+    margin-right: 4px;
+  }
+
+  table thead {
+    background-color: #dba703//#37aaf1;
+  }
+  
+  .liquidaciones {
+    background-color: rgb(15, 58, 200) !important;
+  }
+  
+  
+  tbody tr:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+  }
+  
+  #b1 {
+    white-space: normal;
+  }
+  
+  .tablaDetalle {
+    width: 100%;
+    table-layout: fixed !important; /* Fuerza el layout fijo */
+    border-collapse: collapse;
+  }
+
+  .tablaDetalle td.text {
+    white-space: normal;
+    word-wrap: break-word !important;
+  }
+
+  .tablaDetalle td.text-center {
+    text-align: center;
+  }
+
+  .tablaDetalle th {
+    // background-color: #f5f5f5;
+    font-weight: bold;
+    height: 60px;
+    vertical-align: middle;
+  }
+
+  .tablaDetalle th,
+  .tablaDetalle td {
+    width: 80px;
+  }
+
+  /* Estilo para la primera columna (texto) */
+  .tablaDetalle th:first-child,
+  .tablaDetalle td:first-child {
+    width: 10% !important; /* Aumenta el ancho de la primera columna */
+    max-width: 25% !important;
+    min-width: 25% !important;
+    white-space: normal !important; /* Permite que el texto se envuelva */
+    word-wrap: break-word !important;
+    text-align: left !important;
+  }
+
+  .tablaDetalle th,
+  .tablaDetalle td {
+    // padding: 4px !important;
+    padding: 8px;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #ddd;
+    border-left: none;
+    border-right: none;
+    /* font-size: 0.9em !important; /* Reduce ligeramente el tamaño de la fuente */
+  }
+
+
+  .tablaDetalle {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 
+                0px 8px 10px 1px rgba(0, 0, 0, 0.14), 
+                0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+  }
+
+  /* Estilos para los números */
+  .tablaDetalle td:not(:first-child) {
+    // font-family: monospace;
+    // text-align: right !important; /* Alinea los números a la derecha */
+    padding-right: 8px !important; /* Añade un poco de padding a la derecha */
+  }
+
+  /* Estilo para las columnas numéricas */
+  .tablaDetalle th:not(:first-child),
+  .tablaDetalle td:not(:first-child) {
+    width: 4% !important; /* (100% - 25%) / 18 ≈ 4.16%, redondeado a 4% */
+    max-width: 4% !important;
+    min-width: 4% !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip  !important;
+    vertical-align: middle;
+  }
+
+  /* Media query para asegurar el scroll horizontal en pantallas pequeñas */
+  @media screen and (max-width: 1500px) {
+    .scroll-container {
+      overflow-x: auto;
+    }
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  
+  .table {
+    width: max-content;
+  }
+  
+  .scroll-container {
+    position: relative;
+    min-height: 200px;
+    max-height: 800px;
+  
+    max-width: 100%;
+    overflow: auto;
+  }
+  
+  mat-spinner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9000;
+  }
+  :host ::ng-deep .custom-spinner circle{   
+    stroke:  rgb(75, 130, 45);
+    stroke-opacity: 1 !important;
+  }
+  
+  .valorizarPortafolio {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+    margin-bottom: 10px;
+  }
+  
+  .valorizarPortafolio button {
+    background-color: #dba703;
+    color: #fff;
+    padding: 7px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 153px; /* Establecemos un ancho mínimo para el botón */
+  
+    margin-top: 144%; /* Added margin-top to move the button down */
+    margin-right: 39%; /* Added margin-top to move the button down */
+  }
+
+  .agregarOperacionSIM {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+    margin-bottom: 10px;
+  }
+
+  .agregarOperacionSIM button {
+    background-color: #4b822d;
+    color: #fff;
+    padding: 7px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 116px; /* Establecemos un ancho mínimo para el botón */
+  
+    margin-top: 185%; /* Added margin-top to move the button down */
+    margin-right: 188%; /* Added margin-top to move the button down */
+  }
+
+  .exportarExcelSIM {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+    margin-bottom: 10px;
+  }
+
+  .exportarExcelSIM button {
+    background-color: #4b822d;
+    color: #fff;
+    padding: 7px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 150px; /* Establecemos un ancho mínimo para el botón */
+  
+    margin-top: 147%; /* Added margin-top to move the button down */
+    margin-right: 40%; /* Added margin-top to move the button down */
+  }
+
+  .configuracionFretSIM {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+    margin-bottom: 10px;
+  }
+
+  .configuracionFretSIM button {
+    background-color: #4b822d;
+    color: #fff;
+    padding: 7px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 92px; /* Establecemos un ancho mínimo para el botón */
+  
+    margin-top: 236%; /* Added margin-top to move the button down */
+    margin-right: 379%; /* Added margin-top to move the button down */
+  }
+
+  
+  ::ng-deep .agregarOperSIM .modal-dialog { 
+    max-width: 35%;
+    width: 35%;
+  }
+
+  ::ng-deep .configuracionSIM .modal-dialog { 
+    max-width: 20%;
+    width: 20%;
+  }
+  
+  .disabled {
+    pointer-events: none; /* Evita que los eventos del mouse se disparen en el div */
+    opacity: 0.6; /* Reducir la opacidad para indicar que está deshabilitado */
+    /* Puedes agregar otros estilos para hacer que parezca deshabilitado */
+  }
+  
+  .btnActualizarPalma {
+  
+    border-radius: 50%;
+    width: 100px; /* Puedes ajustar el tamaño */
+    height: 40px; /* Igualmente puedes ajustar el tamaño */
+    border: none;
+    font-size: 16px;
+  
+    background-color: #495057;
+    color: #ffffff;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .mat-input-element {
+    font: inherit;
+    background: transparent;
+    color: currentColor;
+    border: none;
+    /* outline: none; */
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    vertical-align: bottom;
+    text-align: inherit;
+    box-sizing: content-box;
+}
+
+.modal-header {
+  background-color: #37aaf1;
+  color: white;
+}
+
+.br {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.checkExpiracion {
+  margin-right: 20px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Estilos específicos para Angular Material */
+::ng-deep .mat-checkbox-layout {
+  white-space: nowrap;
+}
+
+.checkExpiracion .mat-checkbox-inner-container {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+  margin: auto !important;
+}
+
+::ng-deep .mat-checkbox-layout {
+  align-items: center;
+}
+
+
+.checkExpiracion .mat-checkbox-label {
+  font-size: 0.9em;
+  margin-left: 5px;
+  line-height: 36px; /* Ajusta esto para que coincida con la altura del botón */
+}
+
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+  background-color: rgb(255, 0, 0) !important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #37aaf1 !important;
+}
+
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: rgb(75, 130, 45) !important;
+}
+
+.simularFret {
+  background-color: #00BFD6;
+  color: #ffffff;
+  margin-right: 20px;
+  padding: 5px 10px;
+  font-size: 0.9em;
+  height: 36px; /* Ajusta esto según la altura de tu botón */
+  display: flex;
+  align-items: center;
+}
+
+.input-highlight {
+  border: 1px solid #add8e6; /* Color celeste */
+  border-radius: 3px; /* Redondear un poco los bordes */
+  transition: border-color 0.2s ease-in-out; /* Transición suave para el color del borde */
+}
+/* En tu archivo CSS */
+td.first-column {
+  width: 15%;
+}
+
+.text {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.fixed-header.fret-header {
+  position: fixed;
+  top: 114px; /* Altura del menú principal */
+  left: 0;
+  right: 0;
+  z-index: 90; /* Asegúrate de que este valor sea menor que el z-index del menú principal */
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.main-content {
+  padding-top: 110px; /* 60px del menú + 80px del nuevo header */
+}
+
+.fret-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  // background-color: #f5f5f5;
+  // border-bottom: 1px solid #e0e0e0;
+}
+
+.fret-title h4 {
+  margin: 0;
+  font-size: 25px;
+  color: #333;
+  white-space: nowrap;  /* Evita que el título se divida en múltiples líneas */
+  overflow: hidden;
+  text-overflow: ellipsis;  /* Añade puntos suspensivos si el título es muy largo */
+}
+
+.fret-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;  /* Evita que los controles se encojan */
+}
+
+.btn-fret-real {
+  background-color: #00BFD6;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;  /* Mantiene el texto del botón en una línea */
+  // font-size: 1em;
+}
+
+.btn-fret-real i {
+  margin-right: 5px;
+}
+
+mat-checkbox {
+  font-size: 0.9em;
+}
+
+/* Estilos específicos para Angular Material */
+::ng-deep .mat-checkbox-layout {
+  white-space: nowrap;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+  margin-right: 8px !important;
+}
+
+.fret-title {
+  flex: 1;  /* Esto permite que el título ocupe todo el espacio disponible */
+  margin-right: 20px;  /* Añade espacio a la derecha del título */
+}
+
+@media (max-width: 1200px) {
+  .fret-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fret-title {
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+
+  .fret-controls {
+    flex-wrap: wrap;
+  }
+}
+
+// / AJUSTADO AL CONTENIDO 
+
+.tablaDetalleAjustado {
+  width: auto; /* Ajusta el ancho de la tabla según su contenido */
+  max-width: 100%; /* Establece el ancho máximo de la tabla */
+  table-layout: auto; /* Permite que la tabla ajuste su tamaño según el contenido */
+  border-collapse: collapse;
+}
+
+.tablaDetalleAjustado th,
+.tablaDetalleAjustado td {
+
+  padding: 8px;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #ddd;
+  border-left: none;
+  border-right: none;
+
+  // padding: 8px; /* Espaciado dentro de las celdas */
+  // border: 1px solid #ddd; /* Borde para las celdas */
+  text-align: left; /* Alinea el texto a la izquierda */
+  vertical-align: middle; /* Centrado vertical */
+  white-space: nowrap; /* Impide el ajuste de línea en celdas */
+}
+
+.tablaDetalleAjustado th {
+  // background-color: #f5f5f5; /* Color de fondo para el encabezado */
+  font-weight: bold;
+  height: 60px;
+  vertical-align: middle;
+}
+
+.tablaDetalleAjustado td {
+  overflow: hidden; /* Oculta el desbordamiento de contenido */
+  text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
+}
+
+/* Media query para ajustar el ancho en pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  .tablaDetalleAjustado th,
+  .tablaDetalleAjustado td {
+    font-size: 14px; /* Tamaño de fuente más pequeño en pantallas pequeñas */
+    padding: 4px; /* Reducir padding en pantallas pequeñas */
+  }
+}

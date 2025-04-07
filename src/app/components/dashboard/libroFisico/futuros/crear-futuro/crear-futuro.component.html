@@ -1,0 +1,90 @@
+<div role="document" class="card"> <!--class="msg_card_body" -->
+    <div class="modal-header">
+        <h5 class="modal-title">Crear Futuro</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cerrarcreacionFuturo()">
+          <mat-icon  >close</mat-icon>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-1">
+        <form class="form" novalidate="">
+          <div class="row">
+            <div class="col col-xl-12 col-lg-12 col-md-12">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Futuro</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            id="deshabilitado"
+                            class="form-control"
+                            type="text"
+                            placeholder="Futuro"
+                            name="t146_ID"
+                            [(ngModel)]="nuevoFuturo.t146_ID"
+                            readonly/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Bolsa </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select
+                        class="form-control form-select"
+                        name="t039_PhysicalSeller"
+                        [(ngModel)]="bolsa"
+                        (change)="obtenerContratos()">
+                        <ng-option value="{{ item.s204_ID }}"
+                        *ngFor="let item of objetoInitCrearFuturo.comboBolsasCM">{{ item.s204_Description }}</ng-option>
+                      </ng-select>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Contrato </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select
+                        class="form-control form-select"
+                        name="t039_PhysicalSeller"
+                        [(ngModel)]="nuevoFuturo.t146_Contract">
+                        <ng-option value="{{ item.s204_ID }}"
+                        *ngFor="let item of objetoInitCrearFuturo.comboContratos">{{ item.s204_Description }}</ng-option>
+                      </ng-select>
+                    </div>
+                </div> 
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Motivo</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                      class="form-control"
+                      type="text"
+                      name="t146_MemoryAid"
+                      [(ngModel)]="nuevoFuturo.t146_MemoryAid"/>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <br>
+          <span class="br"></span>
+          <div class="row">
+            <div class="col d-flex justify-content-end">
+              <button
+                class="btn btn-green"
+                type="submit"
+                [disabled]="!flgBoton"
+                (click)="guardarFuturo()">
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

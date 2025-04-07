@@ -1,0 +1,57 @@
+export class tablaValorizacion{
+    
+    public scenary: string;
+    public idsql: number;
+    public brokerref: string;
+    public ticker: string;
+    public underlyingtype: string;
+    public derivativetype: string;
+    public derivativespec: string;
+    public derivativesubspec: string;
+    public caks: number;
+    public pricestrike: string;
+    public pricebarrier: number;
+    public datesettle: string;
+    public datematurity: string;
+    public datevaluation: string;
+    public datesimulation: string;
+    public priceasset: number;
+    public volatility: number;
+    public rate: number;
+    public digitalpayment: number;
+    public premiumpaid: number;
+    public premiumtoday: number;
+    public delta: number;
+    public gamma: number;
+    public vega: number;
+    public theta: number;
+    public rho: number;
+    public lambda: number;
+    public deltacak: number;
+    public gammacak: number;
+    public cashpaid: number;
+    public cashtoday: number;
+    public cashvi: number;
+    public cashnettoday: number;
+    public idstrategy: number;
+    public strategy: string;
+    public byportfolio: string;
+    public bygroup: string;
+    public byposition: string;
+    public byagrupdelta: string;
+    public bytrimestre: string;
+    public byapertura: string;
+    public contabilitytype: string;
+    public hedgetype: string;
+    public society: string;
+    public volumenettm: number;
+    public volumemaxtm: number;
+    public precioCierre: string;
+    public tickerBBG: string;
+    public precioAnterior: number;
+    public precioActual: number;
+    public fechaActualizacion: string;
+    public varPx: string;
+
+    constructor(){}
+}

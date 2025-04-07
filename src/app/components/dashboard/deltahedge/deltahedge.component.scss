@@ -1,0 +1,63 @@
+.btn-green {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.39);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+
+  ::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.05em 0px !important;} 
+
+//tamaño de input
+.caksutilizar ::ng-deep .mat-form-field-infix {
+  
+  width: 180px !important;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;  
+}
+mat-spinner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9000;
+}
+:host ::ng-deep .custom-spinner circle{   
+  stroke:  rgb(53, 55, 187);
+  stroke-opacity: 1 !important;
+}
+/* bar-chart.component.css */
+
+//para los cards de los graficos
+.container {
+  border: 2px solid red;
+  padding: 10px;
+  width: 95%;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Alinea los elementos a los extremos */
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Espaciado entre tarjetas */
+}
+
+.card {
+  flex: 1;
+  border: 2px solid red;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}

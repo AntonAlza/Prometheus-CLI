@@ -1,0 +1,337 @@
+<div id="myModal" tabindex="-1" data-keyboard="false" role="dialog">
+  <div role="document" class="msg_card_body">
+    <div>
+      <table style=" width: 100%; border-bottom:1px solid #ffffff;">
+        <tr style="width:100%">
+          <td style="text-align:left;  padding: 0% 0% 0.5% 1%">
+            <div class="page-header">
+              <div class="page-leftheader">
+                      <h4 class="page-title">Registro de Límites</h4>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-xl-8 col-lg-9 col-md-9">
+      <div class="card">
+        <div class="card-body">
+          <h4>Consumo Mensual</h4>
+
+          <table mat-table class="example-table table-bordered" matSort matSortActive="created" matSortDisableClear
+            matSortDirection="desc" style="width:100%" [dataSource]="dataSourceConsumo">
+
+            <ng-container class="border-bottom-0" matColumnDef="temp_Descripcion">
+              <th mat-header-cell *matHeaderCellDef style="background-color: #495057;"> Límite </th>
+              <td mat-cell *matCellDef="let element"> {{element.temp_Descripcion}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="temp_Trigo">
+              <th mat-header-cell *matHeaderCellDef> Trigo </th>
+              <td mat-cell *matCellDef="let element" class="mi-clase2">
+                <ng-container *ngIf="usuarioRegistra; else labelTemplate">
+                  <mat-form-field  appearance="None" class="caksutilizar" >
+                    <input matInput class="form-control" type="text" (input)="formatearValorMonto($event, element.temp_Trigo)" name="element.temp_Trigo"
+                      [ngModel]="formatNumber(element.temp_Trigo.toString())" (ngModelChange)="onSelectCommodityConsumo(element, $event,0)">
+                  </mat-form-field>
+                </ng-container>                
+                <ng-template #labelTemplate>
+                  {{element.temp_Trigo | number:'1.2-2'}}
+                </ng-template>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="temp_Durum">
+              <th mat-header-cell *matHeaderCellDef> Durum </th>
+              <td mat-cell *matCellDef="let element" class="mi-clase2">
+                <ng-container *ngIf="usuarioRegistra; else labelTemplate">
+                  <mat-form-field  appearance="None" class="caksutilizar" >
+                    <input matInput class="form-control" type="text" (input)="formatearValorMonto($event, element.temp_Durum)" name="element.temp_Durum"
+                      [ngModel]="formatNumber(element.temp_Durum.toString())" (ngModelChange)="onSelectCommodityConsumo(element, $event,1)">
+                  </mat-form-field>
+                </ng-container>                
+                <ng-template #labelTemplate>
+                  {{element.temp_Durum | number:'1.2-2'}}
+                </ng-template>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="temp_SBO">
+              <th mat-header-cell *matHeaderCellDef> SBO </th>
+              <td mat-cell *matCellDef="let element" class="mi-clase2">
+                <ng-container *ngIf="usuarioRegistra; else labelTemplate">
+                  <mat-form-field  appearance="None" class="caksutilizar" >
+                    <input matInput class="form-control" type="text" (input)="formatearValorMonto($event, element.temp_SBO)" name="element.temp_SBO"
+                      [ngModel]="formatNumber(element.temp_SBO.toString())" (ngModelChange)="onSelectCommodityConsumo(element, $event,2)">
+                  </mat-form-field>
+                </ng-container>                
+                <ng-template #labelTemplate>
+                  {{element.temp_SBO | number:'1.2-2'}}
+                </ng-template>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="temp_SBM">
+              <th mat-header-cell *matHeaderCellDef> SBM </th>
+              <td mat-cell *matCellDef="let element" class="mi-clase2">
+                <ng-container *ngIf="usuarioRegistra; else labelTemplate">
+                  <mat-form-field  appearance="None" class="caksutilizar" >
+                    <input matInput class="form-control" type="text" (input)="formatearValorMonto($event, element.temp_SBM)" name="element.temp_SBM"
+                      [ngModel]="formatNumber(element.temp_SBM.toString())" (ngModelChange)="onSelectCommodityConsumo(element, $event,3)">
+                  </mat-form-field>
+                </ng-container>                
+                <ng-template #labelTemplate>
+                  {{element.temp_SBM | number:'1.2-2'}}
+                </ng-template>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="temp_CPO">
+              <th mat-header-cell *matHeaderCellDef> CPO </th>
+              <td mat-cell *matCellDef="let element" class="mi-clase2">
+                <ng-container *ngIf="usuarioRegistra; else labelTemplate">
+                  <mat-form-field  appearance="None" class="caksutilizar" >
+                    <input matInput class="form-control" type="text" (input)="formatearValorMonto($event, element.temp_CPO)" name="element.temp_CPO"
+                      [ngModel]="formatNumber(element.temp_CPO.toString())" (ngModelChange)="onSelectCommodityConsumo(element, $event,4)">
+                  </mat-form-field>
+                </ng-container>
+                <ng-template #labelTemplate>
+                  {{element.temp_CPO | number:'1.2-2'}}
+                </ng-template>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsConsumo sticky: true"
+              style="text-align: center; vertical-align: middle;"></tr>
+
+            <tr mat-row *matRowDef="let element columns: displayedColumnsConsumo;"
+              style="text-align: center; vertical-align: middle;" class="my-mat-row">
+            </tr>
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-2 col-lg-6 col-md-6" [hidden]="!usuarioRegistra">
+      <div class="card">
+        <div class="card-body">
+          <br>
+          <table>
+            <tr>
+              <td>
+                <button style="width: 100%;" class="btn btn-green" type="submit" (click)="guardarCambios()">
+                  Guardar Cambios
+                </button>
+              </td>
+            </tr>
+          </table>
+          <br>
+          <span class="br"></span><span class="br"></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card" style="width: 100%;" >
+    <div class="row">
+      <div class="card-body">
+
+        <h4>Límites Vigentes</h4>
+
+        <table #myTable mat-table class="example-table table-bordered" matSort matSortActive="created" matSortDisableClear
+          matSortDirection="desc" style="width:100%" [dataSource]="dataSource">
+
+          <ng-container class="border-bottom-0" matColumnDef="temp_Descripcion">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #495057;"> Límite </th>
+            <td mat-cell *matCellDef="let element"> {{element.temp_Descripcion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="temp_TotalMed">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #495057;"> Total Med. </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = index" [class.mi-clase2]="esCampoEditable(rowIndex, 2)"> 
+              <ng-container *ngIf="esCampoEditable(rowIndex, 2) && usuarioRegistra; else labelTemplate">
+                <mat-form-field  appearance="None" class="caksutilizar">
+                  <input matInput class="form-control " type="text" (input)="formatearValorMonto($event, element.temp_TotalMed)" name="element.temp_TotalMed"
+                  [ngModel]="formatNumber(element.temp_TotalMed.toString())"  (ngModelChange)="onSelectCommodity(element, $event, 5, 2)">
+                </mat-form-field>
+              </ng-container>
+              <ng-template #labelTemplate>
+                {{element.temp_TotalMed | number:'1.2-2'}}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="temp_TrigoRac">
+            <th mat-header-cell *matHeaderCellDef> Trigo Rac </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = index" [class.mi-clase2]="esCampoEditable(rowIndex, 3)">
+              <ng-container *ngIf="esCampoEditable(rowIndex, 3) && usuarioRegistra; else labelTemplate">
+                <mat-form-field  appearance="None" class="caksutilizar">
+                  <input matInput class="form-control " type="text" (input)="formatearValorMonto($event, element.temp_TrigoRac)" name="element.temp_TrigoRac"
+                    [ngModel]="formatNumber(element.temp_TrigoRac.toString())" (ngModelChange)="onSelectCommodity(element, $event, 0, 1)">
+                </mat-form-field>
+              </ng-container>
+              <ng-template #labelTemplate>
+                {{element.temp_TrigoRac}}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="temp_TrigoMed">
+            <th mat-header-cell *matHeaderCellDef> Trigo Med </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = index" [class.mi-clase2]="esCampoEditable(rowIndex, 4)">
+              <ng-container *ngIf="esCampoEditable(rowIndex, 4) && usuarioRegistra; else labelTemplate">
+                <mat-form-field  appearance="None" class="caksutilizar">
+                  <input matInput class="form-control " type="text" (input)="formatearValorMonto($event, element.temp_TrigoMed)" name="element.temp_TrigoMed"
+                    [ngModel]="formatNumber(element.temp_TrigoMed.toString())" (ngModelChange)="onSelectCommodity(element, $event, 0, 2)">
+                </mat-form-field>
+              </ng-container>
+              <ng-template #labelTemplate>
+                {{element.temp_TrigoMed | number:'1.2-2'}}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="temp_DurumRac">
+            <th mat-header-cell *matHeaderCellDef> Durum Rac </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = index" [class.mi-clase2]="esCampoEditable(rowIndex, 5)">
+              <ng-container *ngIf="esCampoEditable(rowIndex, 5) && usuarioRegistra; else labelTemplate">
+                <mat-form-field  appearance="None" class="caksutilizar">
+                  <input matInput class="form-control " type="text" (input)="formatearValorMonto($event, element.temp_DurumRac)" name="element.temp_DurumRac"
+                    [ngModel]="formatNumber(element.temp_DurumRac.toString())" (ngModelChange)="onSelectCommodity(element, $event, 1, 1)">
+                </mat-form-field>
+              </ng-container>
+              <ng-template #labelTemplate>
+                {{element.temp_DurumRac | number:'1.2-2'}}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="temp_DurumMed">
+            <th mat-header-cell *matHeaderCellDef> Durum Med </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = index" [class.mi-clase2]="esCampoEditable(rowIndex, 6)">
+              <ng-container *ngIf="esCampoEditable(rowIndex, 6) && usuarioRegistra; else labelTemplate">
+                <mat-form-field  appearance="None" class="caksutilizar">
+                  <input matInput class="form-control " type="text" (input)="formatearValorMonto($event, element.temp_DurumMed)" name="element.temp_DurumMed"
+                    [ngModel]="formatNumber(element.temp_DurumMed.toString())" (ngModelChange)="onSelectCommodity(element, $event, 1, 2)">
+                </mat-form-field>
+              </ng-container>
+              <ng-template #labelTemplate>
+                {{element.temp_DurumMed | number:'1.2-2'}}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="temp_SBORac">
+            <th mat-header-cell *matHeaderCellDef> SBO Rac </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = index" [class.mi-clase2]="esCampoEditable(rowIndex, 7)">
+              <ng-container *ngIf="esCampoEditable(rowIndex, 7) && usuarioRegistra; else labelTemplate">
+                <mat-form-field  appearance="None" class="caksutilizar">
+                  <input matInput class="form-control " type="text" (input)="formatearValorMonto($event, element.temp_SBORac)" name="element.temp_SBORac"
+                    [ngModel]="formatNumber(element.temp_SBORac.toString())" (ngModelChange)="onSelectCommodity(element, $event, 2, 1)">
+                </mat-form-field>
+              </ng-container>
+              <ng-template #labelTemplate>
+                {{element.temp_SBORac | number:'1.2-2'}}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="temp_SBOMed">
+            <th mat-header-cell *matHeaderCellDef> SBO Med </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = index" [class.mi-clase2]="esCampoEditable(rowIndex, 8)">
+              <ng-container *ngIf="esCampoEditable(rowIndex, 8) && usuarioRegistra; else labelTemplate">
+                <mat-form-field  appearance="None" class="caksutilizar">
+                  <input matInput class="form-control " type="text" (input)="formatearValorMonto($event, element.temp_SBOMed)" name="element.temp_SBOMed"
+                    [ngModel]="formatNumber(element.temp_SBOMed.toString())" (ngModelChange)="onSelectCommodity(element, $event, 2, 2)">
+                </mat-form-field>
+              </ng-container>
+              <ng-template #labelTemplate>
+                {{element.temp_SBOMed | number:'1.2-2'}}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="temp_SBMRac">
+            <th mat-header-cell *matHeaderCellDef> SBM Rac </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = index" [class.mi-clase2]="esCampoEditable(rowIndex, 9)">
+              <ng-container *ngIf="esCampoEditable(rowIndex, 9) && usuarioRegistra; else labelTemplate">
+                <mat-form-field  appearance="None" class="caksutilizar">
+                  <input matInput class="form-control " type="text" (input)="formatearValorMonto($event, element.temp_SBMRac)" name="element.temp_SBMRac"
+                    [ngModel]="formatNumber(element.temp_SBMRac.toString())" (ngModelChange)="onSelectCommodity(element, $event, 3, 1)">
+                </mat-form-field>
+              </ng-container>
+              <ng-template #labelTemplate>
+                {{element.temp_SBMRac | number:'1.2-2'}}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="temp_SBMMed">
+            <th mat-header-cell *matHeaderCellDef> SBM Med </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = index" [class.mi-clase2]="esCampoEditable(rowIndex, 10)">
+              <ng-container *ngIf="esCampoEditable(rowIndex, 10) && usuarioRegistra; else labelTemplate">
+                <mat-form-field  appearance="None" class="caksutilizar">
+                  <input matInput class="form-control " type="text" (input)="formatearValorMonto($event, element.temp_SBMRac)" name="element.temp_SBMMed"
+                    [ngModel]="formatNumber(element.temp_SBMMed.toString())" (ngModelChange)="onSelectCommodity(element, $event, 3, 2)">
+                </mat-form-field>
+              </ng-container>
+              <ng-template #labelTemplate>
+                {{element.temp_SBMMed | number:'1.2-2'}}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="temp_PalmaRac">
+            <th mat-header-cell *matHeaderCellDef> CPO Rac </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = index" [class.mi-clase2]="esCampoEditable(rowIndex, 11)">
+              <ng-container *ngIf="esCampoEditable(rowIndex, 11) && usuarioRegistra; else labelTemplate">
+                <mat-form-field  appearance="None" class="caksutilizar">
+                  <input matInput class="form-control " type="text" (input)="formatearValorMonto($event, element.temp_PalmaRac)" name="element.temp_PalmaRac"
+                    [ngModel]="formatNumber(element.temp_PalmaRac.toString())" (ngModelChange)="onSelectCommodity(element, $event, 4, 1)">
+                </mat-form-field>
+              </ng-container>
+              <ng-template #labelTemplate>
+                {{element.temp_PalmaRac | number:'1.2-2'}}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="temp_PalmaMed">
+            <th mat-header-cell *matHeaderCellDef> CPO Med </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = index" [class.mi-clase2]="esCampoEditable(rowIndex, 12)">
+              <ng-container *ngIf="esCampoEditable(rowIndex, 12) && usuarioRegistra; else labelTemplate">
+                <mat-form-field  appearance="None" class="caksutilizar">
+                  <input matInput class="form-control " type="text" (input)="formatearValorMonto($event, element.temp_PalmaMed)" name="element.temp_PalmaMed"
+                    [ngModel]="formatNumber(element.temp_PalmaMed.toString())" (ngModelChange)="onSelectCommodity(element, $event, 4, 2)">
+                </mat-form-field>
+              </ng-container>
+              <ng-template #labelTemplate>
+                {{element.temp_PalmaMed | number:'1.2-2'}}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"
+            style="text-align: center; vertical-align: middle;"></tr>
+
+          <tr mat-row *matRowDef="let element columns: displayedColumns;"
+            style="text-align: center; vertical-align: middle;" class="my-mat-row">
+          </tr>
+
+        </table>
+      </div>
+    </div>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+
+  <ng-template #registroCampanhaForm let-modal>
+    <app-registroCampanha [visible]="myModal" (close)="cerrarModal($event)"></app-registroCampanha>
+  </ng-template>
+
+</div>

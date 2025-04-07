@@ -1,0 +1,2639 @@
+<div class="page-header">
+    <div class="page-leftheader">
+      <h4 class="page-title">{{ tituloTabla }}</h4>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a class="d-flex"
+            ><svg
+              class="svg-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path
+                d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"
+              />
+              <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" /></svg><span class="breadcrumb-icon"> Home</span></a
+          >
+        </li>
+        <li class="breadcrumb-item"><span>Fisicos</span></li>
+        <li class="breadcrumb-item">Cost Plus</li>
+        <!-- <li class="breadcrumb-item active" aria-current="page">Ventas Molienda</li> -->
+      </ol>
+    </div>
+  </div>
+  
+  <div class="row row-deck">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-4 col-lg-6 col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-xl-7 col-lg-7 col-md-7">
+                  <label class="form-label"
+                    >Sociedad <span class="text-red">*</span>
+                  </label>
+                  <ng-select class="form-control form-select" [(ngModel)]="selectedcompania" (change)="onSelectCompania($event)">
+                    <ng-option value="{{ compania.t033_ID }}"  *ngFor="let compania of compania">{{ compania.t033_Name }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+                <div *ngIf="!postCierre" class="col-xl-5 col-lg-5 col-md-5">
+                  <label class="form-label" >Subyacente <span class="text-red">*</span>
+                  </label>
+                  <ng-select class="form-control form-select" [(ngModel)]="selectedProducto" (change)="onSelectSubyacente($event)"
+                  >
+                    <ng-option value="{{ producto.t001_ID }}" *ngFor="let producto of productos">{{ producto.t001_Description }}</ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+          
+          </div>
+        </div>
+        <!--<div *ngIf="companiaSelected == 15" class="col-xl-2 col-lg-2 col-md-3">
+          <div  class="card">
+            <div class="card-body">
+              <div class="row">
+                <button
+                  type="button"
+                  class="btnresponsive btn btn-cierres"
+                  aria-expanded="false"
+                >
+                  <i class="fa fa-spinner"></i> Opción 1 --> <!-- Carga por Cliente -->
+           <!--     </button>
+              </div>
+              <br />
+              <div class="row">
+                <button
+                  type="button"
+                  class="btnresponsive btn btn-cierres"
+                  aria-expanded="false"
+                >
+                  <i class="fa fa-users"></i> Opción 2 --> <!-- Carga por Grupo -->
+            <!--    </button>
+              </div>
+            </div>
+          </div>
+        </div> -->
+  
+        <div class="col-xl-2 col-lg-3 col-md-3">
+          <div *ngIf="!postCierre" class="card">
+            <div class="card-body">
+              <div class="row">
+                <button type="button" class="btnresponsive btn btn-cierres"  aria-expanded="false" (click)="modalcerrarPortafolio(cierreMolienda)">
+                  <i class="fa fa-lock"></i> Realizar Cierre
+                </button>
+              </div>
+              <br />
+              <div class="row">
+                <button
+                  type="button"
+                  class="btnresponsive btn btn-cierres"
+                  aria-expanded="false"
+                  (click)="modalDeshacerCierrePortafolio(cierreMolienda)">
+                  <i class="fa fa-unlock"></i> Deshacer Cierre
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-3">
+          <div *ngIf="!postCierre" class="card">
+            <div class="card-body">
+              <div class="row">
+                <button type="button" class="btnresponsive btn btn-cierres" aria-expanded="false" id='b1' (click)="modalConsultaHistorica(consultaHistorica)">
+                  <i class="fa fa-search"></i> Consulta Histórica</button>
+              </div>
+              <br />
+              <div class="row">
+                <button type="button" class="btnresponsive btn btn-cierres" aria-expanded="false" (click)="reporteDelDia()">
+                  <i class="fa fa-envelope-o"></i> Reporte del día</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-3">
+          <app-mantenedorcost [ListaRelacionUnderluing]="productos" [SociedadSeleccionada]="companiaSelected" [ObjetoSociedad]="compania"
+          (alertaedicion)="getProductos(companiaSelected)" [listapuertoOrigen]="puertoOrigen" [listapuertoDestino]="puertoDestino"
+          ></app-mantenedorcost>
+        </div>
+        
+        <!-- <div class="col-xl-4 col-lg-1 col-md-2"> -->
+          <div class="col d-flex align-self-start justify-content-end">
+            <label class="form-switch">
+              <span class="form-switch-description me-2">Post Cierre</span>
+              <input
+                type="checkbox"
+                name="form-switch-checkbox1"
+                class="form-switch-input"
+                (change)="onCheckChangeCheck($event)"/>
+              <span class="form-switch-indicator"></span>
+            </label>
+          </div>
+        <!-- </div> -->
+  
+        <div class="col-xl-12 col-lg-12 col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="btn-group ms-1 mb-0 justify-content-start">
+                <div *ngIf="!postCierre" class="">
+                  <div *ngIf="estadoPortafolio.length <= 0" class="row">
+                    <!-- <a class="btn btn-abierto btn-sm mt-6 justify-content-start">PORTAFOLIO ABIERTO</a> -->
+                    <h5 class="mb-0"><i class="fa fa-check-circle"style="font-size:180%;color:green"></i> PORTAFOLIO ABIERTO</h5>
+                  </div>
+                  <div *ngIf="estadoPortafolio.length > 0" class="row">
+                    <h5><i class="fa fa-times-circle"style="font-size:180%;color:red"></i> PORTAFOLIO CERRADO</h5>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="card-options" ngbDropdown>
+                
+  
+                <div class="btn-group ms-5 mb-0">
+                  <button
+                    type="button"
+                    class="btn btn-white"
+                    aria-expanded="false"
+                    data-toggle="modal"
+                    (click)="modalIngresoContrato(IngresarContratoForm)"
+                  >
+                    <i class="fe fe-plus"></i>Agregar Contrato
+                  </button>
+                </div>
+              </div>
+            </div>
+            <a class="d-flex py-2" style="padding-left: 1.3%">
+              <span class="w-3 h-3 brround theadFlat me-2"></span> Flats
+              <div style="padding-left: 1.3%"></div>
+              <span class="w-3 h-3 brround theadFuturo me-2"></span> Futuros
+              <div style="padding-left: 1.3%"></div>
+              <span class="w-3 h-3 brround theadBase me-2"></span> Bases
+              <div style="padding-left: 1.3%"></div>
+              <span class="w-3 h-3 brround theadPortafolio me-2"></span> General
+              <div style="padding-left: 1.3%"></div>
+            </a>
+  
+            <div class="card-body">
+               <div>
+                         <input type="number" class="redondeado buscador"  size="100"    (keyup)="applyFilter()" placeholder=" Buscar por Código" autocomplete="off" [(ngModel)]="filtro">
+                        <br><br>
+                </div>
+                <!-- <mat-form-field appearance="fill" *ngFor="let empfilter of empFilters">
+                  <mat-label>{{ empfilter.name }}</mat-label>
+                  <mat-select
+                    [(value)]="empfilter.defaultValue"
+                    (selectionChange)="applyEmpFilter($event, empfilter)"
+                    multiple
+                  >
+                    <mat-option *ngFor="let op of empfilter.options" [value]="op">
+                      {{ op }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+  
+                <!-- <form [formGroup]="filterForm">
+                  <div mat-dialog-content class="filter__form">
+                    <div class="form-group">
+                      <mat-form-field>
+                      <mat-label>cliente</mat-label>
+                      <mat-select formControlName="s118_Cliente" (selectionChange)="formSubscribe($event)" multiple>
+                        <mat-option *ngFor="let cliente of filtroCliente" [value]="cliente">{{cliente}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field>
+                      <mat-label>Producto</mat-label>
+                      <mat-select formControlName="s118_Producto" multiple>
+                        <mat-option *ngFor="let producto of filtroProducto" [value]="producto">{{producto}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field>
+                      <mat-label>Destino</mat-label>
+                      <mat-select formControlName="s118_puerto_destino" >
+                        <mat-option *ngFor="let destino of filtroDestino" [value]="destino">{{destino}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    </div>
+                    <div class="modal-inforce__footer">
+                      <button type="submit" (click)="getFormsValue()" mat-button class="primary">Submit</button>
+                    </div>
+                  </div>
+                </form> -->
+  
+                
+  
+              <div  class="table-responsive">
+               
+                <div class="tabla-table-container">
+                        
+                        <table mat-table class="table table-bordered text-nowrap" class="example-table table-bordered" matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+                        style="width:100%"  [dataSource]="portafolioDS" >                
+                                <ng-container  matColumnDef="s118_Parent" sticky>
+                                  <th  mat-header-cell *matHeaderCellDef mat-sort-header > Contrato <br />Padre </th>
+                                  <td mat-cell *matCellDef="let element"> 
+                                    <div *ngIf="element.s118_Parent != 0" (click)="listarHijos(detallePrecios, element.s118_Codigo)">
+                                      <i  class="fa fa-black-tie fa-2x" style="color:#37aaf1;" aria-hidden="true"></i>
+                                    </div>
+                                  </td>
+                                </ng-container>
+                                
+                                <ng-container  matColumnDef="s118_Producto" >
+                                  <!-- <th  mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th> -->
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    <mat-form-field>
+                                      <mat-label>Producto</mat-label>
+                                      <mat-select name="s118_Producto" (selectionChange)="seleccionarFiltro()" [(ngModel)]="productofiltrado" multiple>
+                                        <mat-option *ngFor="let producto of filtroProducto" [value]="producto">{{producto}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                  </th>
+                                  <td mat-cell *matCellDef="let element" 
+                                  > {{element.s118_Producto}}
+                                  </td>
+                                </ng-container>
+                                
+                                <ng-container matColumnDef="s118_Codigo" sticky>
+                                  <th class="thead" class="border-bottom-0" mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.s118_Codigo}} </td>
+                                </ng-container>
+                              
+                                <ng-container class="border-bottom-0" matColumnDef="s118_Split">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Split </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.s118_Split}} </td>
+                                </ng-container>
+                        
+                                <ng-container  class="border-bottom-0" matColumnDef="s118_contrato_sociedad">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Contrato <br />Sociedad </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.s118_contrato_sociedad}} </td>
+                                </ng-container>
+  
+                                <ng-container  class="border-bottom-0" matColumnDef="s118_contrato_externo">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contrato <br />Externo </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_contrato_externo}} </td>
+                                </ng-container>                      
+  
+                                <ng-container class="border-bottom-0" matColumnDef="s118_codigo_barco">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Código Barco </th> 
+                                        <td mat-cell *matCellDef="let element">  {{element.s118_codigo_barco}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_nombre_barco">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Barco </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_nombre_barco}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_Comentario">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Comentario </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Comentario}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_Fecha">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Fecha | date: "dd/MM/yyyy"}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_compra_venta">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Compra/Venta </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_compra_venta}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_Cliente">
+                                        <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header> <ng-select
+                                          class="form-control form-select"
+                                          name="s118_Cliente"
+                                          multiple="true"
+                                          [(ngModel)]="clientefiltrado"
+                                          (change)="seleccionarFiltro()">
+                                          <ng-option
+                                            value="{{ cliente }}"
+                                            *ngFor="let cliente of filtroCliente"
+                                            >{{ cliente }}</ng-option
+                                          >
+                                        </ng-select> </th> -->
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                          <mat-form-field>
+                                            <mat-label style="color:white">Cliente</mat-label>
+                                            <mat-select name="s118_Cliente" (selectionChange)="seleccionarFiltro()" [(ngModel)]="clientefiltrado" multiple>
+                                              <mat-option *ngFor="let cliente of filtroCliente" [value]="cliente">{{cliente}}</mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Cliente}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_Zona">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Zona </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Zona}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_SociedadNA">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sociedad Nutrición <br />Animal </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_SociedadNA}} </td>
+                                </ng-container>
+  
+                               <ng-container matColumnDef="s118_Origen">
+                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Origen </th> 
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Origen}} </td>
+                                </ng-container> 
+  
+                                <ng-container matColumnDef="s118_Inicio">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Inicio </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Inicio | date: "dd/MM/yyyy"}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_Fin">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Fin </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Fin | date: "dd/MM/yyyy"}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_Contrato">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Futuro </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Contrato}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_puerto_origen">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Puerto de Carga </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_puerto_origen}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_puerto_destino">
+                                        <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header> Destino </th> -->
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                          <mat-form-field>
+                                            <mat-label>Destino</mat-label>
+                                            <mat-select name="s118_puerto_destino" (selectionChange)="seleccionarFiltro()" [(ngModel)]="destinofiltrado" multiple>
+                                              <mat-option *ngFor="let destino of filtroDestino" [value]="destino">{{destino}}</mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_puerto_destino}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_Incoterm">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Incoterm </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Incoterm}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_TMTotal">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> TM </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_TMTotal}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_tmpor_facturar">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> TM Por Facturar </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_tmpor_facturar | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_AvanceSAP">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Avance SAP </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_AvanceSAP | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_tipo_precio">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Precio </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_tipo_precio}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_Campania">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Campaña </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Campania}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_precio_flat">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFlat"> Precio USD </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_precio_flat | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                 <ng-container matColumnDef="s118_fecha_flat">
+                                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFlat"> Fecha </th> 
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_fecha_flat | date: "dd/MM/yyyy"}} </td>
+                                </ng-container> 
+  
+                                <ng-container matColumnDef="s118_fijado_flattm">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFlat"> Fijados TM </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_fijado_flattm | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_saldo_flattm">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFlat"> Saldo TM </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_saldo_flattm | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_fijado_flat_caks">
+                                       <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFlat"> Fijados CAKS </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_fijado_flat_caks | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_saldo_flat_caks">
+                                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFlat"> Saldo CAKS </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_saldo_flat_caks | number:'1.2-2'}} </td>
+                                </ng-container> 
+  
+                                <ng-container matColumnDef="s118_precio_futuro">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFuturo"> Precio {{ tickerPortafolio }} </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_precio_futuro | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_fecha_futuro">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFuturo"> Fecha </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_fecha_futuro | date: "dd/MM/yyyy"}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_fijado_futurotm">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFuturo"> Fijados TM </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_fijado_futurotm | number:'1.2-2'}} </td> 
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_saldo_futurotm">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFuturo"> Saldo TM </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_saldo_futurotm | number:'1.2-2'}} </td> 
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_fijado_futuro_caks">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFuturo"> Fijados CAKS </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_fijado_futuro_caks | number:'1.0-0'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_saldo_futuro_caks">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadFuturo"> Saldo CAKS </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_saldo_futuro_caks | number:'1.0-0'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_precio_base">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadBase"> Precio {{ tickerPortafolio }} </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_precio_base | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_fecha_base">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadBase"> Fecha </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_fecha_base | date: "dd/MM/yyyy"}} </td> 
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_fijado_basetm">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadBase"> Fijados TM</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_fijado_basetm | number:'1.0-0'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_saldo_basetm">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadBase"> Saldo TM </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_saldo_basetm | number:'1.0-0'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_fijado_base_caks">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadBase"> Fijados CAKS </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_fijado_base_caks | number:'1.2-2'}} </td> 
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_saldo_base_caks">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="theadBase"> Saldo CAKS </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_saldo_base_caks | number:'1.2-2'}} </td> 
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_Otros">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Otros </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Otros | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_Precio">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio USD </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Precio | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_PnLAsignado">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> P&L Asignado </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_PnLAsignado | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_FOB">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> FOB </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_FOB | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_Flete">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Flete </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_Flete | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+                                <ng-container matColumnDef="s118_CFR">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CFR </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.s118_CFR | number:'1.2-2'}} </td>
+                                </ng-container>
+  
+  
+                                <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true" 
+                                style="text-align: center; vertical-align: middle;"  
+                                
+                                ></tr>
+                                
+                                <tr class="tbody" (contextmenu)="onContextMenu($event, element.s118_Codigo)" mat-row *matRowDef="let element; columns: displayedColumns;"
+                                style="text-align: center; vertical-align: middle;" 
+                                [class.selected]="element.selected"
+                                (click)="element.selected= !element.selected">
+                                  >         
+                                </tr>
+                                
+                        </table>
+                </div>
+        </div>
+        <mat-paginator [pageSizeOptions]="[15, 25, 100]"></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div
+    style="visibility: hidden; position: fixed"
+    [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y"
+    [matMenuTriggerFor]="contextMenu"
+  ></div>
+  <mat-menu #contextMenu="matMenu" #contextMenu2="matMenu">
+    <ng-template matMenuContent let-item="item">
+      <button mat-menu-item [matMenuTriggerFor]="base">Bases</button>
+      <button mat-menu-item [matMenuTriggerFor]="futuro">Futuros</button>
+      <button mat-menu-item [matMenuTriggerFor]="flat">Flats</button>
+      <button mat-menu-item (click)="listarFormacionPrecios(detallePrecios)">
+        Precios
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menVentaParcial">
+        Factura <!-- Venta Parcial -->
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="otros">Otras Acciones</button>
+      <button *ngIf="companiaSelected == 15" mat-menu-item (click)="mostratGrupoRT(detallePrecios)">
+        Mostrar Grupo
+      </button>
+      <button *ngIf="companiaSelected == 15" mat-menu-item (click)="cerrarFacturaRT()">
+        Cerrar Facturación
+      </button>
+      
+    </ng-template>
+  </mat-menu>
+  <mat-menu #otros="matMenu">
+    <button mat-menu-item (click)="ModaldividirContrato()">Dividir</button>
+    <button mat-menu-item (click)="ModalduplicarContrato()">Duplicar</button>
+    <button mat-menu-item (click)="ModalcancelarContrato()">Cancelar</button>
+    <button mat-menu-item [matMenuTriggerFor]="modificar">Modificar</button>
+    <button *ngIf="companiaSelected == 21" mat-menu-item (click)="exportarCierreComercial()">Cierre Comercial</button>
+    <button mat-menu-item (click)="mostratAvanceSAP(detallePrecios)">Mostrar Avance SAP</button>
+  </mat-menu>
+  
+  <mat-menu #modificar="matMenu">
+    <a mat-menu-item (click)="modalModificarContrato(IngresarContratoForm)">Modificar Contrato </a>
+    <!-- <a mat-menu-item (click)="onContextMenuAction()">Modificar Precio</a> -->
+  </mat-menu>
+  <mat-menu #flat="matMenu">
+    <a mat-menu-item (click)="modalIngresarFlat(ComprarFlat)">Comprar</a>
+    <a mat-menu-item (click)="listarFlats(detallePrecios)">Mostrar</a>
+  </mat-menu>
+  <mat-menu #futuro="matMenu">
+    <a mat-menu-item (click)="modalIngresarFuturo(ComprarFuturo)">Pactar</a>
+    <a mat-menu-item (click)="listarFuturos(detallePrecios)">Mostrar</a>
+  </mat-menu>
+  <mat-menu #base="matMenu">
+    <a mat-menu-item (click)="modalpactarBase(pactarBase)">Pactar</a>
+    <a mat-menu-item (click)="listarBases(detallePrecios)">Mostrar</a>
+  </mat-menu>
+  <mat-menu #menVentaParcial="matMenu">
+    <a mat-menu-item (click)="ModalVentaParcial(IngresarVentaParcial, IngresarFactura)">Ingresar</a> 
+    <!-- <a mat-menu-item (click)="obtenerDescargasParciales(listaDescargaParcial)">Mostrar</a> -->
+    <a mat-menu-item (click)="obtenerDescargasParciales(listaDescargaParcial, consultaDosificadas)">Mostrar</a>
+  </mat-menu>
+  
+  <ng-template #IngresarContratoForm let-modal
+  [config]="{backdrop: 'static',  keyboard: false}">
+     <div role="document" > <!--class="msg_card_body" -->
+      <div class="modal-header">
+        <h5 *ngIf="flgIngresarContrato" class="modal-title">Ingresar Contrato</h5>
+        <h5 *ngIf="!flgIngresarContrato" class="modal-title">Modificar Contrato</h5>
+        <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="py-1">
+          <form class="form" novalidate="">
+            <div class="row">
+              <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Código </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input id="deshabilitado" class="form-control" type="text" placeholder="Código" name="t218_ID"  [(ngModel)]="nuevoContrato.t218_ID" readonly/>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Mercado </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t218_Market"
+                      [(ngModel)]="nuevoContrato.t218_Market"
+                      (change)="obtenerContrato($event)"
+                    >
+                      <ng-option
+                        value="{{ market.s114_Codigo }}"
+                        *ngFor="let market of market"
+                        >{{ market.s114_Descripcion }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Compra/Venta </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t218_SellBuy"
+                      [(ngModel)]="nuevoContrato.t218_SellBuy"
+                    >
+                      <ng-option
+                        value="{{ compraventa.s114_Codigo }}"
+                        *ngFor="let compraventa of compraventa"
+                        >{{ compraventa.s114_Descripcion }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Fecha </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="date"
+                      placeholder="yyyy-mm-dd"
+                      [(ngModel)]="fecha"
+                      ngbDatepicker
+                      (click)="d1.toggle()"
+                      #d1="ngbDatepicker"
+                      name="t218_Date"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Campaña </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t218_Campaign"
+                      [(ngModel)]="nuevoContrato.t218_Campaign"
+                    >
+                      <ng-option
+                        value="{{ campania.s204_ID }}"
+                        *ngFor="let campania of campania"
+                        >{{ campania.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Origen </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t218_Country"
+                      [(ngModel)]="nuevoContrato.t218_Country"
+                    >
+                      <ng-option
+                        value="{{ origen.s204_ID }}"
+                        *ngFor="let origen of origen"
+                        >{{ origen.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Incoterm </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t218_Incoterm"
+                      [(ngModel)]="nuevoContrato.t218_Incoterm"
+                    >
+                      <ng-option
+                        value="{{ incoterm.s204_ID }}"
+                        *ngFor="let incoterm of incoterm"
+                        >{{ incoterm.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Cliente </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t218_GrindingCustomer"
+                      [(ngModel)]="nuevoContrato.t218_GrindingCustomer"
+                      (change)="selectCliente($event, barcoForm)"
+                    >
+                      <ng-option
+                        value="{{ cliente.s204_ID }}"
+                        *ngFor="let cliente of cliente"
+                        >{{ cliente.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                  
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Zona </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t218_IDZona"
+                      [(ngModel)]="nuevoContrato.t218_IDZona"
+                    >
+                      <ng-option
+                        value="{{ zona.s204_ID }}"
+                        *ngFor="let zona of zona"
+                        >{{ zona.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Tonelada Metrica </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="number"
+                      (keyup)="numberOnly($event,100000000,'TM')"
+                      placeholder="Tonelada Metrica"
+                      name="t218_MetricTons"
+                      (change)="calcularCaks()"
+                      [(ngModel)]="nuevoContrato.t218_MetricTons"
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Tolerancia %</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="number"
+                      (keyup)="numberOnly($event,100,'Tolerancia')"
+                      placeholder="Tolerancia"
+                      name="t218_Tolerance"
+                      [(ngModel)]="nuevoContrato.t218_Tolerance"
+                    />
+  
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Puerto Origen </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t218_PortFrom"
+                      [(ngModel)]="nuevoContrato.t218_PortFrom"
+                    >
+                      <ng-option
+                        value="{{ puertoOrigen.s204_ID }}"
+                        *ngFor="let puertoOrigen of puertoOrigen"
+                        >{{ puertoOrigen.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Puerto Destino </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t218_PortUp"
+                      [(ngModel)]="nuevoContrato.t218_PortUp"
+                    >
+                      <ng-option
+                        value="{{ puertoDestino.s204_ID }}"
+                        *ngFor="let puertoDestino of puertoDestino"
+                        >{{ puertoDestino.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Tipo precio </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      (change)="cambioTipoPrecio($event)"
+                      name="t218_PriceType"
+                      [(ngModel)]="nuevoContrato.t218_PriceType"
+                      [disabled]="!flgModificarTipoPrecio"
+                    >
+                      <ng-option
+                        value="{{ tipoPrecio.s204_ID }}"
+                        *ngFor="let tipoPrecio of tipoPrecio"
+                        >{{ tipoPrecio.s204_Description }}</ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <!-- <span class="br"></span>
+                <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2">
+                  <button
+                    type="button"
+                    class="btnresponsive btn btn-cierres"
+                    aria-expanded="false"
+                    (change)="selectCliente($event, barcoForm)">
+                    <i class="fa fa-edit"></i>Editar Barco
+                  </button>
+                </div>
+                </div>   -->
+              </div>
+              <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Subyacente </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <!-- <ng-select
+                      *ngIf="!flgIngresarContrato"
+                      class="form-control form-select"
+                      [(ngModel)]="selectedProductoModal"
+                      (change)="getCombosContrato($event)"
+                      name="subyacente">
+                      <ng-option
+                        value="{{ producto.t001_ID }}"
+                        *ngFor="let producto of productosMolienda"
+                        >{{ producto.t001_Description }}</ng-option>
+                    </ng-select> -->
+                    <ng-select
+                      class="form-control form-select"
+                      [(ngModel)]="selectedProductoModal"
+                      (change)="getCombosContrato($event)"
+                      name="subyacente"
+                      [disabled]="!flgIngresarContrato">
+                      <ng-option
+                        value="{{ producto.t001_ID }}"
+                        *ngFor="let producto of productosMolienda"
+                        >{{ producto.t001_Description }}</ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Producto </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t218_GrindingProduct"
+                      [disabled]="!flgIngresarContrato"
+                      [(ngModel)]="nuevoContrato.t218_GrindingProduct"
+                    >
+                      <ng-option
+                        value="{{ producto.s204_ID }}"
+                        *ngFor="let producto of producto"
+                        >{{ producto.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Contrato Sociedad </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <!-- <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model1"
+                                                      ngbDatepicker (click)="d2.toggle()" #d2="ngbDatepicker" name="contratoSociedad"> -->
+                    <input
+                      id="deshabilitado"
+                      class="form-control"
+                      type="text"
+                      name="t218_ContractBySociety"
+                      [(ngModel)]="nuevoContrato.t218_ContractBySociety"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Contrato Externo </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="text"
+                      maxlength="30"
+                      placeholder="Contrato Externo"
+                      name="t218_ClientContract"
+                      [(ngModel)]="nuevoContrato.t218_ClientContract"
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3">
+                    <label class="form-label">Barco </label>
+                  </div>
+                  <div class="col-xl-1 col-lg-1 col-md-1">
+                    <i *ngIf="flgAgregarBarco" (click)="mostrarIngresoBarco()" class="fa fa-eye" aria-hidden="true"></i>
+                    <i *ngIf="!flgAgregarBarco" (click)="mostrarIngresoBarco()" class="fa fa-eye-slash" aria-hidden="true"></i>
+                  </div>                
+                  <div *ngIf="!flgAgregarBarco" class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t218_Shipment"
+                      [(ngModel)]="nuevoContrato.t218_Shipment"
+                    >
+                      <ng-option
+                        value="{{ barco.s204_ID }}"
+                        *ngFor="let barco of barcos"
+                        >{{ barco.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                  <div *ngIf="flgAgregarBarco" class="col-xl-8 col-lg-8 col-md-8">
+                    <div class="row">
+                      <div class="col-xl-7 col-lg-7 col-md-7">
+                        <input
+                        type="text"
+                        class="form-control"
+                        name="txtNuevoBarco"
+                        [(ngModel)]="txtNuevoBarco" 
+                        />
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <button
+                          type="button"
+                          class="btnresponsive btn btn-cierres"
+                          aria-expanded="false"
+                          (click)="guardarNuevoBarco()"
+                        > Guardar
+                        </button>               
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="card shadow-none border">
+                  <h3 class="modal-title">Calendario</h3>
+  
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Fecha Inicio </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        type="date"
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        [(ngModel)]="fechInicio"
+                        ngbDatepicker
+                        (click)="d3.toggle()"
+                        #d3="ngbDatepicker"
+                        name="t218_StartDate"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Fecha Fin </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        type="date"
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        [(ngModel)]="fechFin"
+                        ngbDatepicker
+                        (click)="d4.toggle()"
+                        #d4="ngbDatepicker"
+                        name="fechFin"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col d-flex justify-content-end">
+                      <button
+                        class="btn btn-green"
+                        (click)="modalMostrarCalendario(CalendarioModal)">
+                        Mostrar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="card shadow-none border">
+                  <!-- <legend>Precio</legend> -->
+                  <h3 class="modal-title">Precio</h3>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Bolsa </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select
+                        class="form-control form-select"
+                        (change)="getContratos($event)"
+                        [(ngModel)]="bolsaSelectedModal"
+                        name="bolsaSelectedModal"
+                        disabled
+                      >
+                        <ng-option
+                          value="{{ bolsa.s204_ID }}"
+                          *ngFor="let bolsa of bolsa"
+                          >{{ bolsa.s204_Description }}</ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Contrato </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select
+                        class="form-control form-select"
+                        name="t218_Contract"
+                        [(ngModel)]="nuevoContrato.t218_Contract"
+                        (change)="calcularCaks()"
+                      >
+                        <ng-option
+                          value="{{ contrato.s204_ID }}"
+                          *ngFor="let contrato of contrato"
+                          >{{ contrato.s204_Description }}</ng-option
+                        >
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Caks </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      id="deshabilitado"
+                      class="form-control"
+                      type="text"
+                      placeholder="Cacks"
+                      name="caksInt"
+                      [(ngModel)]="caksInt"
+                      ng-model="t218_VolumeContract | number : 2"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Comentarios </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="comentarios"
+                      maxlength="100"
+                      placeholder="comentarios"
+                      [(ngModel)]="nuevoContrato.t218_Commentary"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="br"></span>
+            <div class="row">
+              <div class="col d-flex justify-content-end">
+                <button
+                *ngIf="flgIngresarContrato"
+                  class="btn btn-green"
+                  type="submit"
+                  (click)="GuardarContrato(nuevoContrato, IngresarContratoForm)"
+                  [disabled]="!flgBontonContrato">
+                  Aceptar
+                </button>
+                <button
+                *ngIf="!flgIngresarContrato"
+                  class="btn btn-green"
+                  type="submit"
+                  (click)="ActualizarContrato(nuevoContrato, IngresarContratoForm)"
+                  [disabled]="!flgBontonContrato">
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #detallePrecios let-modal >
+    <app-detallePrecios [visible]="flgModal"  (close)="cerrarModal($event)"></app-detallePrecios>
+  </ng-template>
+  <!-------------------------------------------------------------- Modal BARCO -------------------------------------------------------------------------------------->
+  <ng-template #barcoForm let-modal
+  [config]="{backdrop: 'static',  keyboard: false}">
+    <div class="card">
+      <div role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Barco</h5>
+            <button
+              type="button"
+              class="btn-close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="py-1">
+              <form class="form" novalidate="">
+                <div class="card shadow-none">
+                  <div class="row">
+                    <div class="col col-xl-6 col-lg-6 col-md-6">
+                      <div
+                        *ngIf="
+                          nuevoContrato.t218_Incoterm == 5 ||
+                          nuevoContrato.t218_Incoterm == 6
+                        "
+                        class="row"
+                      >
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Flete </label>
+                        </div>
+                        <div
+                          *ngIf="nuevoContrato.t218_Incoterm == 5"
+                          class="col-xl-8 col-lg-8 col-md-8"
+                        >
+                          <input
+                            class="form-control"
+                            type="text"
+                            name="t039_Freight"
+                            [(ngModel)]="nuevoFisico.t039_Freight"
+                          />
+                        </div>
+                        <div
+                          *ngIf="nuevoContrato.t218_Incoterm == 6"
+                          class="col-xl-8 col-lg-8 col-md-8"
+                        >
+                          <input
+                            id="deshabilitado"
+                            class="form-control"
+                            type="text"
+                            name="t039_Freight"
+                            [(ngModel)]="nuevoFisico.t039_Freight"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                      <span class="br"></span>
+                      <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Código Interno</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                          <input
+                            class="form-control"
+                            type="text"
+                            name="t039_InternalCode"
+                            [(ngModel)]="nuevoFisico.t039_InternalCode"
+                          />
+                        </div>
+                      </div>
+                      <span class="br"></span>
+                      <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Fecha llegada</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                          <input
+                            class="form-control"
+                            placeholder="yyyy-mm-dd"
+                            [(ngModel)]="fechaBarco"
+                            ngbDatepicker
+                            (click)="d5.toggle()"
+                            #d5="ngbDatepicker"
+                            name="t039_ArrivalDate"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col col-xl-6 col-lg-6 col-md-6">
+                      <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Destino</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                          <ng-select
+                            class="form-control form-select"
+                            [(ngModel)]="nuevoFisico.t039_Destination"
+                            name="t039_Destination"
+                          >
+                            <ng-option
+                              value="{{ destinoBarco.s114_Codigo }}"
+                              *ngFor="let destinoBarco of destinoBarco"
+                              >{{ destinoBarco.s114_Descripcion }}</ng-option
+                            >
+                          </ng-select>
+                        </div>
+                      </div>
+                      <span class="br"></span>
+                      <div class="row">
+                        <ng-container *ngIf="nuevoFisico.t039_Destination == '1'">
+                          <div class="col-xl-4 col-lg-4 col-md-4">
+                            <label class="form-label">N.A.Sociedad</label>
+                          </div>
+                          <div class="col-xl-8 col-lg-8 col-md-8">
+                            <ng-select
+                              class="form-control form-select"
+                              [(ngModel)]="nuevoNutricionAnimal.t170_Society"
+                              name="nuevoNutricionAnimal.t170_Society">
+                              <ng-option
+                                value="{{ companiasBarcos.t033_ID }}"
+                                *ngFor="let companiasBarcos of companiasBarcos"
+                                >{{ companiasBarcos.t033_Name }}</ng-option
+                              >
+                            </ng-select>
+                          </div>
+                        </ng-container>
+                        <ng-container *ngIf="nuevoFisico.t039_Destination == '2'">
+                          <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Sociedad</label>
+                          </div>
+                          <div class="col-xl-8 col-lg-8 col-md-8">
+                          <ng-select
+                              class="form-control form-select"
+                              name="t260_Plant"
+                              [(ngModel)]="consumoHumano.t478_Society">
+                              <ng-option value="{{ item.s204_ID }}"
+                              *ngFor="let item of comboSociedadesConsumoHumano">{{ item.s204_Description }}</ng-option>
+                          </ng-select>
+                          </div>
+                        </ng-container>
+  
+                      </div>
+                      <span class="br"></span>
+                      <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Locación</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                          <ng-select
+                            class="form-control form-select"
+                            name="t039_Location"
+                            [(ngModel)]="nuevoFisico.t039_Location"
+                          >
+                            <ng-option
+                              value="{{ locacionBarco.s114_Codigo }}"
+                              *ngFor="let locacionBarco of locacionBarco"
+                              >{{ locacionBarco.s114_Descripcion }}</ng-option
+                            >
+                          </ng-select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col d-flex justify-content-end">
+                    <button
+                      class="btn btn-green"
+                      type="submit"
+                      (click)="GuardarIntercompany(barcoForm)"
+                      (click)="modal.dismiss('Cross click')"
+                      [disabled]="!flgBontonBarco">
+                      Aceptar
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <!-------------------------------------------------------------- Modal COMPRAR FLAT -------------------------------------------------------------------------------------->
+  <ng-template #ComprarFlat let-modal>
+    <div role="document" > <!--class="msg_card_body" -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ingresar Flat</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-1">
+            <form class="form" novalidate="">
+              <div class="card shadow-none">
+                <div class="row">
+                  <div class="col col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Contrato Venta:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          id="deshabilitado"
+                          class="form-control"
+                          type="text"
+                          name="flete"
+                          [(ngModel)]="nuevoContrato.t218_ID"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Código Flat:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          id="deshabilitado"
+                          class="form-control"
+                          type="text"
+                          name="nuevoFlat.t230_ID"
+                          [(ngModel)]="nuevoFlat.t230_ID"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Operación:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          id="deshabilitado"
+                          class="form-control"
+                          type="text"
+                          name="codioInterno"
+                          value="Compra"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Comentario:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="nuevoFlat.t230_Comment"
+                          [(ngModel)]="nuevoFlat.t230_Comment"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Fecha:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          placeholder="yyyy-mm-dd"
+                          [(ngModel)]="fecha"
+                          ngbDatepicker
+                          (click)="d5.toggle()"
+                          #d5="ngbDatepicker"
+                          name="fecha"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Flat USD:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="number"
+                          name="codioInterno"
+                          [(ngModel)]="nuevoFlat.t230_FlatUSD"
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Número de Contratos:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          id="deshabilitado"
+                          class="form-control"
+                          type="number"
+                          name="t218_VolumeContract"
+                          [(ngModel)]="nuevoContrato.t218_VolumeContract"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Toneladas Métricas:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="number"
+                          name="t218_MetricTons"
+                          [(ngModel)]="nuevoContrato.t218_MetricTons"
+                          (change)="calcularCaks()"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col d-flex justify-content-end">
+                  <button
+                    class="btn btn-green"
+                    type="submit"
+                    [disabled]="!flgBontongenerico"
+                    (click)="GuardarFlat(ComprarFlat, nuevoFlat)"
+                  >
+                    Aceptar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <!-------------------------------------------------------------- Modal COMPRAR FUTURO -------------------------------------------------------------------------------------->
+  <ng-template #ComprarFuturo let-modal>
+    <div role="document" > <!--class="msg_card_body" -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ingresar Futuro</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="modal.dismiss('Cross click')"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-1">
+            <form class="form" novalidate="">
+              <div class="card shadow-none">
+                <div class="row">
+                  <div class="col col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Contrato Venta:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          id="deshabilitado"
+                          class="form-control"
+                          type="text"
+                          name="t218_ID"
+                          [(ngModel)]="nuevoContrato.t218_ID"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Código Futuro:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          id="deshabilitado"
+                          class="form-control"
+                          type="text"
+                          name="nuevoFuturo.t227_ID"
+                          [(ngModel)]="nuevoFuturo.t227_ID"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Operación:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <ng-select
+                          class="form-control form-select"
+                          name="nuevoFuturo.t227_SellBuy"
+                          [(ngModel)]="nuevoFuturo.t227_SellBuy"
+                        >
+                          <ng-option
+                            value="{{ compraventa.s114_Codigo }}"
+                            *ngFor="let compraventa of compraventa"
+                            >{{ compraventa.s114_Descripcion }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Comentario:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="t227_Comment"
+                          [(ngModel)]="nuevoFuturo.t227_Comment"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Fecha:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          placeholder="yyyy-mm-dd"
+                          [(ngModel)]="fechaModal"
+                          ngbDatepicker
+                          (click)="d5.toggle()"
+                          #d5="ngbDatepicker"
+                          name="fechaModal"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Futuro Precio:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="number"
+                          name="precio"
+                          [(ngModel)]="nuevoFuturo.t227_FutureUSD"
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Número de Contratos:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="number"
+                          name="t218_VolumeContract"
+                          [(ngModel)]="nuevoContrato.t218_VolumeContract"
+                          (change)="calcularCaksXContratos()"
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Toneladas Métricas:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          id="deshabilitado"
+                          class="form-control"
+                          type="text"
+                          name="t218_MetricTons"
+                          [(ngModel)]="nuevoContrato.t218_MetricTons"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col d-flex justify-content-end">
+                  <button
+                    class="btn btn-green"
+                    type="submit"
+                    [disabled]="!flgBontongenerico"
+                    (click)="GuardarFuturo(ComprarFuturo, nuevoFuturo)"
+                  >
+                    Aceptar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <!-------------------------------------------------------------- Modal CALENDARIO -------------------------------------------------------------------------------------->
+  <ng-template #CalendarioModal let-modal>
+    <div class="card">
+      <div role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Calendario</h5>
+            <button
+              type="button"
+              class="btn-close"
+              (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+                <div class="card shadow-none">
+                  <div class="row">
+                    <div class="col col-xl-12 col-lg-12 col-md-12">
+                      <table
+                        id="myTable1"
+                        class="table table-bordered text-nowrap"
+                        style="width: 100%">
+                        <thead>
+                          <tr class="bold">
+                            <th class="border-bottom-0">#</th>
+                            <th class="border-bottom-0">Mes</th>
+                            <th class="border-bottom-0">TM</th>
+                            <th class="border-bottom-0"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            *ngFor="let item of planificacionConsumo; let i = index"
+                          >
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              {{ item.s176_Mes }}
+                            </td>
+                            <td>
+                              <input
+                                class="form-control"
+                                type="text"
+                                name="item.s176_TM"
+                                value="{{ item.s176_TM}}"
+                                [(ngModel)]="item.s176_TM"
+                              />
+                            </td>
+                            <td class="text-center" (click)="quitarmes(i)">
+                              <div class="zmdi zmdi-delete" ></div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="row">
+                      <div class="col d-flex justify-content-end">
+                        <button class="btn btn-green" type="submit"  (click)="agregarmes()">Agregar</button>
+                      </div>
+                      <div class="col d-flex justify-content-end">
+                        <button class="btn btn-green" type="submit" 
+                        (click)="modal.dismiss('Cross click')"
+                        (click)="guardarCalendario()">Aceptar</button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+            </div>
+      </div>     
+    </div>
+  </ng-template>
+  <!-------------------------------------------------------------- Modal COMPRAR BASE -------------------------------------------------------------------------------------->
+  <ng-template #pactarBase let-modal>
+    <div role="document" > <!--class="msg_card_body" -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ingresar Base</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="modal.dismiss('Cross click')"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-1">
+            <form class="form" novalidate="">
+              <div class="row">
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Contrato Venta:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="t218_ID"
+                        [(ngModel)]="nuevoContrato.t218_ID"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Código Base:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="codioInterno"
+                        [(ngModel)]="nuevaBase.t228_ID"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Operación:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select
+                        class="form-control form-select"
+                        name="t228_SellBuy"
+                        [(ngModel)]="nuevaBase.t228_SellBuy"
+                        (change)="calcularMontoTotal()"
+                      >
+                        <ng-option
+                          value="{{ compraventa.s114_Codigo }}"
+                          *ngFor="let compraventa of compraventa"
+                          >{{ compraventa.s114_Descripcion }}</ng-option
+                        >
+                      </ng-select>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Fecha:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        [(ngModel)]="fechaModal"
+                        ngbDatepicker
+                        (click)="d5.toggle()"
+                        #d5="ngbDatepicker"
+                        name="fechaModal"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div *ngIf="nuevaBase.t228_SellBuy == '2'" class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">P&L USD:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="pnl"
+                        [(ngModel)]="baseProfitAndLoss.t340_ProfitAndLoss"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2">
+                      <label class="custom-control custom-checkbox">
+                       <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          name="washOut_Base"
+                          [(ngModel)]="washOut_Base"
+                          (change)="gananciaPerdidaBases()"
+                        />
+                       <span class="custom-control-label"></span>
+                        
+                        
+                      </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <label class="form-label">Washout</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Base Precio:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="base"
+                        [(ngModel)]="nuevaBase.t228_BaseUSD"
+                        (change)="gananciaPerdidaBases()"
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Número de Contratos:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="t218_VolumeContract"
+                        [(ngModel)]="nuevoContrato.t218_VolumeContract"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Toneladas Métricas:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="t218_MetricTons"
+                        [(ngModel)]="nuevoContrato.t218_MetricTons"
+                        (change)="calcularCaks()"
+                        (change)="gananciaPerdidaBases()"
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Comentario:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="t228_Comment"
+                        [(ngModel)]="nuevaBase.t228_Comment"
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div *ngIf="nuevaBase.t228_SellBuy == '2'" class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Costo:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="costo_Base"
+                        [(ngModel)]="baseProfitAndLoss.t340_Cost"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div *ngIf="washOut_Base" class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Premio Calidad:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="premioCalidad_Base"
+                        [(ngModel)]="premioCalidad_Base"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div *ngIf="washOut_Base" class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Flete Maritimo:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="fleteMaritimo_Base"
+                        [(ngModel)]="fleteMaritimo_Base"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <span class="br"></span>
+                <div class="col d-flex justify-content-end">
+                  <button
+                    class="btn btn-green"
+                    type="submit"
+                    [disabled]="!flgBontongenerico"
+                    (click)="GuardarBase(pactarBase, nuevaBase)">
+                    Aceptar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  
+  <ng-template #IngresarVentaParcial let-modal>
+    <div role="document" > <!--class="msg_card_body" -->
+      <div class="modal-header">
+        <h5 class="modal-title">Venta Parcial</h5>
+        <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <mat-icon>close</mat-icon>
+        </button>
+
+      </div>
+      <div class="modal-body">
+        <div class="py-1">
+          <form class="form" novalidate="">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="row mb-2">
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="col-form-label">Contrato Venta</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          id="deshabilitado"
+                          class="form-control"
+                          type="text"
+                          name="t229_SalesContract"
+                          [(ngModel)]="nuevoPartialContractDownload.t229_SalesContract"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="col-form-label">Fecha </label>
+                      </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                          <input
+                            class="form-control"
+                            type="date"
+                            placeholder="yyyy-mm-dd"
+                            [(ngModel)]="fecha"
+                            ngbDatepicker
+                            (click)="d1.toggle()"
+                            #d1="ngbDatepicker"
+                            name="t229_Date"
+                            readonly/>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row mb-2">
+              <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">TM </label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="text"
+                          placeholder="TM"
+                          name="t229_MetricTons"
+                          [(ngModel)]="nuevoPartialContractDownload.t229_MetricTons"
+                          (change)="transformarTMXContratos()"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Precio USD </label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="text"
+                          placeholder="Precio USD"
+                          name="t229_PriceUSD"
+                          [(ngModel)]="nuevoPartialContractDownload.t229_PriceUSD" readonly/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row mb-2">
+              <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Contratos </label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="text"
+                          placeholder="Contratos"
+                          name="t229_NumberOfContracts "
+                          [(ngModel)]="nuevoPartialContractDownload.t229_NumberOfContracts "
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Sustento </label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="text"
+                          placeholder="n° fact."
+                          name="t229_Support"
+                          [(ngModel)]="nuevoPartialContractDownload.t229_Support"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Precio Final USD </label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="number"
+                          placeholder="Precio Final USD"
+                          name="txtPrecioFinalVP"
+                          [(ngModel)]="txtPrecioFinalVP"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <hr *ngIf="companiaSelected == 22" class="mt-sm-2 mb-sm-2">
+  
+            <div class="row mb-2">
+              <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row" *ngIf="companiaSelected == 22">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label for="ifd" class="col-form-label">IFD USD/TM</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input type="number" class="form-control" name="ifd" [(ngModel)]="ifd">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row" *ngIf="companiaSelected == 22;">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="col-form-label" for="fob">FOB Factura</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input class="form-control" type="number" placeholder="" name="fob" [(ngModel)]="fob"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row mb-2">
+              <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row" *ngIf="companiaSelected == 22">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="col-form-label" for="flete">Flete Factura</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input class="form-control" type="number" placeholder="" name="flete" [(ngModel)]="flete"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row mb-2">
+              <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-5 col-lg-5 col-md-5">
+                        <label class="form-check-label" for="pasarFacturadaVP">
+                          Pasar a Facturada
+                        </label>
+                      </div>
+                      <div class="col-xl-7 col-lg-7 col-md-7">
+                        <div class="form-check">
+                          <input
+                          type="checkbox"
+                          class="form-check-input"
+                          name="pasarFacturadaVP"
+                          (change)="obtenerPrecioFinal();"
+                          [(ngModel)]="pasarFacturadaVP" id="pasarFacturadaVP"/>                        
+                        </div>  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col d-flex justify-content-end">
+                        <button
+                          class="btn btn-green"
+                          type="submit"
+                          [disabled]="!flgBontongenerico"
+                          (click)="guardarVentaParcial(IngresarVentaParcial)">
+                          Aceptar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  
+  <ng-template #listaDescargaParcial let-modal>
+    <div role="document" > <!--class="msg_card_body" -->
+      <div class="modal-header cabecera-blanca">
+        <h5 class="modal-title">Lista de Facturas</h5>
+        <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <mat-icon>close</mat-icon>
+        </button>
+
+      </div>
+      <div class="modal-body">
+        <div class="py-1">
+          <form class="form" novalidate="">
+              <div class="table-responsive">
+                <table id="myTable1" class="table table-bordered text-nowrap" style="width:100%"> <!-- table-striped -->
+                    <thead>
+                        <tr class="bold">
+                            <th class="border-bottom-0">#</th>
+                            <th class="border-bottom-0">Código</th>
+                            <th class="border-bottom-0">Contrato Venta</th>
+                            <th class="border-bottom-0">Fecha</th>
+                            <th class="border-bottom-0">Usuario</th>
+                            <th class="border-bottom-0">Tipo</th>
+                            <th class="border-bottom-0">Cliente</th>
+                            <th class="border-bottom-0"> Barco</th>
+                            <th class="border-bottom-0"> Sociedad Nutrición <br>Animal</th>
+                            <th class="border-bottom-0">TM</th>
+                            <th class="border-bottom-0">CAKS</th>
+                            <th class="border-bottom-0"> FOB</th>
+                            <th class="border-bottom-0"> Flete</th>
+                            <th class="border-bottom-0"> CFR</th>
+                            <th class="border-bottom-0"> Factura <br>Dosificada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr *ngFor="let lista of descargasParciales; let i = index">
+                                <td>{{(i + 1)}}</td>
+                                <td>
+                                        {{lista.s128_Codigo}}
+                                </td>
+                                <td>
+                                        {{lista.s128_ContratoVenta}}
+                                </td>
+                                <td>
+                                        {{lista.s128_Fecha | date : 'dd/MM/yyyy'}}   
+                                </td>
+                                <td>
+                                        {{lista.s128_Usuario}}
+                                </td>
+                                <td>
+                                        {{lista.s128_Tipo}}
+                                </td>
+                                <td>
+                                        {{lista.s128_Cliente}}
+                                </td>
+                                <td>
+                                        {{lista.s128_Barco}}
+                                </td>
+                                <td>
+                                        {{lista.s128_SociedadNutricionAnimal}}
+                                </td>
+                                <td>
+                                        {{lista.s128_TM | number: "1.2-2"}}
+                                </td>
+                                <td>
+                                        {{lista.s128_CAKS | number: "1.2-2"}}
+                                </td>
+                                <td>
+                                        {{lista.s128_FOB | number: "1.2-2"}}
+                                </td>
+                                <td>
+                                        {{lista.s128_Flete | number: "1.2-2"}}
+                                </td>
+                                <td>
+                                        {{lista.s128_CFR | number: "1.2-2"}}
+                                </td>
+                                <td>
+                                        {{lista.s128_Factura}}
+                                </td>
+                            </tr>
+                                                                                 
+                    </tbody>
+                      
+                </table>              
+          </div>
+        
+          </form>
+            
+          
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  
+  <ng-template #cierreMolienda let-modal>
+    <div role="document" > <!--class="msg_card_body" -->
+      <div class="modal-header">
+        <h5 *ngIf="!flgDeshacerCierre" class="modal-title">Realizar Cierre de {{ SociedadString }}</h5>
+        <h5 *ngIf="flgDeshacerCierre" class="modal-title">Deshacer Cierre de {{ SociedadString }}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="py-1">
+          <ul class="row">
+            <li class="col text-center">
+              <h4 > Subyacente </h4>
+            </li>
+            <li class="col text-center">
+              <h4 *ngIf="!flgDeshacerCierre"> Cerrar </h4>
+              <h4 *ngIf="flgDeshacerCierre"> DeshacerCierre </h4>
+            </li>
+            <li class="col text-center">
+              <h4 > Estado </h4>
+            </li>
+            <li class="col text-center">
+              <h4 > Hora de Cierre </h4>
+            </li>
+          </ul>
+          <ul class="row">
+            <li class="col text-center">
+              Seleccionar Todo
+            </li>
+            <li class="col text-center">
+              <mat-checkbox class="checkCierre"  [(ngModel)]="seleccionarTodo" (change)="seleccionarTodoCierre()"></mat-checkbox>
+            </li>
+            <li class="col ">
+             
+            </li>
+            <li class="col ">
+             
+            </li>
+            
+          </ul>
+            <ul *ngFor="let item of listaCierreVentasMolienda" class="row">
+              <li class="col text-center">
+                <h5 >{{item.desc_Subyacente}}</h5>
+              </li>
+  
+              <li class="col text-center" *ngIf="!flgDeshacerCierre">
+                <mat-checkbox class="checkCierre"  [(ngModel)]="item.flgCerrar"  [disabled]="!item.flgEstado"></mat-checkbox>
+              </li>
+              <li class="col text-center" *ngIf="flgDeshacerCierre">
+                <mat-checkbox class="checkCierre"  [(ngModel)]="item.flgCerrar"  [disabled]="item.flgEstado"></mat-checkbox>
+              </li>
+  
+              <li class="col text-center" *ngIf="!flgDeshacerCierre && !flgLoadingCierres">
+                <i *ngIf="item.flgEstado"  class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+                <!-- <i *ngIf="!item.flgEstado" class="fa fa-times-circle"style="font-size:180%;color:red"></i> -->
+                <i *ngIf="!item.flgEstado" class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>
+              </li>
+              <li class="col text-center" *ngIf="flgDeshacerCierre && !flgLoadingCierres">
+                <i *ngIf="!item.flgEstado"  class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+                <!-- <i *ngIf="!item.flgEstado" class="fa fa-times-circle"style="font-size:180%;color:red"></i> -->
+                <i *ngIf="item.flgEstado" class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>
+              </li>
+              <li class="col text-center" *ngIf="flgLoadingCierres">
+                <i class="fa fa-spinner" style="font-size:180%;" aria-hidden="true"></i>
+              </li>
+              
+              <li class="col  text-center" >
+                <a>{{item.horacierreString}}</a>
+              </li>
+            </ul>
+            
+          <!-- </form> -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="br"></span>
+        <div class="col justify-content-start" *ngIf="!flgDeshacerCierre">
+          <div class="row"> <a ><i class="fa fa-check-circle"style="font-size:100%;color:green"></i> Habilitado para cerrar</a> </div>
+          <div class="row"><a><i class="fa fa-exclamation-circle"style="font-size:100%;color:orange"></i> Deshabilitado para cerrar</a></div>
+        </div>
+        <div class="col justify-content-start" *ngIf="flgDeshacerCierre">
+          <div class="row"> <a ><i class="fa fa-check-circle"style="font-size:100%;color:green"></i> Habilitado para deshacer cierre</a> </div>
+          <div class="row"><a><i class="fa fa-exclamation-circle"style="font-size:100%;color:orange"></i> Deshabilitado para deshacer cierre</a></div>
+        </div>
+      
+            <!-- <a><i class="fa fa-check-circle"style="font-size:100%;color:red"></i></a>  -->
+  
+            <span class="br"></span>
+            <div class="row">
+              <div class="col d-flex justify-content-end" *ngIf="!flgDeshacerCierre">
+                <button
+                  class="btn btn-green"
+                  type="submit"
+                  [disabled]="!flgBontongenerico"
+                  (click)="cerrarPortafolio(cierreMolienda)">
+                  Aceptar
+                </button>
+              </div>
+              <div class="col d-flex justify-content-end" *ngIf="flgDeshacerCierre">
+                <button
+                  class="btn btn-green"
+                  type="submit"
+                  [disabled]="!flgBontongenerico"
+                  (click)="deshacerPortafolio(cierreMolienda)">
+                  Aceptar
+                </button>
+              </div>
+            </div>
+    </div>
+    </div>
+  </ng-template>
+  
+  <ng-template #consultaHistorica let-modal>
+    <div role="document" > <!--class="msg_card_body" -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Consulta Histórica</h5>
+          <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <mat-icon  >close</mat-icon>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-1">
+            <form class="form" novalidate="">
+              <div class="row">
+                <div>
+                  <div class="row">
+                    <div style="width: 150px;">
+                      <label class="form-label">Campaña:</label>
+                    </div>
+                    <div style="width: 320px;">
+                      <ng-select
+                        class="form-control form-select"
+                        name="campagnasSeleccionadas"
+                        multiple="true"
+                        [(ngModel)]="campagnasSeleccionadas"
+                      >
+                        <ng-option
+                          value="{{ item.s204_ID }}"
+                          *ngFor="let item of ConsultaHistoricacampania"
+                          >{{ item.s204_Description }}</ng-option
+                        >
+                      </ng-select>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div style="width: 150px;">
+                      <label class="form-label">Factura:</label>
+                    </div>
+                    <div style="width: 320px;">
+                      <ng-select
+                        class="form-control form-select"
+                        name="ConsultaFactura"
+                        [(ngModel)]="ConsultaFactura"
+                      >
+                        <ng-option
+                          value="{{ comboFactura.s114_Codigo }}"
+                          *ngFor="let comboFactura of comboFactura"
+                          >{{ comboFactura.s114_Descripcion }}</ng-option
+                        >
+                      </ng-select>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div style="width: 150px;">
+                      <label class="form-label">Sociedad:</label>
+                    </div>
+                    <div style="width: 320px;">
+                      <ng-select
+                        class="form-control form-select"
+                        name="ConsultaSociedad"
+                        [(ngModel)]="ConsultaSociedad"
+                      >
+                      <ng-option
+                        value="{{ compania.t033_ID }}"
+                        *ngFor="let compania of compania"
+                        >{{ compania.t033_Name }}
+                      </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div style="width: 50px;">
+                      <mat-checkbox class="checkCierre" name="flgFechaConsultaHistorica" [(ngModel)]="flgFechaConsultaHistorica"  ></mat-checkbox>
+                    </div>
+                    
+                    <div style="width: 50px;">
+                      <label class="form-label">Fecha Inicio:</label>
+                    </div>
+                    <div style="width: 160px;">
+                      <input
+                        class="form-control"
+                        type="date"
+                        placeholder="yyyy-mm-dd"
+                        [(ngModel)]="fechInicio"
+                        ngbDatepicker
+                        (click)="d1.toggle()"
+                        #d1="ngbDatepicker"
+                        name="t218_Date"
+                        readonly
+                        [disabled]="!flgFechaConsultaHistorica"
+                      />
+                    </div>
+                    <div style="width: 50px;">
+                      <label class="form-label">Fecha Fin:</label>
+                    </div>
+                    <div style="width: 160px;">
+                      <input
+                        class="form-control"
+                        type="date"
+                        placeholder="yyyy-mm-dd"
+                        [(ngModel)]="fechFin"
+                        ngbDatepicker
+                        (click)="d2.toggle()"
+                        #d2="ngbDatepicker"
+                        name="t218_Date"
+                        readonly
+                        [disabled]="!flgFechaConsultaHistorica"
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div style="width: 150px;">
+                      <label class="form-label">Códigos:</label>
+                    </div>
+                    <div style="width: 320px;">
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Ingresar códigos separados por ';' "
+                        name="codigosConsultaHistorica"
+                        [(ngModel)]="codigosConsultaHistorica" />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col d-flex justify-content-end">
+                  <button
+                    class="btn btn-green"
+                    type="submit"
+                    (click)="exportarConsulta(consultaHistorica)">
+                    Aceptar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  
+  <ng-template #consultaDosificadas let-modal >
+    <app-dosificadas [visible]="myModal"   (close)="cerrarModal(modal)"></app-dosificadas>
+  </ng-template>
+  
+  <ng-template #IngresarFactura let-modal >
+    <app-ingresar-factura [visible]="myModalFactura"  (closeIngresoFactura)="cerrarModal(modal)"></app-ingresar-factura>
+  </ng-template>
+   

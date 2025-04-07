@@ -1,0 +1,270 @@
+<div id="myModal" tabindex="-1" data-keyboard="false" role="dialog">
+    <div role="document">
+  
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Papel</h5>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+  
+  
+      <div class="modal-body">
+        <div class="py-1">
+          <form class="form" novalidate="">
+            <div class="row">
+              <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Código </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input style="width: 55%;" id="deshabilitado" class="form-control" type="text" placeholder="Código"
+                      name="idSQL" [(ngModel)]="nuevoPapelPobo.t522_ID" readonly />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <!-- <div style="border: 1px solid black;  box-shadow: 0px 0px 10px grey " > -->
+                <div class="card shadow-none border">
+                  <h3 class="modal-title">Contrato</h3>
+                  <!-- <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                      <label class="form-label">Tipo Contrato </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select style="width:  55%;" class="form-control form-select" name="idTipoContrato"
+                        [(ngModel)]="idTipoContrato" (change)="onSelectTipoContrato($event)">
+                        <ng-option value="{{lista.t019_ID}}" *ngFor="let lista of listaTipoContrato">{{
+                          lista.t019_Description }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div> -->
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                      <label class="form-label">Bolsa </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select style="width:  55%;" class="form-control form-select" name="idBolsa"
+                        [(ngModel)]="idBolsa" >
+                        <ng-option value="{{lista.t003_ID}}" *ngFor="let lista of listaBolsa">{{ lista.t003_Ticker }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                      <label class="form-label">Ticker </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select style="width:  55%;" class="form-control form-select" name="idTicker"
+                        [(ngModel)]="idTicker" (change)="onSelectTicker($event)" >
+                        <ng-option value="{{lista.t004_ID}}" *ngFor="let lista of listaContratos">{{
+                          lista.t004_Nomenclature }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                      <label class="form-label">Fecha Expiración</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select style="width: 83%;" class="form-control form-select" name="idContrato"
+                        [(ngModel)]="idContrato">
+                        <ng-option value="{{lista.t004_ID}}" *ngFor="let lista of listaMesExpiracion">{{
+                          lista.t004_mesExpiracion}}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                      <label class="form-label">Nueva Fecha Expiración</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <table>
+                        <tr>
+                          <td style="width: 55%;">
+                            <input style="width: 83%;" class="form-control" type="date" placeholder="yyyy-mm-dd"
+                              [(ngModel)]="pNuevaFechaVcto" ngbDatepicker (click)="d1.toggle()" #d1="ngbDatepicker"
+                              name="pNuevaFechaVcto" readonly />
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+  
+                </div>
+                <span class="br"></span>
+  
+  
+                <div class="card shadow-none border">
+                  <h3 class="modal-title">Sociedad</h3>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                      <label class="form-label">Sociedad </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select style="width: 83%;" class="form-control form-select" name="idSociedad"
+                        [(ngModel)]="idSociedad" >
+                        <ng-option value="{{lista.t033_ID}}" *ngFor="let lista of listaSociedad">{{ lista.t033_Name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                
+                </div>
+                <div class="card shadow-none border">
+                  <h3 class="modal-title">Otros</h3>
+                 
+                  <span class="br"></span>
+  
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                      <label class="form-label">Largo/Corto</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select style="width:  83%;" class="form-control form-select" name="idSellBuy"
+                        [(ngModel)]="idSellBuy" (change)="onSelectSellBuy($event)" >
+                        <ng-option value="{{lista.t008_ID}}" *ngFor="let lista of listaSellBuy">{{
+                          lista.t008_Description}}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  
+  
+                </div>
+              </div>
+  
+              <div class="col col-xl-6 col-lg-6 col-md-6" style=" padding: 0% 0% 0% 5%;">
+                <div class="card shadow-none border">
+                  <h3 class="modal-title">Broker Reference</h3>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4" style=" padding: 0% 0% 0% 5%;">
+                      <label class="form-label">Broker </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select style="width: 55%;" class="form-control form-select" name="idBroker"
+                        [(ngModel)]="idBroker" (change)="onSelectBroker($event)" >
+                        <ng-option value="{{lista.t006_ID}}" *ngFor="let lista of listaBroker">{{ lista.t006_Name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+                <span class="br"></span>
+  
+  
+                <div class="card shadow-none border">
+  
+                  <h3 style="padding: 0% 0% 0% 2%;" class="modal-title">Contratos</h3>
+                  <span class="br"></span><span class="br"></span><span class="br"></span>
+  
+                  <div style="margin-right: 20px; ">
+                    <table style="border: 4; border-collapse: collapse;  border-color: black;">
+                      <tr>
+                        <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">Cantidad </label></td> 
+                        <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">Libra </label></td>
+                        <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">TM </label></td>
+                      </tr>
+                      <tr>
+                        <td style=" padding: 0% 0% 0% 2%;">
+                          <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                            placeholder="Cantidad" name="t005_VolumeContract"
+                            [(ngModel)]="nuevoPapelPobo.t522_VolumeContract " (ngModelChange)="onSelectCantidad()" />
+                        </td>
+                        <td style=" padding: 0% 0% 0% 2%;">
+                          <input style="width: 100%;" class="form-control" type="number" min="0" placeholder="Libra"
+                            name="t005_VolumeUnitMeasure" [(ngModel)]="nuevoPapelPobo.t522_VolumeUnitMeasure" readonly />
+                        </td>
+                        <td style=" padding: 0% 0% 0% 2%;">
+                          <input style="width: 100%;" class="form-control" type="text" placeholder="TM"
+                            name="t005_Volumetons" [ngModel]="nuevoPapelPobo.t522_VolumeTons | number"  (ngModelChange)="calcularCantidad($event)"/>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <span class="br"></span>
+                </div>
+
+                <div class="card shadow-none border">
+                  <h3 class="modal-title">Precio Ejercicio</h3>
+                  <span class="br"></span>
+                  <div style="margin-right: 100px; ">
+                    <table style="border: 4; border-collapse: collapse;  border-color: black;">
+                      <tr>
+                        <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">{{descUnitMeasureCent}} </label></td>
+                        <td style=" padding: 0% 0% 0% 2%;"><label class="form-label">{{descUnitMeasureUSD}} </label></td>
+                      </tr>
+                      <tr>
+                        <td style=" padding: 0% 0% 0% 2%;">
+                          <div ngSwitch="{{idUnderlying}}">
+                            <div *ngSwitchCase="'4'">
+                              <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                                placeholder="Strike Price Cent" name="t522_StrikePriceCent"
+                                [(ngModel)]="nuevoPapelPobo.t522_StrikePriceCent  " readonly />
+                            </div>
+                            <div *ngSwitchCase="'7'">
+                              <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                                placeholder="Strike Price Cent" name="t522_StrikePriceCent"
+                                [(ngModel)]="nuevoPapelPobo.t522_StrikePriceCent " readonly />
+                            </div>
+                            <div *ngSwitchDefault>
+                              <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                                placeholder="Strike Price Cent" name="t522_StrikePriceCent"
+                                [(ngModel)]="nuevoPapelPobo.t522_StrikePriceCent " (ngModelChange)="onSelectPrecioCent()" />
+                            </div>
+                          </div>
+  
+  
+                        </td>
+                        <td style=" padding: 0% 0% 0% 2%;">
+                          <div ngSwitch="{{idUnderlying}}">
+                            <div *ngSwitchCase="'4'">
+                              <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                                placeholder="Strike Price USD" name="t522_StrikePriceUSD"
+                                [(ngModel)]="nuevoPapelPobo.t522_StrikePriceUSD " (ngModelChange)="onSelectPrecioUSD()" />
+                            </div>
+                            <div *ngSwitchCase="'7'">
+                              <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                                placeholder="Strike Price USD" name="t522_StrikePriceUSD"
+                                [(ngModel)]="nuevoPapelPobo.t522_StrikePriceUSD " (ngModelChange)="onSelectPrecioUSD()" />
+                            </div>
+                            <div *ngSwitchDefault>
+                              <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                                placeholder="Strike Price USD" name="t522_StrikePriceUSD"
+                                [(ngModel)]="nuevoPapelPobo.t522_StrikePriceUSD" readonly />
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <span class="br"></span>
+                </div>
+  
+  
+              </div>
+            </div>
+            <span class="br"></span>
+            <mat-spinner class="custom-spinner" *ngIf="loading$ | async" [mode]="'indeterminate'" [value]=50
+              [diameter]="50">
+            </mat-spinner>
+
+            <div class="row">
+              <div class="col d-flex justify-content-end">
+                <button class="btn btn-green" type="submit" (click)="agregarPapel()">
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+  </div>

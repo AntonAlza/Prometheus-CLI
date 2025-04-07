@@ -1,0 +1,1929 @@
+<div *ngIf="tipo == 'FLAT'" class="modalFlats">
+  <div class="card-header modalFlats">
+    <h3 class="card-title">Lista de Flats</h3>
+    <div class="card-options" ngbDropdown>
+      <div class="btn-group ms-5 mb-0">
+
+        <button
+          type="button"
+          class="btn btn-white"
+          aria-expanded="false"
+          data-toggle="modal"
+          (click)="modalIngresarFlat(ComprarFlat)"
+        >
+          <i class="fe fe-plus"></i>Agregar Flat
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        id="myTable1"
+        class="table table-bordered text-nowrap"
+        style="width: 100%"
+      >
+        <!-- table-striped -->
+        <thead>
+          <tr class="bold">
+            <th class="border-bottom-0">#</th>
+            <th class="border-bottom-0">Contrato <br />Venta</th>
+            <th class="border-bottom-0">Operación</th>
+            <th class="border-bottom-0">Compra / <br />Venta</th>
+            <th class="border-bottom-0">Modificado</th>
+            <th class="border-bottom-0">Fecha</th>
+            <th class="border-bottom-0">Precio <br />USD</th>
+            <th class="border-bottom-0">Caks</th>
+            <th class="border-bottom-0">TM</th>
+            <th class="border-bottom-0">Comentario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let lista of listaFlats; let i = index"
+            (contextmenu)="onContextMenu($event, lista.t230_ID)"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>
+              {{ lista.t230_SalesContract }}
+            </td>
+            <td>
+              {{ lista.t230_ID }}
+            </td>
+            <td>
+              {{ lista.t008_Description }}
+            </td>
+            <td>
+              {{ lista.t010_Name }}
+            </td>
+            <td>
+              {{ lista.T016_Date | date: "dd/MM/yyyy" }}
+            </td>
+            <td>
+              {{ lista.t230_FlatUSD }}
+            </td>
+            <td>
+              {{ lista.t230_VolumeContract | number: "1.2-2"}}
+            </td>
+            <td>
+              {{ lista.t230_MetricTons }}
+            </td>
+            <td>
+              {{ lista.t230_Comment }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- </div> -->
+      <div
+        style="visibility: hidden; position: fixed"
+        [matMenuTriggerFor]="contextMenu"
+      ></div>
+      <mat-menu #contextMenu="matMenu" yPosition="below" class="opciones">
+        <ng-template matMenuContent let-item="item" class="opciones">
+          <button mat-menu-item (click)="modificarFlat(ComprarFlat)">
+            Modificar Flat
+          </button>
+          <button mat-menu-item (click)="cancelarFlat()">Cancelar Flat</button>
+        </ng-template>
+      </mat-menu>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="tipo == 'FUTURO'" class="modalFlats">
+  <div class="card-header modalFlats">
+    <h3 class="card-title">Lista de Futuros</h3>
+    <div class="card-options" ngbDropdown>
+      <div class="btn-group ms-5 mb-0">
+        <button
+          type="button"
+          class="btn btn-white"
+          aria-expanded="false"
+          data-toggle="modal"
+          (click)="modalIngresarFuturo(ComprarFuturo)"
+        >
+          <i class="fe fe-plus"></i>Agregar Futuro
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        id="myTable1"
+        class="table table-bordered text-nowrap"
+        style="width: 100%"
+      >
+        <!-- table-striped -->
+        <thead>
+          <tr class="bold">
+            <th class="border-bottom-0">#</th>
+            <th class="border-bottom-0">Contrato <br />Venta</th>
+            <th class="border-bottom-0">Operación</th>
+            <th class="border-bottom-0">Compra / <br />Venta</th>
+            <th class="border-bottom-0">Modificado</th>
+            <th class="border-bottom-0">Fecha</th>
+            <th class="border-bottom-0">Precio <br />USD</th>
+            <th class="border-bottom-0">Caks</th>
+            <th class="border-bottom-0">TM</th>
+            <th class="border-bottom-0">Comentario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let lista of listaFuturos; let i = index"
+            (contextmenu)="onContextMenu($event, lista.t227_ID)"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>
+              {{ lista.t227_SalesContract }}
+            </td>
+            <td>
+              {{ lista.t227_ID }}
+            </td>
+            <td>
+              {{ lista.t008_Description }}
+            </td>
+            <td>
+              {{ lista.t010_Name }}
+            </td>
+            <td>
+              {{ lista.T016_Date | date: "dd/MM/yyyy" }}
+            </td>
+            <td>
+              {{ lista.t227_FutureUSD }}
+            </td>
+            <td>
+              {{ lista.t227_VolumeContract | number: "1.2-2" }}
+            </td>
+            <td>
+              {{ lista.t227_MetricTons | number: "1.2-2" }}
+            </td>
+            <td>
+              {{ lista.t227_Comment }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        style="visibility: hidden; position: fixed"
+        [matMenuTriggerFor]="contextMenu"
+      ></div>
+      <mat-menu #contextMenu="matMenu" yPosition="below" class="opciones">
+        <ng-template matMenuContent let-item="item" class="opciones">
+          <button mat-menu-item (click)="modalModificarFuturo(ComprarFuturo)">
+            Modificar
+          </button>
+          <button mat-menu-item (click)="cancelarFuturo()">Cancelar</button>
+        </ng-template>
+      </mat-menu>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="tipo == 'BASES'" class="modalFlats">
+  <div class="card-header modalFlats">
+    <h3 class="card-title">Lista de Bases</h3>
+    <div class="card-options" ngbDropdown>
+      <div class="btn-group ms-5 mb-0">
+        <button
+          type="button"
+          class="btn btn-white"
+          aria-expanded="false"
+          data-toggle="modal"
+          (click)="modalpactarBase(pactarBase)"
+        >
+          <i class="fe fe-plus"></i>Agregar Bases
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        id="myTable1"
+        class="table table-bordered text-nowrap"
+        style="width: 100%"
+      >
+        <!-- table-striped -->
+        <thead>
+          <tr class="bold">
+            <th class="border-bottom-0">#</th>
+            <th class="border-bottom-0">Contrato <br />Venta</th>
+            <th class="border-bottom-0">Operación</th>
+            <th class="border-bottom-0">Compra / <br />Venta</th>
+            <th class="border-bottom-0">Modificado</th>
+            <th class="border-bottom-0">Fecha</th>
+            <th class="border-bottom-0">Precio</th>
+            <th class="border-bottom-0">Caks</th>
+            <th class="border-bottom-0">TM</th>
+            <th class="border-bottom-0">Comentario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let lista of listaBases; let i = index"
+            (contextmenu)="onContextMenu($event, lista.t228_ID)"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>
+              {{ lista.t228_SalesContract }}
+            </td>
+            <td>
+              {{ lista.t228_ID }}
+            </td>
+            <td>
+              {{ lista.t008_Description }}
+            </td>
+            <td>
+              {{ lista.t010_Name }}
+            </td>
+            <td>
+              {{ lista.t016_Date | date: "dd/MM/yyyy" }}
+            </td>
+            <td>
+              {{ lista.t228_BaseUSD }}
+            </td>
+            <td>
+              {{ lista.t228_VolumeContract | number: "1.2-2" }}
+            </td>
+            <td>
+              {{ lista.t228_MetricTons | number: "1.2-2" }}
+            </td>
+            <td>
+              {{ lista.t228_Comment }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        style="visibility: hidden; position: fixed"
+        [matMenuTriggerFor]="contextMenu"
+      ></div>
+      <mat-menu #contextMenu="matMenu" yPosition="below" class="opciones">
+        <ng-template matMenuContent let-item="item" class="opciones">
+          <button mat-menu-item (click)="modificarBases(pactarBase)">
+            Modificar Base
+          </button>
+          <button mat-menu-item (click)="cancelarBase()">Cancelar Base</button>
+        </ng-template>
+      </mat-menu>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="tipo == 'HIJOS'" class="modalFlats">
+  <div class="card-header modalFlats">
+    <h3 class="card-title">
+      Lista de Hijos - {{ portafolioMoliendaService.codigoContrato }}
+    </h3>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        id="myTable1"
+        class="table table-bordered text-nowrap"
+        style="width: 100%"
+      >
+        <!-- table-striped -->
+        <thead>
+          <tr class="bold">
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0"
+            >
+              Operación Padre
+            </th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0"
+            >
+              TM Original
+            </th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0"
+            >
+              TM Nueva
+            </th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0"
+            >
+              Fecha <br />Operación
+            </th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0"
+            >
+              % TM Pendiente
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center; vertical-align: middle">
+              {{ this.detallePadre[0][0] }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ this.detallePadre[0][2] }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ this.detallePadre[0][3] }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ this.detallePadre[0][1] | date: "dd/MM/yyyy" }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              <div style="position: relative">
+                <mat-progress-bar
+                  *ngIf="this.detallePadre[0][4] * 100 > 50"
+                  [value]="this.detallePadre[0][4] * 100"
+                  class="mayor50"
+                  mode="determinate"
+                  style="background-color: #4b822d"
+                ></mat-progress-bar>
+                <mat-progress-bar
+                  *ngIf="this.detallePadre[0][4] * 100 <= 50"
+                  [value]="this.detallePadre[0][4] * 100"
+                  class="menor50"
+                  mode="determinate"
+                  style="background-color: #4b822d"
+                ></mat-progress-bar>
+                <!-- <mat-progress-bar [value]="this.detallePadre[0][4] * 100" mode="determinate"></mat-progress-bar> -->
+                <span
+                  style="position: absolute; top: 0.5em; color: white"
+                  [ngStyle]="{
+                    left: this.detallePadre[0][4] * 100 | number: '1.2-2' + '%'
+                  }"
+                  >{{ this.detallePadre[0][4] * 100 | number: "1.2-2" }}%</span
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        id="myTable1"
+        class="table table-bordered text-nowrap"
+        style="width: 100%"
+      >
+        <!-- table-striped -->
+        <thead>
+          <tr class="bold">
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0"
+            >
+              Contrato <br />Padre
+            </th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0"
+            >
+              #
+            </th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0"
+            >
+              Código <br />Hijo
+            </th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0"
+            >
+              TM
+            </th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0"
+            >
+              Fecha <br />Operación
+            </th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0"
+            >
+              Revertir <br />Split
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lista of listaHijos; let i = index">
+            <td style="text-align: center; vertical-align: middle">
+              <div *ngIf="lista[3] != 0">
+                <i
+                  class="fa fa-black-tie fa-2x"
+                  style="color: #37aaf1"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ i + 1 }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ lista[0] }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ lista[1] }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ lista[2] | date: "dd/MM/yyyy" }}
+            </td>
+            <td class="text-center" (click)="deshacerSplit(lista[0], lista[3])">
+              <div class="zmdi zmdi-hc-2x zmdi-delete"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #ComprarFlat let-modal>
+  <div role="document" class="card-body">
+    <!--class="msg_card_body" -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 *ngIf="flgIngresar" class="modal-title">Ingresar Flat</h5> 
+        <h5 *ngIf="!flgIngresar" class="modal-title">Modificar Flat</h5>
+        <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <mat-icon>close</mat-icon>
+        </button>
+
+      </div>
+      <div class="modal-body">
+        <div class="py-1">
+          <form class="form" novalidate="">
+            <div class="card shadow-none">
+              <div class="row">
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Contrato Venta:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="flete"
+                        [(ngModel)]="nuevoContrato.t218_ID"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Código Flat:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="nuevoFlat.t230_ID"
+                        [(ngModel)]="nuevoFlat.t230_ID"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Operación:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="codioInterno"
+                        value="Compra"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Comentario:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="nuevoFlat.t230_Comment"
+                        [(ngModel)]="nuevoFlat.t230_Comment"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Fecha:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        [(ngModel)]="fecha"
+                        ngbDatepicker
+                        (click)="d5.toggle()"
+                        #d5="ngbDatepicker"
+                        name="fecha"
+                        *ngIf="flgIngresar"
+                        readonly
+                      />
+                      <input
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        [(ngModel)]="fecha"
+                        ngbDatepicker
+                        (click)="d5.toggle()"
+                        #d5="ngbDatepicker"
+                        name="fecha"
+                        *ngIf="!flgIngresar"
+                        readonly
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Flat USD:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="codioInterno"
+                        [(ngModel)]="nuevoFlat.t230_FlatUSD"
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Número de Contratos:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="number"
+                        name="t218_VolumeContract"
+                        [(ngModel)]="nuevoContrato.t218_VolumeContract"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Toneladas Métricas:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="t218_MetricTons"
+                        [(ngModel)]="nuevoContrato.t218_MetricTons"
+                        (change)="calcularCaks()"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col d-flex justify-content-end">
+                <button
+                  *ngIf="flgIngresar"
+                  class="btn btn-green"
+                  type="submit"
+                  [disabled]="!flgBontongenerico"
+                  (click)="GuardarFlat(ComprarFlat, nuevoFlat)">
+                  Aceptar
+                </button>
+                <button
+                  *ngIf="!flgIngresar"
+                  class="btn btn-green"
+                  type="submit"
+                  [disabled]="!flgBontongenerico"
+                  (click)="GuardarFlat(ComprarFlat, nuevoFlat)">
+                  Modificar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-------------------------------------------------------------- Modal COMPRAR FUTURO -------------------------------------------------------------------------------------->
+<ng-template #ComprarFuturo let-modal>
+  <div role="document">
+    <!--class="msg_card_body" -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 *ngIf="flgIngresar" class="modal-title">Ingresar Futuro</h5>
+        <h5 *ngIf="!flgIngresar" class="modal-title">Modificar Futuro</h5>        
+        <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="py-1">
+          <form class="form" novalidate="">
+            <div class="card shadow-none">
+              <div class="row">
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Contrato Venta:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="t218_ID"
+                        [(ngModel)]="nuevoContrato.t218_ID"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Código Futuro:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="nuevoFuturo.t227_ID"
+                        [(ngModel)]="nuevoFuturo.t227_ID"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Operación:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select
+                        class="form-control form-select"
+                        name="nuevoFuturo.t227_SellBuy"
+                        [(ngModel)]="nuevoFuturo.t227_SellBuy"
+                        *ngIf="flgIngresar"
+                      >
+                        <ng-option
+                          value="{{ compraventa.s114_Codigo }}"
+                          *ngFor="let compraventa of compraventa"
+                          >{{ compraventa.s114_Descripcion }}</ng-option
+                        >
+                      </ng-select>
+                      <ng-select
+                        class="form-control form-select"
+                        name="nuevoFuturo.t227_SellBuy"
+                        [(ngModel)]="nuevoFuturo.t227_SellBuy"
+                        *ngIf="!flgIngresar"
+                        disabled
+                      >
+                        <ng-option
+                          value="{{ compraventa.s114_Codigo }}"
+                          *ngFor="let compraventa of compraventa"
+                          >{{ compraventa.s114_Descripcion }}</ng-option
+                        >
+                      </ng-select>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Comentario:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="t227_Comment"
+                        [(ngModel)]="nuevoFuturo.t227_Comment"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Fecha:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        [(ngModel)]="fechaModal"
+                        ngbDatepicker
+                        (click)="d5.toggle()"
+                        #d5="ngbDatepicker"
+                        name="fechaModal"
+                        *ngIf="flgIngresar"
+                        readonly
+                      />
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        [(ngModel)]="fechaModal"
+                        ngbDatepicker
+                        (click)="d5.toggle()"
+                        #d5="ngbDatepicker"
+                        name="fechaModal"
+                        *ngIf="!flgIngresar"
+                        readonly
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Futuro Precio:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="precio"
+                        [(ngModel)]="nuevoFuturo.t227_FutureUSD"
+                      />
+                      <!-- <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="number"
+                        name="precio"
+                        [(ngModel)]="nuevoFuturo.t227_FutureUSD"
+                        *ngIf="!flgIngresar"
+                        disabled
+                      /> -->
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Número de Contratos:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="t218_VolumeContract"
+                        [(ngModel)]="nuevoContrato.t218_VolumeContract"
+                        (change)="calcularCaksXContratos()"
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Toneladas Métricas:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="t218_MetricTons"
+                        [(ngModel)]="nuevoContrato.t218_MetricTons"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col d-flex justify-content-end">
+                <button
+                  class="btn btn-green"
+                  type="submit"
+                  [disabled]="!flgBontongenerico"
+                  (click)="GuardarFuturo(ComprarFuturo, nuevoFuturo)"
+                  *ngIf="flgIngresar">
+                  Aceptar
+                </button>
+                <button
+                  class="btn btn-green"
+                  type="submit"
+                  [disabled]="!flgBontongenerico"
+                  (click)="modificarFuturo(ComprarFuturo, nuevoFuturo)"
+                  *ngIf="!flgIngresar">
+                  Modificar
+                </button>
+                
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-------------------------------------------------------------- Modal COMPRAR BASE -------------------------------------------------------------------------------------->
+<ng-template #pactarBase let-modal>
+  <div role="document">
+    <!--class="msg_card_body" -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 *ngIf="flgIngresar" class="modal-title">Ingresar Base</h5>
+        <h5 *ngIf="!flgIngresar" class="modal-title">Modificar Base</h5>
+        <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <mat-icon>close</mat-icon>
+        </button>
+
+      </div>
+      <div class="modal-body">
+        <div class="py-1">
+          <form class="form" novalidate="">
+            <div class="row">
+              <div class="col col-xl-6 col-lg-6 col-md-6">  <!-- *ngIf="flgIngresar" -->
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Contrato Venta:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      id="deshabilitado"
+                      class="form-control"
+                      type="text"
+                      name="t218_ID"
+                      [(ngModel)]="nuevoContrato.t218_ID"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Código Base:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      id="deshabilitado"
+                      class="form-control"
+                      type="text"
+                      name="codioInterno"
+                      [(ngModel)]="nuevaBase.t228_ID"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Operación:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t228_SellBuy"
+                      [(ngModel)]="nuevaBase.t228_SellBuy"
+                      (change)="calcularMontoTotal()"
+                      [disabled]="!flgIngresar">
+                      <ng-option
+                        value="{{ compraventa.s114_Codigo }}"
+                        *ngFor="let compraventa of compraventa"
+                        >{{ compraventa.s114_Descripcion }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Fecha:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      placeholder="yyyy-mm-dd"
+                      [(ngModel)]="fechaModal"
+                      ngbDatepicker
+                      (click)="d5.toggle()"
+                      #d5="ngbDatepicker"
+                      name="fechaModal"
+                      readonly
+                      [disabled]="!flgIngresar"
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div *ngIf="nuevaBase.t228_SellBuy == '2' && flgIngresar" class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">P&L USD:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      id="deshabilitado"
+                      class="form-control"
+                      type="text"
+                      name="pnl"
+                      [(ngModel)]="baseProfitAndLoss.t340_ProfitAndLoss"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <div class="row" *ngIf="flgIngresar">
+                  <div class="col-xl-2 col-lg-2 col-md-2">
+                    <label class="custom-control custom-checkbox">
+                     <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        name="washOut_Base"
+                        [(ngModel)]="washOut_Base"
+                        (change)="gananciaPerdidaBases()"
+                      />
+                     <span class="custom-control-label"></span>
+                      
+                      
+                    </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <label class="form-label">Washout</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Base Precio:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="number"
+                      name="base"
+                      [(ngModel)]="nuevaBase.t228_BaseUSD"
+                      (change)="gananciaPerdidaBases()"
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Número de Contratos:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      id="deshabilitado"
+                      class="form-control"
+                      type="text"
+                      name="t218_VolumeContract"
+                      [(ngModel)]="nuevoContrato.t218_VolumeContract"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Toneladas Métricas:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="number"
+                      name="t218_MetricTons"
+                      [(ngModel)]="nuevoContrato.t218_MetricTons"
+                      (change)="calcularCaks()"
+                      (change)="gananciaPerdidaBases()"
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Comentario:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="t228_Comment"
+                      [(ngModel)]="nuevaBase.t228_Comment"
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div *ngIf="nuevaBase.t228_SellBuy == '2' && flgIngresar" class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Costo:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      id="deshabilitado"
+                      class="form-control"
+                      type="text"
+                      name="costo_Base"
+                      [(ngModel)]="baseProfitAndLoss.t340_Cost"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div *ngIf="washOut_Base && flgIngresar" class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Premio Calidad:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      id="deshabilitado"
+                      class="form-control"
+                      type="text"
+                      name="premioCalidad_Base"
+                      [(ngModel)]="premioCalidad_Base"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div *ngIf="washOut_Base && flgIngresar"  class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Flete Maritimo:</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      id="deshabilitado"
+                      class="form-control"
+                      type="text"
+                      name="fleteMaritimo_Base"
+                      [(ngModel)]="fleteMaritimo_Base"
+                      readonly
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <span class="br"></span>
+              <div class="col d-flex justify-content-end">
+                <button
+                  class="btn btn-green"
+                  type="submit"
+                  *ngIf="flgIngresar"
+                  [disabled]="!flgBontongenerico"
+                  (click)="GuardarBase(pactarBase, nuevaBase)">
+                  Aceptar
+                </button>
+                <button
+                  class="btn btn-green"
+                  type="submit"
+                  *ngIf="!flgIngresar"
+                  [disabled]="!flgBontongenerico"
+                  (click)="guardarModificacionBase(pactarBase, nuevaBase)">
+                  Modificar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngIf="tipo == 'FORMACIONPRECIOS'" class="modalFlats">
+  <div class="card-header modalFlats">
+    <h3 class="card-title">Formación de Precios</h3>
+  </div>
+  <div class="card-body">
+    <div class="row row-deck">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label"
+                      >Destino <span class="text-red">*</span></label
+                    >
+                    <ng-select
+                      class="form-control form-select"
+                      [(ngModel)]="destinoSelected"
+                    >
+                      <ng-option
+                        value="{{ item.s204_ID }}"
+                        *ngFor="let item of comboDestino"
+                        >{{ item.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label"
+                      >Concepto <span class="text-red">*</span></label
+                    >
+                    <ng-select
+                      class="form-control form-select"
+                      [(ngModel)]="conceptoSelected"
+                    >
+                      <ng-option
+                        value="{{ item.s204_ID }}"
+                        *ngFor="let item of comboConcepto"
+                        >{{ item.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                  <div class="col-xl-2 col-lg-2 col-md-2">
+                    <label class="form-label"
+                      >Signo <span class="text-red">*</span></label
+                    >
+                    <ng-select
+                      class="form-control form-select"
+                      [(ngModel)]="signoSelected"
+                    >
+                      <ng-option
+                        value="{{ item.s204_ID }}"
+                        *ngFor="let item of comboSigno"
+                        >{{ item.s204_Description }}</ng-option
+                      >
+                    </ng-select>
+                  </div>
+                  <div class="col-xl-1 col-lg-1 col-md-1">
+                    <div>
+                      <span class="br"></span>
+                      <button
+                        type="button"
+                        class="btnresponsive btn btn-cierres"
+                        aria-expanded="false"
+                        (click)="
+                          agregarConcepto(ExtraPrima, frmDVA, PremioCalidad)
+                        "
+                      >
+                        <i class="fe fe-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="d-flex" style="padding-left: 1.3%">
+          <span class="w-3 h-3 brround theadSuma me-2"></span> Suma
+          <div style="padding-left: 1.3%"></div>
+          <span class="w-3 h-3 brround theadResta me-2"></span> Resta
+          <div style="padding-left: 1.5%"></div>
+          <span class="w-3 h-3 brround theadParent me-2"></span> Informativo
+          <div style="padding-left: 1.5%"></div>
+        </a>
+        <div class="table-responsive">
+          <table
+            id="myTable1"
+            class="table table-bordered text-nowrap"
+            style="width: 100%"
+          >
+            <!-- table-striped -->
+            <thead>
+              <tr class="bold">
+                <th class="border-bottom-0 text-center">Concepto</th>
+                <th class="border-bottom-0 text-center">USD/TM</th>
+                <th class="border-bottom-0 text-center">{{ ticker }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="nuevoContrato.t218_PriceType == '1'">
+                <td class="text-center">FLAT</td>
+                <td class="text-center">
+                  {{ listaPreciosFlat | number: "1.2-2" }}
+                </td>
+                <td class="text-center">
+                  <span class="ms-auto badge bg-success">{{
+                    listaPreciosFlat / factorMetricTonPrice | number: "1.2-2"
+                  }}</span>
+                </td>
+              </tr>
+              <tr *ngIf="nuevoContrato.t218_PriceType != '1'">
+                <td class="text-center">Futuro</td>
+                <td class="text-center">
+                  {{
+                    listaPreciosFuturo * factorMetricTonPrice | number: "1.2-2"
+                  }}
+                </td>
+                <td class="text-center">
+                  <span class="ms-auto badge bg-success">{{
+                    listaPreciosFuturo | number: "1.2-2"
+                  }}</span>
+                </td>
+              </tr>
+              <tr *ngIf="nuevoContrato.t218_PriceType != '1'">
+                <td class="text-center">Base</td>
+                <td class="text-center">
+                  {{
+                    listaPreciosBase * factorMetricTonPrice | number: "1.2-2"
+                  }}
+                </td>
+                <td class="text-center">
+                  <span class="ms-auto badge bg-success">{{
+                    listaPreciosBase | number: "1.2-2"
+                  }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <a class="d-flex" style="padding-left: 1.3%; text-align: right">
+          <span class="w-3 h-3 brround theadDVA me-2"></span> DVA
+          <div style="padding-left: 1.3%"></div>
+          <span class="w-3 h-3 brround theadExtraPrima me-2"></span> Benchmark
+          <div style="padding-left: 1.3%"></div>
+        </a>
+        <div class="table-responsive">
+          <table
+            id="myTable1"
+            class="table table-bordered text-nowrap"
+            style="width: 100%"
+          >
+            <thead>
+              <tr class="bold">
+                <th class="border-bottom-0">#</th>
+                <th class="border-bottom-0 text-center">Destino</th>
+                <th class="border-bottom-0 text-center">Concepto</th>
+                <th class="border-bottom-0 text-center">USD / TM</th>
+                <th class="border-bottom-0 text-center">{{ ticker }}</th>
+                <th class="border-bottom-0 text-center">
+                  <div class="fe fe-delete"></div>
+                </th>
+                <th *ngIf="flgDVA" class="border-bottom-0 text-center theadDVA">
+                  Valor Referencial <br />
+                  USD/TM
+                </th>
+                <th *ngIf="flgDVA" class="border-bottom-0 text-center theadDVA">
+                  Publicado %
+                </th>
+                <th *ngIf="flgDVA" class="border-bottom-0 text-center theadDVA">
+                  Negociado %
+                </th>
+                <th
+                  *ngIf="flgExtraPrima"
+                  class="border-bottom-0 text-center theadExtraPrima"
+                >
+                  Fecha
+                </th>
+                <th
+                  *ngIf="flgExtraPrima"
+                  class="border-bottom-0 text-center theadExtraPrima"
+                >
+                  Orígen
+                </th>
+                <th
+                  *ngIf="flgExtraPrima"
+                  class="border-bottom-0 text-center theadExtraPrima"
+                >
+                  Mes
+                </th>
+                <th
+                  *ngIf="flgExtraPrima"
+                  class="border-bottom-0 text-center theadExtraPrima"
+                >
+                  Postura
+                </th>
+                <th
+                  *ngIf="flgExtraPrima"
+                  class="border-bottom-0 text-center theadExtraPrima"
+                >
+                  {{ ticker }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let lista of listaFormacionPrecios; let i = index"
+                (contextmenu)="opciones($event, lista.t228_ID)"
+              >
+                <td>{{ i + 1 }}</td>
+                <td class="text-center">
+                  {{ lista.s115_Trayecto }}
+                </td>
+                <td class="text-center">
+                  {{ lista.s115_Concepto }}
+                </td>
+                <td class="text-center">
+                  <input
+                    *ngIf="lista.UnidadSubyacente != 'TM'"
+                    class="form-control"
+                    name="lista.s115_Valor"
+                    [(ngModel)]="lista.s115_Valor"
+                    (change)="calcularTotales()"
+                  />
+                  <div *ngIf="lista.UnidadSubyacente == 'TM'">
+                    {{ lista.s115_Valor | number: "1.2-2" }}
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <span
+                    *ngIf="
+                      lista.s115_SumaResta == '-' &&
+                      lista.UnidadSubyacente != 'TM'
+                    "
+                    class="ms-auto badge bg-danger"
+                    >{{
+                      lista.s115_Valor / factorMetricTonPrice | number: "1.2-2"
+                    }}
+                  </span>
+                  <span
+                    *ngIf="
+                      lista.s115_SumaResta == '+' &&
+                      lista.UnidadSubyacente != 'TM'
+                    "
+                    class="ms-auto badge bg-success"
+                    >{{
+                      lista.s115_Valor / factorMetricTonPrice | number: "1.2-2"
+                    }}
+                  </span>
+                  <span
+                    *ngIf="
+                      lista.s115_SumaResta == '()' &&
+                      lista.UnidadSubyacente != 'TM'
+                    "
+                    class="ms-auto badge bg-parentecis"
+                    >{{
+                      lista.s115_Valor / factorMetricTonPrice | number: "1.2-2"
+                    }}
+                  </span>
+
+                  <span
+                    *ngIf="
+                      lista.s115_SumaResta == '-' &&
+                      lista.UnidadSubyacente == 'TM'
+                    "
+                    class="ms-auto badge bg-danger"
+                  >
+                    <input
+                      class="form-control"
+                      name="lista.s115_Valor"
+                      [(ngModel)]="lista.valorUnidadSubyacente"
+                      (change)="calcularUnidadSubyacente(i)"
+                    />
+                  </span>
+                  <span
+                    *ngIf="
+                      lista.s115_SumaResta == '+' &&
+                      lista.UnidadSubyacente == 'TM'
+                    "
+                    class="ms-auto badge bg-success"
+                  >
+                    <input
+                      class="form-control"
+                      name="lista.s115_Valor"
+                      [(ngModel)]="lista.valorUnidadSubyacente"
+                      (change)="calcularUnidadSubyacente(i)"
+                    />
+                  </span>
+                  <span
+                    *ngIf="
+                      lista.s115_SumaResta == '()' &&
+                      lista.UnidadSubyacente == 'TM'
+                    "
+                    class="ms-auto badge bg-parentecis"
+                  >
+                    <input
+                      class="form-control"
+                      name="lista.s115_Valor"
+                      [(ngModel)]="lista.valorUnidadSubyacente"
+                      (change)="calcularUnidadSubyacente(i)"
+                    />
+                  </span>
+                </td>
+                <td class="text-center" (click)="quitarConcepto(i)">
+                  <div class="zmdi zmdi-delete"></div>
+                </td>
+                <td *ngIf="flgDVA" class="text-center">
+                  {{ lista.s115_DVAValorReferencial | number: "1.2-2" }}
+                </td>
+                <td *ngIf="flgDVA" class="text-center">
+                  {{ lista.s115_DVAPublicado * 100 | number: "1.2-2" }}
+                </td>
+                <td *ngIf="flgDVA" class="text-center">
+                  {{ lista.s115_DVANegociado * 100 | number: "1.2-2" }}
+                </td>
+                <td *ngIf="flgExtraPrima" class="text-center">
+                  {{ lista.s115_FechaBenchmark | date: "dd/MM/yyyy" }}
+                </td>
+                <td *ngIf="flgExtraPrima" class="text-center">
+                  {{ lista.s115_OrigenBenchmark }}
+                </td>
+                <td *ngIf="flgExtraPrima" class="text-center">
+                  {{ lista.s115_MesBenchmark }}
+                </td>
+                <td *ngIf="flgExtraPrima" class="text-center">
+                  {{ lista.s115_PosturaBenchmark }}
+                </td>
+                <td *ngIf="flgExtraPrima" class="text-center">
+                  {{ lista.s115_Benchmark }}
+                </td>
+              </tr>
+            </tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td class="text-center"><b>Precio</b></td>
+              <td class="text-center">
+                <b>{{ totalUSDTM | number: "1.2-2" }}</b>
+              </td>
+              <td class="text-center">
+                <b>{{ totalprecio | number: "1.2-2" }}</b>
+              </td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6">
+            <button
+              class="btn btn-green"
+              type="submit"
+              (click)="exportarFormacionPrecios()"
+            >
+              <i class="fe fe-download"></i>Exportar
+            </button>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="col d-flex justify-content-end">
+              <button
+                class="btn btn-green"
+                type="submit"
+                [disabled]="!flgBontongenerico"
+                (click)="guardarConceptos()">
+                <i class="fe fe-save"></i> Guardar
+              </button>
+            </div>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #frmDVA let-modal>
+  <div class="card">
+    <div role="document" class="card-body">
+      <!--class="msg_card_body" -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Declaración de Valor Aduanero</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="modal.dismiss('Cross click')"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-1">
+            <form class="form" novalidate="">
+              <div class="card shadow-none">
+                <div class="row">
+                  <div class="col col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label"
+                          >Valor Referencial USD/TM:</label
+                        >
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          *ngIf="flgDVAPublico"
+                          class="form-control"
+                          type="number"
+                          name="totalDVAValorReferencial"
+                          [(ngModel)]="totalDVAValorReferencial"
+                          readonly
+                        />
+                        <input
+                          *ngIf="!flgDVAPublico"
+                          class="form-control"
+                          type="number"
+                          name="totalDVAValorReferencial"
+                          [(ngModel)]="totalDVAValorReferencial"
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Publicado %</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="number"
+                          name="dvaTotalPublicado"
+                          [(ngModel)]="dvaTotalPublicado"
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                  </div>
+                  <div class="col col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Negociado %</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="number"
+                          name="dvaTotalNegociado"
+                          [(ngModel)]="dvaTotalNegociado"
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col d-flex justify-content-end">
+                  <button
+                    class="btn btn-green"
+                    type="submit"
+                    (click)="guardarDVA(frmDVA)"
+                    (click)="modal.dismiss('Cross click')">
+                    Aceptar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #ExtraPrima let-modal>
+  <div class="card">
+    <div role="document" class="card-body">
+      <!--class="msg_card_body" -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Extra Prima</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="modal.dismiss('Cross click')"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-1">
+            <form class="form" novalidate="">
+              <div class="card shadow-none">
+                <div class="row">
+                  <div class="col col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Fecha:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <ng-select
+                          class="form-control form-select"
+                          name="ExtraPrimaFecha"
+                          [(ngModel)]="ExtraPrimaFecha"
+                          (change)="calcularBenchmark()"
+                        >
+                          <ng-option
+                            value="{{ item.s204_ID }}"
+                            *ngFor="let item of comboExtraPrimaFecha"
+                            >{{ item.s204_Description }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Origen</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <ng-select
+                          class="form-control form-select"
+                          name="ExtraPrimaOrigen"
+                          [(ngModel)]="ExtraPrimaOrigen"
+                          (change)="calcularBenchmark()"
+                        >
+                          <ng-option
+                            value="{{ item.s204_ID }}"
+                            *ngFor="let item of comboExtraPrimaOrigen"
+                            >{{ item.s204_Description }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Mes</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <ng-select
+                          class="form-control form-select"
+                          name="ExtraPrimaMes"
+                          [(ngModel)]="ExtraPrimaMes"
+                          (change)="calcularBenchmark()"
+                        >
+                          <ng-option
+                            value="{{ item.s204_ID }}"
+                            *ngFor="let item of comboExtraPrimaMes"
+                            >{{ item.s204_Description }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                  </div>
+                  <div class="col col-xl-6 col-lg-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Postura</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <ng-select
+                          class="form-control form-select"
+                          name="ExtraPrimaPostura"
+                          [(ngModel)]="ExtraPrimaPostura"
+                          (change)="calcularBenchmark()"
+                        >
+                          <ng-option
+                            value="{{ item.s114_Codigo }}"
+                            *ngFor="let item of comboExtraPrimaPostura"
+                            >{{ item.s114_Descripcion }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Benchmark</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="number"
+                          name="ExtraPrimaBenchmark"
+                          [(ngModel)]="ExtraPrimaBenchmark"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col d-flex justify-content-end">
+                  <button
+                    class="btn btn-green"
+                    type="submit"
+                    (click)="guardarExtraPrima(PremioCalidad)"
+                    (click)="modal.dismiss('Cross click')"
+                  >
+                    Aceptar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #PremioCalidad let-modal>
+  <div class="card">
+    <div role="document" class="card-body">
+      <!--class="msg_card_body" -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Precio Expresado</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="modal.dismiss('Cross click')"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-1">
+            <form class="form" novalidate="">
+              <div class="card shadow-none">
+                <div class="row">
+                  <div class="col col-xl-12 col-lg-12 col-md-12">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Expresado en:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <ng-select
+                          class="form-control form-select"
+                          name="expresadoSelected"
+                          [(ngModel)]="expresadoSelected"
+                        >
+                          <ng-option
+                            value="{{ item.s204_ID }}"
+                            *ngFor="let item of comboExpresado"
+                            >{{ item.s204_Description }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col d-flex justify-content-end">
+                  <button
+                    class="btn btn-green"
+                    type="submit"
+                    (click)="definicionUnidades()"
+                    (click)="modal.dismiss('Cross click')"
+                  >
+                    Aceptar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngIf="tipo == 'mostrarGrupoRT'" class="modalFlats">
+  <div class="card-header modalFlats">
+    <h3 class="card-title">Ventas RT</h3>
+    <div class="card-options" ngbDropdown>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        id="myTable1"
+        class="table table-bordered text-nowrap"
+        style="width: 100%"
+      >
+        <!-- table-striped -->
+        <thead>
+          <tr class="bold">
+            <th class="border-bottom-0">#</th>
+            <th class="border-bottom-0">Código</th>
+            <th class="border-bottom-0">Contrato <br />Venta</th>
+            <th class="border-bottom-0">Grupo</th>
+            <th class="border-bottom-0">Cliente</th>
+            <th class="border-bottom-0">Fecha</th>
+            <th class="border-bottom-0">SUNAT</th>
+            <th class="border-bottom-0">DS</th>
+            <th class="border-bottom-0">Número DS</th>
+            <th class="border-bottom-0">Serie</th>
+            <th class="border-bottom-0">Pedido</th>
+            <th class="border-bottom-0">Precio</th>
+            <th class="border-bottom-0">TM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lista of listarGrupoRT; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              {{ lista.s152_Codigo }}
+            </td>
+            <td>
+              {{ lista.s152_ContratoVenta }}
+            </td>
+            <td>
+              {{ lista.s152_Grupo }}
+            </td>
+            <td>
+              {{ lista.s152_Cliente }}
+            </td>
+            <td>
+              {{ lista.s152_Fecha | date: "dd/MM/yyyy" }}
+            </td>
+            <td>
+              {{ lista.s152_SUNAT }}
+            </td>
+            <td>
+              {{ lista.s152_DS }}
+            </td>
+            <td>
+              {{ lista.s152_NumeroDS }}
+            </td>
+            <td>
+              {{ lista.s152_Serie }}
+            </td>
+            <td>
+              {{ lista.s152_Pedido }}
+            </td>
+            <td>
+              {{ lista.s152_Precio }}
+            </td>
+            <td>
+              {{ lista.s152_TM }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="tipo == 'mostratAvanceSAP'" class="modalFlats">
+  <div class="card-header modalFlats">
+    <h3 class="card-title">Avance SAP</h3>
+    <div class="card-options" ngbDropdown>
+  </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        id="myTable1"
+        class="table table-bordered text-nowrap"
+        style="width: 100%"
+      >
+        <!-- table-striped -->
+        <thead>
+          <tr class="bold">
+            <th class="border-bottom-0">#</th>
+            <th class="border-bottom-0">Código SQL <br />Contrato</th>
+            <th class="border-bottom-0">Código SQL <br />Dosificada</th>
+            <th class="border-bottom-0">Factura</th>
+            <th class="border-bottom-0">Código SQL <br />Orden</th>
+            <th class="border-bottom-0">Pedido <br />SAP</th>
+            <th class="border-bottom-0">Código SQL <br />Avance</th>
+            <th class="border-bottom-0">Fecha <br />Documento</th>
+            <th class="border-bottom-0">Número <br />Referencia</th>
+            <th class="border-bottom-0">Número <br />Documento</th>
+            <th class="border-bottom-0">TM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lista of listarAvanceSAP; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              {{ lista.s216_SalesContract }}
+            </td>
+            <td>
+              {{ lista.s216_DosedID }}
+            </td>
+            <td>
+              {{ lista.s216_DosingCode }}
+            </td>
+            <td>
+              {{ lista.s216_OrderID }}
+            </td>
+            <td>
+              {{ lista.s216_DesPedidoSAP }}
+            </td>
+            <td>
+              {{ lista.s216_ID }}
+            </td>
+            <td>
+              {{ lista.s216_Date | date: "dd/MM/yyyy" }}
+            </td>
+            <td>
+              {{ lista.s216_ReferenceKey }}
+            </td>
+            <td>
+              {{ lista.s216_DocumentNumber }}
+            </td>
+            <td>
+              {{ lista.s216_MetricTons }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

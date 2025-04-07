@@ -1,0 +1,152 @@
+<div class="col-md-7" >
+    <div class="row">
+        <div class="col-md-6" >
+            <div style="width: 80%; ">
+                <div class="row">
+                    <div class="col-md-5">
+                        <label class="form-label"> Fecha de Reporte </label>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline" (click)="picker?.open()" style="width: 100%">
+                            <input matInput [ngModel]="this.dtpFecIni | date: 'yyyy/MM/dd'" name="dateFieldView" style="width: 100%; cursor: pointer" (focus)="picker?.open()" (dateChange)="setDateInicio(dateField.value)" readonly/>
+                            <input style="width: 100%;" matInput [matDatepicker]="picker" name="dateField" #dateField required (dateChange)="setDateInicio(dateField.value)" hidden/>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    
+                </div>              
+              </div>
+        </div>
+        <div class="col-md-2 offset-md-1">
+            <button class="btn btn-green" type="submit" (click)="reportedeltahedge()">Generar Reporte</button>   
+        </div>
+    </div>
+</div>
+
+
+
+<mat-spinner  class="custom-spinner"
+*ngIf="loading$ | async"  
+[mode]="'indeterminate'"
+[value]=50
+[diameter]="100">
+</mat-spinner>
+
+<div class="container">
+    <div class="header">
+      <h3>Aceite de Soya</h3>
+      <button class="btn btn-green" type="submit" (click)="generatePdf('5')">
+        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h4>Necesidad de compra atendida (En Miles TM)</h4>
+        <div id="main_{{ListaAceiteSoya[0]?.periodo}}_AceiteSoya" style="width: 750px;height:200px;margin: 10px;"></div>    
+        <div id="main_{{ListaAceiteSoya[1]?.periodo}}_AceiteSoya" style="width: 750px;height:200px;margin: 10px;"></div>  
+        <div id="main_{{ListaAceiteSoya[2]?.periodo}}_AceiteSoya" style="width: 750px;height:200px;margin: 10px;"></div>      
+      </div>
+      <div class="card">
+        <h4>Rango Delta (En TM)</h4>
+        <div id="main_{{ListaAceiteSoyaLinea[0]?.periodo}}_AceiteSoya_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+        <div id="main_{{ListaAceiteSoyaLinea[1]?.periodo}}_AceiteSoya_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+      </div>
+    </div>
+  <div class="header">
+    <h3>Harina de Soya</h3>
+    <button class="btn btn-green" type="submit" (click)="generatePdf('4')">
+      <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <h4>Necesidad de compra atendida (En Miles TM)</h4>
+      <div id="main_{{ListaHarinaSoya[0]?.periodo}}_HarinaSoya" style="width: 750px;height:200px;margin: 10px;"></div>    
+      <div id="main_{{ListaHarinaSoya[1]?.periodo}}_HarinaSoya" style="width: 750px;height:200px;margin: 10px;"></div>  
+      <div id="main_{{ListaHarinaSoya[2]?.periodo}}_HarinaSoya" style="width: 750px;height:200px;margin: 10px;"></div>      
+    </div>
+    <div class="card">
+      <h4>Rango Delta (En TM)</h4>
+      <div id="main_{{ListaHarinaSoyaLinea[0]?.periodo}}_HarinaSoya_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+      <div id="main_{{ListaHarinaSoyaLinea[1]?.periodo}}_HarinaSoya_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+    </div>
+  </div>
+  <div class="header">
+    <h3>Trigo Corrector</h3>
+    <button class="btn btn-green" type="submit" (click)="generatePdf('63')">
+      <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <h4>Necesidad de compra atendida (En Miles TM)</h4>
+      <div id="main_{{ListaTrigocorrector[0]?.periodo}}_TrigoCorrector" style="width: 750px;height:200px;margin: 10px;"></div>    
+      <div id="main_{{ListaTrigocorrector[1]?.periodo}}_TrigoCorrector" style="width: 750px;height:200px;margin: 10px;"></div>  
+      <div id="main_{{ListaTrigocorrector[2]?.periodo}}_TrigoCorrector" style="width: 750px;height:200px;margin: 10px;"></div>      
+    </div>
+    <div class="card">
+      <h4>Rango Delta (En TM)</h4>
+      <div id="main_{{ListaTrigocorrectorLinea[0]?.periodo}}_TrigoCorrector_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+      <div id="main_{{ListaTrigocorrectorLinea[1]?.periodo}}_TrigoCorrector_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+    </div>
+  </div>
+  <div class="header">
+    <h3>Trigo Económico</h3>
+    <button class="btn btn-green" type="submit" (click)="generatePdf('62')">
+      <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <h4>Necesidad de compra atendida (En Miles TM)</h4>
+      <div id="main_{{ListaTrigoEconomico[0]?.periodo}}_TrigoEconomico" style="width: 750px;height:200px;margin: 10px;"></div>    
+      <div id="main_{{ListaTrigoEconomico[1]?.periodo}}_TrigoEconomico" style="width: 750px;height:200px;margin: 10px;"></div>  
+      <div id="main_{{ListaTrigoEconomico[2]?.periodo}}_TrigoEconomico" style="width: 750px;height:200px;margin: 10px;"></div>      
+    </div>
+    <div class="card">
+      <h4>Rango Delta (En TM)</h4>
+      <div id="main_{{ListaTrigoEconomicoLinea[0]?.periodo}}_TrigoEconomico_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+      <div id="main_{{ListaTrigoEconomicoLinea[1]?.periodo}}_TrigoEconomico_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+    </div>
+  </div>
+  <div class="header">
+    <h3>Trigo Suave</h3>
+    <button class="btn btn-green" type="submit" (click)="generatePdf('61')">
+      <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <h4>Necesidad de compra atendida (En Miles TM)</h4>
+      <div id="main_{{ListaTrigoSuave[0]?.periodo}}_TrigoSuave" style="width: 750px;height:200px;margin: 10px;"></div>    
+      <div id="main_{{ListaTrigoSuave[1]?.periodo}}_TrigoSuave" style="width: 750px;height:200px;margin: 10px;"></div>  
+      <div id="main_{{ListaTrigoSuave[2]?.periodo}}_TrigoSuave" style="width: 750px;height:200px;margin: 10px;"></div>      
+    </div>
+    <div class="card">
+      <h4>Rango Delta (En TM)</h4>
+      <div id="main_{{ListaTrigoSuaveLinea[0]?.periodo}}_TrigoSuave_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+      <div id="main_{{ListaTrigoSuaveLinea[1]?.periodo}}_TrigoSuave_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+    </div>
+  </div>
+  <div class="header">
+    <h3>Aceite de Palma</h3>
+    <button class="btn btn-green" type="submit" (click)="generatePdf('7')">
+      <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <h4>Necesidad de compra atendida (En Miles TM)</h4>
+      <div id="main_{{ListaAceitePalma[0]?.periodo}}_AceitePalma" style="width: 750px;height:200px;margin: 10px;"></div>    
+      <div id="main_{{ListaAceitePalma[1]?.periodo}}_AceitePalma" style="width: 750px;height:200px;margin: 10px;"></div>  
+      <div id="main_{{ListaAceitePalma[2]?.periodo}}_AceitePalma" style="width: 750px;height:200px;margin: 10px;"></div>      
+    </div>
+    <div class="card">
+      <h4>Rango Delta (En TM)</h4>
+      <div id="main_{{ListaAceitePalmaLinea[0]?.periodo}}_AceitePalma_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+      <div id="main_{{ListaAceitePalmaLinea[1]?.periodo}}_AceitePalma_linea" style="width: 750px;height:250px;margin: 10px;"></div>    
+    </div>
+  </div>
+</div>
+

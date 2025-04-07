@@ -1,0 +1,113 @@
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    vertical-align: middle;
+    font-size: 14px;
+    height: 10px !important;
+    min-height: 10px !important;
+    max-height: 10px !important;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+  } 
+  
+  .mat-cell {
+    text-align: center;
+    justify-content:center;
+    vertical-align: middle;
+  }
+  
+  .mat-header-cell,
+  .mat-cell {
+    text-align: center;
+  }
+  .close-button{
+    float: right;
+    top:-20px;
+    right:-20px;
+  }
+  .button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    float: right;
+  }
+  .btn-green {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.39);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+  
+  .btn-abierto {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.336);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+  .btn-cerrado {
+    color: #fff !important;
+    background-color: #37aaf1;
+    border-color: #a1000096;
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+  
+  .btn-green:hover {
+    color: #fff !important;
+    background-color: rgba(120, 185, 40, 0.397);;
+    border-color: rgb(120, 185, 40);
+  }
+  
+  .btn-eliminar {
+    color: #fff !important;
+    background-color: #37aaf1;
+    border-color: #a1000096;
+    -webkit-box-shadow: 0 0px 10px -5px rgba(200, 15, 30, 0.5);
+            box-shadow: 0 0px 10px -5px rgba(200, 15, 30, 0.5);
+  }
+  .btn-eliminar:hover {
+    color: #fff !important;
+    background-color: #a1000096;;
+    border-color:  #37aaf1;
+  }
+  
+  
+  .btn-eliminar:active {
+    background-color: #37aaf1;
+  
+  }
+  .customIconSize {
+    font-size: 15px;
+    height: 15px ;
+    width: 15px ;
+    color: #fff;
+  }
+
+::ng-deep ngb-modal-window.claseConsulta .modal-dialog {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    height: 100% !important;
+    width: 30% !important;
+    max-width: none !important;
+    transition: right 0.2s ease-in-out !important; 
+  }
+  
+  ::ng-deep ngb-modal-window.claseConsulta .modal-content {
+    height: 100% !important;
+    border-radius: 0 !important;
+    overflow-y: auto;
+  }
+  ::ng-deep ngb-modal-window.claseConsulta.show .modal-dialog {
+    right: 0 !important; 
+  }
+  
+  
+  
+  
+  

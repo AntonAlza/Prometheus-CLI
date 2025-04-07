@@ -1,0 +1,65 @@
+#deshabilitado{
+    color: rgb(168 168 167 / 68%);
+}
+
+::ng-deep .class-modalAsignarFuturo-CM .modal-dialog { 
+    max-width: 60%;
+    width: 60%;
+}
+
+.br {
+    display: block;
+    margin-bottom: 0.5em;
+}
+.modal-header {
+    background-color: #37aaf1;
+    color: white;
+}
+
+.modal-header {
+    background-color: #37aaf1;
+    color: white;
+}
+
+.redondeado {
+    border-radius: 5px;
+    border: 1px solid rgb(146, 146, 146) !important;
+}    
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}  
+.mat-row:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+}
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}  
+:host ::ng-deep .mat-sort-header-container { 
+    display: flex;  
+    justify-content: center; 
+    vertical-align: middle;
+    padding: 0 5ex 0  5ex;
+}
+::ng-deep  .mat-sort-header-arrow {
+    color: #fff;
+    justify-content:center;
+    vertical-align: middle;
+}
+
+.selected {
+    background-color: rgba(120, 185, 40, 0.205);
+}
+

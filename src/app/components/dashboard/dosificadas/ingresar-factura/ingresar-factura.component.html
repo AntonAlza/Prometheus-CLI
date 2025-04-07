@@ -1,0 +1,271 @@
+<div role="document" class="card"> <!--class="msg_card_body" -->
+    <div class="modal-header">
+        <h5 *ngIf="flgIngresarFactura" class="modal-title">Ingresar Factura</h5>
+        <h5 *ngIf="!flgIngresarFactura" class="modal-title">Modificar Factura</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cerrarIngresoFactura()">
+          <mat-icon  >close</mat-icon>
+        </button>
+      </div>
+    <div class="modal-body">
+      <div class="py-1">
+        <form class="form" novalidate="">
+          <div class="row">
+            <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Fecha </label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                        class="form-control"
+                        type="date"
+                        placeholder="YYYY-MM-DD"
+                        ngbDatepicker
+                        [(ngModel)]="fecha"
+                        (click)="d1.toggle()"
+                        #d1="ngbDatepicker"
+                        name="fecha"
+                        readonly
+                        />
+                        </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Factura </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                    id="deshabilitado"
+                    class="form-control"
+                    type="text"
+                    placeholder="Código"
+                    name="t260_DosingCode"
+                    [(ngModel)]="dosed.t260_DosingCode"
+                    
+                  />
+                </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Fecha Envío Tramite</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                        class="form-control"
+                        type="date"
+                        placeholder="YYYY-MM-DD"
+                        ngbDatepicker
+                        [(ngModel)]="fechaEnvioTramite"
+                        (click)="d2.toggle()"
+                        #d2="ngbDatepicker"
+                        name="fechaEnvioTramite"
+                        />
+                        </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Fecha Entrega Documento a Tránsportista</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                        class="form-control"
+                        type="date"
+                        placeholder="YYYY-MM-DD"
+                        ngbDatepicker
+                        [(ngModel)]="fechaEntregaDocumentoTransportista"
+                        (click)="d3.toggle()"
+                        #d3="ngbDatepicker" 
+                        name="txtFechaEntregaDocumentoTransportista"
+                        
+                        />
+                        </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Puesto de Planificación </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                    class="form-control form-select"
+                    name="t260_Plant"
+                    [(ngModel)]="dosed.t260_Plant">
+                    <ng-option
+                  value="{{ item.s114_Codigo }}"
+                  *ngFor="let item of ingresarFacturaOBJ.comboPlant">{{ item.s114_Descripcion }}</ng-option>
+                  </ng-select>
+                </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Tipo de Carga </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                    class="form-control form-select"
+                    name="t260_Loading"
+                    [(ngModel)]="dosed.t260_Loading">
+                  <ng-option
+                  value="{{ item.s114_Codigo }}"
+                  *ngFor="let item of ingresarFacturaOBJ.comboLoading">{{ item.s114_Descripcion }}</ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="col col-xl-6 col-lg-6 col-md-6">
+              <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-3">
+                  <label class="form-label">Empresa de Transporte </label>
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-1">
+                  <i *ngIf="flgAgregarEmpresa" (click)="flgAgregarEmpresa = !flgAgregarEmpresa" class="fa fa-eye" aria-hidden="true"></i>
+                  <i *ngIf="!flgAgregarEmpresa" (click)="flgAgregarEmpresa = !flgAgregarEmpresa" class="fa fa-eye-slash" aria-hidden="true"></i>
+                </div>                
+               
+                <div *ngIf="!flgAgregarEmpresa" class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                    class="form-control form-select"
+                    name="t260_Truck"
+                    [(ngModel)]="dosed.t260_Truck">
+                    <ng-option
+                      value="{{ item.s114_Codigo }}"
+                      *ngFor="let item of ingresarFacturaOBJ.comboTruck"
+                      >{{ item.s114_Descripcion }}</ng-option
+                    >
+                  </ng-select>
+                </div>
+                <div *ngIf="flgAgregarEmpresa" class="col-xl-8 col-lg-8 col-md-8">
+                  <div class="row">
+                    <div class="col-xl-7 col-lg-7 col-md-7">
+                      <input
+                      type="text"
+                      class="form-control"
+                      name="txtNuevaEmpresa"
+                      [(ngModel)]="txtNuevaEmpresa" 
+                      />
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <button
+                        type="button"
+                        class="btnresponsive btn btn-cierres"
+                        aria-expanded="false"
+                        (click)="guardarNuevaEmpresa()"
+                      > Guardar
+                      </button>               
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Toneladas Métricas </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                    id="deshabilitado"
+                    class="form-control"
+                    type="number"
+                    name="t260_NetTons"
+                    [(ngModel)]="dosed.t260_NetTons"/>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Avance SAP </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                    id="deshabilitado"
+                    class="form-control"
+                    type="number"
+                    name="t260_SAPAdvance"
+                    [(ngModel)]="dosed.t260_SAPAdvance"/>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Flete </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                    id="deshabilitado"
+                    class="form-control"
+                    type="number"
+                    name="t260_Freight"
+                    [(ngModel)]="dosed.t260_Freight"/>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Comentarios </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="t260_Commentary"
+                    maxlength="100"
+                    placeholder="comentarios"
+                    [(ngModel)]="dosed.t260_Commentary"/>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Estado </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                    class="form-control form-select"
+                    name="t260_DosedStatus"
+                    [(ngModel)]="dosed.t260_DosedStatus"
+                    >
+                  <ng-option
+                  value="{{ item.s114_Codigo }}"
+                  *ngFor="let item of ingresarFacturaOBJ.comboDosedStatus">{{ item.s114_Descripcion }}</ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="br"></span>
+          <div class="row">
+            <div class="col d-flex justify-content-end">
+              <button
+                *ngIf="flgIngresarFactura"
+                class="btn btn-green"
+                type="submit"
+                [disabled]="!flgBoton"
+                (click)="ingresarFactura()">
+                Aceptar
+              </button>
+              <button
+                *ngIf="!flgIngresarFactura"
+                class="btn btn-green"
+                type="submit"
+                [disabled]="!flgBoton"
+                (click)="modificarFactura()">
+                Modificar
+              </button>
+              <!-- <button
+              *ngIf="!flgIngresarFactura"
+                class="btn btn-green"
+                type="submit"
+                (click)="ActualizarContrato(nuevoContrato, IngresarContratoForm)"
+                [disabled]="!flgBontonContrato">
+                Actualizar
+              </button> -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>

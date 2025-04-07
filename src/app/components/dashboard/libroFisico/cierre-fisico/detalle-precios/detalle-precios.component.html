@@ -1,0 +1,61 @@
+<div id="myModal" tabindex="-1" data-keyboard="false" role="dialog">
+    <div role="document" class="msg_card_body">
+      <div class="modal-header">
+        <h5 class="modal-title"> Lista de Observaciones Precio </h5>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="closeCierreModal()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  
+    <div class="card-body">
+        <div  class="table-responsive">
+            <div class="tabla-table-container">
+                    <table mat-table 
+                    #sortLista="matSort"
+                    class="table table-bordered text-nowrap"  
+                    class="example-table table-bordered"
+                    matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+                    style="width:100%"  
+                    [dataSource]="listaDetallePreciosDS" >
+    
+                       <ng-container matColumnDef="s266_Codigo">
+                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+                               <td mat-cell *matCellDef="let elementPrecios"> {{elementPrecios.cod_Fisico}} </td>
+                       </ng-container>
+                       <ng-container matColumnDef="s266_Estadio">
+                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Estadio </th>
+                               <td mat-cell *matCellDef="let elementPrecios"> {{elementPrecios.estadio}} </td>
+                       </ng-container>
+                       <ng-container matColumnDef="s266_valor">
+                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+                               <td mat-cell *matCellDef="let elementPrecios"> - </td>
+                       </ng-container>
+                       <ng-container matColumnDef="s266_valorIngresar">
+                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Input </th>
+                               <td mat-cell *matCellDef="let elementPrecios"> <input type="number" class="form-control" name="elementPrecios.s266_ValorIngresar" [(ngModel)]="elementPrecios.s266_ValorIngresar"> </td>
+                       </ng-container>
+                       <ng-container matColumnDef="s266_Actualizar">
+                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Actualizar </th>
+                               <td mat-cell *matCellDef="let elementPrecios"> <span (click)="actualizarCurva(elementPrecios.s266_Codigo, elementPrecios.s266_ValorIngresar)" class="material-symbols-outlined">
+                                autorenew
+                                </span> </td>
+                       </ng-container>
+    
+                       <tr mat-header-row *matHeaderRowDef="columnsObsPrecio sticky: true" 
+                               style="text-align: center; vertical-align: middle;" ></tr>
+                            
+                       <tr class="tbody" mat-row *matRowDef="let elementPrecios; columns: columnsObsPrecio;"
+                            style="text-align: center; vertical-align: middle;" >
+                       </tr>
+               </table>
+            </div>
+          </div>
+           <mat-paginator #paginatorLista="matPaginator" [pageSizeOptions]="[10,15, 25, 100]"></mat-paginator>
+    </div>
+  </div>

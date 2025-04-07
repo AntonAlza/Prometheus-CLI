@@ -1,0 +1,930 @@
+<div class="page-header fixed-header fret-header">
+  <div class="fret-header">
+    <div class="fret-title">
+      <h4>Fret CM IFD SIMULADO - {{fechaVigenteEntero.substr(6)+'-'+fechaVigenteEntero.substr(4,2)+'-'+fechaVigenteEntero.substr(0,4)}}</h4>
+    </div>
+    <div class="fret-controls">
+      <button class="btn-fret-real" (click)="regresarFret()">
+        <i class="fa fa-arrow-left"></i> Fret real
+      </button>
+      <mat-checkbox [(ngModel)]="flgExpiracion" (change)="onExpirationChange()" [disabled] = "(flgDeltaMin || flgDeltaMax)">Expiración</mat-checkbox>
+      <mat-checkbox [(ngModel)]="flgDeltaMax" (change)="onDeltaMaxChange()" [disabled] = "(flgExpiracion || flgDeltaMin)">Delta Max</mat-checkbox>
+      <mat-checkbox [(ngModel)]="flgDeltaMin" (change)="onDeltaMinChange()" [disabled] = "(flgExpiracion || flgDeltaMax)">Delta Min</mat-checkbox>
+    </div>
+  </div>
+    
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a class="d-flex">
+            <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+              <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" />
+            </svg><span class="breadcrumb-icon"> Home</span></a>
+        </li>
+        <li class="breadcrumb-item"><span>Fret</span></li>
+        <li class="breadcrumb-item">Data Entry</li>
+        <li class="breadcrumb-item active" aria-current="page">Fret IFD CM SIM</li>
+      </ol>
+    </div>
+  </div>
+  
+  <br>
+  
+  <div class="card-options configuracionFretSIM" ngbDropdown>
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            <button class="btn exportarExcel" (click)="modificarConfiguracion(configuracion)" [disabled]="flgCargando" ngbTooltip="Configurar Simulación">
+            <i class="fa fa-sliders" aria-hidden="true"></i> Stress
+            </button>
+        </div>
+    </div>
+  </div>
+
+  <div class="card-options agregarOperacionSIM" ngbDropdown>
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            <button class="btn exportarExcel" (click)="agregarOperacion(operacionFicticia)" [disabled]="flgCargando" ngbTooltip="Agregar Operación Ficticia">
+            <i class="fa fa-plus" aria-hidden="true"></i> Operación
+            </button>
+        </div>
+    </div>
+  </div>
+
+  <div class="card-options exportarExcelSIM" ngbDropdown>
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            <button class="btn exportarExcel" (click)="exportarReporte()" [disabled]="flgCargando" ngbTooltip="Exportar Excel del FRET Simulado">
+              <i class="fa fa-file-excel-o" aria-hidden="true"> </i> Exportar Excel
+            </button>
+        </div>
+    </div>
+  </div>
+
+  <!-- <div class="card-options valorizarPortafolio" ngbDropdown>
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            <button class="btn exportarExcel" (click)="valorizar()" [disabled]="flgCargando">
+            <i class="fa fa-calculator" aria-hidden="true"></i> Valorizar
+            </button>
+        </div>
+    </div>
+  </div> -->
+  
+  <div class="row row-deck main-content"> 
+    <div class="container">
+      <div class="row">
+  
+        <div class="col-xl-12 col-lg-12 col-md-12">
+          <div class="card">
+            <div class="card-header">
+  
+              <div role="listbox" aria-label="Fish selection" class="mat-chip-listbox" [ngClass]="{'disabled': flgCargando}">
+                <div class="mat-chip-option disabled" *ngFor="let opcion of listaProductosFret"
+                  (click)="toggleSelection(opcion.descripcion)"
+                  [ngClass]="{'selected': selectedOptions.includes(opcion.descripcion)}">
+                  {{ opcion.descripcion }}
+                </div>
+              </div>
+              <div class="card-options" ngbDropdown>
+                <!-- <div class="row">
+                  <div class="col d-flex justify-content-end">
+                    <button
+                      class="btn exportarExcel"
+                      type="submit"
+                      (click)="exportarReporte()"
+                      [disabled]="flgCargando">
+                      <i class="fa fa-file-excel-o" aria-hidden="true"> </i> Exportar Excel
+                    </button>
+                  </div>
+                </div> -->
+  
+              </div>
+  
+              <!-- <div class="card-options valorizarPortafolio" ngbDropdown>
+                <div class="row">
+                  <div class="col d-flex justify-content-end">
+                    <button
+                      class="btn exportarExcel"
+                      type="submit"
+                      (click)="valorizar()">
+                      <i class="fa fa fa-calculator" aria-hidden="true"> </i> Valorizar
+                    </button>
+                  </div>
+                </div>
+  
+              </div> -->
+              
+              
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <!-- <div class="col col-xl-2 col-lg-2 col-md-2">
+                  <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Fecha :</label>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6">
+                        <input
+                        class="form-control"
+                        type="date"
+                        placeholder="YYYY-MM-DD"
+                        ngbDatepicker
+                        (click)="d1.toggle()"
+                        [(ngModel)]="fechaVigente"
+                        #d1="ngbDatepicker"
+                        (ngModelChange)="actualizarFecha()"
+                        name="fechaVigente"
+                        readonly/>
+                      </div>
+                  </div>
+                </div> -->
+              </div>
+  
+              <br>
+  
+              <div>
+                   <!-- Resumen -->
+                   <mat-expansion-panel style="width: 100%;">
+                    <mat-expansion-panel-header style="width:100%;">
+                      <mat-panel-title>
+                       <b> 1. Resumen</b>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <div class="table-responsive">
+                        <div class="scroll-container" style="width:100%;">
+                      <table class="table tablaDetalle text-nowrap" style="width:100%;">
+                        <thead style="height: 60px;">
+                          <tr style="align-items: center; vertical-align: middle;">
+                            <th class="text-center inputTable" style="width:60px"
+                                *ngFor="let columna of columnasResultados">
+                                {{ columna}}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let registro of arrListaResultados; let rowIndex = index"> 
+                            <ng-container *ngFor="let columna of columnasResultados; let i = index">
+                                <ng-container *ngIf="i != 0">
+                                  <td class="text-center">
+                                    {{ registro[i] }}
+                                  </td>
+                                </ng-container> 
+                                <ng-container *ngIf="i == 0">
+                                  <td class="text" style="width: 15%;">
+                                    {{ registro[i] }}
+                                  </td>
+                                </ng-container> 
+                            </ng-container>
+                          </tr>
+                        </tbody>
+                      </table>
+                      </div>
+  
+                      </div>
+                      
+                      <br>
+  
+                      <div class="table-responsive">
+  
+                        <h4> Comparativo Precios (Py) </h4>
+  
+                        <div class="scroll-container" style="width:100%;">
+                          <table class="table tablaDetalle text-nowrap" style="width:100%;">
+                            <thead style="height: 60px;">
+                              <tr style="align-items: center; vertical-align: middle;">
+                                <th class="text-center inputTable" style="width:60px"
+                                    *ngFor="let columna of columnasResultados">
+                                    {{ columna}}
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let registro of arrListaResultadosComparativo; let rowIndex = index"> 
+                                <ng-container *ngFor="let columna of columnasResultados; let i = index">
+                                    <ng-container *ngIf="i != 0 ">
+                                      <td class="text-center">
+                                        <!-- {{ registro[i] !== '-' ? (registro[i] | number:'1.0-0') : registro[i] }} -->
+                                        {{ registro[i] }}
+
+                                      </td>
+                                    </ng-container> 
+                                    <ng-container *ngIf="i == 0">
+                                      <td class="text" style="width: 15%;">
+                                        {{ registro[i] }}
+                                      </td>
+                                    </ng-container> 
+                                </ng-container>
+                              </tr>
+                            </tbody>
+                          </table>
+                      </div>
+  
+                      </div>
+  
+                    </div>
+                  </mat-expansion-panel>
+                  
+                    <mat-expansion-panel style="width: 100%;">
+                      <mat-expansion-panel-header style="width:100%;">
+                        <mat-panel-title>
+                         <b> 2. Mercado {{unidadMedida}}</b>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+  
+                      <div>
+                        <div class="table-responsive">
+                          <div class="scroll-container" style="width:100%;">
+                            <table class="table tablaDetalle text-nowrap" style="width:100%;">
+                              <thead style="height: 60px;">
+                                <tr style="align-items: center; vertical-align: middle;">
+                                  <th class="text-center inputTable" style="width:60px"
+                                      *ngFor="let columna of columnasResultados">
+                                      {{ columna}}
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let registro of arrListaMercado; let rowIndex = index">
+                                  <ng-container *ngFor="let columna of columnasResultados; let colIndex = index">
+                                    <ng-container *ngIf="rowIndex === 0 || colIndex === 0; else mostrarInput">
+                                      <td class="text" [ngClass]="{'first-column': colIndex === 0}">
+                                        {{ registro[colIndex] }}
+                                      </td>
+                                    </ng-container>
+                                    <ng-template #mostrarInput>
+                                      <td class="text-center">
+                                        <input matInput [(ngModel)]="registro[colIndex]"
+                                               appNumberFormat
+                                               (change)="registro[colIndex] = modificacionFactor(registro[colIndex],'Mercado', colIndex, rowIndex)" 
+                                               [ngClass]="{'input-highlight': true}">
+                                      </td>
+                                    </ng-template>
+                                  </ng-container>
+                                </tr>
+                              </tbody>
+                                                         
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
+                    <!-- Fin Mercado -->
+  
+                    
+                    <!-- Posicion -->
+                    <mat-expansion-panel style="width: 100%;">
+                      <mat-expansion-panel-header style="width:100%;">
+                        <mat-panel-title>
+                         <b> 3. Posición</b>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div>
+                        <div *ngFor="let tabla of listaTablasPosicion ; let tablaIndex = index">
+                          <h4>{{tabla.nombreTabla}}</h4>
+                          <div class="table-responsive">
+                            <div class="scroll-container" style="width:100%;">
+                              <table class="table tablaDetalle text-nowrap" style="width:100%;">
+                                <thead style="height: 60px;">
+                                  <tr style="align-items: center; vertical-align: middle;">
+                                    <th class="text-center inputTable" style="width:250px"
+                                      *ngFor="let columna of columnasPosicion">
+                                      {{ columna[0] }}
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let registro of tabla.data; let rowIndex = index">
+                                    <ng-container *ngFor="let columna of columnasPosicion; let i = index">
+                                        <ng-container *ngIf="columna[1] == 'number'">
+                                          <ng-container *ngIf="tablaIndex != 0">
+                                            <ng-container *ngIf="rowIndex == 0 || rowIndex == 1 || rowIndex == 3">
+                                              <td class="text-center">
+                                                {{ formatearRegistro(registro, columna).esNumero ? 
+                                                  (formatearRegistro(registro, columna).valor | number:'1.0-0') : 
+                                                  formatearRegistro(registro, columna).valor }}
+                                              </td>
+                                            </ng-container>
+                                            <ng-container *ngIf="rowIndex != 0 && rowIndex != 1 && rowIndex != 3">
+                                              <td class="text-center">
+                                                {{ formatearRegistro(registro, columna).esNumero ? 
+                                                  (formatearRegistro(registro, columna).valor | number:'1.4-4') : 
+                                                  formatearRegistro(registro, columna).valor }}
+                                              </td>
+                                            </ng-container>
+                                          </ng-container>
+                                          <ng-container *ngIf="tablaIndex == 0">
+                                            <td class="text-center">
+                                              <input matInput [(ngModel)]="registro[columna[0]]"   
+                                              (change)="registro[columna[0]] = modificacionFactor(registro[columna[0]], 'Posicion', i, rowIndex)"
+                                              [ngClass]="{'input-highlight': true}">
+                                            </td>
+                                          </ng-container>
+                                        </ng-container>
+                                        <ng-container *ngIf="columna[1] == 'string'">
+                                          <td class="text" style="width: 15%;">
+                                            {{ registro[columna[0]]}}
+                                          </td>
+                                        </ng-container>
+                                    </ng-container>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
+                    <!-- Fin Posicion -->
+                    
+                    
+                    <!-- Resultado  -->
+                    <mat-expansion-panel style="width: 100%;">
+                      <mat-expansion-panel-header style="width:100%;">
+                        <mat-panel-title>
+                          <b>4. Resultados</b>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div>
+                        <div class="table-responsive">
+  
+                          <div *ngFor="let tabla of listaTablasResultados">
+                            <h4>{{tabla.nombreTabla}}</h4>
+                            <div class="table-responsive">
+                              <div class="scroll-container" style="width:100%;">
+                                <table class="table tablaDetalle text-nowrap" style="width:100%;">
+                                  <thead style="height: 60px;">
+                                    <tr style="align-items: center; vertical-align: middle;">
+                                      <th class="text-center inputTable" style="width:250px"
+                                        *ngFor="let columna of columnasPosicion">
+                                        {{ columna[0] }}
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let registro of tabla.data; let rowIndex = index">
+                                      <ng-container *ngFor="let columna of columnasPosicion; let i = index">
+                                          <ng-container *ngIf="i != 0">
+                                            <td class="text-center">
+                                              <!-- {{ registro[columna[0]] }} -->
+                                              {{ formatearRegistro(registro, columna).esNumero ? 
+                                                (formatearRegistro(registro, columna).valor | number:'1.0-0') : 
+                                                formatearRegistro(registro, columna).valor }}
+                                            </td>
+                                          </ng-container> 
+                                          <ng-container *ngIf="i == 0">
+                                            <td class="text" style="width: 15%;">
+                                              {{ registro[columna[0]] }}
+                                            </td>
+                                          </ng-container>
+                                      </ng-container>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+  
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
+               
+                <div class="tabla-table-container">
+                  <div style="width: 100%;">
+                    <div *ngFor="let tabla of arrListaConsultaIFD; let tablaIndex = index">
+                      <mat-expansion-panel style="width: 100%;">
+                        <mat-expansion-panel-header style="width:100%;">
+                          <mat-panel-title>
+                            <ng-container *ngIf="tabla.tipoIFD === 'Liquidadas'; else abierto"><b> 6. IFDs - {{ tabla.tipoIFD }}</b></ng-container>
+                            <ng-template #abierto><b> 5.{{tablaIndex+1 }} IFDs - {{ tabla.tipoIFD }} </b></ng-template>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div>
+  
+                          <div class="table-responsive">
+                            <div class="scroll-container" style="width:100%;">
+                              <table class="table tablaDetalleAjustado text-nowrap" style="width:100%;">
+                                <thead style="height: 60px;" [ngClass]="{'liquidaciones': tabla.tipoIFD === 'Liquidadas'}">
+                                  <tr style="align-items: center; vertical-align: middle;">
+                                    <th class="text-center inputTable" style="width:60px"
+                                      *ngFor="let columna of tabla.cabecera; let columnIndex = index"
+                                      (click)="onSortColumn(0, tablaIndex)"
+                                      [innerHTML]="columna.descripcionFO">
+                                      <!-- {{ columna.descripcionFO }} -->
+                                      <!-- <i class="fa fa-sort"
+                                        *ngIf="sortDirections[tablaIndex][0] === 'asc'"></i>
+                                      <i class="fa fa-sort-desc"
+                                        *ngIf="sortDirections[tablaIndex][0] === 'desc'"></i> -->
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                  *ngFor="let registro of tabla.dataIFD; let rowIndex = index">  <!--.slice(startIndexs[tablaIndex], endIndexs[tablaIndex]); -->
+                                  <ng-container *ngFor="let columna of tabla.cabecera">                                    
+                                    <td class="text-center" (contextmenu)="onContextMenu($event, registro, tabla.tipoIFD)" [ngSwitch]="columna.propiedad" [ngStyle]="columna.propiedad === 'precioActual' ? getColor(registro['precioActual'],registro['precioAnterior']) : {}">
+                                      <ng-container *ngIf="columna.propiedad !== 'precioActual'" >
+                                        <ng-container *ngSwitchCase="'s303_ComentariosFO'">
+                                          <input type="text" style="width: 200px;" class="form-control"
+                                            [(ngModel)]="registro[columna.propiedad]"
+                                            (change)="registro[columna.propiedad] = _handleInput(registro[columna.propiedad])"
+                                            (change)="guardadoAutomatico(registro, columna, tabla.tipoIFD)">
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'s303_M2M'">
+                                          <ng-container *ngIf="i != 0">
+                                            <ng-container *ngIf="registro[columna.propiedad] >= 0">
+                                              <span style="color: blue;">
+                                                {{ registro[columna.propiedad] | number:'1.1-2' }}
+                                              </span>
+                                            </ng-container> 
+                                            <ng-container *ngIf="registro[columna.propiedad] < 0">
+                                              <span style="color: red;">
+                                                {{ registro[columna.propiedad] | number:'1.1-2' }}
+                                              </span>
+                                            </ng-container> 
+                                          </ng-container> 
+                                        </ng-container>
+                                        <ng-container *ngSwitchDefault>
+                                          {{ registro[columna.propiedad] }}
+                                        </ng-container>
+                                      </ng-container>
+                                  
+                                      <ng-container *ngIf="columna.propiedad === 'precioActual'" >
+                                        <ng-container *ngSwitchCase="'s303_ComentariosFO'">
+                                          <input type="text" style="width: 200px;" class="form-control"
+                                            [(ngModel)]="registro[columna.propiedad]"
+                                            (change)="registro[columna.propiedad] = _handleInput(registro[columna.propiedad])"
+                                            (change)="guardadoAutomatico(registro, columna, tabla.tipoIFD)">
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'s303_M2M'">
+                                          {{ registro[columna.propiedad] | number:'1.1-2' }}
+                                        </ng-container>
+                                        <ng-container *ngSwitchDefault >
+                                          {{ registro[columna.propiedad] }}
+                                        </ng-container>
+                                      </ng-container>
+                                    </td>
+                                  </ng-container>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-expansion-panel>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- Posicion -->
+                <mat-expansion-panel style="width: 100%;">
+                  <mat-expansion-panel-header style="width:100%;">
+                    <mat-panel-title>
+                     <b> 7. Papeles Liquidados</b>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                 
+                    <div class="scroll-container" style="width:100%;">
+  
+                      <table class="table tablaDetalleAjustado text-nowrap" style="width:100%;">
+                        <thead style="height: 60px;" class="liquidaciones">
+                          <tr style="align-items: center; vertical-align: middle;">
+                            <th class="text-center inputTable" style="width:60px"
+                              *ngFor="let columna of columnasPapelesLiquidados">
+                              {{ columna[1]}}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let registro of arrListaConsultaPapelesLiquid; let rowIndex = index"> 
+                            <ng-container *ngFor="let columna of columnasPapelesLiquidados; let i = index">
+                              <td class="text-center">
+                                <ng-container *ngIf="columna[2] == 'fecha'">
+                                  {{ registro[i] | date: "dd/MM/yyyy" }}
+                                </ng-container>
+                                <ng-container *ngIf="columna[2] == 'string'">
+                                  {{ registro[i] }}
+                                </ng-container>
+                              </td>
+                            </ng-container>
+                          </tr>
+                        </tbody>
+                      </table>
+  
+                    </div>
+                </mat-expansion-panel>
+                <!-- Fin Posicion -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+          [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+  </div> 
+  
+  <ng-template #operacionFicticia let-modal>
+    <div role="document" > <!--class="msg_card_body" -->
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Operación Ficticia</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-1">
+            <form class="form" novalidate="">
+              <div class="row">
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                   
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label">Fecha Operación: </label>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                            <input
+                            class="form-control"
+                            placeholder="yyyy-mm-dd"
+                            [(ngModel)]="fechaOperacion"
+                            ngbDatepicker
+                            (click)="d1.toggle()"
+                            #d1="ngbDatepicker"
+                            name="fechaOperacion"
+                            readonly/>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label">Tipo Opción: </label>
+                        </div> <!--  -->
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                          <ng-select
+                            class="form-control form-select"
+                            name="tipoOpcion"
+                            [(ngModel)]="operacionSimulada.tipoOpcion"
+                            (change)="seleccionTipoOpcion()">
+                            <ng-option
+                                value="{{ item }}"
+                                *ngFor="let item of listTipoOpcion">{{ item }}</ng-option>
+                            </ng-select>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label">N° Contratos: </label>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                          <input
+                            class="form-control"
+                            type="number"
+                            name="contratos"
+                            (change)="obtenerTM()"
+                            [(ngModel)]="operacionSimulada.contratos"/>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label">Toneladas M.: </label>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                          <input
+                            class="form-control"
+                            type="number"
+                            name="tm"
+                            (change)="obtenerCaks()"
+                            [(ngModel)]="operacionSimulada.tm"/>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label">Tipo Cobertura: </label>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                            <ng-select
+                            class="form-control form-select"
+                            name="tipoCobertura"
+                            [(ngModel)]="operacionSimulada.tipoCobertura"
+                            (change)="selectTipoCobertura()">
+                            <ng-option
+                                value="{{ item }}"
+                                *ngFor="let item of grupoIFD1"
+                                >{{ item }}</ng-option>
+                            </ng-select>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label">Protección: </label>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                            <ng-select
+                            class="form-control form-select"
+                            name="grupoIFD2"
+                            [(ngModel)]="operacionSimulada.proteccion"
+                            [disabled]="flgProteccion">
+                            <ng-option
+                                value="{{ item }}"
+                                *ngFor="let item of grupoIFD2">{{ item }}</ng-option>
+                            </ng-select>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label">Mes Cobertura: </label>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                          <input type="month" class="form-control form-control-sm" [(ngModel)]="mesCobertura">
+                         
+                        </div>
+                      </div>
+                    </div>                
+                </div>
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="row">
+                      <div class="col-xl-7 col-lg-7 col-md-7">
+                        <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-12">
+                              <ng-select
+                              class="form-control form-select"
+                              name="listaCommodities"
+                              placeholder="Commoditie"
+                              [(ngModel)]="commoditieSelected"
+                              (change)="seleccionCommoditie($event)">
+                              <ng-option
+                                  value="{{ item.s204_ID }}"
+                                  *ngFor="let item of listaCommodities"
+                                  >{{ item.s204_Description }}</ng-option>
+                              </ng-select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-5 col-lg-5 col-md-5">
+                        <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-12">
+                              <ng-select
+                              class="form-control form-select"
+                              name="listaTickers"
+                              [(ngModel)]="operacionSimulada.ticker"
+                              placeholder="Ticker"
+                              (change)="seleccionTicker()">
+                              <ng-option
+                                  value="{{ item.s204_ID }}"
+                                  *ngFor="let item of listaTickers"
+                                  >{{ item.s204_Description }}</ng-option>
+                              </ng-select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label">Tipo Operación: </label>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                          <ng-select
+                            class="form-control form-select"
+                            name="tipoOperacion"
+                            [(ngModel)]="operacionSimulada.tipoOperacion">
+                            <ng-option
+                                value="{{ item }}"
+                                *ngFor="let item of listaTipoOperacion"
+                                >{{ item }}</ng-option>
+                            </ng-select>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label">Fecha Expiración: </label>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                          <input
+                            class="form-control"
+                            placeholder="yyyy-mm-dd"
+                            [(ngModel)]="fechaExpiracion"
+                            ngbDatepicker
+                            (click)="d2.toggle()"
+                            #d2="ngbDatepicker"
+                            name="fechaExpiracion"
+                            readonly/>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label">Strike: </label>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                          <input
+                            class="form-control"
+                            type="number"
+                            name="strike"
+                            (change)="obtenerPrima()"
+                            [(ngModel)]="operacionSimulada.strike"/>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label">Prima: </label>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                          <input
+                            class="form-control"
+                            type="number"
+                            name="prima"
+                            (change)="modificarPrima()"
+                            [(ngModel)]="operacionSimulada.prima"
+                            [disabled]="flgPrima"/>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="br"></span>
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                          <label class="col-form-label" style="color: #1e5532;">Cotización : </label>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                          <input
+                            class="form-control"
+                            type="number"
+                            name="cotizacion"
+                            [(ngModel)]="operacionSimulada.cotizacion"
+                            readonly/>
+                        </div>
+                      </div>
+                    </div>
+                    
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                      <button
+                        class="btn btn-green"
+                        type="submit"
+                        (click)="agregarOperacionLista()">
+                        Agregar
+                    </button>
+                    </div>
+                </div>
+              </div>
+
+              <!-- <div class="row">
+                <div class="col d-flex justify-content-end">
+                    <button
+                        class="btn btn-green"
+                        type="submit"
+                        (click)="agregarOperacionLista()">
+                        Agregar
+                    </button>
+                </div>
+              </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+  </ng-template>
+
+  <ng-template #configuracion let-modal>
+    <div role="document" > <!--class="msg_card_body" -->
+        <div class="modal-header">
+          <h5 class="modal-title">Configurar simulación {{ tabSeleccionado }}</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-1">
+            <form class="form" novalidate="">
+              <div class="row">
+                <div class="col col-xl-12 col-lg-12 col-md-12">
+                    <div class="card shadow-none border" style=" padding: 0% 0% 0% 2%;">
+                        <h3 class="modal-title">Mercado </h3>
+                        <span class="br"></span>
+                        <table>
+                            <tr>
+                            <td style="width: 20%; padding: 0% 0% 0% 2%;">
+                                <label class="form-label">Futuro</label>
+                            </td>
+                            <td style="width: 80%;">
+                                <input style="width: 89%; padding: 4% 0% 4% 5%;" id="deshabilitado" class="form-control"
+                                type="number" placeholder="$" [(ngModel)]="stressFuturo" />  <!--name="idNuevaFicha" [(ngModel)]="stressFuturo" -->
+                            </td>
+                            </tr>
+                            <span class="br"></span>
+                            <tr>
+                            <td style="width: 20%; padding: 0% 0% 0% 2%;">
+                                <label class="form-label">FOB</label>
+                            </td>
+                            <td style="width: 80%;">
+                                <input style="width: 89%; padding: 4% 0% 4% 5%;" id="deshabilitado" class="form-control"
+                                type="number" placeholder="$" [(ngModel)]="stressFOB"/>
+                            </td>
+                            </tr>
+                            <span class="br"></span>
+                            <tr>
+                            <td style="width: 20%; padding: 0% 0% 0% 2%;">
+                                <label class="form-label">Base</label>
+                            </td>
+                            <td style="width: 80%;">
+                                <input style="width: 89%; padding: 4% 0% 4% 5%;" id="deshabilitado" class="form-control"
+                                type="number" placeholder="$" [(ngModel)]="stressBase"/>
+                            </td>
+                            </tr>
+                            <span class="br"></span>
+                            <tr>
+                            <td style="width: 20%; padding: 0% 0% 0% 2%;">
+                                <label class="form-label">Flete</label>
+                            </td>
+                            <td style="width: 80%;">
+                                <input style="width: 89%; padding: 4% 0% 4% 5%;" id="deshabilitado" class="form-control"
+                                type="number" placeholder="$" [(ngModel)]="stressFlete"/>
+                            </td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                      <button
+                        class="btn btn-green"
+                        type="submit"
+                        (click)="modificarFactores()">
+                        Aceptar
+                    </button>
+                    </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </ng-template>
+
+<mat-menu #contextMenu="matMenu" #contextMenu2="matMenu">
+  <ng-template matMenuContent let-item="item">
+          <button mat-menu-item 
+                  (click)="modalDetalleIFD(ModificarIFDForm)">Ver Detalle</button>                
+  </ng-template>
+</mat-menu>
+
+<!-- <div #monthYearPickerContainer class="d-none">
+  <ng-template #monthYearPicker let-datepicker>
+    <ngb-datepicker
+      #dp
+      [startDate]="startDate"
+      (navigate)="date = $event.next"
+      (select)="onDateSelection($event, dp)">
+    </ngb-datepicker>
+  </ng-template>
+</div> -->
+
+  <mat-spinner  class="custom-spinner"
+  *ngIf="loading$ | async"  
+  [mode]="'indeterminate'"
+  [value]=50
+  [diameter]="50">
+  </mat-spinner>

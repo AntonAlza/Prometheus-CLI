@@ -1,0 +1,171 @@
+<div id="myModalAsociar" tabindex="-1" appJpDraggableDialog>
+    <!-- <div id="myModalAsociar" tabindex="-1" > -->
+  
+  
+    <div class="row">
+      <div style="width: 40%;  padding: 0% 0% 0% 0%;">
+        <h5 class="modal-title">Detalle de Estrategia </h5>
+      </div>
+      <div style="width: 60%; padding: 0% 0% 0% 0%;">
+        <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <span class="br"></span>
+  
+  
+  
+    <div class="card-body">
+      <div class="table-responsive ">
+        <div class="scroll-container">
+          <table mat-table matSort matSortActive="created" matSortDisableClear matSortDirection="desc" style="width:100%"
+            [dataSource]="dataSourceSQLFinal">
+  
+           
+            <ng-container class="border-bottom-0" matColumnDef="v001_Fecha">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Fecha</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_Fecha}}
+              </td>
+            </ng-container>
+  
+            <ng-container class="border-bottom-0" matColumnDef="v001_BrokerReferencia">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Broker#</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_BrokerReferencia}}
+              </td>
+            </ng-container>
+  
+            <ng-container class="border-bottom-0" matColumnDef="v001_Operacion">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Operación</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_Operacion}}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_CodEstrategia">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Id Estrategia</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_CodEstrategia}}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_Ficha">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Ficha</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_Ficha}}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_Sociedad">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Sociedad</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_Sociedad}}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_Contrato">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Contrato</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_Contrato}}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_FechaExpiracion">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Fecha Expiración</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_FechaExpiracion}}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_Cobertura">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Cobertura</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_Cobertura}}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_NumeroContratos">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>#Contratos</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_NumeroContratos}}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_Delta">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Delta</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_Delta}}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_Strike">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Strike</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_Strike | number:'1.1-2' }}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_Ifd">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Ifd</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_Ifd}}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_Estrategia">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Estrategia</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_Estrategia}}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_PrimaPagada">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Prima Entrada</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_PrimaPagada | number:'1.1-2' }}
+              </td>
+            </ng-container>
+            
+            
+            <ng-container class="border-bottom-0" matColumnDef="v001_PrecioProveedor">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>{{ codTipoIFD==0 ? 'Liquidación' : 'Mercado' }}</th>
+              <td mat-cell *matCellDef="let element" [ngStyle]="getColor(element.v001_PrecioProveedor, element.precioAnterior)">
+                {{element.v001_PrecioProveedor | number:'1.1-2' }}
+              </td>
+            </ng-container>
+            
+            
+            <ng-container class="border-bottom-0" matColumnDef="v001_M2M">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>MtM</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_M2M | number:'1.1-2' }}
+              </td>
+            </ng-container>
+            <ng-container class="border-bottom-0" matColumnDef="v001_Comentarios">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header>Comentarios</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.v001_Comentarios}}
+              </td>
+            </ng-container>
+          
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsAsociarSQL sticky: true"
+              style="text-align: center; vertical-align: middle;"></tr>
+  
+            <tr mat-row *matRowDef="let element columns: displayedColumnsAsociarSQL;"
+              (click)="changeChkState(element.t373_IDSQL)">
+            </tr>
+  
+  
+          </table>
+        </div>
+        <mat-paginator mat-paginator #MatPaginatorSQL [pageSizeOptions]="[5, 10, 25, 100]"
+          aria-label="Select page of users"></mat-paginator>
+  
+        <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+          [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+        </div>
+        <mat-menu #contextMenu="matMenu" #contextMenu2="matMenu" class="opciones">
+          <ng-template matMenuContent let-item="item" class="opciones">
+            <button mat-menu-item (click)="asociarRJO_OperacionesSQL()">Asociar</button>
+            <!-- <button mat-menu-item (click)="dismiss('Cross click')">Cancelar</button> -->
+  
+          </ng-template>
+        </mat-menu>
+  
+      </div>
+   
+    </div>
+  
+  
+  </div>

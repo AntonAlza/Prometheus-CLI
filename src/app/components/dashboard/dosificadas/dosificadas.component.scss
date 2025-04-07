@@ -1,0 +1,255 @@
+.example-small-box, .example-large-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.example-small-box {
+  height: 100px;
+  width: 100px;
+}
+
+.example-large-box {
+  height: 300px;
+  width: 300px;
+}
+
+.modal-header {
+  background-color: #37aaf1;
+  color: white;
+}
+table thead {
+background-color: #37aaf1;
+}
+
+.buscador {
+width: 18%;
+padding: 6px 0;
+}
+.redondeado {
+border-radius: 5px;
+border: 1px solid rgb(146, 146, 146) !important;
+}
+
+.mat-header-cell {
+background:  #37aaf1;
+color: white;
+justify-content:center;
+vertical-align: middle;
+font-size: 14px;
+border-left: 1px solid #ffffff;
+border-right: 1px solid #ffffff;
+}  
+.mat-badge-content {
+//background: #37aaf1;
+background-color: #37aaf1;
+color: white;
+}
+.mat-row:hover {
+background-color: rgba(120, 185, 40, 0.205);
+cursor: pointer;
+}
+.mat-header-cell {
+background:  #37aaf1;
+color: white;
+justify-content:center;
+vertical-align: middle;
+font-size: 14px;
+border-left: 1px solid #ffffff;
+border-right: 1px solid #ffffff;
+}  
+
+.mat-badge-content {
+//background: #37aaf1;
+background-color: #37aaf1;
+color: white;
+}
+:host ::ng-deep .mat-sort-header-container { 
+  display: flex;  
+  justify-content: center; 
+  vertical-align: middle;
+  padding: 0 5ex 0  5ex;
+}
+
+// .mat-sort-header-container{
+//   justify-content: center;
+//   position: relative;
+// }
+
+::ng-deep  .mat-sort-header-arrow {
+color: #fff;
+justify-content:center;
+vertical-align: middle;
+}
+
+::ng-deep .my-class-Dosificadas .modal-dialog { 
+max-width: 80%;
+width: 80%;
+}
+
+// .selected {
+// background-color: rgba(120, 185, 40, 0.205);
+// }
+
+#b1{
+white-space: normal;
+}
+
+@media all and (max-width:30em){
+button.btnresponsive{ display:block; margin:0.4em auto;}
+}
+
+.btn-cierres {
+background-color: white;
+background-image: none;
+border-color: #e4e6ef;
+color: 424e79;
+margin-right: 10px;
+&:hover {
+    background-color:  rgba(75, 130, 45, 0.651);
+    color: white;
+}
+&:focus,
+&.focus {
+    box-shadow: none;
+}
+&.disabled,
+&:disabled {
+    color: #495057;
+    background-color: white;
+    border-color: white;
+}
+&:not(:disabled):not(.disabled) {
+    &:active,
+    &.active {
+        color: #495057;
+        background-color: #eff0f6;
+        border-color: #e7e9f1;
+    }
+}
+}
+::ng-deep .my-class .modal-dialog { 
+max-width: 60%;
+width: 60%;
+}
+.cabecera-blanca {
+background-color: white;
+color: black;
+}
+
+@media all and (max-width:30em){
+button.btnresponsive{ display:block; margin:0.4em auto;}
+}
+
+mat-spinner{
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 5;
+}
+:host ::ng-deep .custom-spinner circle{   
+stroke:  rgb(75, 130, 45);
+stroke-opacity: 1 !important;
+
+}
+
+::ng-deep .mat-ink-bar {
+  background-color:#4b822d !important;}
+
+.container img {
+    width: 50%;
+    height: auto;
+}
+.container{
+  padding: 0px;
+  // border: 2px dotted #C5E37A;
+}
+.derecha{
+  float:right;
+}
+// .checkCierre {
+//   margin: 10px;
+// }
+// ::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+//   background-color: rgb(255, 0, 0) !important;
+// }
+// ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+//   background-color: #37aaf1 !important;
+// }
+// ::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+//   background-color: rgb(75, 130, 45) !important;
+// }
+
+a.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(75, 130, 45);
+}
+
+.mat-column {
+  flex: 0 0 20px;
+  min-width: 100px;
+  max-width: 240px;
+  align-items: center;
+  align-content:center;
+}
+
+.opcion {
+  background-color: transparent !important;
+  border: none;
+}
+
+::ng-deep .claseConsulta .modal-dialog { 
+  max-width: 25%;
+  width: 25%;
+  // width:25%; left:35%;
+}
+
+:host ::ng-deep  .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #37aaf1;
+  border-color: black 
+} 
+:ng-deep .mat-checkbox-indeterminate  .mat-checkbox .mat-checkbox-frame { 
+  border-color: black 
+}
+
+.mat-checkbox {
+  padding: 10px;
+}
+
+.mat-column-flgPase {
+  flex: 0 0 20px;
+  min-width: 100px;
+  max-width: 240px;
+  align-items: center;
+  align-content:center;
+  padding-left: 2px;
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.borde{
+  border-bottom:solid 1px grey;
+  // width:100%;
+  // height:50px;
+  border-bottom-color:grey;
+}

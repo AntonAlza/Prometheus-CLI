@@ -1,0 +1,989 @@
+<!--Page header-->
+
+
+
+        <div class="page-header">
+        <div class="page-leftheader">
+                <h4 class="page-title">{{tituloTabla}}</h4>
+        </div>
+
+
+
+
+
+
+        <div class="page-rightheader ms-auto d-lg-flex d-none">
+                <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a class="d-flex"><svg class="svg-icon"
+                                                xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
+                                                width="24">
+                                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                                <path
+                                                        d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+                                                <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" />
+                                        </svg><span class="breadcrumb-icon"> Home</span></a></li>
+                        <li class="breadcrumb-item"><span>IFD</span></li>
+                        <li class="breadcrumb-item active" aria-current="page">Valorización de Portafolio</li>
+                </ol>
+        </div>
+</div>
+
+
+
+
+
+
+
+<div class="row row-deck">
+        <div class="container">
+                <div class="row">
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                                <div class="card">
+                                        <div class="card-body">
+                                                <div class="row">
+                                                        <div class="col-xl-7 col-lg-7 col-md-7">
+                                                                <label class="form-label">Empresa <span
+                                                                                class="text-red">*</span></label>
+                                                                <ng-select class="form-control form-select"
+                                                                        [(ngModel)]="selectedcompania"
+                                                                        (change)="onSelectCompania($event)">
+                                                                        <ng-option value={{compania.t060_ID}}
+                                                                                *ngFor="let compania of compania">{{compania.t060_Description}}
+
+                                                                        </ng-option>
+
+                                                                </ng-select>
+                                                        </div>
+                                                        <div *ngIf="!postCierre" class="col-xl-5 col-lg-5 col-md-5">
+                                                                <label class="form-label">Subyacente <span
+                                                                                class="text-red">*</span></label>
+                                                                <ng-select class="form-control form-select"
+                                                                        [(value)]="productoSelected"
+                                                                        [(ngModel)]="selectedProducto"
+                                                                        (change)="onSelectSubyacente($event)">
+                                                                        <ng-option value={{producto.t001_ID}}
+                                                                                *ngFor="let producto of productos">{{producto.t001_Description}}
+                                                                        </ng-option>
+
+                                                                </ng-select>
+                                                        </div>
+                                                </div>
+                                                <!-- <div *ngIf="!postCierre" class="row">
+                                                                <div *ngIf="estadoPortafolio.length = 0" class="row" >
+                                                                        <a class="centerbtn btn btn-abierto btn-sm mt-3" >ABIERTO</a>
+                                                                </div>
+                                                                <div *ngIf="estadoPortafolio.length > 0" class="row" >
+                                                                        <a class="centerbtn btn btn-cerrado btn-sm mt-3">CERRADO</a>
+                                                                </div>
+                                                        </div> -->
+
+                                        </div>
+                                        <div class="card-footer text-muted">
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4">
+                                <div *ngIf="!postCierre" class="card">
+                                        <div class="card-body">
+                                                <div class="row">
+                                                        <!-- <button 
+                                                                        type="button" 
+                                                                        class="btnresponsive btn btn-cierres " 
+                                                                        aria-expanded="false"><i class="fa fa-lock"></i> Valorizar
+                                                                </button> -->
+                                                        <button type="button" (click)="cierrePortafolio(cierreIFD)"
+                                                                [disabled]="estadoCierre || !estadoValorizarT"
+                                                                class="btnresponsive btn btn-cierres "
+                                                                aria-expanded="false"><i class="fa fa-lock"></i>
+                                                                Valorizar
+                                                        </button>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                        <button type="button"
+                                                                (click)="deshacercierrePortafolio(cierreIFD)"
+                                                                class="btnresponsive btn btn-cierres "
+                                                                [disabled]="!estadoValorizarT" id='b1'
+                                                                aria-expanded="false"><i class="fa fa-unlock"></i>
+                                                                Revertir Valorización
+                                                        </button>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="col-xl-2 col-lg-3 col-md-4">
+                                <div *ngIf="!postCierre" class="card" [hidden]="!(estadoEjecucionLimiteDiario || estadoAdministrador)">
+                                        <div class="card-body">
+                                                <div class="row">
+                                                        <button type="button" (click)="ejecucionLimites()"
+                                                                class="btnresponsive btn btn-cierres "
+                                                                aria-expanded="false"><i class="fa fa-lock"></i>
+                                                                Calcular Límite Diario
+                                                        </button>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <!--Row-->
+                         <!-- <div class="col-xl-6 col-md-9 col-lg-10">
+                                <div >
+                                        <div style="width:100%; height:130%">
+                                                <div class="scroll-containerExp" style="width:100%;">
+                                                        <table mat-table
+                                                                class="table table-bordered text-nowrap" matSort
+                                                                matSortActive="created" matSortDisableClear
+                                                                matSortDirection="desc" style="width:100%"
+                                                                [dataSource]="dataSourceFechaExpiracion">
+
+
+                                                                <ng-container matColumnDef="s255_MonthTicker">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header>Mes Contrato </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_MonthTicker}}
+                                                                        </td>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="s255_ExpirateWc1">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header> W </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_ExpirateWc1}} </td>
+                                                                </ng-container>
+                                                               
+                                                                <ng-container matColumnDef="s255_ExpirateKWc1">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header> KW </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_ExpirateKWc1}} </td>
+                                                                </ng-container>
+
+                                                              
+                                                                <ng-container matColumnDef="s255_ExpirateMWEc1">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header> MWE </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_ExpirateMWEc1}}
+                                                                        </td>
+                                                                </ng-container>
+
+
+                                                             
+                                                                <ng-container matColumnDef="s255_ExpirateBOc1">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header> BO </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_ExpirateBOc1}} </td>
+                                                                </ng-container>
+
+                                                                <ng-container matColumnDef="s255_ExpirateSMc1">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header> SM </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_ExpirateSMc1}} </td>
+                                                                </ng-container>
+
+                                                                <ng-container matColumnDef="s255_ExpirateFCPOc1">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header> FCPO </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_ExpirateFCPOc1}}
+                                                                        </td>
+                                                                </ng-container>
+
+
+                                                                <ng-container matColumnDef="s255_ExpirateBL2c1">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header> BL2 </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_ExpirateBL2c1}} </td>
+                                                                </ng-container>
+
+
+                                                                <ng-container matColumnDef="s255_ExpirateSc1">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header> S </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_ExpirateSc1}}
+                                                                        </td>
+                                                                </ng-container>
+
+
+                                                                <ng-container matColumnDef="s255_ExpirateBWFc1">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header> BWF </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_ExpirateBWFc1}}
+                                                                        </td>
+                                                                </ng-container>
+
+
+                                                                <ng-container matColumnDef="s255_Expirate2BXCc1">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header> 2BXC </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_Expirate2BXCc1}} </td>
+                                                                </ng-container>
+
+                                                            
+                                                                <ng-container matColumnDef="s255_ExpirateCc1">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                                mat-sort-header> C </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                                {{element.s255_ExpirateCc1}} </td>
+                                                                </ng-container>
+
+                                                                <tr mat-header-row class="matRowExp"
+                                                                        *matHeaderRowDef="displayedColumnsFechaExpiracion sticky: true"
+                                                                        style="text-align: center; vertical-align: middle;">
+                                                                </tr>
+
+                                                                <tr class="tbody" mat-row class="matRowExp"
+                                                                        *matRowDef="let element; columns: displayedColumnsFechaExpiracion;"
+                                                                        style="text-align: center; vertical-align: middle;"
+                                                                >
+
+                                                                </tr>
+
+                                                        </table>
+
+
+                                                </div>
+
+                                        </div>
+                                      
+                                </div>
+                         </div>    -->
+                        <!--End Row-->
+
+                        <!--Row-->
+                        <!-- <div class="col-xl-6 col-md-9 col-lg-10">
+                                <div class="card">
+                                        
+                                        <div class="card-body">
+                                                        <div style="align-items: center; vertical-align:middle;">
+                                                        
+                                                                <owl-carousel-o [options]="customOptions">
+                                                                        <ng-template carouselSlide
+                                                                                *ngFor="let owlData of listaOperacionesxVencer">
+                                                                                <ul class="news-crypto">
+                                                                                        <li>
+                                                                                                <span
+                                                                                                        class="font-weight-bold">
+                                                                                                        Operación: 
+                                                                                                </span>
+                                                                                                <span>{{owlData.s255_idSQL}} </span>
+                                                                                                <span class="br"></span>
+                                                                                                <span
+                                                                                                        class="font-weight-bold">
+                                                                                                        Ticker:
+                                                                                                </span>
+                                                                                                <span>{{owlData.s255_Ticker}}: </span>
+                                                                                                <span class="br"></span>
+                                                                                                <span
+                                                                                                        class="font-weight-bold">
+                                                                                                        Fecha Vcto: 
+                                                                                                </span>
+                                                                                                <span>  {{owlData.s255_FechaVcto}}
+                                                                                                </span>
+                                                                                                
+                                                                                        </li>
+                                                                                </ul>
+                                                                        </ng-template>
+                                                                </owl-carousel-o>
+                                                        </div>
+                                        </div>
+                                        
+                                </div>
+                        </div> -->
+                        <!--End Row-->
+
+
+
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+
+                                <div class="card">
+                                        <!-- <div class="card-header"> -->
+                                        <div>
+                                                <h3 class="card-title"></h3>
+                                                <div>
+                                                        <div>
+                                                                <!-- <table style="border-bottom:1px solid rgb(224, 240, 240);"  > -->
+                                                                <table
+                                                                        style="border: 4; border-collapse: collapse;  border-color: black;">
+                                                                        <tr style="width:100% ">
+                                                                                <td
+                                                                                        style="width:10%; height: 10px; text-align: left; padding: 0.5% 0% 0.5% 1%;">
+
+                                                                                        <button [disabled]="estadoCierre  ||  !estadoRegistro"
+                                                                                                style="height:80%;  align-content: center;   text-align:center;  padding:1% 1%  1.5% 1%"
+                                                                                                class="file-upload"
+                                                                                                role="button_modal_"
+                                                                                                mat-raised-button
+                                                                                                color="primary"
+                                                                                                class="btnresponsive btn btn-cierres"
+                                                                                                aria-expanded="false"
+                                                                                                matBadge={{pOperaciones}}
+                                                                                                matBadgePosition="after"
+                                                                                                data-toggle="modal"
+                                                                                                (click)="modalIngresoOperacion(IngresarContratoForm)">
+                                                                                                <i
+                                                                                                        class="fa fa-envelope"></i>
+                                                                                                Operaciones
+
+                                                                                                <!-- <svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 0 24 24" width="24">
+                                                                                        <path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 8l-8 5-8-5v10h16zm0-2H4l8 4.99z" opacity=".3"/>
+                                                                                        <path d="M4 20h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2zM20 6l-8 4.99L4 6h16zM4 8l8 5 8-5v10H4V8z"/>
+                                                                                </svg>           -->
+
+
+
+
+                                                                                        </button>
+
+                                                                                </td>
+                                                                                <td
+                                                                                        style="width:30%; text-align: left; padding: 0.5% 0% 0.5% 1%;">
+
+                                                                                        <button [disabled]="estadoCierre  ||  !estadoRegistro"
+                                                                                                style="width: 60%; height: 35px; align-content: center;   text-align:center;  padding:1% 1%  1.5% 1%"
+                                                                                                class="file-upload"
+                                                                                                role="button_modal_"
+                                                                                                mat-raised-button
+                                                                                                color="primary"
+                                                                                                class="btnresponsive btn btn-cierres"
+                                                                                                aria-expanded="false"
+                                                                                                matBadge={{pOperacionesSinCuenta}}
+                                                                                                matBadgePosition="after"
+                                                                                                data-toggle="modal"
+                                                                                                (click)="modalIngresoOperacionSinCuenta(IngresarContratoSinCuentaForm)">
+                                                                                                <i
+                                                                                                        class="fa fa-envelope"></i>
+                                                                                                Operaciones sin cuenta
+                                                                                        </button>
+
+                                                                                </td>
+
+
+                                                                                <td
+                                                                                        style="width:65%; text-align: right; padding: 0% 1% 0% 0%;">
+                                                                                        <button style="width: 30%;"
+                                                                                                class="btn btn-green"
+                                                                                                type="submit"
+                                                                                                [disabled]="estadoCierre || !estadoRegistro"
+                                                                                                (click)="modalRegistrarEstrategia(RegistrarEstrategia,RegistrarEstrategiaCM)">
+
+                                                                                                Estrategia
+                                                                                        </button>
+
+
+
+                                                                                </td>
+                                                                                <td
+                                                                                        style=" text-align:right;  padding-right:0.3% ">
+                                                                                        <mat-form-field>
+                                                                                                <mat-label
+                                                                                                        style="vertical-align: bottom; padding-bottom: 50px; ">&nbsp;&nbsp;
+                                                                                                        Archivo carga
+                                                                                                        masiva
+                                                                                                        IFD</mat-label>
+                                                                                                <button style=" background-color: white; color: white;"
+                                                                                                        [disabled]="estadoCierre || !estadoRegistro"
+                                                                                                        matPrefix
+                                                                                                        (click)="f_input.click()">
+                                                                                                        <mat-icon
+                                                                                                                style="color: black;">
+                                                                                                                attach_file
+                                                                                                        </mat-icon>
+                                                                                                </button>
+                                                                                                <input type="text"
+                                                                                                        readonly
+                                                                                                        matInput
+                                                                                                        [formControl]="display" />
+                                                                                                <input accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                                                                                        type="file"
+                                                                                                        hidden #f_input
+                                                                                                        (change)="fileChangeListener($event)" />
+                                                                                                <mat-error>el campo es
+                                                                                                        requerido</mat-error>
+                                                                                        </mat-form-field>
+
+
+
+                                                                                </td>
+                                                                                <td
+                                                                                        style="width: 10%; text-align:right;  padding-right:1.3% ">
+
+                                                                                        <button [disabled]="estadoCierre  || !estadoRegistro"
+                                                                                                role="button_modal_"
+                                                                                                class="btnresponsive btn btn-cierres"
+                                                                                                aria-expanded="false"
+                                                                                                [disabled]="display.invalid"
+                                                                                                (click)="GuardarCargaMasiva()">
+                                                                                                <i class="fa fa-file-excel-o"
+                                                                                                        style="color:black;"
+                                                                                                        aria-hidden="true"></i>
+                                                                                                Carga Masiva IFD
+
+                                                                                        </button>
+
+
+                                                                                </td>
+                                                                                <!-- <td>
+                                                                        <label  class="file-upload" role="button_descarga" >
+                                                                                <input type="file"  name="fileToUpload" id="csvFileUpload"  accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  (change)="fileChangeListener($event)">
+                                                                                <span  >Carga Masiva sssss</span>
+                                                                                
+                                                                        </label>
+                                                                </td> -->
+                                                                        </tr>
+                                                                </table>
+                                                        </div>
+                                                </div>
+                                        </div>
+
+
+
+
+                                        <div class="card-body">
+                                                <div style="width:100%; height:130%">
+                                                        <div>
+                                                                <input type="text" class="redondeado" size="100"
+                                                                        (keyup)="applyFilter($event)"
+                                                                        placeholder=" Buscar en Portafolio"
+                                                                        autocomplete="off">
+                                                                <br><br>
+                                                        </div>
+                                                        <div class="scroll-container" style="width:100%;">
+                                                                <table mat-table
+                                                                        class="table table-bordered text-nowrap" matSort
+                                                                        matSortActive="created" matSortDisableClear
+                                                                        matSortDirection="desc" style="width:100%"
+                                                                        [dataSource]="dataSource">
+
+
+                                                                        <ng-container matColumnDef="s208_Estado">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Estado </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        <button [ngStyle]="{'justify-content':'center', 'text-align':'center',  'font-weight': 'bold', 'color':'white'}"
+                                                                                                [ngClass]="(element.s208_Estado == 'Nuevo') ? 'btn btn-info' :(element.s208_Estado == 'En Portafolio') ? 'btn btn-success' : 'btn btn-success'"
+                                                                                                role="button"
+                                                                                                aria-pressed="true">{{element.s208_Estado}}</button>
+
+                                                                                </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container matColumnDef="s208_Operacion">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Operacion </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Operacion}}
+
+
+                                                                                </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container matColumnDef="s208_FechaPacto">
+                                                                                <th class="thead"
+                                                                                        class="border-bottom-0"
+                                                                                        mat-header-cell
+                                                                                        *matHeaderCellDef
+                                                                                        mat-sort-header> Fecha <br>
+                                                                                        Cierre </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_FechaPacto}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container class="border-bottom-0"
+                                                                                matColumnDef="s208_DescUnderlying">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Subyacente
+                                                                                </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_DescUnderlying}}
+                                                                                </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container class="border-bottom-0"
+                                                                                matColumnDef="s208_Ticker">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Ticker </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Ticker}} </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container class="border-bottom-0"
+                                                                                matColumnDef="s208_FechaExpiracion">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Fecha <br>
+                                                                                        Expiracion </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_FechaExpiracion}}
+                                                                                </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container class="border-bottom-0"
+                                                                                matColumnDef="s208_Instrumento">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Instrumento
+                                                                                </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Instrumento}}
+                                                                                </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container
+                                                                                matColumnDef="s208_TipoInstrumento">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Tipo <br>
+                                                                                        Instrumento </th>
+                                                                                <td (contextmenu)="onContextMenu($event, element)"
+                                                                                        mat-cell
+                                                                                        *matCellDef="let element">
+                                                                                        <button [ngStyle]="{'justify-content':'center', 'text-align':'center',  'font-weight': 'bold', 'color':'white'}"
+                                                                                                [ngClass]="(element.s208_TipoInstrumento == 'Swap') ? 'btn btn-purple' :(element.s208_TipoInstrumento == 'Futuro') ? 'btn btn-indigo' : 'btn btn-orange'"
+                                                                                                role="button"
+                                                                                                aria-pressed="true">{{element.s208_TipoInstrumento}}</button>
+
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container class="border-bottom-0"
+                                                                                matColumnDef="s208_DescBenchmark">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Benchmark </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_DescBenchmark}}
+                                                                                </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container class="border-bottom-0"
+                                                                                matColumnDef="s208_CompraVenta">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Compra <br>
+                                                                                        Venta </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_CompraVenta}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container
+                                                                                matColumnDef="s208_TipoLiquidacion">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Tipo <br>
+                                                                                        Liquidacion </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_TipoLiquidacion}}
+                                                                                </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container matColumnDef="s208_CodigoBroker">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Codigo <br>
+                                                                                        Broker </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_CodigoBroker}}
+                                                                                </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container matColumnDef="s208_Sociedad">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Sociedad </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Sociedad}} </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container
+                                                                                matColumnDef="s208_NumeroContratos">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Numero
+                                                                                        <br>Contratos </th>
+                                                                                <td class="thead" mat-cell
+                                                                                        *matCellDef="let element">
+                                                                                        {{element.s208_NumeroContratos}}
+                                                                                </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container matColumnDef="s208_Bushels">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Bushels </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Bushels}} </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container
+                                                                                matColumnDef="s208_PrecioEjercicio">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Precio
+                                                                                        <br>Ejercicio </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_PrecioEjercicio |
+                                                                                        number:'1.1-2' }} </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container matColumnDef="s208_Prima">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Prima </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Prima |
+                                                                                        number:'1.1-2'}} </td>
+                                                                        </ng-container>
+
+
+
+                                                                        <ng-container matColumnDef="s208_Broker">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Broker </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Broker}} </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container matColumnDef="s208_MesContrato">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Mes <br>
+                                                                                        Contrato </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_MesContrato}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_Costo">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Costo </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Costo}} </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container
+                                                                                matColumnDef="s208_CodigoEstrategia">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Codigo <br>
+                                                                                        Estrategia </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_CodigoEstrategia}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_Estrategia">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Estrategia
+                                                                                </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Estrategia}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_MesEstrategia">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Mes <br>
+                                                                                        Estrategia </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_MesEstrategia}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_TipoCobertura">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Tipo <br>
+                                                                                        Cobertura </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_TipoCobertura}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_M2M">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> M2M </th>
+
+                                                                                <!-- <td  mat-cell *matCellDef="let element"> {{element.s208_M2M | number:'1.1-2'}} </td> -->
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        <div
+                                                                                                [ngStyle]="{'color':element.s208_M2M >= '0' ? 'blue' : 'red'}">
+                                                                                                {{element.s208_M2M |
+                                                                                                number:'1.1-2'}}</div>
+
+                                                                                </td>
+
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_Ficha">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Ficha </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Ficha}} </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container matColumnDef="s208_Cobertura">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Campaña
+                                                                                        Molienda </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Cobertura}} </td>
+                                                                        </ng-container>
+
+                                                                        <ng-container matColumnDef="s208_CuentaBroker">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Cuenta <br>
+                                                                                        Broker </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_CuentaBroker}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_Barrera">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Barrera </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Barrera}} </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_TipoBarrera">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Tipo <br>
+                                                                                        Barrera </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_TipoBarrera}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_TipoOperacion">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Tipo <br>
+                                                                                        Operacion </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_TipoOperacion}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_Base">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Base </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Base}} </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container
+                                                                                matColumnDef="s208_AcumulacionEstrategia">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Acumulación
+                                                                                        <br> Estrategia </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_AcumulacionEstrategia}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container
+                                                                                matColumnDef="s208_AcumulacionOperacion">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Acumulacion
+                                                                                        <br>Operación </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_AcumulacionOperacion}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_TipoOperacion">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Tipo <br>
+                                                                                        Operacion </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_TipoOperacion}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_Trimestre">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Trimestre </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Trimestre}} </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_Portfolio">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Portfolio </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Portfolio}} </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_ByAgrupDelta">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Agrupación
+                                                                                        Delta </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_ByAgrupDelta}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_ByApertura">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Apertura </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_ByApertura}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_HedgeType">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Tipo Cobertura
+                                                                                </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_HedgeType}} </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_VolumeNetTM">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Volumen - TM
+                                                                                        netas </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_VolumeNetTM}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_VolumeMaxTM">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Volumen - TM
+                                                                                        máxima </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_VolumeMaxTM}}
+                                                                                </td>
+                                                                        </ng-container>
+
+
+                                                                        <ng-container matColumnDef="s208_Limit">
+                                                                                <th mat-header-cell *matHeaderCellDef
+                                                                                        mat-sort-header> Límite </th>
+                                                                                <td mat-cell *matCellDef="let element">
+                                                                                        {{element.s208_Limit}} </td>
+                                                                        </ng-container>
+
+
+                                                                        <tr mat-header-row
+                                                                                *matHeaderRowDef="displayedColumns sticky: true"
+                                                                                style="text-align: center; vertical-align: middle;">
+                                                                        </tr>
+
+                                                                        <tr class="tbody" mat-row
+                                                                                *matRowDef="let element; columns: displayedColumns;"
+                                                                                style="text-align: center; vertical-align: middle;"
+                                                                                (contextmenu)="onContextMenu($event, element)">
+
+                                                                        </tr>
+
+                                                                </table>
+
+
+                                                        </div>
+
+                                                </div>
+                                                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
+                                                        aria-label="Select page of users"></mat-paginator>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>
+<!--End row-->
+
+<div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+        [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+</div>
+<mat-menu #contextMenu="matMenu" #contextMenu2="matMenu">
+        <ng-template matMenuContent let-item="item">
+                <button mat-menu-item [disabled]="estadoCierre ||  !estadoRegistro"
+                        (click)="modalModificarIFD(ModificarIFDForm)">Modificar</button>
+                <button mat-menu-item [disabled]="estadoCierre  ||  !estadoRegistro"
+                        (click)="modalLiquidarIFD(LiquidarIFDForm)">Liquidar</button>
+                <button mat-menu-item [disabled]="estadoCierre  ||  !estadoRegistro"
+                        (click)="modalCancelarIFD()">Cancelar</button>
+                <button mat-menu-item [disabled]="estadoCierre ||  !estadoRegistro"
+                        (click)="modalModificarEstrategia(RegistrarEstrategia,RegistrarEstrategiaCM)">Modificar
+                        Estrategia</button>
+                <!-- <button mat-menu-item [disabled] ="estadoCierre || estadoDividir" (click)="ModaldividirContrato()">Dividir</button> -->
+        </ng-template>
+</mat-menu>
+
+<ng-template #IngresarContratoForm let-modal>
+        <app-registrosOperacionesBroker [visible]="myModal"
+                (close)="cerrarModal($event)"></app-registrosOperacionesBroker>
+        <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+
+</ng-template>
+<ng-template #ModificarIFDForm let-modal>
+        <app-modificarIFD [visible]="myModal" (close)="cerrarModal($event)"
+                [objForm]="objetoInitPadre"></app-modificarIFD>
+        <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+
+</ng-template>
+<ng-template #LiquidarIFDForm let-modal>
+        <app-liquidarIFD [visible]="myModal" (close)="cerrarModal($event)"></app-liquidarIFD>
+        <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+
+</ng-template>
+<ng-template #RegistrarEstrategia let-modal>
+        <app-registroEstrategia [visible]="myModal" (close)="cerrarModal($event)"></app-registroEstrategia>
+        <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+
+</ng-template>
+
+<ng-template #RegistrarEstrategiaCM let-modal>
+        <app-registroEstrategiaCM [visible]="myModal" (close)="cerrarModal($event)"></app-registroEstrategiaCM>
+        <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+
+</ng-template>
+
+
+<ng-template #cierreIFD let-modal>
+        <app-cierrePortafolio [visible]="myModal" (close)="cerrarModal($event)"></app-cierrePortafolio>
+        <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+
+</ng-template>
+
+<ng-template #cambiarEstadoIFD let-modal>
+        <app-cambiarEstadoIFD [visible]="myModal" (close)="cerrarModal($event)"></app-cambiarEstadoIFD>
+        <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+
+</ng-template>
+
+<ng-template #IngresarContratoSinCuentaForm let-modal>
+        <app-registrosOperacionesBrokerSinCuenta [visible]="myModal"
+                (close)="cerrarModal($event)"></app-registrosOperacionesBrokerSinCuenta>
+</ng-template>
+
+<ng-template #OperacionesxVencer let-modal>
+
+        <app-operacionesxVencer [visible]="myModal" (close)="cerrarModal($event)"></app-operacionesxVencer>
+</ng-template>
+
+
+
+<mat-spinner class="custom-spinner" *ngIf="loading$ | async" [mode]="'indeterminate'" [value]=50 [diameter]="50">
+
+</mat-spinner>

@@ -1,0 +1,152 @@
+<div role="document" class="card"> <!--class="msg_card_body" -->
+    <div class="modal-header">
+        <h5 class="modal-title">Comprar Futuro</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cerrarComprarFuturo()">
+          <mat-icon  >close</mat-icon>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-1">
+        <form class="form" novalidate="">
+          <div class="row">
+            <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Futuro </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select
+                        class="form-control form-select"
+                        name="t072_Future"
+                        [(ngModel)]="compraClosingPrice.t072_Future"
+                        (change)="obtenerTicker()">
+                        <ng-option value="{{ item.s204_ID }}"
+                        *ngFor="let item of objetoInitCompraFuturo.comboFuturosCM">{{ item.s204_Description }}</ng-option>
+                      </ng-select>
+                    </div>
+                </div>                
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Código Operación</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            id="deshabilitado"
+                            class="form-control"
+                            type="text"
+                            placeholder="Código"
+                            name="t072_ID"
+                            [(ngModel)]="compraClosingPrice.t072_ID"
+                            readonly/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Operación</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        value="Compra" readonly/>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Fecha </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                      class="form-control"
+                      type="date"
+                      placeholder="YYYY-MM-DD"
+                      ngbDatepicker
+                      [(ngModel)]="fecha"
+                      [minDate]="minDate"
+                      [maxDate]="maxDate"
+                      (click)="d1.toggle()"
+                      #d1="ngbDatepicker"
+                      name="fecha"
+                      readonly
+                      />
+                    </div>
+                </div>
+            <span class="br"></span>
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4">
+              <label class="form-label">Precio {{tickerPrice}}</label>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8">
+              <input
+                  class="form-control"
+                  type="number"
+                  name="precio"
+                  [(ngModel)]="precio"/>
+              </div>
+            </div>
+            <span class="br"></span>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Número de Contratos</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                <input
+                    class="form-control"
+                    type="number"
+                    name="t072_VolumeContract"
+                    [(ngModel)]="compraClosingPrice.t072_VolumeContract"
+                    onkeydown="if(event.key==='.'){event.preventDefault();}"
+                    (change)="obtenerTM()"/>
+                </div>
+            </div>
+            <span class="br"></span>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Toneladas Métricas</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                <input
+                    id="deshabilitado"
+                    class="form-control"
+                    type="number"
+                    name="t072_MetricTons"
+                    [(ngModel)]="compraClosingPrice.t072_MetricTons" readonly/>
+                </div>
+            </div>
+            <span class="br"></span>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Comentario</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                <input
+                    class="form-control"
+                    type="text"
+                    name="comentarioFuturo"
+                    [(ngModel)]="comentarioFuturo" />
+                </div>
+            </div>
+          </div>
+          <br>
+        </div>
+        <span class="br"></span>
+          <div class="row">
+            <div class="col d-flex justify-content-end">
+              <button
+                class="btn btn-green"
+                type="submit"
+                [disabled]="!flgBoton"
+                (click)="guardarCompraFuturo()">
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,244 @@
+
+  <!-- <div role="document" class="msg_card_body" >
+    
+    <div class="modal-header">
+                <table style=" width: 100%; border-bottom:1px solid #ffffff;"  >
+                  <tr   style="width:100%" >
+                      <td   style="text-align:left;  padding: 0% 0% 0.5% 1%">
+                        <h3 class="modal-title">Registro Cuenta Broker - Campaña - Producto - Contrato Marco</h3>
+                      </td>
+                      <td style="text-align:right;  padding-right:1.3% ">
+                        <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+                          </button>
+
+                      </td>
+                  </tr>
+                </table>
+  </div>
+</div> -->
+
+<div class="page-header">
+  <div class="page-leftheader">
+    <h4 class="page-title">Registro Cuenta Broker - Campaña - Producto - Contrato Marco</h4>
+  </div>
+
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/>
+          </svg>
+          <span class="breadcrumb-icon">Home</span>
+        </a>
+      </li>
+      <li class="breadcrumb-item">Mantenedor</li>
+      <li class="breadcrumb-item active" aria-current="page">Registro Broker - Campaña</li>
+    </ol>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+
+    <div class="row">
+    <div  style="width: 15%; padding: 0.5% 0% 0.5% 1%">
+          <label style="width: 100%;" class="form-label">Sociedad Administradora</label>
+          <ng-select    
+          class="form-control form-select" 
+          name="idSociedadAdministradora" 
+          [(ngModel)]="idSociedadAdministradora"
+          (change)="onSelectSociedadAdministradora($event)"
+          >  
+        <ng-option
+            value="{{lista.s114_Codigo}}"
+            *ngFor="let lista of listaSociedadAdministradora"
+            >{{ lista.s114_Descripcion}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div  style="width: 15%; padding: 0.5% 0% 0.5% 1%">
+          <label style="width: 100%;" class="form-label">Cuenta Broker</label>
+          <ng-select    
+          class="form-control form-select" 
+          name="idCuentaBroker" 
+          [(ngModel)]="idCuentaBroker"
+          
+          >  
+        <ng-option
+            value="{{lista.s114_Codigo}}"
+            *ngFor="let lista of listaCuentaBroker"
+            >{{ lista.s114_Descripcion}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div style="width: 15%; padding: 0.5% 0% 0.5% 1%">
+      <label class="form-label">Sociedad Administrada </label>
+      <ng-select   
+            class="form-control form-select" 
+            name="idSociedadAdministrada" 
+            [(ngModel)]="idSociedadAdministrada"
+            (change)="onSelectSociedadAdministrada($event)"
+            >  
+          <ng-option
+              value="{{lista.s114_Codigo}}"
+              *ngFor="let lista of listaSociedadAdministrada"
+              >{{ lista.s114_Descripcion }}
+          </ng-option>
+    </ng-select>
+    </div>
+    <div  style="width: 15%; padding: 0.5% 0% 0.5% 1%">
+          <label style="width: 100%;" class="form-label">Campaña</label>
+          <ng-select    
+          class="form-control form-select" 
+          name="idCampanha" 
+          [(ngModel)]="idCampanha"
+          (change)="onSelectCampanha($event)"
+          >  
+        <ng-option
+            value="{{lista.s114_Codigo}}"
+            *ngFor="let lista of listaCampanha"
+            >{{ lista.s114_Descripcion}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div  style="width: 15%; padding: 0.5% 0% 0.5% 1%">
+          <label style="width: 100%;" class="form-label">Producto</label>
+          <ng-select    
+          class="form-control form-select" 
+          name="idProducto" 
+          [(ngModel)]="idProducto"
+          
+          >  
+        <ng-option
+            value="{{lista.s114_Codigo}}"
+            *ngFor="let lista of listaProducto"
+            >{{ lista.s114_Descripcion}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div  style="width: 15%; padding: 0.5% 0% 0.5% 1%">
+          <label style="width: 100%;" class="form-label">Contrato Marco</label>
+          <ng-select    
+          class="form-control form-select" 
+          name="idContratoMarco" 
+          [(ngModel)]="idContratoMarco"
+          >  
+        <ng-option
+            value="{{lista.s114_Codigo}}"
+            *ngFor="let lista of listaContratoMarco"
+            >{{ lista.s114_Descripcion}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div style="width: 9%; padding: 1.75% 0% 0.5% 1%">
+      <button style="width: 100%;"
+        class="btn btn-green"
+        type="submit"
+        (click)="AgregarCuentaBrokerAsociada()"
+        [disabled]="!estadoRegistrarCuentaBrokerCampaign">Agregar
+      </button>
+   </div>
+ </div>
+  </div>
+  
+  <div class="card-body">
+    <table mat-table
+    class="example-table table-bordered"
+    
+    matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+    style="width:100%"
+    [dataSource]="dataSource" >
+
+    <ng-container  class="border-bottom-0" matColumnDef="s252_SociedadAdministradora">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Sociedad Adminstradora </th>
+      <td mat-cell *matCellDef="let element"> {{element.s252_SociedadAdministradora}} </td>
+      </ng-container>
+
+      
+    <ng-container  class="border-bottom-0" matColumnDef="s252_CtaBroker">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cuenta Broker </th>
+      <td mat-cell *matCellDef="let element"> {{element.s252_CtaBroker}} </td>
+      </ng-container>
+
+      <ng-container  class="border-bottom-0" matColumnDef="s252_SociedadAdministrada">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Sociedad Administrada </th>
+              <td mat-cell *matCellDef="let element"> {{element.s252_SociedadAdministrada}} </td>
+      </ng-container>
+
+      <ng-container  class="border-bottom-0" matColumnDef="s252_Campanha">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Campaña </th>
+              <td mat-cell *matCellDef="let element"> {{element.s252_Campanha}} </td>
+      </ng-container>
+      <ng-container  class="border-bottom-0" matColumnDef="s252_Producto">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+              <td mat-cell *matCellDef="let element"> {{element.s252_Producto}}  </td>        
+      </ng-container>
+      <ng-container  class="border-bottom-0" matColumnDef="s252_ContratoMarco">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contrato Marco </th>
+        <td mat-cell *matCellDef="let element"> {{element.s252_ContratoMarco}}  </td>
+
+      </ng-container>
+      <ng-container  class="border-bottom-0" matColumnDef="s252_Descripcion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Cuenta </th>
+        <td mat-cell *matCellDef="let element"> {{element.s252_Descripcion}}  </td>
+      </ng-container>
+
+      <ng-container  class="border-bottom-0" matColumnDef="s252_Status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+        <td mat-cell *matCellDef="let element">
+            <div *ngIf="element.s252_Status != 0; else elseComentario">
+                          Abierto
+                        </div> 
+            <ng-template #elseComentario>Cerrado</ng-template>
+              
+
+        </td>
+      </ng-container>
+
+
+
+
+
+      <ng-container  matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+        <td mat-cell *matCellDef="let element"> 
+                
+            <button class="btn btn-green" type="submit" mat-icon-button  (click)="editarCuentaBrokerAsociada(cuentaBrokerAsociada, element)"
+            [disabled]="!estadoRegistrarCuentaBrokerCampaign">
+              <mat-icon class="customIconSize" color = "primary">edit</mat-icon>
+            </button>
+              &nbsp;&nbsp;
+            <button class="btn btn-eliminar" type="submit" mat-icon-button (click)="eliminarCuentaBrokerAsociada(element)"
+            [disabled]="!estadoRegistrarCuentaBrokerCampaign">
+              <mat-icon class="customIconSize" color = "primary">delete</mat-icon>
+            </button>
+
+
+        </td>
+      </ng-container>
+
+      
+      <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true"
+      style="text-align: center; vertical-align: middle;"
+
+      ></tr>
+
+      <tr mat-row *matRowDef="let element columns: displayedColumns;" style="text-align: center; vertical-align: middle;" 
+      class="my-mat-row" >
+      </tr>
+
+
+  </table>
+  </div>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+
+<ng-template #cuentaBrokerAsociada let-modal>
+<app-editarCtaBrokerAsociada [visible]="myModal"  (close)="cerrarModal($event)"></app-editarCtaBrokerAsociada>                         
+<!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+
+</ng-template>
+

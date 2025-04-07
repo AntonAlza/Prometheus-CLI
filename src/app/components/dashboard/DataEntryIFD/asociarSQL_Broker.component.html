@@ -1,0 +1,97 @@
+
+<div  id="myModalAsociar" tabindex="-1"  class="card" role="dialog">
+        <div class="modal-header">
+      <!-- <div > -->
+          <h5  class="modal-title">Registros a Asociar</h5>
+          <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+            <mat-icon  >close</mat-icon>
+          </button>
+
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+
+          <table mat-table
+
+          matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+          style="width:100%"
+          [dataSource]="dataSourceSQLFinal" >
+    
+
+          <ng-container matColumnDef="select">
+            <th mat-header-cell class="border-bottom-0"  *matHeaderCellDef>Selecc.</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox  [(ngModel)]="element.t373_elegir" (click)="changeChkState(element.t373_IDSQL)" ></mat-checkbox>
+      
+            </td>
+          </ng-container>
+      
+               <ng-container matColumnDef="t373_IDSQL">
+                  <th mat-header-cell class="border-bottom-0"  *matHeaderCellDef>Operación</th>
+                  <td mat-cell *matCellDef="let element"
+                  (contextmenu)="onContextMenu($event, element)"
+                  > {{element.t373_IDSQL}} 
+                    
+
+                  </td>
+                </ng-container>
+
+                <ng-container  class="border-bottom-0" matColumnDef="t373_state">
+                  <th mat-header-cell class="border-bottom-0"  *matHeaderCellDef>Estado</th>
+                  <td mat-cell *matCellDef="let element" 
+                  (contextmenu)="onContextMenu($event, element)"> {{element.t373_state}} 
+                    
+                  </td>
+                </ng-container>
+          
+
+
+            
+            <tr  mat-header-row *matHeaderRowDef="displayedColumnsAsociarSQL sticky: true"
+            style="text-align: center; vertical-align: middle;"
+
+            ></tr>
+
+            <tr mat-row *matRowDef="let element columns: displayedColumnsAsociarSQL;"
+            (click)="changeChkState(element.t373_IDSQL)">
+            </tr>
+
+
+        </table>
+        <mat-paginator mat-paginator  #MatPaginatorSQL [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        
+        <div style="visibility: hidden; position: fixed"
+          [style.left]="contextMenuPosition.x"
+          [style.top]="contextMenuPosition.y"
+          [matMenuTriggerFor]="contextMenu">
+        </div>
+        <mat-menu #contextMenu="matMenu" #contextMenu2="matMenu" class="opciones">
+          <ng-template matMenuContent let-item="item" class="opciones">
+            <button mat-menu-item (click)="asociarRJO_OperacionesSQL()">Asociar</button>
+            <!-- <button mat-menu-item (click)="dismiss('Cross click')">Cancelar</button> -->
+            
+          </ng-template>
+        </mat-menu>
+
+      </div>
+      <br>
+      <div class="row">
+
+        <div class="col d-flex justify-content-end">
+              <table style=" width: 100%; border-bottom:1px solid #ffffff;"  >
+                <tr   style="width:100%" >
+                    <td   style="text-align:right;  padding-right:1.3%">
+                      <button class="btn btn-green" type="submit" (click)="asociarRJO_OperacionesSQL()">Aceptar</button>
+                    </td>
+                    <!-- <td style="text-align:right;  padding-right:1.3% ">
+                      <button class="btn btn-green" type="submit"  (click)="modal.dismiss('Cross click')" >Cancelar</button>
+                    </td> -->
+                </tr>
+              </table>
+
+        </div>
+      </div>
+      </div>
+
+
+      </div>

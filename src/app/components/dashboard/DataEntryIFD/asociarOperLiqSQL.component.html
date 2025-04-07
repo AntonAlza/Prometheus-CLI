@@ -1,0 +1,176 @@
+<div  id="myModalLiquidar" tabindex="-1"  class="card" role="dialog">
+    <div class="modal-header">
+      <!-- <div> -->
+    <h5  class="modal-title">Registros a Liquidar</h5>
+    <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+      <mat-icon  >close</mat-icon>
+    </button>
+             <!-- <table style=" width: 100%; border-bottom:1px solid #a1000096"  >
+              <tr   style="width:100%" >
+                  <td   style="text-align:left;  padding: 0% 0% 0.5% 1%">
+                      <h3 class="modal-title" >Registros a Liquidar</h3>
+                  </td>
+                  <td style="text-align:right;  padding-right:1.3% ">
+                  <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+                    <mat-icon  >close</mat-icon>
+                  </button>
+                  </td>
+              </tr>
+            </table> -->
+
+
+
+</div>
+<div class="card-body">
+  <input type="text"  class="redondeado"  size="100"    (keyup)="applyFilter($event)" placeholder="Buscar en Portafolio" autocomplete="off">
+  <br><br>
+ 
+  <div class="table-responsive">
+    <div   class="scroll-container" style="width:100%;">   
+    <table mat-table matSort
+    #MatSortSQL="matSort"
+
+     matSortActive="created" matSortDisableClear matSortDirection="desc"
+
+    [dataSource]="dataSourceSQLLiquidar" >
+
+
+    <ng-container matColumnDef="select">
+      <th mat-header-cell class="border-bottom-0"  *matHeaderCellDef>Selecc.</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox  [(ngModel)]="element.s212_elegir" (click)="changeChkState(element.s212_Operacion)" ></mat-checkbox>
+
+      </td>
+    </ng-container>
+
+    <ng-container  class="border-bottom-0" matColumnDef="s212_Operacion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Operación</th>
+            <td mat-cell *matCellDef="let element" 
+            > {{element.s212_Operacion}} </td>
+    </ng-container>
+
+    <ng-container  class="border-bottom-0" matColumnDef="s212_Ticker">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticker </th>
+      <td mat-cell *matCellDef="let element" 
+      (contextmenu)="onContextMenu($event, element)">
+         {{element.s212_Ticker}} </td>
+    </ng-container>
+
+    <ng-container  class="border-bottom-0" matColumnDef="s212_CodigoBroker">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Broker Ref. </th>
+      <td mat-cell *matCellDef="let element" 
+      >
+         {{element.s212_CodigoBroker}} </td>
+    </ng-container>
+
+    <ng-container  class="border-bottom-0" matColumnDef="s212_Ficha">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ficha </th>
+      <td mat-cell *matCellDef="let element" 
+      >
+         {{element.s212_Ficha}} </td>
+    </ng-container>
+
+
+    
+    <ng-container class="border-bottom-0" matColumnDef="s212_PrecioEjercicio">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Strike </th>
+
+      <td mat-cell *matCellDef="let element">
+        <div ngSwitch="{{element.s212_TickerUnderlying}}">
+          <div *ngSwitchCase="'SBO'">
+            {{element.s212_PrecioEjercicio*100 | number:'1.2-2' }}
+          </div>
+          <div *ngSwitchCase="'S'">
+            {{element.s212_PrecioEjercicio*100 | number:'1.2-2' }}
+          </div>
+          <div *ngSwitchCase="'SCRS'">
+            {{element.s212_PrecioEjercicio*100 | number:'1.2-2' }}
+          </div>
+          <div *ngSwitchCase="'W'">
+            {{element.s212_PrecioEjercicio*100 | number:'1.2-2' }}
+          </div>
+          <div *ngSwitchDefault>
+            {{element.s212_PrecioEjercicio | number:'1.2-2' }}
+          </div>
+        </div>
+      </td>
+
+
+    </ng-container>
+
+
+
+    <ng-container  class="border-bottom-0" matColumnDef="s212_Instrumento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Instrumento </th>
+      <td mat-cell *matCellDef="let element"(contextmenu)="onContextMenu($event, element)">
+         {{element.s212_Instrumento}} </td>
+    </ng-container>
+    
+    <ng-container  class="border-bottom-0" matColumnDef="s212_CompraVenta">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Compra Venta </th>
+      <td mat-cell *matCellDef="let element" >
+         {{element.s212_CompraVenta}} </td>
+      
+    </ng-container>
+
+    
+    <ng-container  class="border-bottom-0" matColumnDef="s212_NumeroContratos">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Caks </th>
+      <td mat-cell *matCellDef="let element" (contextmenu)="onContextMenu($event, element)">
+         {{element.s212_NumeroContratos}} </td>
+      
+    </ng-container>
+
+
+
+      
+      <tr  mat-header-row *matHeaderRowDef="displayedColumnsAsociarLiquidar sticky: true"
+      style="text-align: center; vertical-align: middle;"
+
+      ></tr>
+
+      <tr mat-row *matRowDef="let element columns: displayedColumnsAsociarLiquidar;" (contextmenu)="onContextMenu($event, element)"
+       (click)="changeChkState(element.s212_Operacion)">
+      </tr>
+
+
+  </table>
+  <mat-paginator  #MatPaginatorSQL
+    [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users">
+  </mat-paginator>              
+  
+  </div>
+</div>
+<br>
+<div class="row">
+    <div class="col d-flex justify-content-end">
+        <table style=" width: 100%; border-bottom:1px solid #ffffff;"  >
+          <tr   style="width:100%" >
+              <td   style="text-align:left;  padding-left:1.3%">
+                
+              </td>
+              <td style="text-align:right;  padding-right:1.3% ">
+                <button class="btn btn-green" type="submit" (click)="liquidarBroker_OperacionesSQL()" >Aceptar</button>
+                <!-- <button class="btn btn-green" type="submit"  (click)="modal.dismiss('Cross click')" >Cancelar</button> -->
+              </td>
+          </tr>
+        </table>
+
+  </div>
+</div>
+</div>
+
+
+</div>
+<div style="visibility: hidden; position: fixed"
+    [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y"
+    [matMenuTriggerFor]="contextMenu">
+  </div>
+  <mat-menu #contextMenu="matMenu" #contextMenu2="matMenu" class="opciones">
+    <ng-template matMenuContent let-item="item" class="opciones">
+      <button mat-menu-item (click)="liquidarBroker_OperacionesSQL()">Liquidar</button>
+      <!-- <button mat-menu-item (click)="dismiss('Cross click')">Cancelar</button> -->
+      
+    </ng-template>
+  </mat-menu>

@@ -1,0 +1,365 @@
+<div  id="myModal" tabindex="-1" data-keyboard="false"  role="dialog">
+  <div role="document" class="msg_card_body" >
+    
+    <div class="modal-header">
+      <!-- <h5 *ngIf="!flgIngresarContrato" class="modal-title">Modificar IFD</h5> -->
+      <h5  class="modal-title">{{pNombreForm}} </h5> 
+      <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+        <mat-icon  >close</mat-icon>
+    </button>
+
+    </div>
+</div>
+
+<div class="card-body">
+ <table>
+  <tr>
+    <td style="width: 10%; padding: 2% 0% 0% 0%;">
+      <label class="form-label">Fecha Inicio</label>
+    </td>
+  <td style="width:15%;">
+    <div style="width: 70%; padding: 0.3% 0% 1.5% 1%; text-align: center;">
+       <mat-form-field appearance="outline"
+       (click)="picker?.open()"
+       style="width: 100%" >
+       <input 
+        
+         matInput
+         [ngModel]="dateField.value | date: 'yyyy/MM/dd'"
+         name="dateFieldView"
+         style="width: 100%; cursor: pointer; text-align: center; "
+         (focus)="picker?.open()"
+         (dateChange)="setDateInicio(dateField.value)"
+         readonly
+       />
+       <input style="width: 100%;"
+         matInput
+         [disabled]="!estadoValorizarT_N"
+         [matDatepicker]="picker"
+         [formControl]="dateStart"
+         name="dateField"
+         #dateField
+         required
+         (dateChange)="setDateInicio(dateField.value)"
+         hidden
+       />
+       <mat-datepicker-toggle
+         matSuffix
+         [disabled]="!estadoValorizarT_N"
+         [for]="picker"
+       ></mat-datepicker-toggle>
+       <mat-datepicker  #picker></mat-datepicker>
+     </mat-form-field>
+    </div>
+  </td>
+  <td style="width: 10%; padding: 2% 0% 0% 0%;">
+  
+   <label class="form-label">Fecha Fin </label>
+  
+  </td>
+  <td style="width:15%;">
+  <div style="width: 70%; padding: 0.3% 0% 1.5% 1%">
+    <mat-form-field appearance="outline"
+  (click)="picker1?.open()"
+  style="width: 100%; font-size: 14px; vertical-align: top; ">
+  <input 
+    matInput
+    [ngModel]="dateField1.value | date: 'yyyy/MM/dd'"
+    name="dateFieldView1"
+    style="cursor: pointer;  text-align: center; "
+    (focus)="picker1?.open()"
+    (dateChange)="setDateFin(dateField1.value)"
+    readonly
+  />
+  <input
+    matInput
+    [disabled]="!estadoValorizarT_N"
+    [matDatepicker]="picker1"
+    name="dateField1"
+    [formControl]="dateEnd"
+    #dateField1
+    required
+    (dateChange)="setDateFin(dateField1.value)"
+    hidden
+  />
+  <mat-datepicker-toggle
+    matSuffix
+    [disabled]="!estadoValorizarT_N"
+    [for]="picker1"
+  ></mat-datepicker-toggle>
+  <mat-datepicker #picker1></mat-datepicker>
+</mat-form-field>
+  
+</div>
+  </td>
+  <td style="width:30%;">
+    <div class="col d-flex align-self-start justify-content-end">
+      <label class="form-switch">
+        <span class="form-switch-description me-2">Skew</span>
+        <input
+          type="checkbox"
+          name="form-switch-checkbox1"
+          class="form-switch-input"
+          [ngModel]="true"
+          [disabled]="!estadoValorizarT_N"
+          (change)="onCheckChangeCheck($event)"/>
+        <span class="form-switch-indicator"></span>
+      </label>
+    </div>
+    </td>
+  </tr>
+</table> 
+
+
+    </div>
+
+    <div class="card-body">
+      <div   class="scroll-container" style="width:100%;">
+      <table mat-table
+      class="example-table table-bordered"
+    
+        matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+        style="width:100%"
+        [dataSource]="dataSource" >
+
+        <ng-container  class="border-bottom-0" matColumnDef="temp_fecha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+          <td mat-cell *matCellDef="let element">
+             
+                        
+             {{element.temp_fecha.toString().substr(0,4)+'/' 
+             +element.temp_fecha.toString().substr(4,2)+'/'
+             +element.temp_fecha.toString().substr(6) }}
+             
+ 
+          </td>
+          </ng-container>
+
+
+        <ng-container  class="border-bottom-0" matColumnDef="temp_ID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.temp_ID}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Ticker">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticker </th>
+                  <td mat-cell *matCellDef="let element"> {{element.temp_Ticker}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Descripcion">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+                  <td mat-cell *matCellDef="let element"> {{element.temp_Descripcion}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.temp_Status}} </td>
+          </ng-container>
+        
+          <ng-container  class="border-bottom-0" matColumnDef="temp_fechaRegistro">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Registro </th>
+            <td  mat-cell *matCellDef="let element">
+              {{element.temp_fechaRegistro}}
+                
+           </td>
+           
+          </ng-container>
+        
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Hora">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Registro </th>
+            <td mat-cell *matCellDef="let element"> {{element.temp_Hora}} </td>
+          </ng-container>
+        
+
+          <ng-container matColumnDef="select" >
+            <th  mat-header-cell class="border-bottom-0"  *matHeaderCellDef style="width: 30px">Cerrar
+              <mat-checkbox  (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                            
+                            >
+              </mat-checkbox>
+            </th>
+
+            <td  mat-cell *matCellDef="let row of listaCierrePortafolioOriginal" style="width: 50px">
+              <mat-checkbox 
+                            [disabled]="!row.temp_Estado"
+                            style="width: 10px;" (click)="$event.stopPropagation()"
+                            (change)=" $event ? selection.toggle(row) : null"
+                            [checked]= "selection.isSelected(row)"
+                        >
+              </mat-checkbox>
+            </td>
+
+          </ng-container>
+
+          <ng-container  matColumnDef="estadoFactores">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cierre Curva </th>
+            <td mat-cell *matCellDef="let element"> 
+                    
+              <i *ngIf="element.temp_CierreCurva"  class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+              <!-- <i   class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+              &nbsp;&nbsp;
+              <i  class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>    -->
+              <i *ngIf="!element.temp_CierreCurva" class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>   
+                  
+
+            </td>
+          </ng-container>
+          <ng-container  matColumnDef="estadoPrecio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cierre Precio </th>
+            <td mat-cell *matCellDef="let element"> 
+                    
+              <i *ngIf="element.temp_CierrePrecio"  class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+              <!-- <i   class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+              &nbsp;&nbsp;
+              <i  class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>    -->
+              <i *ngIf="!element.temp_CierrePrecio" class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>   
+                  
+
+            </td>
+          </ng-container>
+          <ng-container  matColumnDef="estadoVolatilidad">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cierre Volatilidad </th>
+            <td mat-cell *matCellDef="let element"> 
+                    
+              <i *ngIf="element.temp_CierreVolatilidad"  class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+              <!-- <i   class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+              &nbsp;&nbsp;
+              <i  class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>    -->
+              <i *ngIf="!element.temp_CierreVolatilidad" class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>   
+                  
+
+            </td>
+          </ng-container>
+          <ng-container  matColumnDef="estadoTasa">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cierre Tasa </th>
+            <td mat-cell *matCellDef="let element"> 
+                    
+              <i *ngIf="element.temp_CierreTasa"  class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+              <!-- <i   class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+              &nbsp;&nbsp;
+              <i  class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>    -->
+              <i *ngIf="!element.temp_CierreTasa" class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>   
+                  
+
+            </td>
+          </ng-container>
+
+          <ng-container  matColumnDef="estadoOperacion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Operación (Estrategia) </th>
+            <td mat-cell *matCellDef="let element"> 
+                    
+              <i *ngIf="element.temp_CierreOperacion"  class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+              <!-- <i   class="fa fa-check-circle"style="font-size:180%;color:green"></i>
+              &nbsp;&nbsp;
+              <i  class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>    -->
+              <i *ngIf="!element.temp_CierreOperacion" class="fa fa-exclamation-circle"style="font-size:180%;color:orange"></i>   
+                  
+
+            </td>
+          </ng-container>
+
+          
+          <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true"
+          style="text-align: center; vertical-align: middle;"
+
+          ></tr>
+
+          <tr mat-row *matRowDef="let element columns: displayedColumns;" style="text-align: center; vertical-align: middle;" 
+          class="my-mat-row" >
+          </tr>
+
+
+      </table>
+      
+      <mat-spinner  class="custom-spinner"
+                *ngIf="loading$ | async"  
+                [mode]="'indeterminate'"
+                [value]=50
+                [diameter]="50"
+                >
+                          
+      </mat-spinner>
+  
+
+  </div>
+</div>
+  
+  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+
+
+<div class="modal-footer">
+<span class="br"></span>
+<div class="col justify-content-start" *ngIf="flgCierrePortafolio">
+  <div class="row"> <a ><i class="fa fa-check-circle"style="font-size:100%;color:green"></i> Habilitado para cerrar</a> </div>
+  <div class="row"><a><i class="fa fa-exclamation-circle"style="font-size:100%;color:orange"></i> Deshabilitado para cerrar</a></div>
+</div>
+<div class="col justify-content-start" *ngIf="!flgCierrePortafolio">
+  <div class="row"> <a ><i class="fa fa-check-circle"style="font-size:100%;color:green"></i> Habilitado para deshacer cierre</a> </div>
+  <div class="row"><a><i class="fa fa-exclamation-circle"style="font-size:100%;color:orange"></i> Deshabilitado para deshacer cierre</a></div>
+</div>
+
+    <!-- <a><i class="fa fa-check-circle"style="font-size:100%;color:red"></i></a>  -->
+
+    <span class="br"></span>
+    <div class="row">
+      <div class="col d-flex justify-content-end" *ngIf="flgCierrePortafolio">
+        <button
+          class="btn btn-green"
+          type="submit"
+          [disabled]="disabled"
+          (click)="cierrePortafolioMatlab()">
+          Aceptar
+          
+
+        </button>
+
+
+      </div>
+      <div class="col d-flex justify-content-end" *ngIf="!flgCierrePortafolio">
+        <button
+          class="btn btn-green"
+          type="submit"
+          [disabled]="disabled"
+          (click)="cierrePortafolioMatlab()">
+          Aceptar
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col d-flex justify-content-end" *ngIf="flgCierrePortafolio">
+        <button
+          class="btn btn-green"
+          type="submit"
+          (click)="modalCambiarEstadoIFD(cambiarEstadoIFD)"
+          [disabled]="!estadoValorizarT_N">
+          Revalorizar IFD
+        </button>
+      </div>
+      <!-- <div class="col d-flex justify-content-end" *ngIf="!flgCierrePortafolio">
+        <button
+          class="btn btn-green"
+          type="submit"
+          (click)="deshacerPortafolio()">
+          Aceptar
+        </button>
+      </div> -->
+    </div>
+</div>
+
+
+
+
+<ng-template #registrolimitecampanhaForm let-modal>
+<app-registrolimitecampanha [visible]="myModal"  (close)="cerrarModal($event)"></app-registrolimitecampanha>                         
+
+</ng-template>
+
+
+                
+<ng-template #cambiarEstadoIFD let-modal>
+  <app-cambiarEstadoIFD [visible]="myModal"  (close)="cerrarModal($event)"></app-cambiarEstadoIFD>                         
+  
+</ng-template>

@@ -1,0 +1,482 @@
+<div role="document" class="card"> <!--class="msg_card_body" -->
+  <div class="modal-header">
+      <h5 *ngIf="flgIngresarOperacion" class="modal-title">Ingresar Operación</h5>
+      <h5 *ngIf="!flgIngresarOperacion" class="modal-title">Modificar Operación</h5>
+      <button type="button" class="close" aria-label="Close" (click)="cerrargestionOperacion()">
+        <mat-icon  >close</mat-icon>
+      </button>
+  </div>
+  <div class="modal-body">
+    <div class="py-1">
+      <form class="form" novalidate="">
+        <div class="row">
+          <div class="col col-xl-6 col-lg-6 col-md-6">
+              <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Código</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                          id="deshabilitado"
+                          class="form-control"
+                          type="text"
+                          placeholder="Código"
+                          name="t039_ID"
+                          [(ngModel)]="nuevoFisico.t039_ID"
+                          readonly/>
+                  </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Fecha </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                  class="form-control"
+                  type="date"
+                  placeholder="YYYY-MM-DD"
+                  ngbDatepicker
+                  [(ngModel)]="fecha"
+                  [minDate]="minDate"
+                  [maxDate]="maxDate"
+                  (click)="d1.toggle()"
+                  #d1="ngbDatepicker"
+                  name="fecha"
+                  readonly
+                  />
+                  </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Proveedor </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t039_PhysicalSeller"
+                      [(ngModel)]="nuevoFisico.t039_PhysicalSeller"
+                      (change)="obtenerCodificacionInterna()">
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboProveedor">{{ item.s204_Description }}</ng-option>
+                    </ng-select>
+                  </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3">
+                    <label class="form-label">Embarque </label>
+                  </div>
+                  <div class="col-xl-1 col-lg-1 col-md-1">
+                    <i *ngIf="flgAgregarEmbarque" (click)="flgAgregarEmbarque = !flgAgregarEmbarque" class="fa fa-eye" aria-hidden="true"></i>
+                    <i *ngIf="!flgAgregarEmbarque" (click)="flgAgregarEmbarque = !flgAgregarEmbarque" class="fa fa-eye-slash" aria-hidden="true"></i>
+                  </div>  
+                  <div *ngIf="!flgAgregarEmbarque" class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t039_Shipment"
+                      [(ngModel)]="nuevoFisico.t039_Shipment">
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboEmbarque">{{ item.s204_Description }}</ng-option>
+                    </ng-select>
+                  </div>
+                  <div *ngIf="flgAgregarEmbarque" class="col-xl-8 col-lg-8 col-md-8">
+                    <div class="row">
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                        type="text"
+                        class="form-control"
+                        name="txtNuevoEmbarque"
+                        [(ngModel)]="txtNuevoEmbarque" 
+                        />
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <button
+                          type="button"
+                          class="btnresponsive btn btn-cierres"
+                          aria-expanded="false"
+                          (click)="guardarNuevoEmbarque()"> Guardar
+                        </button>               
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Incoterms</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                <ng-select
+                    class="form-control form-select"
+                    name="t039_FreightBasis"
+                    [(ngModel)]="nuevoFisico.t039_FreightBasis">
+                    <ng-option value="{{ item.s204_ID }}"
+                    *ngFor="let item of objForm.comboIncoterms">{{ item.s204_Description }}</ng-option>
+                </ng-select>
+                </div>
+            </div>
+            <span class="br"></span>
+              <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Tipo Precio</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t039_PriceType"
+                      [(ngModel)]="nuevoFisico.t039_PriceType"
+                      (change)="modificarTipoPrecio()">
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboTipoPrecio">{{ item.s204_Description }}</ng-option>
+                    </ng-select>
+                  </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Puerto</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t039_LoadingPort"
+                      [(ngModel)]="nuevoFisico.t039_LoadingPort">
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboPuerto">{{ item.s204_Description }}</ng-option>
+                    </ng-select>
+                  </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Toneladas Métricas</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                <input
+                    class="form-control"
+                    type="number"
+                    name="t039_VolumeMetricTons"
+                    [(ngModel)]="nuevoFisico.t039_VolumeMetricTons"
+                    (change)="obtenerNumContratos()"/>
+                </div>
+            </div>
+            <span class="br"></span>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Tolerancia (%)</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                        class="form-control"
+                        type="number"
+                        name="t039_Tolerance"
+                        [(ngModel)]="nuevoFisico.t039_Tolerance"/>
+                </div>
+            </div>
+              <span class="br"></span>
+              <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                   <label class="form-label">Otros Costos/Descuentos </label> <!--USD/TM -->
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                      class="form-control"
+                      type="number"
+                      name="t039_OtherCostsOrDiscounts"
+                      [(ngModel)]="nuevoFisico.t039_OtherCostsOrDiscounts"/>
+                  </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Flete {{ currency }}/TM</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                      class="form-control"
+                      type="number"
+                      name="t039_Freight"
+                      [(ngModel)]="nuevoFisico.t039_Freight"/>
+                  </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Contrato Proveedor <span class="text-red">*</span></label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                <input
+                    id="deshabilitado"
+                    class="form-control"
+                    type="text"
+                    name="t039_ProviderContract"
+                    [(ngModel)]="nuevoFisico.t039_ProviderContract"/>
+                </div>
+            </div>
+          </div>
+          <div class="col col-xl-6 col-lg-6 col-md-6">
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Tipo Subyacente</label>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8">
+                <ng-select
+                  class="form-control form-select"
+                  name="t039_UnderlyingClassification"
+                  [(ngModel)]="nuevoFisico.t039_UnderlyingClassification"
+                  (change)="obtenerCodificacionInterna()">
+                  <ng-option value="{{ item.s204_ID }}"
+                  *ngFor="let item of objForm.comboTipoSubyacenete">{{ item.s204_Description }}</ng-option>
+                </ng-select>
+              </div>
+          </div>
+          <span class="br"></span>
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4">
+            <label class="form-label">Codificación Interna <span class="text-red">*</span></label>
+            </div>
+            <div class="col-xl-8 col-lg-8 col-md-8">
+            <input
+                class="form-control"
+                type="text"
+                name="t039_InternalCode"
+                [(ngModel)]="nuevoFisico.t039_InternalCode"/>
+            </div>
+          </div>
+          <span class="br"></span>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Nivel Proteína</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                <ng-select
+                    class="form-control form-select"
+                    name="t039_ProteinLevel"
+                    [(ngModel)]="nuevoFisico.t039_ProteinLevel">
+                    <ng-option value="{{ item.s204_ID }}"
+                    *ngFor="let item of objForm.comboNivelProteina">{{ item.s204_Description }}</ng-option>
+                </ng-select>
+                </div>
+            </div>
+              <span class="br"></span>
+              <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Fecha estimada arribo</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                  class="form-control"
+                  type="date"
+                  placeholder="YYYY-MM-DD"
+                  ngbDatepicker
+                  [(ngModel)]="fechaLlegada"
+                  [minDate]="minDate"
+                  [maxDate]="maxDate"
+                  (click)="d4.toggle()"
+                  #d4="ngbDatepicker"
+                  name="fechaLlegada"
+                  readonly/>
+                  </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Inicio Carga </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                <input
+                class="form-control"
+                type="date"
+                placeholder="YYYY-MM-DD"
+                ngbDatepicker
+                [(ngModel)]="fechaIniCarga"
+                [minDate]="minDate"
+                [maxDate]="maxDate"
+                (click)="d2.toggle()"
+                #d2="ngbDatepicker"
+                name="fechaIniCarga"
+                readonly/>
+                </div>
+            </div>
+            <span class="br"></span>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Fin Carga</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                <input
+                class="form-control"
+                type="date"
+                placeholder="YYYY-MM-DD"
+                ngbDatepicker
+                [(ngModel)]="fechaFinCarga"
+                [minDate]="minDate"
+                [maxDate]="maxDate"
+                (click)="d3.toggle()"
+                #d3="ngbDatepicker"
+                name="fechaFinCarga"
+                readonly/>
+                </div>
+            </div>
+            <span class="br"></span>
+              <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Destino</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                      class="form-control form-select"
+                      name="t039_Destination"
+                      [(ngModel)]="nuevoFisico.t039_Destination"
+                      (change)="modificarDestino()">
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboDestino">{{ item.s204_Description }}</ng-option>
+                  </ng-select>
+                  </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <ng-container *ngIf="nuevoFisico.t039_Destination == '1'">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">N.A.Sociedad</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                      class="form-control form-select"
+                      name="t260_Plant"
+                      [(ngModel)]="nutricionAnimal.t170_Society"
+                      [disabled]="!flgNutricionAnimal">
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboNutricionAnimal">{{ item.s204_Description }}</ng-option>
+                  </ng-select>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="nuevoFisico.t039_Destination == '2'">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Sociedad</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                      class="form-control form-select"
+                      name="t260_Plant"
+                      [(ngModel)]="consumoHumano.t478_Society">
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboConsumoHumano">{{ item.s204_Description }}</ng-option>
+                  </ng-select>
+                  </div>
+                </ng-container>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Locación</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                      class="form-control form-select"
+                      name="t039_Location"
+                      [(ngModel)]="nuevoFisico.t039_Location">
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboLocacion">{{ item.s204_Description }}</ng-option>
+                  </ng-select>
+                  </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Futuro</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                    class="form-control form-select"
+                    name="bolsa"
+                    (change)="obtenerContratos($event)"
+                    [(ngModel)]="bolsa"
+                    [disabled]="flgBolsaFlat">
+                    <ng-option value="{{ item.s204_ID }}"
+                    *ngFor="let item of objForm.comboBolsa">{{ item.s204_Description }}</ng-option>
+                  </ng-select>
+                </div>
+            </div>
+            <span class="br"></span>
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Contrato </label>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8">
+                <ng-select
+                  class="form-control form-select"
+                  name="t039_Contract"
+                  [(ngModel)]="nuevoFisico.t039_Contract"
+                  (change)="obtenerNumContratos()">
+                  <ng-option
+                    value="{{ item.s204_ID }}"
+                    *ngFor="let item of objForm.comboContratos">{{ item.s204_Description }}</ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <span class="br"></span>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Numero de Contratos</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                <input
+                    id="deshabilitado"
+                    class="form-control"
+                    type="number"
+                    name="txtNumeroDeContratos"
+                    [(ngModel)]="txtNumeroDeContratos"
+                    (change)="obtenerToneladasMetricas()"
+                    readonly/>
+                </div>
+            </div>
+            <span class="br"></span>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Flat {{currency}}</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                <input
+                    class="form-control"
+                    type="number"
+                    name="t039_FlatPrice"
+                    [(ngModel)]="nuevoFisico.t039_FlatPrice"
+                    [disabled]="!flgFlat"/>
+                </div>
+            </div>
+          </div>
+          <!-- <div class="col col-xl-4 col-lg-4 col-md-4">
+              
+          </div> -->
+        </div>
+        <br>
+        <div><b><span class="text-red">*</span> Campo no necesario.</b></div>
+        <!-- <div>{{valorHijo}}</div> -->
+        <span class="br"></span>
+        <div class="row">
+          <div class="col d-flex justify-content-end">
+            <button
+              *ngIf="flgIngresarOperacion"
+              class="btn btn-green"
+              type="submit"
+              [disabled]="!flgBoton"
+              (click)="guardarOperacion()">
+              Aceptar
+            </button>
+            <button
+              *ngIf="!flgIngresarOperacion"
+              class="btn btn-green"
+              type="submit"
+              [disabled]="!flgBoton"
+              (click)="modificarFactura()">
+              Modificar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

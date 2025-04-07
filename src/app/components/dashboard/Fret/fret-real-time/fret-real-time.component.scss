@@ -1,0 +1,357 @@
+.mat-chip-listbox {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .mat-chip-option {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    margin: 4px;
+    border-radius: 16px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    font-size: 16px; /* Tamaño de la letra ajustable */
+  }
+  
+  .mat-chip-option:hover {
+    background-color: #bdbdbd;
+  }
+  
+  .mat-chip-option.selected {
+    background-color: #1e5532;
+    color: #ffffff;
+  }
+  
+  .exportarExcel {
+    background-color: #1e5532;
+    color: #ffffff;
+  }
+  
+  .simularFret {
+    background-color: #00BFD6;
+    color: #ffffff;
+  }
+  
+  .mat-chip-option.accent {
+    background-color: #ff4081;
+    color: #ffffff;
+  }
+  
+  .mat-chip-option.warn {
+    background-color: #ff5722;
+    color: #ffffff;
+  }
+  
+  .mat-chip-option.selected::before {
+    content: '\2713';
+    margin-right: 4px;
+  }
+  
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  @keyframes fade-in-out {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .br {
+    display: block;
+    margin-bottom: 0.5em;
+  }
+  
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  table thead {
+    background-color: rgb(64, 64, 64);
+    white-space: normal;
+    word-wrap: break-word;
+  }
+  
+  .liquidaciones {
+    background-color: rgb(15, 58, 200) !important;
+  }
+  
+  
+  tbody tr:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+  }
+  
+  #b1 {
+    white-space: normal;
+  }
+  
+  .tablaDetalle {
+    width: 100%;
+    table-layout: fixed !important; /* Fuerza el layout fijo */
+    border-collapse: collapse;
+  }
+
+  .tablaDetalle td.text {
+    white-space: normal;
+    word-wrap: break-word !important;
+  }
+
+  .tablaDetalle td.text-center {
+    text-align: center;
+  }
+
+  .tablaDetalle th {
+    // background-color: #f5f5f5;
+    font-weight: bold;
+    height: 60px;
+    vertical-align: middle;
+  }
+
+
+  .tablaDetalle th,
+  .tablaDetalle td {
+    width: 80px;
+  }
+
+  /* Estilo para la primera columna (texto) */
+  .tablaDetalle th:first-child,
+  .tablaDetalle td:first-child {
+    width: 10% !important; /* Aumenta el ancho de la primera columna */
+    max-width: 25% !important;
+    min-width: 25% !important;
+    white-space: normal !important; /* Permite que el texto se envuelva */
+    word-wrap: break-word !important;
+    text-align: left !important;
+  }
+
+  .tablaDetalle th,
+  .tablaDetalle td {
+    // padding: 4px !important;
+    padding: 8px;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #ddd;
+    border-left: none;
+    border-right: none;
+    /* font-size: 0.9em !important; /* Reduce ligeramente el tamaño de la fuente */
+  }
+
+
+  .tablaDetalle {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 
+                0px 8px 10px 1px rgba(0, 0, 0, 0.14), 
+                0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+  }
+  
+  .table-container {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  
+  .table {
+    width: max-content;
+  }
+  
+  .scroll-container {
+    width: 100%;
+    min-width: 1200px; /* Asegura un ancho mínimo para el contenido */
+  }
+  
+  mat-spinner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9000;
+  }
+  :host ::ng-deep .custom-spinner circle{   
+    stroke:  rgb(75, 130, 45);
+    stroke-opacity: 1 !important;
+  }
+  
+  .valorizarPortafolio {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+    margin-bottom: 10px;
+  }
+  
+  .valorizarPortafolio button {
+    background-color: #dba703;
+    color: #fff;
+    padding: 7px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 153px; /* Establecemos un ancho mínimo para el botón */
+  
+    margin-top: 144%; /* Added margin-top to move the button down */
+    margin-right: 39%; /* Added margin-top to move the button down */
+  }
+  
+  ::ng-deep .listaConfirmaciones .modal-dialog { 
+    max-width: 50%;
+    width: 50%;
+  }
+  
+  .disabled {
+    pointer-events: none; /* Evita que los eventos del mouse se disparen en el div */
+    opacity: 0.6; /* Reducir la opacidad para indicar que está deshabilitado */
+    /* Puedes agregar otros estilos para hacer que parezca deshabilitado */
+  }
+  
+  .btnActualizarPalma {
+    background-color: #495057;
+    color: #ffffff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page-leftheader {
+    padding: 10px 0;
+  }
+
+  .page-title {
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .btn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 768px) {
+    .row {
+      flex-direction: column;
+    }
+    
+    .col-md-7 .d-flex {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+    
+    .btn {
+      margin-top: 10px;
+    }
+  }
+
+  .fixed-header.fret-header {
+    position: fixed;
+    top: 114px; /* Altura del menú principal */
+    left: 0;
+    right: 0;
+    z-index: 90; /* Asegúrate de que este valor sea menor que el z-index del menú principal */
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .main-content {
+    padding-top: 110px; /* 60px del menú + 80px del nuevo header */
+  }
+
+  .selected {
+    background-color: rgb(245, 245, 127);
+  }
+
+  /* Estilos para los números */
+  .tablaDetalle td:not(:first-child) {
+    // font-family: monospace;
+    // text-align: right !important; /* Alinea los números a la derecha */
+    padding-right: 8px !important; /* Añade un poco de padding a la derecha */
+  }
+
+/* Estilo para las columnas numéricas */
+.tablaDetalle th:not(:first-child),
+.tablaDetalle td:not(:first-child) {
+  width: 4% !important; /* (100% - 25%) / 18 ≈ 4.16%, redondeado a 4% */
+  max-width: 4% !important;
+  min-width: 4% !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip  !important;
+  vertical-align: middle;
+}
+
+/* Media query para asegurar el scroll horizontal en pantallas pequeñas */
+@media screen and (max-width: 1500px) {
+  .scroll-container {
+    overflow-x: auto;
+  }
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+
+// AJUSTADO AL CONTENIDO 
+
+.tablaDetalleAjustado {
+  width: auto; /* Ajusta el ancho de la tabla según su contenido */
+  max-width: 100%; /* Establece el ancho máximo de la tabla */
+  table-layout: auto; /* Permite que la tabla ajuste su tamaño según el contenido */
+  border-collapse: collapse;
+}
+
+.tablaDetalleAjustado th,
+.tablaDetalleAjustado td {
+
+  padding: 8px;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #ddd;
+  border-left: none;
+  border-right: none;
+
+  // padding: 8px; /* Espaciado dentro de las celdas */
+  // border: 1px solid #ddd; /* Borde para las celdas */
+  text-align: left; /* Alinea el texto a la izquierda */
+  vertical-align: middle; /* Centrado vertical */
+  white-space: nowrap; /* Impide el ajuste de línea en celdas */
+}
+
+.tablaDetalleAjustado th {
+  // background-color: #f5f5f5; /* Color de fondo para el encabezado */
+  font-weight: bold;
+  height: 60px;
+  vertical-align: middle;
+}
+
+.tablaDetalleAjustado td {
+  overflow: hidden; /* Oculta el desbordamiento de contenido */
+  text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
+}
+
+/* Media query para ajustar el ancho en pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  .tablaDetalleAjustado th,
+  .tablaDetalleAjustado td {
+    font-size: 14px; /* Tamaño de fuente más pequeño en pantallas pequeñas */
+    padding: 4px; /* Reducir padding en pantallas pequeñas */
+  }
+}

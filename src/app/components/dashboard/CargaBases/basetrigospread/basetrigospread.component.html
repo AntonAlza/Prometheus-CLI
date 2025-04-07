@@ -1,0 +1,169 @@
+<div class="row">     
+    <div class="col-md-4">
+        <div>
+            <input type="number" class="redondeado buscador" (input)="transformar()"  size="100" placeholder="Digitar Spread" autocomplete="off" [(ngModel)]="valorspread">
+            <br><br>
+        </div>
+    </div>
+    <div class="col-md-5">
+       <div style="width: 80%; ">
+           <div class="row">
+               <div class="col-md-5">
+                   <label class="form-label"> Fecha de Reporte </label>
+               </div>
+               <div class="col-md-5">
+                   <mat-form-field appearance="outline" (click)="picker?.open()" style="width: 100%">
+                       <input matInput [ngModel]="this.dtpFecIni | date: 'yyyy/MM/dd'" name="dateFieldView" style="width: 100%; cursor: pointer" (focus)="picker?.open()" (dateChange)="setDateInicio(dateField.value)" readonly/>
+                       <input style="width: 100%;" matInput [matDatepicker]="picker" name="dateField" #dateField required (dateChange)="setDateInicio(dateField.value)" hidden/>
+                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                       <mat-datepicker #picker></mat-datepicker>
+                     </mat-form-field>
+               </div>						
+           </div>				
+       </div>
+        
+    </div>		
+
+</div>
+<div class="center" >
+       <button class="btn btn-green" type="submit" (click)="Consultar()">Consultar</button> 
+</div>
+<div style="display: flex; align-items: center; justify-content: center; height: 2vh;">
+  <h1 style="margin-top: 2px; margin-bottom: 2px;"> </h1>
+</div>
+<!-- ALINEANDO LOS COMBOS CON LA TABLA PARA CONSULTA DEL PRODUCTO -->
+<div style="display: flex;">
+    <div style="flex-grow: 1; ">
+      <h4>Underlying</h4>
+       <ng-select  [(ngModel)]="Id_UnderClass_1">
+            <ng-option *ngFor="let option of listaunderclasi" [value]="option.t068_ID">
+              {{ option.t068_Ticker }}
+            </ng-option>
+        </ng-select>
+    </div>
+  
+    <div style="flex-grow: 1;">
+      <h4>Proteina</h4>
+      <ng-select [(ngModel)]="Id_Proteina_1">
+        <ng-option *ngFor="let option of lista_nivelproteina" [value]="option.t080_ID">
+          {{ option.t080_Description }}
+        </ng-option>
+      </ng-select>
+    </div>
+  
+    <div style="flex-grow: 1;">
+        <h4>Puerto</h4>
+        <ng-select [(ngModel)]="Id_Puerto_1">
+            <ng-option *ngFor="let option of lista_puertos" [value]="option.t077_ID">
+              {{ option.t077_Description }}
+            </ng-option>
+        </ng-select>
+    </div>
+  
+    <div style="flex-grow: 1;">
+        <h4>Tipo</h4>
+        <ng-select [(ngModel)]="Id_Tipo_1">
+            <ng-option *ngFor="let option of TipoOption" [value]="option.id">
+              {{ option.value }}
+            </ng-option>
+        </ng-select>
+    </div>
+  
+    <div style="flex-grow: 1;">
+        <h4>Mercado</h4>
+        <ng-select [(ngModel)]="Id_Mercado_1">
+            <ng-option *ngFor="let option of lista_mercados" [value]="option.t003_ID">
+              {{ option.t003_Ticker }}
+            </ng-option>
+        </ng-select>
+    </div>
+
+    <table mat-table [dataSource]="[valores]" style="flex-grow: 3;">
+        <!-- Fechas como encabezados de columna -->
+        <ng-container *ngFor="let fecha of miscolumnas; let i = index">
+          <ng-container matColumnDef="{{ fecha }}">
+            <th mat-header-cell *matHeaderCellDef>{{ fecha }}</th>
+            <td mat-cell *matCellDef="let valor">{{ valores[i] }}</td>
+          </ng-container>
+        </ng-container>
+      
+        <!-- Valor como fila de datos -->
+        <tr mat-header-row *matHeaderRowDef="miscolumnas"></tr>
+        <tr mat-row *matRowDef="let row; columns: miscolumnas;"></tr>
+    </table>
+</div>   
+<div style="display: flex; align-items: center; justify-content: center; height: 2vh;">
+  <h1 style="margin-top: 2px; margin-bottom: 2px;"> </h1>
+  </div>  
+<div class="center" >
+  <button class="btn btn-green" type="submit" (click)="guardarBenchmark()">Guardar</button> 
+</div>
+<div style="display: flex; align-items: center; justify-content: center; height: 2vh;">
+<h1 style="margin-top: 2px; margin-bottom: 2px;"> </h1>
+</div>
+
+<!-- ALINEANDO LOS COMBOS PARA APLICAR EL SPREAD -->
+<div style="display: flex;">
+    <div style="flex-grow: 1; ">
+      <h4>Underlying</h4>
+       <ng-select [(ngModel)]="Id_UnderClass_2">
+            <ng-option *ngFor="let option of listaunderclasi" [value]="option.t068_ID">
+              {{ option.t068_Ticker }}
+            </ng-option>
+        </ng-select>
+    </div>
+  
+    <div style="flex-grow: 1;">
+      <h4>Proteina</h4>
+      <ng-select [(ngModel)]="Id_Proteina_2">
+        <ng-option *ngFor="let option of  lista_nivelproteina" [value]="option.t080_ID">
+          {{ option.t080_Description }}
+        </ng-option>
+      </ng-select>
+    </div>
+  
+    <div style="flex-grow: 1;">
+        <h4>Puerto</h4>
+        <ng-select [(ngModel)]="Id_Puerto_2">
+            <ng-option *ngFor="let option of lista_puertos" [value]="option.t077_ID">
+              {{ option.t077_Description }}
+            </ng-option>
+        </ng-select>
+    </div>
+  
+    <div style="flex-grow: 1;">
+        <h4>Tipo</h4>
+        <ng-select [(ngModel)]="Id_Tipo_2">
+            <ng-option *ngFor="let option of TipoOption" [value]="option.id">
+              {{ option.value }}
+            </ng-option>
+        </ng-select>
+    </div>
+  
+    <div style="flex-grow: 1;">
+        <h4>Mercado</h4>
+        <ng-select [(ngModel)]="Id_Mercado_2">
+            <ng-option *ngFor="let option of lista_mercados" [value]="option.t003_ID">
+              {{ option.t003_Ticker }}
+            </ng-option>
+        </ng-select>
+    </div>
+
+    <table mat-table [dataSource]="[valoresM]" style="flex-grow: 3;">
+        <!-- Fechas como encabezados de columna -->
+        <ng-container *ngFor="let fecha of miscolumnas; let i = index">
+          <ng-container matColumnDef="{{ fecha }}">
+            <th mat-header-cell *matHeaderCellDef>{{ fecha }}</th>
+            <td mat-cell *matCellDef="let valor">{{ valoresM[i] }}</td>
+          </ng-container>
+        </ng-container>
+      
+        <!-- Valor como fila de datos -->
+        <tr mat-header-row *matHeaderRowDef="miscolumnas"></tr>
+        <tr mat-row *matRowDef="let row; columns: miscolumnas;"></tr>
+    </table>
+</div>   
+
+<div style="display: flex; align-items: center; justify-content: center; height: 20vh;">
+    <h1 style="margin-top: 20px; margin-bottom: 20px;"> </h1>
+</div>

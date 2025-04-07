@@ -1,0 +1,156 @@
+  <div role="document" class="msg_card_body">
+   
+    <div class="modal-header">
+      <!-- <h5 *ngIf="!flgIngresarContrato" class="modal-title">Modificar IFD</h5> -->
+      <h5  class="modal-title">Límite Especifico</h5> 
+      <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+        <mat-icon  >close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-1">
+        <form class="form" novalidate="">
+          <div class="row">
+                  <div style="width: 40%;">
+                    <label  style="margin: 15% 0%;">Límite </label>
+                  </div>
+                  <div style="width: 55%;">
+                    <input style="width: 100%;"
+                      id="deshabilitado"
+                      class="form-control"
+                      type="text"
+                      placeholder="Código"
+                      name="descLimite"
+                      [(ngModel)]="descLimite"
+                      readonly
+                    />
+                  </div>
+              </div>
+              <div class="row">
+                <div style="width: 40%; ">
+                  <label  style="margin: 15% 0%;">Estación </label>
+              </div>
+                <div style="width: 55%;">
+                  <input style="width: 100%;"
+                    id="deshabilitado"
+                    class="form-control"
+                    type="text"
+                    placeholder="Código"
+                    name="descSeason"
+                    [(ngModel)]="descSeason"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div style="width: 40%;">
+                  <label  style="margin: 15% 0%;">Derivados </label>
+              </div>
+                <div style="width: 55%;">
+                  <input style="width: 100%;"
+                    id="deshabilitado"
+                    class="form-control"
+                    type="text"
+                    placeholder="Código"
+                    name="descOptionClass"
+                    [(ngModel)]="descOptionClass"
+                    readonly
+                  />
+                </div>
+            </div>
+            <div class="row">
+              <div style="width: 40%; ">
+                <label  style="margin: 15% 0%;">TM Esperada</label>
+              </div>
+              <div style="width: 55%;">
+                <input style="width: 100%;"
+                  id="deshabilitado"
+                  class="form-control"
+                  type="number"
+                  min="0"
+                  max="99999999"
+                  placeholder="TM"
+                  name="TMEsperada"
+                  [ngModel]="TMEsperada"
+                  readonly
+                />
+              </div>
+              <span class="br"></span>
+            </div>
+            <div class="row">
+              <div style="width: 40%; ">
+                <label  style="margin: 15% 0%;">Factor </label>
+              </div>
+              <div style="width: 55%;">
+                <input style="width: 100%;"
+                  id="deshabilitado"
+                  class="form-control"
+                  type="number"
+                  min="0"
+                  max="99999999"
+                  placeholder="TM"
+                  name="factor"
+                  [ngModel]="factor"
+                  (ngModelChange)="onSelectToneladas($event)"
+                />
+              </div>
+              <span class="br"></span>
+            </div>
+
+            <div class="row">
+              <div style="width: 40%; ">
+                <label  style="margin: 15% 0%;">TM </label>
+              </div>
+              <div style="width: 55%;">
+                <input style="width: 100%;"
+                  id="deshabilitado"
+                  class="form-control"
+                  type="number"
+                  min="0"
+                  max="99999999"
+                  placeholder="TM"
+                  name="toneladasMetricas"
+                  [ngModel]="toneladasMetricas"
+                  readonly                />
+              </div>
+              <span class="br"></span>
+            </div>
+
+              <div class="row">
+                <table >
+                  <tr>
+                    <br>
+                  </tr>
+                  <tr>
+                    <td style="width: 50%; text-align: right;"  >
+                    <button
+                        class="btn btn-green"
+                        type="submit" 
+                        (click)="actualizarLimite()"
+                        >
+                        
+                        Aceptar
+                      </button>
+                    </td>
+                    <td style="width: 50%;   text-align: left;"  >
+                      <div style="text-align: left;" >
+                    <!-- <button
+                        class="btn btn-green"
+                        type="submit"
+                        (click)="ActualizarRegistro()"
+                      > -->
+                      <button
+                        class="btn btn-green"
+                        type="submit"  (click)="cerrar()">
+                        
+                        Cancelar
+                      </button>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                </div>   
+        </form>
+      </div>
+    </div>
+  </div>

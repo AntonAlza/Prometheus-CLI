@@ -1,0 +1,629 @@
+<!-- <div  id="myModal" tabindex="-1" data-keyboard="false" (window:mouseup)="autoCloseForDropdownCars($event)" role="dialog"> -->
+  <div  id="myModal" tabindex="-1" data-keyboard="false"  role="dialog">
+  <div   role="document" class="msg_card_body" >
+    <div class="modal-header">
+                <table style=" width: 100%; border-bottom:1px solid #ffffff;"  >
+                  <tr   style="width:100%" >
+                      <td   style="text-align:left;  padding: 0% 0% 0.5% 1%">
+                        <h3 class="modal-title">Registro de IFDs</h3>
+                      </td>
+                      <td style="text-align:right;  padding-right:1.3% ">
+                        <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+                          <mat-icon  >close</mat-icon>
+                      </button>
+                      </td>
+                  </tr>
+                </table>
+
+  </div>
+  <div    class="card-body">
+      <table>
+        <tr>
+          <td   style="text-align:left;  padding: 0% 0% 0.5% 0%">
+            <h3 class="modal-title">Lista Operaciones Broker</h3>
+        </td>
+        </tr>
+        <tr>
+          <td>
+             <input type="text"  class="redondeado"  size="100"    (keyup)="applyFilter($event)" placeholder="Buscar en Broker" autocomplete="off">
+        <br>
+        <br>
+      </td>
+      <td style="text-align:right">
+        <label class="form-label">Broker <span class="text-red">*</span></label>
+      </td>
+      <td style="width: 15%">
+        
+          
+          <ng-select class="form-control form-select" 
+              name="idBroker" 
+              [(ngModel)]="idBroker"  
+              (change)="onSelectBroker($event)">
+                  <ng-option  value={{lista.t006_ID}} 
+                        *ngFor="let lista of listaBroker" >{{lista.t006_Name}}  
+                  </ng-option>
+
+          </ng-select>
+        </td>
+        </tr> 
+      </table>
+        
+        
+        <div class="tabla-table-container">
+          <table mat-table
+          
+          matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+          style="width:100%"
+          [dataSource]="dataSource" >
+
+
+            <ng-container  class="border-bottom-0" matColumnDef="s210_DescripcionBroker">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Broker </th>
+              <td mat-cell *matCellDef="let element"> {{element.s210_DescripcionBroker}} </td>
+              </ng-container>
+
+
+                  <ng-container  matColumnDef="s210_IDBroker">
+                    <th  mat-header-cell class="border-bottom-0"  *matHeaderCellDef mat-sort-header> Id </th>
+                    <td
+                    (contextmenu)="onContextMenu($event, element)"
+                        mat-cell *matCellDef="let element"
+                    > {{element.s210_IDBroker}}
+
+
+                    </td>
+                  </ng-container>
+
+
+          <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                  <th class="border-bottom-0"  mat-header-cell *matHeaderCellDef>H.A<br>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <mat-checkbox  (click)="$event.stopPropagation()"
+                                  (change)="$event ? selection.toggle(row) : null"
+                                  [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+
+              <!-- Checkbox Column -->
+              <ng-container matColumnDef="selectsoycrush">
+                <th class="border-bottom-0"  mat-header-cell *matHeaderCellDef>SoyCrush<br>
+                  <mat-checkbox (change)="$event ? masterToggleSoyCrush() : null"
+                                [checked]="selectionSoyCrush.hasValue() && isAllSelectedSoyCrush()"
+                                [indeterminate]="selectionSoyCrush.hasValue() && !isAllSelectedSoyCrush()"
+                                [disabled]=!estadoBroker
+                                >
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox  (click)="$event.stopPropagation()"
+                                (change)="$event ? selectionSoyCrush.toggle(row) : null"
+                                [checked]="selectionSoyCrush.isSelected(row)"
+                                [disabled]=!estadoBroker
+                                >
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+        
+        
+        
+
+            <ng-container  matColumnDef="s210_FECHAREGISTRO">
+            <th  mat-header-cell class="border-bottom-0"  *matHeaderCellDef mat-sort-header> Fecha Registro </th>
+            <td  data-type="date" mat-cell *matCellDef="let element"
+            >
+            {{element.s210_FECHAREGISTRO.substr(6)+'/' +element.s210_FECHAREGISTRO.substr(4,2)+'/'+element.s210_FECHAREGISTRO.substr(0,4) }}
+
+
+            </td>
+            </ng-container>
+
+            <ng-container matColumnDef="s210_FECHATRADE">
+            <th class="thead" class="border-bottom-0" mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Operación </th>
+
+            <td  data-type="date" mat-cell *matCellDef="let element">
+            {{element.s210_FECHATRADE.substr(6)+'/' +element.s210_FECHATRADE.substr(4,2)+'/'+element.s210_FECHATRADE.substr(0,4) }}
+            </td>
+
+            </ng-container>
+
+            <ng-container class="border-bottom-0" matColumnDef="s210_FECHAEXPIRACION">
+            <th mat-header-cell class="border-bottom-0"  *matHeaderCellDef mat-sort-header> Fecha Expiración </th>
+
+            <td  data-type="date" mat-cell *matCellDef="let element">
+              {{element.s210_FECHAEXPIRACION.substr(6)+'/' +element.s210_FECHAEXPIRACION.substr(4,2)+'/'+element.s210_FECHAEXPIRACION.substr(0,4) }}
+            </td>
+
+
+            </ng-container>
+
+            <ng-container  class="border-bottom-0" matColumnDef="s210_NROCUENTA">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nro. Cuenta </th>
+            <td mat-cell *matCellDef="let element"> {{element.s210_NROCUENTA}} </td>
+            </ng-container>
+
+            <ng-container  class="border-bottom-0" matColumnDef="s210_NOMBRECUENTA">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. Cuenta </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s210_NOMBRECUENTA}} </td>
+            </ng-container>
+
+            <ng-container  class="border-bottom-0" matColumnDef="s210_NUMEROORDEN">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nro. Orden </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s210_NUMEROORDEN}} </td>
+            </ng-container>
+            <ng-container  class="border-bottom-0" matColumnDef="s210_Underlying">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Suby. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s210_Underlying}} </td>
+            </ng-container>
+            <ng-container  class="border-bottom-0" matColumnDef="s210_TICKER">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticker </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s210_TICKER}} </td>
+            </ng-container>
+            <ng-container  class="border-bottom-0" matColumnDef="s210_TIPOOPCION">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Opción </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s210_TIPOOPCION}} </td>
+            </ng-container>
+            <ng-container    matColumnDef="s210_NOMBREOPCION">
+                    <th width ="180px" mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Operación </th>
+                    <td width ="180px"  mat-cell *matCellDef="let element"> {{element.s210_NOMBREOPCION}} </td>
+            </ng-container>
+            <ng-container  class="border-bottom-0" matColumnDef="s210_TIPOOPERACION">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Operación </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s210_TIPOOPERACION}} </td>
+            </ng-container>
+            <ng-container  class="border-bottom-0" matColumnDef="s210_CAKSTOTAL">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Caks Total </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s210_CAKSTOTAL}} </td>
+            </ng-container>
+            <ng-container  class="border-bottom-0" matColumnDef="s210_CAKSDISPONIBLE">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Caks Disp. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s210_CAKSDISPONIBLE}} </td>
+            </ng-container>
+
+            <ng-container   matColumnDef="s210_CAKS_UTILIZAR" >
+                    <th  mat-header-cell *matHeaderCellDef mat-sort-header> Caks Utilizar </th>
+                    <!-- <td mat-cell *matCellDef="let element"> {{element.s210_CAKS_UTILIZAR}} </td> -->
+                    <td  mat-cell *matCellDef="let element" >
+                      <div  >
+
+                      <mat-form-field  class="caksutilizar">
+                        <input matInput  class="form-control" type="number" min="0" max={{element.s210_CAKSDISPONIBLE}}   oninput="validity.valid||(value='');"
+                        name="element.s210_CAKS_UTILIZAR" [(ngModel)]="element.s210_CAKS_UTILIZAR">
+                      </mat-form-field>
+                    </div>
+                    </td>
+            </ng-container>
+            <ng-container  class="border-bottom-0" matColumnDef="s210_STRIKE">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Strike </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s210_STRIKE}} </td>
+            </ng-container>
+
+            
+
+
+
+            <ng-container  class="border-bottom-0" matColumnDef="s210_Rebate_Barrier">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Rebate Barrera </th>
+              <td mat-cell *matCellDef="let element"> {{element.s210_Rebate_Barrier}} </td>
+            </ng-container>
+            
+            <ng-container  class="border-bottom-0" matColumnDef="s210_DesRebate_Barrier">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc OTC </th>
+              <td mat-cell *matCellDef="let element"> {{element.s210_DesRebate_Barrier}} </td>
+            </ng-container>
+
+            <ng-container  class="border-bottom-0" matColumnDef="s210_PRIMA">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Prima </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s210_PRIMA}} </td>
+            </ng-container>
+
+            <ng-container   matColumnDef="s210_PRIMA_FO" >
+              <th  mat-header-cell *matHeaderCellDef mat-sort-header> Prima FO </th>
+                <td  mat-cell *matCellDef="let element" >
+                <div  >
+                  <mat-form-field   class="caksutilizar">
+                    <input matInput  class="form-control"  
+                      type="number" 
+                      [disabled]=estadoBroker
+                      name="element.s210_PRIMA_FO" 
+                      [(ngModel)]="element.s210_PRIMA_FO"
+                    >
+                  </mat-form-field>
+              </div>
+              </td>
+            </ng-container>
+
+
+            <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true"
+            style="text-align: center; vertical-align: middle;"
+
+            ></tr>
+
+            <tr mat-row *matRowDef="let element columns: displayedColumns;" style="text-align: center; vertical-align: middle;" 
+            class="my-mat-row" >
+            </tr>
+
+
+        </table>
+        
+        </div>
+      <mat-paginator [pageSizeOptions]="[4, 8, 16, 32]" aria-label="Select page of users"></mat-paginator>
+
+    <div class="row">
+
+      <div class="col d-flex justify-content-end">
+            <table  style="width: 20%; border-bottom:1px solid #ffffff;"  >
+              <tr   style="width:100%" >
+                  <td   style="text-align:right;  padding-right:1.3%">
+                    <button 
+                      class="btn btn-green" 
+                      type="submit" 
+                      [disabled]="disabledRegistrar"
+                      (click)="GuardarOperacionesBroker()">Registrar
+                    </button>
+                  </td>
+                  <td style="text-align:right;  padding-right:1.3% ">
+                    <button 
+                      class="btn btn-green" 
+                      type="submit"
+                      [disabled]="disabledAsociar"
+                      (click)="modalAsociarPreRegistro(ModalAsociarPreRegistroSQL)"
+                    >
+                    <!-- <button class="btn btn-green" type="submit"> -->
+                              Asociar
+
+                    </button>
+                  </td>
+                  <td style="text-align:right;  padding-right:1.3% ">
+                    <button 
+                      class="btn btn-green" 
+                      type="submit" 
+                      [disabled]="disabledLiquidar"
+                      (click)="modalLiquidarRegistroSQL(ModalLiquidarOperSQL)">
+                            Liquidar</button>
+
+
+                  </td>
+              </tr>
+            </table>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Pre Registro  -->
+
+    <table style=" width: 100%; border-bottom:1px solid #ffffff;"  >
+      <tr   style="width:100%" >
+          <td   style="text-align:left;  padding: 0% 0% 0.5% 1%">
+              <h3 class="modal-title">Lista Pre-Registro Portafolio</h3>
+          </td>
+      </tr>
+    </table>
+
+
+
+  <div class="card-body">
+    <div class="table-responsive">
+      <!-- <input type="text"  class="redondeado"  size="100"    (keyup)="applyFilterSQL($event)" placeholder="Buscar en Portafolio" autocomplete="off">
+      <br> -->
+  
+      <div class="tabla-table-container">
+          <table  mat-table
+          #MatSortSQL="matSort"
+
+
+          matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+          style="width:100%"
+          [dataSource]="dataSourceSQL" >
+                  <ng-container  matColumnDef="s211_IDSQL">
+                    <th  mat-header-cell class="border-bottom-0"   *matHeaderCellDef mat-sort-header> Id </th>
+                    <td
+                    (contextmenu)="onContextMenu($event, element)"
+                        mat-cell *matCellDef="let element"
+                    > {{element.s211_IDSQL}}
+
+
+                    </td>
+                  </ng-container>
+
+
+          <!-- Checkbox Column -->
+                <ng-container matColumnDef="selectSQL">
+                  <th mat-header-cell class="border-bottom-0"  *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggleSQL() : null"
+                                  [checked]="selectionSQL.hasValue() && isAllSelectedSQL()"
+                                  [indeterminate]="selectionSQL.hasValue() && !isAllSelectedSQL()">
+                    </mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <mat-checkbox  (click)="$event.stopPropagation()"
+                                  (change)="$event ? selectionSQL.toggle(row) : null"
+                                  [checked]="selectionSQL.isSelected(row)">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+
+
+            <ng-container matColumnDef="s211_TradeDate">
+            <th class="thead" class="border-bottom-0" mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Operación </th>
+
+            <td  data-type="date" mat-cell *matCellDef="let element">
+            {{element.s211_TradeDate.substr(6)+'/' +element.s211_TradeDate.substr(4,2)+'/'+element.s211_TradeDate.substr(0,4) }}
+            </td>
+
+            </ng-container>
+
+            <ng-container  class="border-bottom-0" matColumnDef="s211_Ticker">
+              <th mat-header-cell class="border-bottom-0"  *matHeaderCellDef mat-sort-header> Ticker </th>
+              <td mat-cell *matCellDef="let element"> {{element.s211_Ticker}} </td>
+            </ng-container>
+        
+              <ng-container  class="border-bottom-0" matColumnDef="s211_BrokerName">
+              <th mat-header-cell class="border-bottom-0"  *matHeaderCellDef mat-sort-header> Broker </th>
+              <td mat-cell *matCellDef="let element"> {{element.s211_BrokerName}} </td>
+            </ng-container>
+        
+            
+            <ng-container  class="border-bottom-0" matColumnDef="s211_Instrumento">
+            <th mat-header-cell class="border-bottom-0"  *matHeaderCellDef mat-sort-header> Instrumento </th>
+            <td mat-cell *matCellDef="let element"> {{element.s211_Instrumento}} </td>
+            </ng-container>
+
+            <ng-container  class="border-bottom-0" matColumnDef="s211_TipoOperacion">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Operación </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s211_TipoOperacion}} </td>
+            </ng-container>
+
+            <ng-container  class="border-bottom-0" matColumnDef="s211_caksLiquidar">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Caks disponible Liquidar </th>
+              <td mat-cell *matCellDef="let element"> {{element.s211_caksparaLquidar}} </td>
+            </ng-container>
+
+            <ng-container  class="border-bottom-0" matColumnDef="s211_caks">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Caks </th>
+                    <td mat-cell *matCellDef="let element"> {{element.s211_caks}} </td>
+            </ng-container>
+
+
+            <ng-container   class="border-bottom-0" matColumnDef="s211_strike">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Strike </th>
+                      <td   mat-cell *matCellDef="let element"> 
+                        <div ngSwitch="{{element.s211_TickerUnderlying}}">
+                            <div *ngSwitchCase="'SBO'">
+                              {{element.s211_StrikePriceCent | number:'1.2-2'}} 
+                            </div>
+                            <div *ngSwitchCase="'W'">
+                              {{element.s211_StrikePriceCent | number:'1.2-2'}} 
+                            </div>
+                            <div *ngSwitchCase="'SCRS'">
+                              {{element.s211_StrikePriceCent | number:'1.2-2'}} 
+                            </div>
+                            <div *ngSwitchCase="'S'">
+                              {{element.s211_StrikePriceCent | number:'1.2-2'}} 
+                            </div>
+                            <div *ngSwitchCase="'C'">
+                              {{element.s211_StrikePriceCent | number:'1.2-2'}} 
+                            </div>
+                            <div *ngSwitchDefault>
+                                {{element.s211_strike | number:'1.2-2'}} 
+                            </div>
+                        </div>
+                      </td>
+            </ng-container>
+            <ng-container  class="border-bottom-0" matColumnDef="s211_prima">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Prima </th>
+                    <td mat-cell *matCellDef="let element"> 
+                      <div ngSwitch="{{element.s211_TickerUnderlying}}">
+                        <div *ngSwitchCase="'SBO'">
+                          {{element.s211_PremiumCent | number:'1.2-2'}} 
+                        </div>
+                        <div *ngSwitchCase="'SCRS'">
+                          {{element.s211_PremiumCent | number:'1.2-2'}} 
+                        </div>
+                        <div *ngSwitchCase="'W'">
+                          {{element.s211_PremiumCent | number:'1.2-2'}} 
+                        </div>
+                        <div *ngSwitchCase="'S'">
+                          {{element.s211_PremiumCent | number:'1.2-2'}} 
+                        </div>
+                        <div *ngSwitchCase="'C'">
+                          {{element.s211_PremiumCent | number:'1.2-2'}} 
+                        </div>
+                        <div *ngSwitchDefault>
+                            {{element.s211_prima | number:'1.2-2'}} 
+                        </div>
+                    </div>
+                      
+                      
+
+
+            </ng-container>
+
+            <ng-container  class="border-bottom-0" matColumnDef="s211_Rebate_Barrier">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Rebate - Barrera </th>
+              <td mat-cell *matCellDef="let element"> {{element.s211_Rebate_Barrier}} </td>
+          </ng-container>
+
+
+          <ng-container  class="border-bottom-0" matColumnDef="s211_DesRebate_Barrier">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc OTC </th>
+            <td mat-cell *matCellDef="let element"> {{element.s2111_DesRebate_Barrier}} </td>
+          </ng-container>
+
+            <ng-container   matColumnDef="s211_BrokerCode">
+              <th  mat-header-cell *matHeaderCellDef mat-sort-header>Ref. Broker</th>
+              <td  mat-cell  *matCellDef="let element">
+                <mat-form-field  class="caksutilizar">
+                  <input matInput class="form-control" name="element.s211_BrokerCode" ngModel required
+                  [(ngModel)]="element.s211_BrokerCode">
+                </mat-form-field>
+              </td>
+            </ng-container>
+            
+            
+
+            <ng-container  class="border-bottom-0" matColumnDef="s211_estado">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+              <td mat-cell *matCellDef="let element"> {{element.s211_estado}} </td>
+            </ng-container>
+
+            
+            <ng-container  class="border-bottom-0" matColumnDef="s211_MtM">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> MtM </th>
+              <td mat-cell *matCellDef="let element"> {{element.s211_MtM | number:'1.2-2'}} </td>
+            </ng-container>
+ 
+
+            <ng-container matColumnDef="s211_TypeOperation">
+              <th mat-header-cell *matHeaderCellDef>Tipo de Cobertura</th>
+              <td mat-cell *matCellDef="let element">
+                <mat-form-field  class="my-select" floatLabel="never">
+                  <mat-select  #teamDropdown 
+                  [(ngModel)]="element.s211_TypeOperation" 
+                  (selectionChange)="onSelectTipoOperacion(registroPricing, $event,element.s211_IdUnderlying,element.s211_IDSQL)"
+                  >
+
+                  <!-- <mat-select [(ngModel)]="element.s211_TypeOperation" formControlName="element.s211_TypeOperation"> -->
+                    <!-- <mat-option>None</mat-option>
+                    <mat-option value="Yes">Yes</mat-option> -->
+                    <mat-option *ngFor="let lista of listatipoOperacion" [value]="lista.t021_ID">
+                      {{ lista.t021_Description  }}
+                      
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+
+              </ng-container>
+
+              <ng-container matColumnDef="s211_HasBenchmark">
+                <th mat-header-cell *matHeaderCellDef>Benchmark</th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-form-field  class="my-select" floatLabel="never">
+                    <mat-select  #teamDropdown 
+                    [(ngModel)]="element.s211_HasBenchmark" 
+                    
+                    >
+  
+                      <mat-option *ngFor="let lista of listaBenchmark" [value]="lista.t130_ID">
+                        {{ lista.t130_Description  }}
+                        
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+  
+                </ng-container>
+                <ng-container matColumnDef="s211_TipoPromedio">
+                  <th mat-header-cell *matHeaderCellDef>Tipo Prom.</th>
+                  <td mat-cell *matCellDef="let element">
+                    <mat-form-field  class="my-select" floatLabel="never">
+                      <mat-select  #teamDropdown 
+                      [(ngModel)]="element.s211_TipoPromedio" 
+                      [disabled]="(element.s211_Instrument == 18 || element.s211_Instrument == 19)  ? false : true"
+
+                      >
+    
+                        <mat-option *ngFor="let lista of listaTipoPromedio" [value]="lista.t475_ID">
+                          {{ lista.t475_Description  }}
+                          
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+    
+                  </ng-container>
+  
+
+
+            <tr  mat-header-row *matHeaderRowDef="displayedColumnsSQL sticky: true"
+            style="text-align: center; vertical-align: middle;"
+
+            ></tr>
+
+            <tr mat-row *matRowDef="let element columns: displayedColumnsSQL;"
+            (click)="selectionSQL.toggle(row)">
+            </tr>
+
+
+        </table>
+      </div>
+            <mat-paginator
+                #MatPaginatorSQL="matPaginator"
+                [pageSizeOptions]="[4, 8, 16, 32]" aria-label="Select page of users">
+            </mat-paginator>
+    </div>
+
+    <div style="visibility: hidden; position: fixed"
+      [style.left]="contextMenuPosition.x"
+      [style.top]="contextMenuPosition.y"
+      [matMenuTriggerFor]="contextMenu">
+    </div>
+    <mat-menu #contextMenu="matMenu" #contextMenu2="matMenu" class="opciones">
+      <ng-template matMenuContent let-item="item" class="opciones">
+        <button mat-menu-item (click)="asociarBroker_OperacionesSQL()">Asociar</button>
+        <!-- <button mat-menu-item (click)="dismiss('Cross click')">Cancelar</button> -->
+        
+      </ng-template>
+    </mat-menu>
+  
+  
+  
+  <div class="row">
+
+  <div class="col d-flex justify-content-end">
+        <table style=" width: 28%; border-bottom:1px solid #ffffff;"  >
+          <tr   style="width:100%" >
+              <td   style="text-align:right;  padding-right:1.3%">
+                  <button class="btn btn-green" 
+                  type="submit" 
+                  [disabled]="disabledGuardarPortafolio"
+                  (click)="GuardarOperacionesSQL()">Guardar Portafolio</button>
+              </td>
+              <td style="text-align:right;  padding-right:1.3% ">
+                <button 
+                  class="btn btn-green" 
+                  type="submit" 
+                  [disabled]="disabledRegresarBroker"
+                  (click)="RevertirOperacionesSQL()">Regresar Broker</button>
+              </td>
+          </tr>
+        </table>
+
+  </div>
+  </div>
+  </div>
+
+
+
+
+  </div>
+
+  <!-- modal de asociar operaciones Pre Registro-->
+  <ng-template #ModalAsociarPreRegistroSQL let-modal >
+  <app-asociarSQL_Broker [visible]="myModalAsociar"   (close)="cerrarModalAsociar(modal)"></app-asociarSQL_Broker>
+
+
+  </ng-template>
+
+
+
+  <!-- modal de asociar liquidaciones de operaciones-->
+  <ng-template #ModalLiquidarOperSQL let-modal>
+  <!-- <app-asociarOperLiqSQL [visible]="myModal"  (close)="cerrarModal($event)"></app-asociarOperLiqSQL>                          -->
+  <app-asociarOperLiqSQL [visible]="myModalLiquidar"  (close)="cerrarModalLiquidar(modal)"></app-asociarOperLiqSQL>
+
+  </ng-template>
+
+  <ng-template #registroPricing let-modal>
+    <app-registroPricing [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registroPricing>                         
+  </ng-template>
+
+</div>

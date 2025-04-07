@@ -1,0 +1,169 @@
+.modal-header {
+    background-color: #37aaf1;
+    color: white;
+}
+.buscador {
+    width: 18%;
+    padding: 6px 0;
+}
+// .redondeado {
+//     border-radius: 5px;
+//     border: 1px solid rgb(146, 146, 146) !important;
+// }    
+.mat-header-cell {
+    color: white;
+    justify-content:center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}  
+.mat-badge-content {
+    background-color: #37aaf1;
+    color: white;
+}
+// .mat-row:hover {
+//     background-color: rgba(120, 185, 40, 0.205);
+//     cursor: pointer;
+// }
+:host ::ng-deep .mat-sort-header-container { 
+    display: flex;  
+    justify-content: center; 
+    vertical-align: middle;
+    padding: 0 5ex 0  5ex;
+}
+::ng-deep  .mat-sort-header-arrow {
+    color: #fff;
+    justify-content:center;
+    vertical-align: middle;
+}
+#b1{
+    white-space: normal;
+}
+.br {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+::ng-deep .modalIngresarPapel .modal-dialog { 
+    max-width: 50%;
+    width: 50%;
+}
+
+mat-spinner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+:host ::ng-deep .custom-spinner circle{   
+    stroke:  rgb(75, 130, 45);
+    stroke-opacity: 1 !important;
+}
+
+.theadCarga {
+    background-color: rgb(75, 130, 45);
+}
+.theadFlat {
+    background-color: #dba703;
+}
+.theadFuturo{
+    background-color: #4454c3;
+}
+.theadBase{
+    background-color: #495057;
+}
+.theadMtM{
+    background-color: #03c2db;
+}
+.theadPortafolio {
+    background-color: #37aaf1;
+}
+
+
+::ng-deep .my-class-lista .modal-dialog { 
+    max-width: 50%;
+    width: 50%;
+}
+
+// .selected {
+//     background-color: rgba(120, 185, 40, 0.205);
+// }
+.opcion {
+  background-color: transparent !important;
+  border: none;
+}
+
+#b1{
+    white-space: normal;
+}
+
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+    background-color: rgb(255, 0, 0) !important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #37aaf1 !important;
+}
+
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: rgb(75, 130, 45) !important;
+}
+
+.mat-checkbox {
+    padding: 10px;
+}
+.compact-tabs .mat-tab-labels {
+    justify-content: flex-start; /* Alinea los tabs al principio */
+}
+  
+.compact-tabs .mat-tab-label {
+    flex: 0 0 auto; /* Hace que cada tab ocupe solo el espacio necesario */
+  margin-right: 8px; /* Añade espacio entre tabs si es necesario */
+  border-bottom: 2px solid transparent; /* Borde transparente para tabs no seleccionados */
+  transition: border-color 0.3s ease; /* Transición suave para el borde */
+
+}
+.table-container {
+    max-width: 100%; /* Ancho máximo del contenedor */
+    max-height: 600px; /* Ajusta la altura máxima según tus necesidades */
+    overflow-x: auto; /* Scroll horizontal */
+    overflow-y: auto; /* Scroll vertical */
+  }
+  .minegrita {
+    font-weight: bold;
+  }
+.header-blue {
+    background-color: rgb(68, 68, 169);
+    color: white; /* Ajusta el color del texto según sea necesario */
+    justify-content:center;
+    vertical-align: middle;
+    align-items: center;     /* Centra verticalmente */
+    text-align: center;
+  }
+.header-red {
+    background-color:#37aaf1;;
+    color: white; /* Ajusta el color del texto según sea necesario */
+    justify-content:center;
+    vertical-align: middle;
+    align-items: center;     /* Centra verticalmente */
+    text-align: center;
+  }
+  :host ::ng-deep .table {
+    user-select: none; /* Desactiva la selección de texto */
+  }
+  .mat-cell {
+    cursor: pointer;
+    border: 1px solid #d4d3d3;    
+  }
+  
+  .mat-cell.selected {
+    background-color: rgb(245, 245, 127); /* Fondo amarillo */
+    border: 4px solid rgba(245, 245, 127, 0.9);   /* Borde amarillo transparente */
+    box-sizing: border-box; /* Asegura que el borde no afecte el tamaño de la celda */
+}
+.mat-row:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+}

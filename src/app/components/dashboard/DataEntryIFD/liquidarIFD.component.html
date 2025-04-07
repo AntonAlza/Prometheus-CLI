@@ -1,0 +1,242 @@
+<div role="document" class="msg_card_body">
+
+  <div class="modal-header">
+    <!-- <h5 *ngIf="!flgIngresarContrato" class="modal-title">Modificar IFD</h5> -->
+    <h5 class="modal-title">Liquidar IFD</h5>
+    <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="py-1">
+      <form class="form" novalidate="">
+        <div class="row">
+          <div class="col col-xl-5 col-lg-5 col-md-5">
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4">
+                <label class="form-label">Operación </label>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8">
+                <input style="width: 55%;" id="deshabilitado" class="form-control" type="text" placeholder="Código"
+                  name="idSQL" [(ngModel)]="idSQL" readonly />
+              </div>
+            </div>
+
+            <!-- <div class="card shadow-none border"> -->
+              <div>
+              <table>
+                <tr>
+                  <td style="width: 50%;">
+                    <label class="form-label">{{descUnitMeasureCent}} </label>
+                  </td>
+                  <td style="width: 50%;">
+                    <label class="form-label">{{descUnitMeasureUSD}} </label>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="width: 50%; vertical-align: top; ">
+                    <!--3:Grano
+                        5: Aceite Soya uSD
+                        14: SoyCrush
+                        Resto Cent uSD
+                        -->
+                    <div ngSwitch="{{idUnderlying}}">
+                      <div *ngSwitchCase="'4'">
+                        <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                           placeholder="Price Cent" name="precioCent"
+                          [(ngModel)]="precioCent" readonly />
+                      </div>
+                      <div *ngSwitchCase="'7'">
+                        <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                           placeholder="Price Cent" name="precioCent"
+                          [(ngModel)]="precioCent" readonly />
+                      </div>
+                      <div *ngSwitchDefault>
+                        <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                           placeholder="Price Cent" name="precioCent"
+                          [(ngModel)]="precioCent" (ngModelChange)="onSelectPrecioCent()" />
+                      </div>
+                    </div>
+                  </td>
+
+
+                  <td style="width: 50%;">
+
+                    <!--3:Grano
+                      4: Harina Soya USD
+                      7: Aceite Palma USD
+                      Resto Cent USD
+                      -->
+                    <div ngSwitch="{{idUnderlying}}">
+                      <div *ngSwitchCase="'4'">
+                        <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                          placeholder="Precio USD" name="precioUSD" [(ngModel)]="precioUSD"
+                          (ngModelChange)="onSelectPrecioUSD()" />
+                      </div>
+                      <div *ngSwitchCase="'7'">
+                        <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                           placeholder="Price USD" name="precioUSD"
+                          [(ngModel)]="precioUSD" (ngModelChange)="onSelectPrecioUSD()" />
+                      </div>
+                      <div *ngSwitchDefault>
+                        <input style="width: 100%;" class="form-control" type="number" min="1" max="9999"
+                           placeholder="Price USD" name="precioUSD"
+                          [(ngModel)]="precioUSD" readonly />
+                      </div>
+                    </div>
+
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="width: 50%;">
+
+                    <label style="width: 100%;" class="form-label">Número de contratos </label>
+
+                  </td>
+                  <td style="width: 50%;">
+
+                    <input style="width: 100%;" class="form-control" type="number" min="1" max={{maxCAKS}}
+                      oninput="validity.valid||(value='');" placeholder="Cantidad" name="contratos"
+                      [(ngModel)]="contratos" (ngModelChange)="onSelectCantidad()" />
+                    <span class="br"></span>
+
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label class="form-label">Mark to Market </label>
+                  </td>
+                  <td>
+                    <input style="width: 100%;" class="form-control" type="text" placeholder="mark to market"
+                      name="mtm"
+                      [ngModel]="mtm | number:'1.1-2'"
+                       readonly />
+                  </td>
+                </tr>
+                <tr *ngIf="!flgPoBo">
+                  <td>
+                    <label class="form-label">Mark to Market sin costo </label>
+                  </td>
+                  <td>
+                    <input style="width: 100%;" class="form-control" type="text"
+                      placeholder="mark to market sin costo" name="mtm_sincosto" 
+                      [ngModel]="mtm_sincosto | number:'1.1-2'"
+                      readonly />
+                  </td>
+                </tr>
+                <tr *ngIf="!flgPoBo">
+                  <td *ngIf="!((idInstrumento)>=3 && (idInstrumento)<=4); ">
+                    <label class="form-label">Precio Futuro USD </label>
+                  </td>
+                  <td *ngIf="!((idInstrumento)>=3 && (idInstrumento)<=4); ">
+                    <input style="width: 100%;" class="form-control" type="number" placeholder="Precio Futuro"
+                      name="precioFuturo" [(ngModel)]="precioFuturo" />
+
+                  </td>
+                </tr>
+                <tr>
+                  <td *ngIf="(existeFechaLiquidacion); ">
+                    <label class="form-label">Fecha Liquidación<span class="text-red">*</span></label>
+                  </td>
+                  <td *ngIf="(existeFechaLiquidacion);">
+                    <input style="width: 100%;" class="form-control" type="number" placeholder="Precio Futuro"
+                      name="pFechaLiquidacion" 
+                      [(ngModel)]="pFechaLiquidacion"
+                      readonly
+                     />
+
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="col col-xl-7 col-lg-7 col-md-7">
+            <span class="br"></span>
+            <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-3">
+                <label class="form-label">Motivo </label>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8">
+                <ng-select style="width:  100%;" class="form-control form-select" name="idMotivo"
+                  [(ngModel)]="idMotivo">
+                  <ng-option value="{{lista.s114_Codigo}}" *ngFor="let lista of listaMotivo">{{ lista.s114_Descripcion}}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+
+            <div class="card shadow-none border">
+              <h3 class="modal-title">Observación</h3>
+              <span class="br"></span>
+              <div class="row">
+                <div *ngIf="operacionSQL.t005_GroupOfOptions != 0">
+                  <label class="form-label"> La actual operación corresponde a la estrategia
+                    {{operacionSQL.t005_GroupOfOptions}}
+                    , pf indique la razón por la cual esta rompiendo la estrategia
+                  </label>
+                </div>
+                <div *ngIf="operacionSQL.t005_GroupOfOptions == 0">
+                  <label class="form-label"> La actual operación no tiene estrategia asociada
+                    , pf indique la razón por la cual esta rompiendo la estrategia
+                  </label>
+                </div>
+                <br><br>
+                <p></p>
+                <div>
+                  <mat-form-field class="input-field" style="width:100%; text-align: left;">
+                    <textarea style="width: 100%;" matInput name="comentario" cols="100" rows="5"
+                      placeholder="Comentario" [(ngModel)]="comentario" required></textarea>
+                  </mat-form-field>
+                  <!-- <input style="width: 120px;"
+                    class="form-control"
+                    type="text"
+                    placeholder="Total Premium USD"
+                    name="t005_TotalPremiumUSD"
+                    [(ngModel)]="operacionSQL.t005_TotalPremiumUSD"
+  
+                    readonly
+                    /> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <span class="br"></span>
+          <div class="row">
+            <table>
+              <tr>
+                <td style="width: 90%; text-align: right;">
+                  <button class="btn btn-green" 
+                  type="submit"
+                  [disabled]="disabledLiquidar"
+                   (click)="liquidarOperacion()">
+
+                    Aceptar
+                  </button>
+                </td>
+                <td>
+                  <div class="col d-flex justify-content-end">
+                    <!-- <button
+                    class="btn btn-green"
+                    type="submit"
+                    (click)="ActualizarRegistro()"
+                  > -->
+                    <button class="btn btn-green" type="submit" (click)="cerrar()">
+
+                      Cancelar
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

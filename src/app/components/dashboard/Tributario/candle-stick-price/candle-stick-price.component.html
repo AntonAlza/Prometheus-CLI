@@ -1,0 +1,177 @@
+<div class="page-header">
+    <div class="page-leftheader">
+      <h4 class="page-title">CandleStickPrice {{this.fecha}}</h4>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
+              width="24">
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+              <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" />
+            </svg>
+            <span class="breadcrumb-icon"> Home</span></a>
+        </li>
+        <li class="breadcrumb-item"><span>IFD</span></li>
+        <li class="breadcrumb-item active" aria-current="page">Precios Historícos</li>
+      </ol> 
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-1">
+    <button style="width: 100%;" class="btn btn-green" type="submit" (click)="setExportFileName(exporter)">
+      <i class="fa fa-file-excel-o"></i> Exportar
+    </button>
+  </div> 
+
+  <div class="col-md-2">
+    <div class="row">
+      <div class="col-md-4">
+          <label class="form-label">Fecha inicio</label>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field appearance="outline" (click)="picker1?.open()" class="w-100 mb-0">
+          <input matInput [ngModel]="this.dtpFecIni_1 | date: 'yyyy/MM/dd'" name="dateFieldView1" class="w-100 cursor-pointer" 
+             (focus)="picker1?.open()" (dateChange)="setDateInicio_1(dateField1.value)" readonly/>
+           <input matInput [matDatepicker]="picker1" name="dateField1" #dateField1 required (dateChange)="setDateInicio_1(dateField1.value)" hidden/>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+         <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+  </div>
+  </div>
+
+  <div class="col-md-2">
+    <div class="row">
+      <div class="col-md-4">
+          <label class="form-label">Fecha Fin</label>
+      </div>
+      <div class="col-md-8">
+
+         <mat-form-field appearance="outline" (click)="picker2?.open()" class="w-100 mb-0">
+           <input matInput [ngModel]="this.dtpFecIni_2 | date: 'yyyy/MM/dd'" name="dateFieldView2" class="w-100 cursor-pointer" 
+             (focus)="picker2?.open()" (dateChange)="setDateInicio_2(dateField2.value)" readonly/>
+           <input matInput [matDatepicker]="picker2" name="dateField2" #dateField2 required (dateChange)="setDateInicio_2(dateField2.value)" hidden/>
+         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+         <mat-datepicker #picker2></mat-datepicker>
+         </mat-form-field>
+        </div>
+      </div>
+  </div>
+  
+  <div class="col-md-2">
+    <button class="btn btn-green" type="submit" (click)="Consultar()">Consultar</button>
+  </div>
+  
+  <div class="col-md-2">
+    <label class="form-label mr-2">M.Prima:</label>
+    <ng-select [items]="MateriaPrima" [(ngModel)]="selectedMateriaPrima" (change)="MPChange($event)" class="w-100">
+      <ng-template ng-option-tmp let-item="item">
+        {{ item }}
+      </ng-template>
+    </ng-select>
+  </div>
+  
+  <div class="col-md-2">
+    <label class="form-label mr-2">Ticker:</label>
+    <ng-select [items]="Tickerscombo" (change)="tickerChange($event)" class="w-100">
+      <ng-template ng-option-tmp let-item="item">
+        {{ item }}
+      </ng-template>
+    </ng-select>
+  </div>
+</div>
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="table-container">
+        <table  mat-table matTableExporter  #exporter="matTableExporter"
+        class="table table-bordered text-nowrap"
+         #MatSortSQL="matSort" matSort matSortActive="created"
+         matSortDisableClear matSortDirection="desc" style="width:100%" [dataSource]="consulPreciosVDS" class="mat-elevation-z8">
+          <!-- Position Column -->
+          <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>FECHA</th>
+          <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="materiaprima">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header >
+              <mat-icon class="filter-icon" [matMenuTriggerFor]="filterMenu">filter_list</mat-icon>
+              <span>COMMODITY</span>
+              <mat-menu #filterMenu="matMenu" [overlapTrigger]="false" class="custom-menu">
+                <div class="filter-menu-content">
+                  <ng-container *ngFor="let opcion of obtenerOpcionesMprima">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="toggleSelection_MP(opcion, $event.checked)">
+                      {{ opcion }}
+                    </mat-checkbox>
+                  </ng-container>
+                </div>
+              </mat-menu>
+            </th>
+            <td mat-cell *matCellDef="let element">{{element.materiaprima}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="mercado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-icon class="filter-icon" [matMenuTriggerFor]="filterMenu">filter_list</mat-icon>
+              <span>MARKET</span>
+              <mat-menu #filterMenu="matMenu" [overlapTrigger]="false" class="custom-menu">
+                <div class="filter-menu-content">
+                  <ng-container *ngFor="let opcion of obtenerOpcionesMercado">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="toggleSelection_Mercado(opcion, $event.checked)">
+                      {{ opcion }}
+                    </mat-checkbox>
+                  </ng-container>
+                </div>
+              </mat-menu>
+            </th>
+            <td mat-cell *matCellDef="let element">{{element.mercado}}</td>
+          </ng-container>
+          <ng-container matColumnDef="ticker">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>TICKER</th>
+            <td mat-cell *matCellDef="let element">{{element.ticker}}</td>
+          </ng-container>
+          <ng-container matColumnDef="settle">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>SETTLE</th>
+            <td mat-cell *matCellDef="let element">{{formatNumber(element.settle)}}</td>
+          </ng-container>
+          <ng-container matColumnDef="closeprice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>CLOSE</th>
+            <td mat-cell *matCellDef="let element">{{formatNumber(element.closeprice)}}</td>
+          </ng-container>
+          <ng-container matColumnDef="openprice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>OPEN</th>
+            <td mat-cell *matCellDef="let element">{{formatNumber(element.openprice)}}</td>
+          </ng-container>
+          <ng-container matColumnDef="lowprice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>LOW</th>
+            <td mat-cell *matCellDef="let element">{{formatNumber(element.lowprice)}}</td>
+          </ng-container>
+          <ng-container matColumnDef="highprice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>HIGH</th>
+            <td mat-cell *matCellDef="let element">{{formatNumber(element.highprice)}}</td>
+          </ng-container>
+          <ng-container matColumnDef="volume">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>VOLUME</th>
+            <td mat-cell *matCellDef="let element">{{formatNumber(element.volume)}}</td>
+          </ng-container>
+
+        
+           <tr mat-header-row *matHeaderRowDef="columnaListainv;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnaListainv;" [ngClass]></tr>
+          </table>
+      </div>
+    </div>
+  
+    <div class="col-md-6">
+      <div id="main_CandleStickPrice" style="width: 100%;height:450px;margin: 20px;"></div>
+      <div id="main_StickPriceCaja" style="width: 100%;height:500px;margin: 20px;"></div>
+    </div>
+
+  
+  </div>
+

@@ -1,0 +1,378 @@
+@media (prefers-reduced-motion: reduce) {
+  .fade {
+      transition: none;
+  }
+}
+.app-modal-window .modal-dialog {
+  width: 100px;
+  position: relative;
+}
+
+.close {
+    color: #111111; 
+    opacity: 1;
+    font-size: 20px;
+}
+
+// if you want to change the color of the icon
+.close-button{
+  float: right;
+  top:-20px;
+  right:-20px;
+}
+
+//scroll bar vertcal
+.tabla-table-container {
+  position: relative;
+  min-height: 150px;
+  max-height: 280px;
+  overflow: auto;
+}
+ 
+
+//caso de input de table
+mat-form-field.caksutilizar {
+  width: 80px;
+  min-width: 80px;
+  max-width: 80px;
+  min-height: 20px;
+  max-height: 20px;
+  text-align: right;
+  display:  flex;
+  
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+//tamaño de input
+.caksutilizar ::ng-deep .mat-form-field-infix {
+  
+  width: 80px !important;
+
+}
+
+
+
+.mat-row {
+ min-height: 20px !important;
+ max-height: 20px !important;
+}
+
+.mat-sort-header-container{
+    justify-content: center;
+    position: relative;
+}
+
+
+.mat-header-cell {
+    text-align: center !important;
+    position: relative;
+}
+
+  
+
+[role="button_modal"] {
+    padding: 2px;
+    background-color:white;
+    color:  rgb(75, 130, 45);
+    cursor: default;
+    
+  }
+  [role="button_modal"]:hover,
+  [role="button_modal"]:focus,
+  [role="button_modal"]:active {
+     background-color:  rgb(75, 130, 45);
+     color: white;
+  }
+
+:host ::ng-deep  .mat-checkbox-checked .mat-checkbox-background {
+    background-color: #37aaf1;
+    border-color: black 
+}
+:ng-deep .mat-checkbox-indeterminate  .mat-checkbox .mat-checkbox-frame { 
+    border-color: black 
+}
+
+
+.file-upload {
+    border: 1px solid rgb(75, 130, 45);
+    border-radius: 5px;
+    padding: 0 5ex 0  5ex;
+    color:  rgb(75, 130, 45);
+    font-size: 15px;    
+  }
+  
+  .file-upload input {
+    overflow: hidden;
+    width: 0;
+  }
+
+.mat-badge-content {
+    
+    background-color: #37aaf1;
+    color: white;
+}
+:host ::ng-deep .mat-sort-header-container { 
+    display: flex;  
+    justify-content: center; 
+    vertical-align: middle;
+    padding: 0 3ex 0  2ex;
+}
+
+
+
+::ng-deep  .mat-sort-header-arrow {
+    color: #fff;
+    justify-content:center;
+    vertical-align: middle;
+}
+
+.mat-row:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+  }
+
+input {
+    width: 270px;
+    padding: 6px 0;
+  }
+  .redondeado {
+    border-radius: 5px;
+    border: 1px solid rgb(146, 146, 146) !important;
+    
+  }
+
+.mat-checkbox {
+    padding: 10px;
+}
+
+
+  
+.mat-cell {
+    text-align: center;
+    justify-content:center;
+    vertical-align: middle;
+  }
+
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    vertical-align: middle;
+    font-size: 14px;
+    height: 10px !important;
+    min-height: 10px !important;
+    max-height: 10px !important;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}   
+
+  
+  .mat-column-s210_IDRJO {
+    flex: 0 0 20px;
+    max-width: 60px;
+  }
+
+  
+  .mat-column-s210_NROCUENTA {
+    flex: 0 0 20px;
+    max-width: 100px;
+  }
+  
+  .mat-column-s210_FECHATRADE {
+    flex: 0 0 20px;
+    max-width: 110px;
+  }
+  
+  .mat-column-s210_FECHAEXPIRACION {
+    flex: 0 0 20px;
+    max-width: 110px;
+  }
+
+  .mat-column-s210_NUMEROORDEN {
+    flex: 0 0 20px;
+    max-width: 200px;
+  }
+  
+
+  .mat-column-s210_Underlying {
+    flex: 0 0 20px;
+    max-width: 120px;
+    align-items: center;
+    align-content: center;
+  }
+  
+  
+  .mat-column-s210_TIPOOPCION {
+    flex: 0 0 20px;
+    max-width: 90px;
+    align-items: center;
+    align-content: center;
+  }
+  
+  
+  .mat-column-s210_TICKER {
+    flex: 0 0 20px;
+    max-width: 90px;
+    align-items: center;
+    align-content: center;
+  }
+  
+  
+  .mat-column-s210_CAKSTOTAL {
+    flex: 0 0 20px;
+    max-width: 60px;
+  }
+.mat-column-s210_CAKSDISPONIBLE {
+  flex: 0 0 20px;
+  max-width: 100px;
+}
+
+
+
+.mat-column-select {
+  flex: 0 0 20px;
+  min-width: 100px;
+  max-width: 240px;
+  align-items: center;
+  align-content:center;
+  
+}
+.mat-column-selectsoycrush {
+  flex: 0 0 20px;
+  min-width: 100px;
+  max-width: 240px;
+  align-items: center;
+  align-content:center;
+}
+
+.mat-column-s210_CAKS_UTILIZAR {
+    flex: 0 0 20px;
+    max-width: 80px;
+    align-items: center;
+    align-content:center;
+    text-align: right;
+}
+
+.mat-column-s210_NOMBREOPCION {
+    min-width: 160px;
+    max-width: 460px;
+}
+
+table {
+  width: 100%;
+}
+
+
+.mat-column-s211_caks {
+  
+  max-width: 60px;
+  
+}
+
+.mat-column-s211_caksLiquidar {
+  
+  max-width: 120px;
+  
+}
+  
+.mat-column-s211_BrokerCode {
+  
+  max-width: 150px;
+  
+}
+.mat-column-s211_TipoOperacion {
+  flex: 0 0 20px;
+  max-width: 80px;
+}
+.mat-column-s211_TradeDate {
+  flex: 0 0 20px;
+  max-width: 100px;
+}
+.mat-column-s211_Instrumento {
+  flex: 0 0 20px;
+  max-width: 80px;
+}
+.my-select {
+  width:200px;
+  max-width:200px;
+  //font-size: 10px;
+}
+
+
+
+.mat-column-s211_TypeOperation {
+  //flex: 0 0 20px;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+
+.button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    float: right;
+  }
+
+.myCustomModalClass .modal-dialog {
+    max-width: 100%;
+  }
+
+.cdk-overlay-container {
+    z-index: 99999 !important;
+}
+.cdk-overlay-container {
+    z-index: 99999 !important;
+}
+
+
+
+.btn-green {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.39);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+
+  .btn-abierto {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.336);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+  .btn-cerrado {
+    color: #fff !important;
+    background-color: #37aaf1;
+    border-color: #a1000096;
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+  
+  .btn-green:hover {
+    color: #fff !important;
+    background-color: rgba(120, 185, 40, 0.397);;
+    border-color: rgb(120, 185, 40);
+  }
+
+//   .modal-header {
+//     background-color: #37aaf1;
+//     color: white;
+// }
+
+mat-form-field.caksutilizar {
+  width: 80px;
+  min-width: 80px;
+  max-width: 80px;
+  min-height: 20px;
+  max-height: 20px;
+  text-align: right;
+  display:  flex;
+  
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

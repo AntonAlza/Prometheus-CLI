@@ -1,0 +1,145 @@
+<div role="document" class="card"> 
+    <div class="modal-header">
+        <h5 class="modal-title">Liquidar Papel</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cerrarLiquidarPapel()">
+          <mat-icon  >close</mat-icon>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-1">
+        <form class="form" novalidate="">
+          <div class="row">
+            <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Código</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        placeholder="Código"
+                        name="t275_ID"
+                        [(ngModel)]="papelLiquidar.t275_ID"
+                        readonly/>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Papel</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        placeholder="Papel"
+                        name="t275_Paper"
+                        [(ngModel)]="papelLiquidar.t275_Paper"
+                        readonly/>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Fecha</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                    class="form-control"
+                    type="date"
+                    placeholder="YYYY-MM-DD"
+                    ngbDatepicker
+                    [(ngModel)]="fechaLiquidacion"
+                    [minDate]="minDate"
+                    [maxDate]="maxDate"
+                    (click)="d1.toggle()"
+                    #d1="ngbDatepicker"
+                    name="fechaLiquidacion"
+                    readonly/>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Operación</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input id="deshabilitado"  class="form-control"  type="text"  placeholder="Operación" name="operacion" [value]="operacion"
+                        readonly/>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Contrato Externo</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input class="form-control" type="text" placeholder="Contrato Externo" name="t275_ExternalContract" [(ngModel)]="papelLiquidar.t275_ExternalContract"/>
+                  </div>
+                </div>
+                <span class="br"></span>
+            </div>
+            <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label"> Toneladas M.</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input class="form-control" type="number" placeholder="TM" name="t275_MetricTons" [(ngModel)]="papelLiquidar.t275_MetricTons" (ngModelChange)="calcularProfitOrLoss()"/>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Precio</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input class="form-control" type="number" placeholder="Precio" name="t275_Value" [(ngModel)]="papelLiquidar.t275_Value" (ngModelChange)="calcularProfitOrLoss()"/>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">P&L USD/TM</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input id="deshabilitado" class="form-control" type="number" placeholder="P&L USD/TM"  name="t275_ProfitOrLoss" 
+                      [(ngModel)]="papelLiquidar.t275_ProfitOrLoss" 
+                      [ngClass]="{'text-danger': papelLiquidar.t275_ProfitOrLoss < 0, 'text-primary': papelLiquidar.t275_ProfitOrLoss >= 0}" 
+                      readonly/>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Comentarios</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input class="form-control" type="text" placeholder="Comentarios" name="t275_Comments" [(ngModel)]="papelLiquidar.t275_Comments"/>
+                  </div>
+                </div>
+                <span class="br"></span>
+             
+            </div>
+          </div>
+          <br>
+          <!-- <div><b><span class="text-red">*</span> Campo no necesario.</b></div> -->
+          <span class="br"></span>
+          <div class="row">
+            <div class="col d-flex justify-content-end">
+              <button
+                class="btn btn-green"
+                type="submit"
+                [disabled]="!flgBoton"
+                (click)="liquidarPapel()">
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

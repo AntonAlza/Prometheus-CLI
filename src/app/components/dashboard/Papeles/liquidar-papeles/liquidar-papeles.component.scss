@@ -1,0 +1,54 @@
+::ng-deep .modalLiquidarPapel .modal-dialog { 
+    max-width: 35%;
+    width: 35%;
+}
+
+
+.br {
+    display: block;
+    margin-bottom: 0.5em;
+}
+.modal-header {
+    background-color: #37aaf1;
+    color: white;
+}
+
+.btn-cierres {
+    background-color: white;
+    background-image: none;
+    border-color: #e4e6ef;
+    color: 424e79;
+    &:hover {
+        background-color:  rgb(75, 130, 45);
+        color: white;
+    }
+    &:focus,
+    &.focus {
+        box-shadow: none;
+    }
+    &.disabled,
+    &:disabled {
+        color: #495057;
+        background-color: white;
+        border-color: white;
+    }
+    &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+            color: #495057;
+            background-color: #eff0f6;
+            border-color: #e7e9f1;
+        }
+    }
+}
+
+#deshabilitado{
+    color: rgb(168 168 167 / 68%);
+}
+.text-danger {
+    color: red !important;
+  }
+  
+  .text-primary {
+    color: blue !important;
+  }

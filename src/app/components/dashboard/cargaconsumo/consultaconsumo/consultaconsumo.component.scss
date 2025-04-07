@@ -1,0 +1,113 @@
+::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.05em 0px !important;} 
+
+//tamaño de input
+.caksutilizar ::ng-deep .mat-form-field-infix {
+  
+  width: 180px !important;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+.btn-green {
+  color: #fff !important;
+  background-color: rgb(75, 130, 45);
+  border-color: rgb(75, 130, 45);
+  -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.39);
+          box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+}
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 48%;
+  margin: 1%;
+}
+
+.new-row {
+  clear: both;
+}
+ng-select {
+  display: block;
+  min-height: 40px; /* Ajusta el tamaño mínimo según sea necesario */
+}
+
+ng-dropdown-panel {
+  max-height: 200px; /* Controla la altura máxima del desplegable */
+  overflow-y: auto; /* Habilita el desplazamiento */
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.chart-card {
+  width: 100%;
+  max-width: 430px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.echart {
+  width: 100%;
+  height: 100%;
+}
+
+
+//calendario artificial
+.tree-container {
+  max-width: 340px;
+  margin: 0px 0; /* Elimina el auto para alinear a la izquierda */
+  padding-left: 0px; /* Añade padding si deseas separar el contenido del borde izquierdo */
+}
+
+.months-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-left: 10px;
+}
+
+button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button.selected {
+  background-color: #4caf50;
+  color: white;
+  border-color: #4caf50;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+.checkbox-item {
+  padding: 8px; /* Espaciado interno para separación horizontal y vertical */
+}
+
+mat-checkbox {
+  display: block; /* Cada checkbox ocupa su propia línea */
+}
+.checkbox-item:first-child {
+  font-weight: bold; /* Destaca la opción de "Seleccionar todo" */
+  padding-bottom: 10px; /* Añade espacio debajo */
+}
+.custom-divider {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 8px 0; /* Ajusta el margen según sea necesario */
+    width: 100%; /* Asegúrate de que ocupe todo el contenedor */
+  }
+  

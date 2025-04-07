@@ -1,0 +1,51 @@
+export class ResultadoMetricaIFD{
+    
+    t386_Date:number;
+    t386_Operation:number;
+    t386_Scenary:string;
+    t386_BrokerRef:string;
+    t386_Ticker:string;
+    t386_UnderlyingType:string;
+    t386_DerivativeType:string;
+    t386_DerivativeSpec:string;
+    t386_DerivativeSubSpec:string;
+    t386_Caks:number;
+    t386_PriceStrike:number;
+    t386_PriceBarrier:number;
+    t386_DateSettle:number;
+    t386_DateMaturity:number;
+    t386_DateSimulation:number;
+    t386_PriceAsset:number;
+    t386_Volatility:number;
+    t386_Rate:number;
+    t386_DigitalPayment:number;
+    t386_PremiumPaid:number;
+    t386_PremiumToday:number;
+    t386_Delta:number;
+    t386_Gamma:number;
+    t386_Vega:number;
+    t386_Theta:number;
+    t386_Rho:number;
+    t386_Lambda:number;
+    t386_DeltaCAK:number;
+    t386_GammaCAK:number;
+    t386_CashPaid:number;
+    t386_CashToday:number;
+    t386_CashVI:number;
+    t386_CashNetToday:number;
+    t386_IDStrategy:number;
+    t386_Strategy:string;
+    t386_ByPortfolio:string;
+    t386_ByGroup:string;
+    t386_ByPosition:string;
+    t386_ByAgrupDelta:string;
+    t386_ByTrimestre:string;
+    t386_ByApertura:string;
+    t386_ContabilityType:string;
+    t386_HedgeType:string;
+    t386_Society:string;
+    t386_VolumeNetTM:string;
+    t386_VolumeMaxTM:string;
+    t386_Curva:string;
+
+}

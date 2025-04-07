@@ -1,0 +1,221 @@
+.br {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.modal-header {
+  background-color: #37aaf1;
+  color: white;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.mat-header-cell {
+  background: #37aaf1;
+  color: white;
+  justify-content: center;
+  vertical-align: middle;
+  font-size: 14px;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+}
+
+.mat-badge-content {
+  //background: #37aaf1;
+  background-color: #37aaf1;
+  color: white;
+}
+
+:host ::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  padding: 0 5ex 0 5ex;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: #fff;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.mat-row:hover {
+  background-color: rgba(120, 185, 40, 0.205);
+  cursor: pointer;
+}
+
+.buscador {
+  width: 18%;
+  padding: 6px 0;
+}
+
+.redondeado {
+  border-radius: 5px;
+  border: 1px solid rgb(146, 146, 146) !important;
+}
+
+.cabecera_sensibilidad {
+  background-color: rgb(54, 54, 54);
+  color: white;
+}
+
+table thead {
+  background-color: #37aaf1;
+}
+
+tbody tr:hover {
+  background-color: rgba(120, 185, 40, 0.205);
+  cursor: pointer;
+}
+
+.customIconSize {
+  font-size: 10px;
+  height: 10px;
+  width: 10px;
+  color: #fff;
+}
+
+#b1 {
+  white-space: normal;
+}
+
+::ng-deep .my-nuevoMTMTotales .modal-dialog {
+  max-width: 50%;
+  width: 30%;
+  position: relative;
+  max-height: 100%;
+  height: 100%;
+}
+
+// .tablaDetalle {
+//   font-size: 15px;
+//   // background-color: aqua;
+//   // min-width: 900px;
+//   width: 100%;
+//   margin: 0;
+//   padding: 0;
+// }
+
+.tablaDetalle th {
+  text-transform: none;
+  text-decoration: none;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+}
+
+.tablaSensibilidad {
+  font-size: 15px;
+}
+
+// ::ng-deep .tablaDetalle .inputTable {
+//   min-width: 120px;
+//   width: 320px;
+// }
+
+// ::ng-deep .tablaDetalle .inputAccion {
+//   min-width: 120px;
+//   width: 120px;
+// }
+
+::ng-deep .tablaSensibilidad .cabecera_sensibilidad {
+  min-width: 120px;
+  width: 300px;
+}
+
+::ng-deep .shockSensibilidad {
+  border-radius: 5px;
+  // outline: solid silver;
+}
+
+::ng-deep .invalid-border {
+  border: 2px solid red;
+}
+
+::ng-deep .error-border {
+  border-color: red;
+}
+
+.cardTotales {
+  max-height: 230px;
+  height: 230px;
+}
+
+::ng-deep .tablaDuplicados {
+  border: none;
+  background: none;
+}
+
+::ng-deep .cabeceraMTMTotales .inputDuplicados {
+  vertical-align: middle;
+  text-align: center;
+}
+
+::ng-deep .valoresDuplicados {
+  vertical-align: middle;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+// ::ng-deep .cardContainer {
+//   display: flex;
+//   align-items: flex-start;
+// }
+
+@media (max-width: 568px) {
+  .tablaDuplicados .cabeceraMTMTotales .inputDuplicados {
+    height: 20px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1920px) {
+  .tablaDuplicados .cabeceraMTMTotales .inputDuplicados {
+    overflow: auto;
+    margin: 0;
+    padding: 3px;
+  }
+
+  .cabeceraDetalle {
+    height: 66px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .tablaDuplicados .cabeceraMTMTotales .inputDuplicados {
+    overflow: auto;
+    height: 40px;
+  }
+
+  .cabeceraDetalle {
+    height: 47px;
+  }
+}
+
+// ::ng-deep .cardDetalle {
+//   display: inline-block;
+//   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+// }
+
+::ng-deep .texto-rojo {
+  color: red;
+}
+
+::ng-deep .verde-claro {
+  border: 1px solid #4CAF50;
+}
+
+
+.scroll-containerExp {
+  position: relative;
+  min-height: 60px;
+  max-height: 140px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-width: 100%;
+
+}

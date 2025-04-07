@@ -1,0 +1,691 @@
+<div class="circles">
+  <div class="primary"></div>
+  <div class="alternate"></div>
+  <div class="primary"></div>
+  <div class="alternate"></div>
+</div>
+
+<div id="myModal" tabindex="-1" data-keyboard="false" role="dialog">
+  <div role="document" class="msg_card_body ">
+
+    <div class="modal-header">
+      <table style=" width: 100%;">
+        <tr style="width:100%">
+          <td style="text-align:left;  padding: 0% 0% 0.5% 1%">
+            <h3 class="modal-title">{{pNombreForm}}</h3>
+          </td>
+          <td style="text-align:right;  padding-right:1.3% ">
+            <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+              <mat-icon>close</mat-icon>
+            </button>
+
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <div class="py-1">
+      <form class="form" novalidate="">
+        <div class="row">
+          <div class="row">
+            <table>
+              <tr>
+                <td style="width:6% ; padding: 0.5% 0% 0.5% 1%">
+                  <label class="form-label">Código </label>
+                </td>
+                <td style="width: 10%;">
+                  <input style="width: 90%; padding: 4% 0% 4% 5%;" id="deshabilitado" class="form-control" type="text"
+                    placeholder="Código" name="idEstrategia" [(ngModel)]="idEstrategia" readonly />
+                </td>
+                <td style="width:8%; vertical-align: rigth;">
+                  <label class="form-label">TM Referencia </label>
+                </td>
+                <td style="vertical-align:rigth; width:13%">
+                  <input style="width: 100%; padding: 3% 0% 3% 5%;" id="deshabilitado" class="form-control" type="text"
+                    placeholder="Código" name="tmReferencia" [ngModel]="tmReferencia | number:'1.1-2'" readonly />
+                </td>
+                <td style="width:60%; padding: 0.5% 0% 0.5% 1%">
+                </td>
+              </tr>
+            </table>
+          </div>
+          <span class="br"></span>
+
+          <!-- grupo 1 inicio de estrategia -->
+          <div style="width: 30%;height: 120px ">
+            <div class="row">
+
+              <div style="width: 100%; height:130px">
+                <div class="card shadow-none border" style=" padding: 0% 0% 0% 2%;">
+                  <h3 class="modal-title">Datos Estrategia</h3>
+                  <span class="br"></span>
+                  <table>
+                    <tr>
+                      <td style="width: 20%; padding: 0% 0% 0% 2%;">
+                        <label class="form-label">Estrategia</label>
+                      </td>
+                      <td style="width: 80%;">
+                        <ng-select style="width:  95%;" class="form-control form-select" name="idTipoEstrategia"
+                          [(ngModel)]="idTipoEstrategia" (change)="onSelectEstrategia($event,registrarPapel)"
+                          [readonly]="noMostrarCampo">
+                          <ng-option value="{{lista.s114_Codigo}}" *ngFor="let lista of listaEstrategia">{{
+                            lista.s114_Descripcion }}
+                          </ng-option>
+                        </ng-select>
+                      </td>
+                    </tr>
+                    <span class="br"></span>
+                    <tr>
+                      <td style="width: 20%; padding: 0% 0% 0% 2%;">
+                        <label class="form-label">Portafolio</label>
+                      </td>
+                      <td style="width: 80%;">
+                        <ng-select style="width:  95%;" class="form-control form-select" name="idPortafolio"
+                          [(ngModel)]="idPortafolio" (change)="onSelectPortafolio($event)" [readonly]="noMostrarCampo">
+                          <ng-option value="{{lista.s114_Codigo}}" *ngFor="let lista of listaPortafolio">{{
+                            lista.s114_Descripcion }}
+                          </ng-option>
+                        </ng-select>
+                      </td>
+                    </tr>
+                    <span class="br"></span>
+                    <tr>
+                      <td style="width: 15%; padding: 0% 0% 0% 2%;">
+                        <label class="form-label">Protección</label>
+                      </td>
+                      <td style="width: 30%;">
+                        <ng-select style="width:  95%;" class="form-control form-select" name="idProteccion"
+                          [(ngModel)]="idProteccion" (change)="onSelectProteccion($event)" [readonly]="noMostrarCampo">
+                          <ng-option value="{{lista.s114_Codigo}}" *ngFor="let lista of listaProteccion">{{
+                            lista.s114_Descripcion }}
+                          </ng-option>
+                        </ng-select>
+                      </td>
+                    </tr>
+                  </table>
+                  <span class="br"></span>
+                </div>
+              </div>
+            </div>
+            <!-- fin de estrategia -->
+          </div>
+
+
+          <!-- columna 2 inicio de cobertura -->
+
+          <div style="width: 30%;">
+            <div class="row">
+              <div style="width: 100%; ">
+                <div class="card shadow-none border" style=" padding: 0% 0% 0% 2%;">
+                  <h3 class="modal-title"> Derivado</h3>
+                  <span class="br"></span>
+                  <table style="width: 100%;">
+                    <tr style="width: 100%;">
+                      <td style="width: 25%; padding: 0% 0% 0% 2%;">
+                        <label class="form-label">Subyacente</label>
+                      </td>
+                      <td style="width: 75%;">
+                        <ng-select style="width:  95%;" class="form-control form-select" name="idSubyacenteDerivado"
+                          [(ngModel)]="idSubyacenteDerivado" (change)="onSelectSubyacente($event)"
+                          [readonly]="noMostrarCampo">
+                          <ng-option value="{{lista.t001_ID}}" *ngFor="let lista of productos">{{
+                            lista.t001_Description }}
+                          </ng-option>
+                        </ng-select>
+                      </td>
+
+                    </tr>
+                    <span class="br"></span>
+                    <tr style="width: 100%;">
+                      <td style="width: 20%; ">
+                        <label class="form-label">Cubrir</label>
+                      </td>
+                      <td style="width: 80%;">
+                        <table>
+                          <tr>
+                            <td style="width: 79%;">
+                              <ng-select style="width:  95%;" class="form-control form-select" name="idEstadio"
+                                [(ngModel)]="idEstadio" (change)="onSelectEstadio($event)"
+                                [readonly]="noMostrarCampo || noMostrarEstadio">
+                                <ng-option value="{{lista.s114_Codigo}}" *ngFor="let lista of listaEstadio">
+                                  {{
+                                  lista.s114_Descripcion }}
+                                </ng-option>
+                              </ng-select>
+
+                            </td>
+
+                            <td style="width: 21%;">
+                              <div class="dialogContainer">
+
+                                <button class="btn btn-green" type="submit"
+                                  (click)="modalElegirPartida(ElegirInventario,ElegirEmbarque,ElegirConsumo)">
+                                  <i class="fa fa-search"></i>
+
+                                </button>
+                              </div>
+                            </td>
+
+
+
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <span class="br"></span>
+                    <tr>
+                      <table style="width: 400%;">
+                        <tr style="width: 100%;">
+                          <td style="width: 22%; padding: 0% 0% 0% 2%;">
+                            <label class="form-label">TM Asignados</label>
+                          </td>
+                          <td style="text-align:left;  padding-right:1.3%; width: 20%;">
+                            <input style="width: 100%; padding: 4% 0% 4% 5%;" id="deshabilitado" class="form-control"
+                              type="text" placeholder="TM asignados" name="tmAsignados" [ngModel]="tmAsignados | number:'1.1-2'"
+                              readonly />
+                          </td>
+                          <td style="width: 20%; padding: 0% 0% 0% 2%;">
+                            <label class="form-label">TM a Asignar</label>
+                          </td>
+                          <td style="text-align:left;  padding-right:1.3%; width: 25%;">
+                            <input style="width: 90%; padding: 4% 0% 4% 5%;" id="deshabilitado" class="form-control"
+                              type="text" placeholder="TM a asignar" name="tmAsignar" [ngModel]="tmAsignar | number:'1.1-2'"
+                              readonly />
+                          </td>
+                        </tr>
+                      </table>
+                    </tr>
+                    <span class="br"></span>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- fin de portafolio a cubrir -->
+
+          <!-- columna 2 inicio de cobertura -->
+          <div style="width: 20%; height: 140px">
+            <div class="card shadow-none border" style=" padding: 0% 0% 0.5% 2%; height: 90%">
+              <h3 class="modal-title">Ficha </h3>
+              <span class="br"></span>
+              <table>
+                <tr>
+                  <td style="width: 18%; padding: 0% 0% 0% 2%;">
+                    <label class="form-label">Ficha Existente</label>
+                  </td>
+                  <td style="width: 30%; padding: 0.5% 0% 0% 1.8%;">
+                    <ng-select style="width:  95%;" class="form-control form-select" name="idFicha"
+                      [(ngModel)]="idFicha" (change)="onSelectFicha($event)">
+                      <ng-option value="{{lista.s114_Codigo}}" *ngFor="let lista of listaFicha">{{
+                        lista.s114_Descripcion }}
+                      </ng-option>
+                    </ng-select>
+                  </td>
+                </tr>
+                <span class="br"></span>
+                <tr>
+                  <td style="width: 18%; padding: 0% 0% 0% 2%;">
+                    <label class="form-label">Nueva Ficha</label>
+                  </td>
+                  <td style="width: 30%; padding: 0.5% 0% 0% 1.8%;">
+                    <input style="width: 95%; padding: 4% 0% 4% 5%;" id="deshabilitado" class="form-control" type="text"
+                      placeholder="Código" name="idNuevaFicha" [(ngModel)]="idNuevaFicha" />
+                  </td>
+                </tr>
+
+                  
+              </table>
+               <br>
+              <div class="row">
+                <div class="col"> 
+                <mat-checkbox name="eu2" [(ngModel)]="checkedHEDGE" >Hedge Estratégico </mat-checkbox>
+                </div>
+                <div class="col">
+                <mat-checkbox name="eu" [(ngModel)]="checkedFCPO" [disabled]="FCPOhabilitar">RBD</mat-checkbox>
+                </div>
+                </div>
+              <span class="br"></span>
+            </div>
+
+            <!-- <div style="width: 50%; padding: 0% 0% 0% 0%">
+              <button style="width: 100%;"
+              class="btn btn-green"
+              type="submit"
+              (click)="generarPapeleta()"
+              ><i class="fa fa-file-pdf-o" aria-hidden="true" ></i>
+                Exportar
+                  
+                 </button>
+                
+             </div> -->
+
+          </div><!-- fin de ficha -->
+
+          <!--  columna 4 inicio de limites 
+          <div style="width: 20%; height: 120px">
+            <div class="card shadow-none border" style=" padding: 0% 0% 0.5% 2%;">
+              <h3 class="modal-title">Límites </h3>
+              <span class="br"></span>
+              <table>
+                <tr>
+                  <td style="width: 18%; padding: 0% 0% 0% 2%;">
+                    <label class="form-label">Límite General </label>
+                  </td>
+                  <td style="width: 30%; padding: 0.5% 0% 0% 1.8%;">
+                    <ng-select style="width:  95%;" class="form-control form-select" name="idFicha"
+                      [(ngModel)]="idFicha" (change)="onSelectFicha($event)">
+                      <ng-option value="{{lista.s114_Codigo}}" *ngFor="let lista of listaFicha">{{
+                        lista.s114_Descripcion }}
+                      </ng-option>
+                    </ng-select>
+                  </td>
+                </tr>
+                <span class="br"></span>
+                <tr>
+                  <td style="width: 18%; padding: 0% 0% 0% 2%;">
+                    <label class="form-label">Nueva Ficha</label>
+                  </td>
+                  <td style="width: 30%; padding: 0.5% 0% 0% 1.8%;">
+                    <input style="width: 95%; padding: 4% 0% 4% 5%;" id="deshabilitado" class="form-control" type="text"
+                      placeholder="Código" name="idNuevaFicha" [(ngModel)]="idNuevaFicha" />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align:left;  padding-right:1.3%; width: 50%;">
+                    <input style="width: 90%; padding: 4% 0% 4% 5%;" id="deshabilitado" class="form-control" type="text"
+                      placeholder="TM a cubrir" name="idEstrategia" [(ngModel)]="idEstrategia" readonly />
+                  </td>
+                </tr>
+              </table>
+              <span class="br"></span>
+            </div>
+
+          </div>< fin de límites-->
+
+        </div>
+        <!-- fin de estrategia -->
+
+      </form>
+    </div>
+  </div>
+  <!-- 
+  <div class="table-responsive" style="padding: 0 0 0 2%;">
+    <input style=" padding: 0.5% 0% 0.5% 1%;" type="text" class="redondeado" size="100" (keyup)="applyFilterSQL($event)"
+      placeholder="Buscar en Portafolio" autocomplete="off">
+  </div> -->
+
+</div>
+<!-- inicio ifd sin estrategias -->
+<div class="row">
+
+  <div class="column">
+    <div class="card-body">
+      <div class="table-responsive">
+
+        <h4>Sin Estrategias</h4>
+        <div>
+          <div class="scroll-container" style="width:100%;">
+            <table mat-table class="table table-bordered text-nowrap" class="example-table" matSort
+              matSortActive="created" matSortDisableClear matSortDirection="desc" style="width:100%"
+              [dataSource]="dataSource">
+              <ng-container matColumnDef="temp_idSQL">
+                <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header> Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.temp_idSQL}}
+
+                </td>
+              </ng-container>
+              <!-- Checkbox Column -->
+              <ng-container matColumnDef="select">
+                <th mat-header-cell class="border-bottom-0" *matHeaderCellDef style="width: 30px">
+                  <!-- <mat-checkbox  (change)="$event ? masterToggle() : null"
+                                          [checked]="selection.hasValue() && isAllSelected()"
+                                          [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                          [disabled]="noMostrarCampo">
+                            </mat-checkbox> -->
+                </th>
+                <!-- <td mat-cell *matCellDef="let row" style="width: 50px">
+                  <mat-checkbox style="width: 10px;" (click)="$event.stopPropagation()"
+                    (change)="SingleSelection(row,$event); $event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)" [disabled]="!noMostrarCampo">
+                  </mat-checkbox>
+                </td> -->
+                <td mat-cell *matCellDef="let element">
+                  <button class="btn btn-green" type="submit" mat-icon-button (click)="SingleSelection(element,$event)">
+                    <mat-icon class="customIconSizeFlecha" color="primary">keyboard_arrow_right</mat-icon>
+                  </button>
+                </td>
+
+              </ng-container>
+
+
+              <ng-container class="border-bottom-0" matColumnDef="temp_caks">
+                <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header> Contrato </th>
+                <td mat-cell *matCellDef="let element"> {{element.temp_caks}} </td>
+              </ng-container>
+
+              <ng-container class="border-bottom-0" matColumnDef="temp_instrumento">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Instrumento </th>
+                <td mat-cell *matCellDef="let element"> {{element.temp_instrumento}} </td>
+              </ng-container>
+
+              <ng-container class="border-bottom-0" matColumnDef="temp_ticker">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticker </th>
+                <td mat-cell *matCellDef="let element"> {{element.temp_ticker}} </td>
+              </ng-container>
+
+              <ng-container class="border-bottom-0" matColumnDef="temp_strike">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Strike </th>
+
+                <td mat-cell *matCellDef="let element">
+                  <div ngSwitch="{{element.temp_TickerUnderlying}}">
+                    <div *ngSwitchCase="'SBO'">
+                      {{element.temp_strike*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchCase="'S'">
+                      {{element.temp_strike*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchCase="'SCRS'">
+                      {{element.temp_strike*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchCase="'W'">
+                      {{element.temp_strike*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchDefault>
+                      {{element.temp_strike | number:'1.2-2' }}
+                    </div>
+                  </div>
+                </td>
+
+
+              </ng-container>
+
+
+              <ng-container class="border-bottom-0" matColumnDef="temp_prima">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Prima </th>
+                <td mat-cell *matCellDef="let element">
+                  <div ngSwitch="{{element.temp_TickerUnderlying}}">
+                    <div *ngSwitchCase="'SBO'">
+                      {{element.temp_prima*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchCase="'S'">
+                      {{element.temp_prima*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchCase="'SCRS'">
+                      {{element.temp_prima*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchCase="'W'">
+                      {{element.temp_prima*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchDefault>
+                      {{element.temp_prima | number:'1.2-2' }}
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- <ng-container class="border-bottom-0" matColumnDef="temp_prima">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Prima </th>
+                <td mat-cell *matCellDef="let element"> {{element.temp_prima}} </td>
+              </ng-container> -->
+
+              <ng-container class="border-bottom-0" matColumnDef="temp_tipo">
+                <th mat-header-cell style="text-align:center" *matHeaderCellDef mat-sort-header> Tipo </th>
+                <td mat-cell *matCellDef="let element"> {{element.temp_tipo}} </td>
+              </ng-container>
+
+
+
+
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"
+                style="text-align: center; vertical-align: middle;"></tr>
+
+              <tr class="tbody" style="text-align: center; vertical-align: middle;" mat-row
+                *matRowDef="let element columns: displayedColumns;">
+              </tr>
+
+
+            </table>
+          </div>
+          <mat-paginator [pageSizeOptions]="[4, 8, 16, 32]" aria-label="Select page of users"></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ifd posible estrategia -->
+  <div class="column">
+    <div class="card-body">
+      <div class="table-responsive">
+
+        <!-- <input type="text"  class="redondeado"  size="100"    (keyup)="applyFilterSQL($event)" placeholder="Buscar en Portafolio" autocomplete="off"> -->
+        <h4>Con Estrategias</h4>
+        <div class="scroll-container" style="width:100%;">
+          <table mat-table #MatSortSQL="matSort" matSort matSortActive="created" matSortDisableClear
+            matSortDirection="desc" style="width:100%" [dataSource]="dataSourceSQL">
+            <ng-container matColumnDef="temp_idSQL">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header> Id </th>
+              <td mat-cell *matCellDef="let element">
+                <div>
+                <!-- <div [ngStyle]="{'color':element.temp_EstadoIFD == '3' ? 'black' : 'red'}"> -->
+                  {{element.temp_idSQL}}
+                </div>
+
+
+              </td>
+            </ng-container>
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef>
+                <!-- <mat-checkbox (change)="$event ? masterToggleSQL() : null"
+                                          [checked]="selectionSQL.hasValue() && isAllSelectedSQL()"
+                                          [indeterminate]="selectionSQL.hasValue() && !isAllSelectedSQL()"
+                                          [disabled]="noMostrarCampo">
+                            </mat-checkbox> -->
+              </th>
+              <!-- <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                  (change)="SingleSelectionSQL(row,$event); $event ? selectionSQL.toggle(row) : null"
+                  [checked]="selectionSQL.isSelected(row)" [disabled]="noMostrarCampo">
+                </mat-checkbox>
+              </td> -->
+              <td mat-cell *matCellDef="let element">
+                <button class="btn btn-green" type="submit" mat-icon-button>
+                  <mat-icon class="customIconSizeFlecha" color="primary" *ngIf="element.temp_instrumento != 'Papel'"
+                    (click)="SingleSelectionSQL(element,$event)">
+                    keyboard_arrow_left
+                  </mat-icon>
+                  <mat-icon class="customIconSizeFlecha" color="primary" *ngIf="element.temp_instrumento == 'Papel'">
+                    check_box_outline_blank
+                  </mat-icon>
+                </button>
+              </td>
+              
+            </ng-container>
+
+
+            <ng-container class="border-bottom-0" matColumnDef="temp_caks">
+              <th mat-header-cell class="border-bottom-0" *matHeaderCellDef mat-sort-header> Contrato </th>
+              <td mat-cell *matCellDef="let element">
+              <div>
+                <!-- <div [ngStyle]="{'color':element.temp_EstadoIFD == '3' ? 'black' : 'red'}"> -->
+                  {{element.temp_caks}}
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container class="border-bottom-0" matColumnDef="temp_instrumento">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Instrumento </th>
+              <td mat-cell *matCellDef="let element">
+                <div>
+                <!-- <div [ngStyle]="{'color':element.temp_EstadoIFD == '3' ? 'black' : 'red'}"> -->
+                  {{element.temp_instrumento}}
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container class="border-bottom-0" matColumnDef="temp_ticker">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticker </th>
+              <td mat-cell *matCellDef="let element">
+                <div>
+                <!-- <div [ngStyle]="{'color':element.temp_EstadoIFD == '3' ? 'black' : 'red'}"> -->
+
+                  {{element.temp_ticker}}
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container class="border-bottom-0" matColumnDef="temp_strike">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Strike </th>
+
+              <td mat-cell *matCellDef="let element">
+
+                <!-- <div [ngStyle]="{'color':element.temp_EstadoIFD == '3' ? 'black' : 'red'}"> -->
+                <div>
+
+                  <div ngSwitch="{{element.temp_TickerUnderlying}}">
+                    <div *ngSwitchCase="'SBO'">
+
+
+                      {{element.temp_strike*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchCase="'S'">
+                      {{element.temp_strike*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchCase="'SCRS'">
+                      {{element.temp_strike*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchCase="'W'">
+                      {{element.temp_strike*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchCase="'C'">
+                      {{element.temp_strike*100 | number:'1.2-2' }}
+                    </div>
+                    <div *ngSwitchDefault>
+                      {{element.temp_strike | number:'1.2-2' }}
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+
+            </ng-container>
+
+            <ng-container class="border-bottom-0" matColumnDef="temp_prima">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Prima </th>
+              <td mat-cell *matCellDef="let element">
+                <div ngSwitch="{{element.temp_TickerUnderlying}}">
+                  <div *ngSwitchCase="'SBO'">
+                    {{element.temp_prima*100 | number:'1.2-2' }}
+                  </div>
+                  <div *ngSwitchCase="'S'">
+                    {{element.temp_prima*100 | number:'1.2-2' }}
+                  </div>
+                  <div *ngSwitchCase="'SCRS'">
+                    {{element.temp_prima*100 | number:'1.2-2' }}
+                  </div>
+                  <div *ngSwitchCase="'W'">
+                    {{element.temp_prima*100 | number:'1.2-2' }}
+                  </div>
+                  <div *ngSwitchCase="'C'">
+                    {{element.temp_prima*100 | number:'1.2-2' }}
+                  </div>
+                  <div *ngSwitchDefault>
+                    {{element.temp_prima | number:'1.2-2' }}
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+
+                <!-- <div [ngStyle]="{'color':element.temp_EstadoIFD == '3' ? 'black' : 'red'}"> -->
+                  <!-- <ng-container class="border-bottom-0" matColumnDef="temp_prima">
+              <th style="vertical-align:center;" mat-header-cell *matHeaderCellDef mat-sort-header> Prima </th>
+              <td mat-cell *matCellDef="let element">
+                  <div>
+                  {{element.temp_prima}}
+                </div>
+              </td>
+            </ng-container> -->
+
+            <ng-container class="border-bottom-0" matColumnDef="temp_tipo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+              <td mat-cell *matCellDef="let element">
+                <!-- <div [ngStyle]="{'color':element.temp_EstadoIFD == '3' ? 'black' : 'red'}"> -->
+                  <div>
+                  {{element.temp_tipo}} </div>
+              </td>
+            </ng-container>
+
+
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"
+              style="text-align: center; vertical-align: middle;"></tr>
+
+            <tr mat-row *matRowDef="let element columns: displayedColumns;">
+
+
+            </tr>
+
+
+          </table>
+        </div>
+        <mat-paginator #MatPaginatorSQL="matPaginator" [pageSizeOptions]="[4, 8, 16, 32]"
+          aria-label="Select page of users">
+        </mat-paginator>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- fin sin de ifd sin estrategia -->
+<div class="row">
+
+  <div class="col d-flex justify-content-end">
+    <table style=" width: 28%; border-bottom:1px solid #ffffff;">
+      <tr style="width:100%">
+        <td style="text-align:right;  padding-right:1.3%; width: 66%;">
+          <button class="btn btn-green" type="submit" (click)="guardarEstrategia()">
+            <!-- <button class="btn btn-green" type="submit"  > -->
+            Guardar Estrategia
+          </button>
+        </td>
+        <td style="text-align:left;  padding-right:1.3% ; width: 34%;">
+          <button class="btn btn-green" type="submit" (click)="cerrar()">Cancelar</button>
+        </td>
+      </tr>
+      <tr>
+      </tr>
+      <tr>
+        <td>
+          <br>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+
+<!-- modal de asociar operaciones Pre Registro-->
+  <ng-template #ElegirEmbarque let-modal>
+    <app-elegirEmbarque [visible]="myModalEmbarque" (close)="cerrarModalEmbarque(modal)"></app-elegirEmbarque>
+  </ng-template>
+
+<ng-template #ElegirInventario let-modal>
+  <app-elegirInventario [visible]="myModal" (close)="cerrarModalInventario(modal)"></app-elegirInventario>
+  <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+
+</ng-template>
+
+<ng-template #ElegirConsumo let-modal>
+  <app-elegirConsumo [visible]="myModal" (close)="cerrarModal($event)"></app-elegirConsumo>
+  <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+
+</ng-template>
+
+<ng-template #registrarPapel let-modal>
+  <app-ingresar-papel-po-bo [visible]="myModal" [objInitPaperPoboHijo] = "objDatosPoBo" (closePapel)="cerrarModalPapel(modal)"></app-ingresar-papel-po-bo>                         
+</ng-template>

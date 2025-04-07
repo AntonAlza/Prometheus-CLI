@@ -1,0 +1,76 @@
+.modal-header {
+    background-color: #37aaf1;
+    color: white;
+}
+.card-header {
+    background-color: #37aaf1;
+    color: white;
+}
+.buscador {
+    width: 18%;
+    padding: 6px 0;
+}
+.redondeado {
+    border-radius: 5px;
+    border: 1px solid rgb(146, 146, 146) !important;
+}    
+.mat-header-cell {
+    color: white;
+    justify-content:center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}  
+.mat-row:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+}
+:host ::ng-deep .mat-sort-header-container { 
+    display: flex;  
+    justify-content: center; 
+    vertical-align: middle;
+    padding: 0 5ex 0  5ex;
+}
+::ng-deep  .mat-sort-header-arrow {
+    color: #fff;
+    justify-content:center;
+    vertical-align: middle;
+}
+::ng-deep .my-class-lista .modal-dialog { 
+    max-width: 75%;
+    width: 75%;
+}
+
+.opcion {
+  background-color: transparent !important;
+  border: none;
+}
+
+mat-spinner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+}
+:host ::ng-deep .custom-spinner circle{   
+    stroke:  rgb(75, 130, 45);
+    stroke-opacity: 1 !important;
+}
+
+::ng-deep .modalListarLiquidaciones .modal-dialog { 
+    max-width: 95%;
+    width: 95%;
+}
+.header-blue {
+    background-color: rgb(68, 68, 169);
+    color: white; /* Ajusta el color del texto según sea necesario */
+  }
+.header-red {
+    background-color:#37aaf1;;
+    color: white; /* Ajusta el color del texto según sea necesario */
+  }
+  #deshabilitado{
+    color: rgb(168 168 167 / 68%);
+}

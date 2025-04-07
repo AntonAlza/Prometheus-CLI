@@ -1,0 +1,142 @@
+<div role="document" class="card">
+  <div class="modal-header">
+    <h5> Lista de Hijos - {{ contrato }} </h5>
+    <button type="button" class="close" aria-label="Close" (click)="cerrarListaHijos()">
+      <mat-icon  >close</mat-icon>
+    </button>
+  </div>
+    
+  </div>
+  <div class="modal-body">
+    <div class="table-responsive">
+      <table
+        id="myTable1"
+        class="table table-bordered text-nowrap"
+        style="width: 100%"
+      >
+        <!-- table-striped -->
+        <thead>
+          <tr class="bold">
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0">Operación Padre</th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0">TM Original</th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0">TM Nueva</th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0">Fecha <br />Operación</th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0">% TM Pendiente</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center; vertical-align: middle">
+              {{ this.detallePadre.codPadre }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ this.detallePadre.originalTM }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ this.detallePadre.actualTM }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ this.detallePadre.fecha | date: "dd/MM/yyyy" }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              <div style="position: relative">
+                <mat-progress-bar
+                  *ngIf="this.detallePadre.porcntPendiente * 100 > 50"
+                  [value]="this.detallePadre.porcntPendiente * 100"
+                  class="mayor50"
+                  mode="determinate"
+                  style="background-color: #4b822d"
+                ></mat-progress-bar>
+                <mat-progress-bar
+                  *ngIf="this.detallePadre.porcntPendiente * 100 <= 50"
+                  [value]="this.detallePadre.porcntPendiente * 100"
+                  class="menor50"
+                  mode="determinate"
+                  style="background-color: #4b822d"
+                ></mat-progress-bar>
+                <!-- <mat-progress-bar [value]="this.detallePadre[0][4] * 100" mode="determinate"></mat-progress-bar> -->
+                <span
+                  style="position: absolute; top: 0.5em; color: white"
+                  [ngStyle]="{
+                    left: this.detallePadre.porcntPendiente * 100 | number: '1.2-2' 
+                  }"
+                  >{{ this.detallePadre.porcntPendiente * 100 | number: "1.2-2" }}%</span
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="table-responsive">
+      <table
+        id="myTable1"
+        class="table table-bordered text-nowrap"
+        style="width: 100%"
+      >
+        <!-- table-striped -->
+        <thead>
+          <tr class="bold">
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0">Contrato <br />Padre</th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0">#</th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0">Código <br />Hijo</th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0">TM</th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0">Fecha <br />Operación</th>
+            <th
+              style="text-align: center; vertical-align: middle"
+              class="border-bottom-0">Revertir <br />Split</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lista of listaHijos; let i = index">
+            <td style="text-align: center; vertical-align: middle">
+              <div *ngIf="lista.padre != 0">
+                <i
+                  class="fa fa-black-tie fa-2x"
+                  style="color: #37aaf1"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ i + 1 }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ lista.codHijo }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ lista.hijoTM }}
+            </td>
+            <td style="text-align: center; vertical-align: middle">
+              {{ lista.fecha | date: "dd/MM/yyyy" }}
+            </td>
+            <td class="text-center" (click)="deshacerSplit(lista.codHijo, lista.padre, lista.flgDeshacerHijo, lista.flgDeshacerPadre)">
+              <div class="zmdi zmdi-hc-2x zmdi-delete"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -1,0 +1,115 @@
+
+:host ::ng-deep .mat-sort-header-container { 
+    display: flex;  
+    justify-content: center; 
+    vertical-align: middle;
+    padding: 0 2ex 0  2ex;
+}
+
+::ng-deep  .mat-sort-header-arrow {
+    color: #fff;
+    justify-content:center;
+    vertical-align: middle;
+}
+
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+} 
+
+// -----------
+
+.mat-chip-listbox {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mat-chip-option {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  margin: 4px;
+  border-radius: 16px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  font-size: 16px; /* Tamaño de la letra ajustable */
+}
+
+.mat-chip-option:hover {
+  background-color: #bdbdbd;
+}
+
+.mat-chip-option.selected {
+  background-color: #1e5532;
+  color: #ffffff;
+}
+
+.mat-chip-option.accent {
+  background-color: #ff4081;
+  color: #ffffff;
+}
+
+.mat-chip-option.warn {
+  background-color: #ff5722;
+  color: #ffffff;
+}
+
+.mat-chip-option.selected::before {
+  content: '\2713';
+  margin-right: 4px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.mat-snack-bar-container {
+  background-color: #F5F5F5; /* Color de fondo suave */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 4px; /* Bordes redondeados */
+  color: #333333; /* Color de texto */
+}
+
+.mat-simple-snackbar-action {
+  color: #0066CC; /* Color de enlace */
+}
+
+.mat-snack-bar-container.fade-in-out {
+  animation: fade-in-out 8s infinite; /* Duración de la animación ajustada */
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.mat-snack-bar-container {
+  background-color: #ffffff; /* Fondo blanco */
+  color: #000000; /* Texto negro */
+}
+
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+  background-color: rgb(255, 0, 0) !important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #37aaf1 !important;
+}
+
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: rgb(75, 130, 45) !important;
+}

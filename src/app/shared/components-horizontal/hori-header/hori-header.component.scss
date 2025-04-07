@@ -1,0 +1,89 @@
+.dropdown-toggle::after{
+    display: none ;
+}
+
+.app-header .header-brand{
+    display:  initial ;
+}
+.centerlogo-horizontal .app-header .header-brand{
+    display:  none !important ;
+}
+
+.animated{
+    animation-name:fadeInUp;
+    margin-top: 60px;
+}
+
+@media (max-width: 767.98px) and (min-width: 576px){
+    .header .form-inline .btn {
+        position: absolute !important;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0,10%,0) !important;
+    }
+    100% {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
+
+
+::ng-deep{
+    .search-show::before{
+        display: none;
+    }
+    
+    @media only screen and (max-width: 991px){
+        body.active .header.top-header{
+            left: 240px !important;
+            transition: all 0.25s ease-in-out;
+        }
+    }
+    .header.top-header{
+        transition: all 0.25s ease-in-out;
+    }
+
+    
+    .ps{
+        touch-action: none !important;
+    }
+}
+
+
+@media (min-width: 768px){
+.app-header {
+    padding-right: 0px !important;
+}
+}
+
+::ng-deep{
+    .dropdown-menu.animated{
+        z-index: 10001 !important;
+    }
+}
+
+.icon-text-container {
+    display: flex; /* Usamos flexbox para alinear los elementos */
+    align-items: center; /* Alineamos verticalmente los elementos */
+  }
+
+.profile-icon {
+    font-size: 28px;
+    cursor: pointer;
+    margin-left: 10px;       /* Separación entre el texto y el ícono */
+    //rgba(120, 185, 40, 0.205);
+  }
+
+  button:hover {
+    color: #87CEFA /*#1e5532; PANAMA */ !important;
+}
+
+
+
+  mat-icon{
+    color: rgb(255, 0, 0) !important;
+  }

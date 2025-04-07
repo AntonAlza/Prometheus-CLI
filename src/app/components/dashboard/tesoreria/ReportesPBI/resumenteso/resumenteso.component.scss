@@ -1,0 +1,65 @@
+
+::ng-deep .report-container {
+    height: 1000px !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  ::ng-deep .spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px; /* Ajusta la altura del contenedor según sea necesario */
+    margin: 0; /* Establece el margen en cero */
+  }
+  
+  ::ng-deep .spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid transparent;
+    border-top-color: #5025dd;
+    border-radius: 50%;
+    background-color: white; /* Fondo blanco */
+    animation: spin 1s linear infinite; /* Animación de giro */
+  }
+  
+  @keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); } /* Inicio: sin rotación */
+    100% { transform: translate(-50%, -50%) rotate(360deg); } /* Final: gira 360 grados */
+  }
+  
+  .btn-green {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.39);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+  
+  .btn-abierto {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.336);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+  .btn-cerrado {
+    color: #fff !important;
+    background-color: #37aaf1;
+    border-color: #a1000096;
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+  
+  .btn-green:hover {
+    color: #fff !important;
+    background-color: rgba(120, 185, 40, 0.397);;
+    border-color: rgb(120, 185, 40);
+  }
+  .button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    float: right;
+  }
+  

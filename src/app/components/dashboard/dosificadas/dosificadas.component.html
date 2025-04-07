@@ -1,0 +1,1056 @@
+<div  id="card" tabindex="-1" data-keyboard="false"  role="dialog">
+        <div class="modal-header">
+          <h2 class="modal-title">Lista de Facturas</h2>
+          <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+            <mat-icon  >close</mat-icon>
+          </button>
+        </div>
+        <div class="modal-body">
+              <div class="card">
+                      <div class="card-body">
+                              <div>
+                                      <div class="row">
+                                              <!-- <span class="br"></span> -->
+                                              <div class="col-xl-2 col-lg-2 col-md-3">
+                                                      <div class="card shadow-none border" style=" padding: 3% 3% 3% 3%;">
+                                                              <h3 class="modal-title">Periodo</h3>
+              
+                                                              <div class="row">
+                                                                      <div class="col-xl-4 col-lg-4 col-md-12">
+                                                                      <label class="form-label">Inicio </label>
+                                                                      </div>
+                                                                      <div class="col-xl-8 col-lg-8 col-md-12">
+                                                                              <input
+                                                                              type="text"
+                                                                              class="form-control"
+                                                                              name="inicioPeriodo"
+                                                                              [(ngModel)]="inicioPeriodo"
+                                                                              disabled/>
+                                                                      </div>
+                                                              </div>
+                                                              <span class="br"></span>
+                                                              <div class="row">
+                                                                      <div class="col-xl-4 col-lg-4 col-md-12">
+                                                                      <label class="form-label">Fin </label>
+                                                                      </div>
+                                                                      <div class="col-xl-8 col-lg-8 col-md-12">
+                                                                              <input
+                                                                              type="text"
+                                                                              class="form-control"
+                                                                              name="finPeriodo"
+                                                                              [(ngModel)]="finPeriodo"
+                                                                              disabled/>
+                                                                      </div>
+                                                              </div> 
+                                                      </div>
+                                              </div>
+
+                                              <div class="col container">
+                                                <button
+                                                      type="button"
+                                                      class="btnresponsive btn btn-cierres"
+                                                      id='b1'
+                                                      aria-expanded="false"
+                                                      (click)="ingresarFacturaModal(IngresarFactura)">
+                                                      <div class="container">
+                                                        <img src="../../assets/images/dosificadas/ingresarFactura.jpg ">
+                                                        <h5>Ingresar Factura</h5>
+                                                      </div>
+                                                </button>
+                                                <button
+                                                      type="button"
+                                                      class="btnresponsive btn btn-cierres"
+                                                      id='b1'
+                                                      aria-expanded="false"
+                                                      (click)="cerrarContrato()"
+                                                      [disabled]="!flgBoton">
+                                                      <div class="container">
+                                                        <img src="../../assets/images/dosificadas/cerrarContrato.jpg ">
+                                                        <h5>Cerrar Contrato</h5>
+                                                      </div>
+                                                </button>
+                                                <button
+                                                      type="button"
+                                                      class="btnresponsive btn btn-cierres"
+                                                      id='b1'
+                                                      aria-expanded="false"
+                                                      (click)="consultaHistoricaModal(consultarReporte)">
+                                                      <div class="container">
+                                                        <img src="../../assets/images/dosificadas/reporte.jpg ">
+                                                        <h5>Consulta Histórica</h5>
+                                                      </div>
+                                                </button>
+                                                <button
+                                                      type="button"
+                                                      class="btnresponsive btn btn-cierres"
+                                                      id='b1'
+                                                      aria-expanded="false"
+                                                      (click)="ejecutarAvanceSCL()"
+                                                      [disabled]="true">
+                                                      <!-- <h3>Avance SCL</h3>  -->
+                                                      <!-- <span><h4>Avance SCL</h4></span>  -->
+                                                      <div class="container">
+                                                        <img src="../../assets/images/dosificadas/scl.png ">
+                                                        <h5>Avance SCL</h5>
+                                                      </div>
+                                                </button> 
+                                              </div>
+                                              
+                                              <div class="col-xl-4 col-lg-4 col-md-4" style="padding-top: 30px;">
+                                                <div class="row">
+                                                  <div class="col col-xl-6 col-lg-6 col-md-6">
+                                                    <div class="row">
+                                                      <div class="col-xl-6 col-lg-6 col-md-6">
+                                                        <label class="form-label">Total TM</label>
+                                                      </div>
+                                                      <div class="col-xl-4 col-lg-4 col-md-4">
+                                                        <label style="color: black;"> <b>{{ datosFactura.totalFacturas | number: "1.2-2" }}</b></label>
+                                                      </div>
+                                                    </div>
+                                                    <span class="br borde"></span>
+                                                    <div class="row">
+                                                      <div class="col-xl-6 col-lg-6 col-md-6">
+                                                        <label class="form-label">Avance TM</label>
+                                                      </div>
+                                                      <div class="col-xl-4 col-lg-4 col-md-4">
+                                                        <label style="color: black;"> <b>{{ datosFactura.avanceFacturas | number: "1.2-2"}}</b></label>
+                                                      </div>
+                                                    </div>
+                                                    <span class="br borde"></span>
+                                                    <div *ngIf="codigoSAP !== ''" class="row">
+                                                      <div class="col-xl-6 col-lg-6 col-md-6">
+                                                        <label class="form-label">Código SAP</label>
+                                                      </div>
+                                                      <div class="col-xl-6 col-lg-6 col-md-6">
+                                                        <label style="color: black;"> <b> {{ codigoSAP }} </b></label>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col col-xl-6 col-lg-6 col-md-6">
+                                                    <div class="row">
+                                                      <div class="col-xl-8 col-lg-8 col-md-8">
+                                                        <label class="form-label">Saldo TM</label>
+                                                      </div>
+                                                      <div class="col-xl-4 col-lg-4 col-md-4">
+                                                        <label style="color: black;"> <b>{{ datosFactura.saldoFacturas | number: "1.2-2" }}</b></label>
+                                                      </div>
+                                                    </div>
+                                                    <span class="br borde"></span>
+                                                    <div class="row">
+                                                      <div class="col-xl-8 col-lg-8 col-md-8">
+                                                        <label class="form-label">TM Despachada</label>
+                                                      </div>
+                                                      <div class="col-xl-4 col-lg-4 col-md-4">
+                                                        <label style="color: black;"> <b> {{ datosFactura.despachadoFacturas | number: "1.2-2" }} </b></label>
+                                                      </div>
+                                                    </div>
+                                                    <span class="br borde"></span>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                      </div>
+                              </div>
+      
+                      </div>
+              </div>
+          <div class="card">
+            <div class="card-body">
+              <mat-tab-group dynamicHeight headerPosition="above" [selectedIndex]="1">
+                <mat-tab label="Pendiente Emitir">
+                  <div class="card-body">
+                      <div>
+                                <input type="text" class="redondeado buscador"  size="100"    (keyup)="applyFilterPendiente($event)" placeholder=" Buscar Pendiente" autocomplete="off">
+                               <br><br>
+                       </div>
+                     <div  class="table-responsive">
+                       <div class="tabla-table-container">
+                               <table mat-table 
+                               #MatSortPendiente="matSort"
+                               class="table table-bordered text-nowrap"  
+                               class="example-table table-bordered"
+                               matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+                               style="width:100%"  
+                               [dataSource]="portafolioPendienteDS" >
+
+                                        <ng-container  matColumnDef="opciones">
+                                          <th  mat-header-cell *matHeaderCellDef mat-sort-header>-</th>
+                                          <td mat-cell *matCellDef="let elementFacturada"
+                                          (click)="onContextMenu($event, elementFacturada.s234_Codigo)" [matMenuTriggerFor]="menuTriggerDos"> 
+                                            <button mat-icon-button class="opcion">
+                                              <mat-icon>more_vert</mat-icon>
+                                            </button>
+                                          </td>
+                                      </ng-container>
+      
+                                       <ng-container  matColumnDef="s234_Factura" >
+                                         <th  mat-header-cell *matHeaderCellDef mat-sort-header> Factura </th>
+                                         <td mat-cell *matCellDef="let elementFacturada" > 
+                                          {{elementFacturada.s234_Factura}}
+                                         </td>
+                                       </ng-container>
+                                       
+                                       <ng-container matColumnDef="s234_Fecha">
+                                         <th class="thead" class="border-bottom-0" mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                                         <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Fecha | date: "dd/MM/yyyy"}} </td>
+                                       </ng-container>
+
+                                       <ng-container matColumnDef="s234_Pedidos">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Pedidos </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Pedidos}} </td>
+                                       </ng-container>
+                                     
+                                       <ng-container class="border-bottom-0" matColumnDef="s234_ToneladasNetas">
+                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Toneladas <br />Netas </th>
+                                         <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_ToneladasNetas}} </td>
+                                       </ng-container>
+                               
+                                       <ng-container  class="border-bottom-0" matColumnDef="s234_AvanceSAP">
+                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Avance <br />SAP </th>
+                                         <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_AvanceSAP | number:'1.2-2'}} </td>
+                                       </ng-container>
+         
+                                       <ng-container  class="border-bottom-0" matColumnDef="s234_AvanceSCL">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Avance <br />SCL </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_AvanceSCL | number:'1.2-2'}} </td>
+                                       </ng-container>                      
+         
+                                       <ng-container class="border-bottom-0" matColumnDef="s234_PuestoPlanificacion">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Puesto de  <br />Planificación </th> 
+                                               <td mat-cell *matCellDef="let elementFacturada">  {{elementFacturada.s234_PuestoPlanificacion}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Destino">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Destino </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Destino}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Cliente">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Cliente}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Producto">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Producto}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Contrato">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contrato </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Contrato}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Precio">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Precio | number:'1.2-2'}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_EmpresaTransporte">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Empresa de <br />Transporte </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_EmpresaTransporte}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Flete">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Flete </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Flete | number:'1.2-2'}} </td>
+                                       </ng-container>
+         
+                                      <ng-container matColumnDef="s234_FechaEnvioTramite">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Envío <br />Tramite </th> 
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_FechaEnvioTramite | date: "dd/MM/yyyy"}} </td>
+                                       </ng-container> 
+         
+                                       <ng-container matColumnDef="s234_FechaEntregaDocumento">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Entrega <br />Documento </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_FechaEntregaDocumento | date: "dd/MM/yyyy"}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Comentarios">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Comentarios </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Comentarios }} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_SalesContract">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contrato </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_SalesContract}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Usuario">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Usuario}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Barco">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Barco </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Barco}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_AnimalNutrition">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Nutrición <br />Animal </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_AnimalNutrition}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Caks">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Caks </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Caks | number:'1.2-2'}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_FOB">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> FOB </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_FOB | number:'1.2-2'}} </td>
+                                       </ng-container>
+                  
+                                       <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true" 
+                                       style="text-align: center; vertical-align: middle;" ></tr>
+                                       
+                                       <tr class="tbody" mat-row *matRowDef="let elementFacturada; columns: displayedColumns;"
+                                       style="text-align: center; vertical-align: middle;" 
+                                       [class.selected]="elementFacturada.selected"
+                                       (click)="elementFacturada.selected= !elementFacturada.selected">
+                                       </tr>
+                               </table>
+                       </div>
+                      </div>
+                      <mat-paginator  #MatPaginatorPendiente="matPaginator"  [pageSizeOptions]="[10,15, 25, 100]"></mat-paginator>
+         
+                  </div>
+                </mat-tab>
+                <mat-tab label="En Proceso">
+                      <div class="card-body">
+                              <div>
+                                        <input type="text" class="redondeado buscador"  size="100"    (keyup)="applyFilterDosificada($event)" placeholder=" Buscar Dosificada" autocomplete="off">
+                                       <br><br>
+                               </div>
+                             <div  class="table-responsive">
+                              
+                               <div class="tabla-table-container">
+
+                                <a *ngIf="pasaraFacturada" (click)="pasarAFacturada()" class="button">Pasar a Despachada</a>
+                                <br>   
+                                       <table mat-table 
+                                       class="table table-bordered text-nowrap"  
+                                       class="example-table table-bordered"
+                                       #MatSortIngreso="matSort"
+                                       matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+                                       style="width:100%"  
+                                       [dataSource]="portafolioDosificadasDS" >
+                               
+                                              <ng-container  matColumnDef="flgPase">
+                                                  <th class="border-bottom-0"  mat-header-cell *matHeaderCellDef><br> 
+                                                    <mat-checkbox (change)="$event ? masterToggle() : null ; seleccionFactura();"
+                                                                  [checked]="selection.hasValue() && isAllSelected()"
+                                                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                                    </mat-checkbox>
+                                                  </th>
+                                                 <td mat-cell *matCellDef="let element"> 
+                                                  <mat-checkbox  (click)="$event.stopPropagation()"
+                                                                (change)="$event ? selection.toggle(element) : null; seleccionFactura(element,$event);"
+                                                                [checked]="selection.isSelected(element)">
+                                                  </mat-checkbox>
+                                                 </td>
+                                              </ng-container>
+
+                                              <ng-container  matColumnDef="opciones">
+                                                <th  mat-header-cell *matHeaderCellDef mat-sort-header>Opciones</th>
+                                               <td mat-cell *matCellDef="let element"
+                                               (click)="onContextMenu($event, element.s234_Codigo)" [matMenuTriggerFor]="menuTriggerDos"> 
+                                                <button mat-icon-button class="opcion">
+                                                  <mat-icon>more_vert</mat-icon>
+                                                </button>
+                                               </td>
+                                              </ng-container>
+
+                                               <ng-container  matColumnDef="s234_Factura">
+                                                 <th  mat-header-cell *matHeaderCellDef mat-sort-header> Factura </th>
+                                                 <td mat-cell *matCellDef="let element" 
+                                                 > {{element.s234_Factura}}
+                                                 </td>
+                                               </ng-container>
+                                               
+                                               <ng-container matColumnDef="s234_Fecha">
+                                                 <th class="thead" class="border-bottom-0" mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                                                 <td mat-cell *matCellDef="let element"> {{element.s234_Fecha | date: "dd/MM/yyyy"}} </td>
+                                               </ng-container>
+
+                                               <ng-container matColumnDef="s234_Pedidos">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Pedidos </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_Pedidos}} </td>
+                                               </ng-container>
+
+                                               <ng-container class="border-bottom-0" matColumnDef="s234_ToneladasNetas">
+                                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Toneladas <br />Netas </th>
+                                                 <td mat-cell *matCellDef="let element"> {{element.s234_ToneladasNetas}} </td>
+                                               </ng-container>
+                                       
+                                               <ng-container  class="border-bottom-0" matColumnDef="s234_AvanceSAP">
+                                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Avance <br />SAP </th>
+                                                 <td mat-cell *matCellDef="let element"> {{element.s234_AvanceSAP | number:'1.2-2'}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container  class="border-bottom-0" matColumnDef="s234_AvanceSCL">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Avance <br />SCL </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_AvanceSCL | number:'1.2-2'}} </td>
+                                               </ng-container>                      
+                 
+                                               <ng-container class="border-bottom-0" matColumnDef="s234_PuestoPlanificacion">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Puesto de  <br />Planificación </th> 
+                                                       <td mat-cell *matCellDef="let element">  {{element.s234_PuestoPlanificacion}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_Destino">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Destino </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_Destino}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_Cliente">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_Cliente}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_Producto">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_Producto}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_Contrato">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Contrato </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_Contrato}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_Precio">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_Precio | number:'1.2-2'}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_EmpresaTransporte">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Empresa de <br />Transporte </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_EmpresaTransporte}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_Flete">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Flete </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_Flete | number:'1.2-2'}} </td>
+                                               </ng-container>
+                 
+                                              <ng-container matColumnDef="s234_FechaEnvioTramite">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Envío <br />Tramite </th> 
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_FechaEnvioTramite | date: "dd/MM/yyyy"}} </td>
+                                               </ng-container> 
+                 
+                                               <ng-container matColumnDef="s234_FechaEntregaDocumento">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Entrega <br />Documento </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_FechaEntregaDocumento | date: "dd/MM/yyyy"}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_Comentarios">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Comentarios </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_Comentarios }} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_SalesContract">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Contrato </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_SalesContract}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_Usuario">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_Usuario}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_Barco">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Barco </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_Barco}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_AnimalNutrition">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Nutrición <br />Animal </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_AnimalNutrition}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_Caks">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Caks </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_Caks | number:'1.2-2'}} </td>
+                                               </ng-container>
+                 
+                                               <ng-container matColumnDef="s234_FOB">
+                                                       <th mat-header-cell *matHeaderCellDef mat-sort-header> FOB </th>
+                                                       <td mat-cell *matCellDef="let element"> {{element.s234_FOB | number:'1.2-2'}} </td>
+                                               </ng-container>
+                                  
+                                               <tr  mat-header-row *matHeaderRowDef="displayedColumnsEnProceso sticky: true" 
+                                               style="text-align: center; vertical-align: middle;"  
+                                               
+                                               ></tr>
+                                               
+                                               <tr class="tbody" mat-row *matRowDef="let element; columns: displayedColumnsEnProceso;"
+                                               style="text-align: center; vertical-align: middle;">    
+                                               </tr>
+                                       </table>
+                               </div>
+                              </div>
+                              <mat-paginator  #MatPaginatorIngreso="matPaginator" [pageSizeOptions]="[10,15, 25, 100]"></mat-paginator>
+                 
+                           </div> 
+                </mat-tab>
+               
+              <mat-menu #menuTriggerDos="matMenu">
+                      <ng-template matMenuContent let-item="item">
+                              <button mat-menu-item (click)="modificarFacturaModal(IngresarFactura)">Modificar</button>       
+                              <button mat-menu-item (click)="CancelarFactura()">Cancelar</button>       
+                              <!-- <button mat-menu-item (click)="ConsultarAvanceSAP(AvanceSAPModal)">Avance SAP</button>        -->
+                              <button mat-menu-item (click)="DuplicarFactura()">Duplicar</button>       
+                              <button mat-menu-item [matMenuTriggerFor]="pedido">Pedidos</button>           
+                      </ng-template>
+              </mat-menu>
+              <mat-menu #pedido="matMenu">
+              <a mat-menu-item (click)="ingresarNuevoPedido()">Ingresar</a>
+              <a mat-menu-item (click)="obtenerPedidos(PedidosModal)">Mostrar</a>
+              <!-- <a mat-menu-item>Cancelar</a> -->
+              </mat-menu>
+                <mat-tab label="Despachado">
+                <div class="card-body">
+                      <div>
+                                <input type="text" class="redondeado buscador"  size="100"    (keyup)="applyFilterDespachada($event)" placeholder=" Buscar Despachada" autocomplete="off">
+                               <br><br>
+                       </div>
+                     <div  class="table-responsive">
+                      
+                       <div class="tabla-table-container">
+                               
+                               <table mat-table 
+                               #MatSortDespachada="matSort"
+                               class="table table-bordered text-nowrap"  
+                               class="example-table table-bordered"
+                               matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+                               style="width:100%"  
+                               [dataSource]="portafolioDespachadasDS" >
+
+                                        <ng-container  matColumnDef="opciones">
+                                          <th  mat-header-cell *matHeaderCellDef mat-sort-header>-</th>
+                                          <td mat-cell *matCellDef="let elementFacturada"
+                                          (click)="onContextMenu($event, elementFacturada.s234_Codigo)" [matMenuTriggerFor]="menuTrigger"> 
+                                            <button mat-icon-button class="opcion">
+                                              <mat-icon>more_vert</mat-icon>
+                                            </button>
+                                          </td>
+                                      </ng-container>
+      
+                                       <ng-container  matColumnDef="s234_Factura" >
+                                         <th  mat-header-cell *matHeaderCellDef mat-sort-header> Factura </th>
+                                         <td mat-cell *matCellDef="let elementFacturada" > 
+                                          {{elementFacturada.s234_Factura}}
+                                         </td>
+                                       </ng-container>
+                                       
+                                       <ng-container matColumnDef="s234_Fecha">
+                                         <th class="thead" class="border-bottom-0" mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                                         <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Fecha | date: "dd/MM/yyyy"}} </td>
+                                       </ng-container>
+
+                                       <ng-container matColumnDef="s234_Pedidos">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Pedidos </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Pedidos}} </td>
+                                       </ng-container>
+                                     
+                                       <ng-container class="border-bottom-0" matColumnDef="s234_ToneladasNetas">
+                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Toneladas <br />Netas </th>
+                                         <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_ToneladasNetas}} </td>
+                                       </ng-container>
+                               
+                                       <ng-container  class="border-bottom-0" matColumnDef="s234_AvanceSAP">
+                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Avance <br />SAP </th>
+                                         <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_AvanceSAP | number:'1.2-2'}} </td>
+                                       </ng-container>
+         
+                                       <ng-container  class="border-bottom-0" matColumnDef="s234_AvanceSCL">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Avance <br />SCL </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_AvanceSCL | number:'1.2-2'}} </td>
+                                       </ng-container>                      
+         
+                                       <ng-container class="border-bottom-0" matColumnDef="s234_PuestoPlanificacion">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Puesto de  <br />Planificación </th> 
+                                               <td mat-cell *matCellDef="let elementFacturada">  {{elementFacturada.s234_PuestoPlanificacion}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Destino">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Destino </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Destino}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Cliente">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Cliente}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Producto">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Producto}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Contrato">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contrato </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Contrato}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Precio">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Precio | number:'1.2-2'}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_EmpresaTransporte">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Empresa de <br />Transporte </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_EmpresaTransporte}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Flete">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Flete </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Flete | number:'1.2-2'}} </td>
+                                       </ng-container>
+         
+                                      <ng-container matColumnDef="s234_FechaEnvioTramite">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Envío <br />Tramite </th> 
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_FechaEnvioTramite | date: "dd/MM/yyyy"}} </td>
+                                       </ng-container> 
+         
+                                       <ng-container matColumnDef="s234_FechaEntregaDocumento">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Entrega <br />Documento </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_FechaEntregaDocumento | date: "dd/MM/yyyy"}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Comentarios">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Comentarios </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Comentarios }} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_SalesContract">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contrato </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_SalesContract}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Usuario">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Usuario}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Barco">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Barco </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Barco}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_AnimalNutrition">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Nutrición <br />Animal </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_AnimalNutrition}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_Caks">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Caks </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_Caks | number:'1.2-2'}} </td>
+                                       </ng-container>
+         
+                                       <ng-container matColumnDef="s234_FOB">
+                                               <th mat-header-cell *matHeaderCellDef mat-sort-header> FOB </th>
+                                               <td mat-cell *matCellDef="let elementFacturada"> {{elementFacturada.s234_FOB | number:'1.2-2'}} </td>
+                                       </ng-container>
+                  
+                                       <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true" 
+                                       style="text-align: center; vertical-align: middle;" ></tr>
+                                       
+                                       <tr class="tbody" mat-row *matRowDef="let elementFacturada; columns: displayedColumns;"
+                                       style="text-align: center; vertical-align: middle;" 
+                                       [class.selected]="elementFacturada.selected"
+                                       (click)="elementFacturada.selected= !elementFacturada.selected">
+                                       </tr>
+                               </table>
+                       </div>
+                      </div>
+                      <mat-paginator  #MatPaginatorDespachada="matPaginator"  [pageSizeOptions]="[10,15, 25, 100]"></mat-paginator>
+         
+                </div>
+                
+                </mat-tab>
+                
+              <mat-menu #menuTrigger="matMenu">
+                      <ng-template matMenuContent let-item="item">    
+                              <!-- <button mat-menu-item (click)="CancelarFactura()">Cancelar</button>        -->
+                              <!-- <button mat-menu-item (click)="ConsultarAvanceSAP(AvanceSAPModal)">Avance SAP</button>        -->
+                              <!-- <button mat-menu-item (click)="DuplicarFactura()">Duplicar</button>        -->
+                              <button mat-menu-item (click)="RegresarDosificada()">Regresar a "En Proceso"</button>       
+                              <button mat-menu-item [matMenuTriggerFor]="pedidoFacturada">Pedidos</button>           
+                      </ng-template>
+              </mat-menu>
+              <mat-menu #pedidoFacturada="matMenu">
+              <!-- <a mat-menu-item (click)="ingresarNuevoPedido()">Ingresar</a> -->
+              <a mat-menu-item (click)="obtenerPedidos(PedidosModal)">Mostrar</a>
+              </mat-menu>
+              </mat-tab-group>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-------------------------------------------------------------- AVANCE SAP -------------------------------------------------------------------------------------->
+      <ng-template #AvanceSAPModal let-modal>
+        <div class="card">
+          <div role="document">
+            <div class="modal-content">
+              <div class="modal-header cabecera-blanca">
+                <h3 class="modal-title">Avance SAP</h3>
+                <button
+                  type="button"
+                  class="btn-close"
+                  (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="card-body">
+                      <div class="table-responsive">
+                        <table
+                          id="myTable1"
+                          class="table table-bordered text-nowrap"
+                          style="width: 100%"
+                        >
+                          <!-- table-striped -->
+                          <thead>
+                            <tr class="bold">
+                              <th class="border-bottom-0">#</th>
+                              <th class="border-bottom-0">Código <br />Pedido</th>
+                              <th class="border-bottom-0">Código <br />Dosificada</th>
+                              <th class="border-bottom-0">Pedido SAP</th>
+                              <th class="border-bottom-0">Código <br />Avance</th>
+                              <th class="border-bottom-0">Fecha <br />Documento</th>
+                              <th class="border-bottom-0">Clave <br />Referencia</th>
+                              <th class="border-bottom-0">Número <br />Documento</th>
+                              <th class="border-bottom-0">TM</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="let lista of listaAvanceSAP; let i = index">
+                              <td>{{ i + 1 }}</td>
+                              <td>
+                                {{ lista.t265_ID }}
+                              </td>
+                              <td>
+                                {{ lista.t265_Dosed }}
+                              </td>
+                              <td>
+                                {{ lista.t265_DesPedidoSAP }}
+                              </td>
+                              <td>
+                                {{ lista.t341_ID }}
+                              </td>
+                              <td>
+                                {{ lista.t016_Date | date: "dd/MM/yyyy" }}
+                              </td>
+                              <td>
+                                {{ lista.t341_ReferenceKey }}
+                              </td>
+                              <td>
+                                {{ lista.t341_DocumentNumber}}
+                              </td>
+                              <td>
+                                {{ lista.t341_MetricTons | number: "1.2-2" }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+              </div>
+          </div>     
+        </div>
+      </ng-template>
+      <!-------------------------------------------------------------- LISTA PEDIDOS -------------------------------------------------------------------------------------->
+      <ng-template #PedidosModal let-modal>
+              <div class="card">
+                <div role="document">
+                  <div class="modal-content">
+                    <div class="modal-header cabecera-blanca">
+                      <h3 class="modal-title">Lista de Pedidos</h3>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="card-body">
+                            <div class="table-responsive">
+                              <table
+                                id="myTable1"
+                                class="table table-bordered text-nowrap"
+                                style="width: 100%"
+                              >
+                                <!-- table-striped -->
+                                <thead>
+                                  <tr class="bold">
+                                    <!-- <th class="border-bottom-0">#</th> -->
+                                    <th class="border-bottom-0 text-center">Código</th>
+                                    <th class="border-bottom-0 text-center">Factura</th>
+                                    <th class="border-bottom-0 text-center">Fecha</th>
+                                    <th class="border-bottom-0 text-center">Usuario</th>
+                                    <th class="border-bottom-0 text-center">Pedido</th>
+                                    <th class="border-bottom-0 text-center">Avance SCL</th>
+                                    <th class="border-bottom-0 text-center">Opción</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr
+                                    *ngFor="let lista of listapedidos;">
+                                      <!-- <td>
+                                              <button class="boton-Menu" mat-icon-button [matMenuTriggerFor]="menuPedido" (click)="onContextMenu($event, lista.t265_ID)">
+                                                      <mat-icon>more_vert</mat-icon>
+                                              </button>
+                                      </td> -->
+                                      <td class="text-center">
+                                              {{ lista.t265_ID }}
+                                      </td>
+                                      <td class="text-center">
+                                              {{ lista.t260_DosingCode }}
+                                      </td>
+                                      <td class="text-center">
+                                              {{ lista.t016_Date | date: "dd/MM/yyyy" }}
+                                      </td>
+                                      <td class="text-center">
+                                              {{ lista.t010_Name }}
+                                      </td>
+                                      <td class="text-center">
+                                              {{ lista.t265_DesPedidoSAP}}
+                                      </td>
+                                      <td class="text-center">
+                                              {{ lista.t265_SCLAdvance | number: "1.2-2" }}
+                                      </td>
+                                      <td class="text-center" (click)="cancelarPedido(lista.t265_ID)">
+                                              <div class="zmdi zmdi-delete zmdi-hc-2x"></div>
+                                      </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          <mat-menu #menuPedido="matMenu" yPosition="below" class="opciones">
+                              <ng-template matMenuContent let-item="item" class="opciones">
+                                <!-- <button mat-menu-item >Ingresar</button> -->
+                                <button mat-menu-item (click)="cancelarPedido(PedidosModal)">Cancelar</button>
+                              </ng-template>
+                            </mat-menu>
+                    </div>
+                </div>     
+              </div>
+      </ng-template>
+            
+      <ng-template #IngresarFactura let-modal >
+        <app-ingresar-factura [visible]="myModalFactura"   (closeIngresoFactura)="cerrarModalFactura(modal)"></app-ingresar-factura>
+      </ng-template>
+
+      <mat-spinner  class="custom-spinner"
+                          *ngIf="loading$ | async"  
+                          [mode]="'indeterminate'"
+                          [value]=50
+                          [diameter]="50"
+                          >
+      </mat-spinner>
+
+      <ng-template #consultarReporte let-modal>
+        <div role="document" >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Reporte</h5>
+              <button
+                type="button"
+                class="btn-close"
+                (click)="modal.dismiss('Cross click')"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="py-1">
+                <form class="form" novalidate="">
+                  <div class="row">
+                    <div class="col col-xl-12 col-lg-21 col-md-12">
+                      <!-- <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Mes:</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                          <ng-select
+                            class="form-control form-select"
+                            name="consultaMes"
+                            multiple="true"
+                            [(ngModel)]="consultaMes"
+                          >
+                            <ng-option
+                              value="{{ item.s204_ID }}"
+                              *ngFor="let item of ConsultaHistoricacampania"
+                              >{{ item.s204_Description }}</ng-option
+                            >
+                          </ng-select>
+                        </div>
+                      </div>
+                      <span class="br"></span> -->
+                      <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Cliente:</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                          <ng-select
+                            class="form-control form-select"
+                            name="consultaCliente"
+                            [(ngModel)]="consultaCliente"
+                          >
+                            <ng-option
+                              value="{{ item.s204_ID }}"
+                              *ngFor="let item of combosConsultaHistorica.comboCliente"
+                              >{{ item.s204_Description }}</ng-option
+                            >
+                          </ng-select>
+                        </div>
+                      </div>
+                      <span class="br"></span>
+                      <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Producto:</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                          <ng-select
+                            class="form-control form-select"
+                            name="consultaProducto"
+                            [(ngModel)]="consultaProducto"
+                          >
+                          <ng-option
+                            value="{{ item.s204_ID }}"
+                            *ngFor="let item of combosConsultaHistorica.comboProducto"
+                            >{{ item.s204_Description }}
+                          </ng-option>
+                          </ng-select>
+                        </div>
+                      </div>
+                      <span class="br"></span>
+                      <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Destino:</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                          <ng-select
+                            class="form-control form-select"
+                            name="consultaDestino"
+                            [(ngModel)]="consultaDestino"
+                          >
+                          <ng-option
+                            value="{{ item.s204_ID }}"
+                            *ngFor="let item of combosConsultaHistorica.comboDestino"
+                            >{{ item.s204_Description }}
+                          </ng-option>
+                          </ng-select>
+                        </div>
+                      </div>
+                      <span class="br"></span>
+                      <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Contrato Venta:</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                          <ng-select
+                            class="form-control form-select"
+                            name="consultaContratoVenta"
+                            [(ngModel)]="consultaContratoVenta"
+                          >
+                          <ng-option
+                            value="{{ item.s204_ID }}"
+                            *ngFor="let item of combosConsultaHistorica.comboContratoVenta"
+                            >{{ item.s204_Description }}
+                          </ng-option>
+                          </ng-select>
+                        </div>
+                      </div>
+                      <span class="br"></span>
+                      <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <label class="form-label">Puesto Planificación:</label>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8">
+                          <ng-select
+                            class="form-control form-select"
+                            name="consultaPuestoPlanific"
+                            [(ngModel)]="consultaPuestoPlanific">
+                          <ng-option
+                            value="{{ item.s114_Codigo }}"
+                            *ngFor="let item of combosConsultaHistorica.comboPuestoPlanificacion"
+                            >{{ item.s114_Descripcion }}
+                          </ng-option>
+                          </ng-select>
+                        </div>
+                      </div>
+                      <span class="br"></span>
+                      <div class="row">
+                        <div class="col-xl-1 col-lg-2 col-md-1">
+                          <mat-checkbox class="checkCierre" name="flgFechaConsultaHistorica" [(ngModel)]="flgFechaConsultaHistorica"  ></mat-checkbox>
+                        </div>
+                        
+                        <div class="col-xl-1 col-lg-4 col-md-1">
+                          <label class="form-label">Fecha Inicio:</label>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <input
+                            class="form-control"
+                            type="date"
+                            placeholder="yyyy-mm-dd"
+                            [(ngModel)]="fechInicio"
+                            ngbDatepicker
+                            (click)="d1.toggle()"
+                            #d1="ngbDatepicker"
+                            name="t218_Date"
+                            readonly
+                            [disabled]="!flgFechaConsultaHistorica"
+                          />
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-2">
+                          <label class="form-label">Fecha Fin:</label>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                          <input
+                            class="form-control"
+                            type="date"
+                            placeholder="yyyy-mm-dd"
+                            [(ngModel)]="fechFin"
+                            ngbDatepicker
+                            (click)="d2.toggle()"
+                            #d2="ngbDatepicker"
+                            name="t218_Date"
+                            readonly
+                            [disabled]="!flgFechaConsultaHistorica"
+                          />
+                        </div>
+                      </div>
+                      <span class="br"></span>
+                    </div>
+                    <!-- <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4">
+                        <label class="form-label">Códigos:</label>
+                      </div>
+                      <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                          class="form-control"
+                          type="text"
+                          placeholder="Ingresar códigos separados por ';' "
+                          name="codigosConsultaHistorica"
+                          [(ngModel)]="codigosConsultaHistorica" />
+                      </div>
+                    </div> -->
+                  </div>
+                  <div class="row">
+                    <div class="col d-flex justify-content-end">
+                      <button
+                        class="btn btn-green"
+                        type="submit"
+                        (click)="exportarConsulta(modal)">
+                        Aceptar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>

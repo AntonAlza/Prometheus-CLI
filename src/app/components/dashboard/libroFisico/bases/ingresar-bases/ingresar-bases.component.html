@@ -1,0 +1,177 @@
+<div role="document" class="card">
+    <!--class="msg_card_body" -->
+
+      <div class="modal-header">
+        <h5 *ngIf="flgIngresar" class="modal-title">Ingresar Base</h5>
+        <h5 *ngIf="!flgIngresar" class="modal-title">Modificar Base</h5>
+          <button type="button" class="close" aria-label="Close" (click)="cerrargestionOperacion()">
+            <mat-icon  >close</mat-icon>
+          </button>
+      </div>
+      <div class="modal-body">
+        <div class="py-1">
+          <form class="form" novalidate="">
+            <div class="card shadow-none">
+              <div class="row">
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Código Fisico:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="baseGuardar.t095_Physical"
+                        [(ngModel)]="baseGuardar.t095_Physical"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Código Operación:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        name="baseGuardar.t095_ID"
+                        [(ngModel)]="baseGuardar.t095_ID"
+                        readonly/>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Operación:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                            class="form-control"
+                            type="text"
+                            name="baseGuardar.T095_SellBuy"
+                            value="Compra"
+                            readonly/>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Contrato:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <ng-select
+                        class="form-control form-select"
+                        name="baseGuardar.t095_Contract"
+                        [(ngModel)]="baseGuardar.t095_Contract"
+                        [disabled]="!flgIngresar">
+                        <ng-option value="{{ item.s204_ID }}"
+                        *ngFor="let item of objInitIngresoBase.comboContrato">{{ item.s204_Description }}</ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Fecha:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            class="form-control"
+                            type="date"
+                            placeholder="YYYY-MM-DD"
+                            ngbDatepicker
+                            [(ngModel)]="fecha"
+                            (click)="d1.toggle()"
+                            #d1="ngbDatepicker"
+                            name="fecha"
+                            [disabled]="!flgIngresar"
+                            readonly/>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Base :</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="baseGuardar.t095_BaseUSD"
+                        [(ngModel)]="baseGuardar.t095_BaseUSD"/>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Toneladas Metricas:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="baseGuardar.t095_MetricTons"
+                        [(ngModel)]="baseGuardar.t095_MetricTons"
+                        (change)="obtenerNumContrato()"/>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Número de Contratos:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="number"
+                        name="baseGuardar.t095_VolumeContract"
+                        [(ngModel)]="baseGuardar.t095_VolumeContract"
+                        readonly/>
+                    </div>
+                  </div>
+                  <span class="br"></span>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Comentario:</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="comentarioBase"
+                        [(ngModel)]="comentarioBase"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col d-flex justify-content-end">
+                <button
+                  *ngIf="flgIngresar"
+                  class="btn btn-green"
+                  type="submit"
+                  [disabled]="!flgBoton"
+                  (click)="guardarBase()">
+                  Aceptar
+                </button>
+                <button
+                  *ngIf="!flgIngresar"
+                  class="btn btn-green"
+                  type="submit"
+                  [disabled]="!flgBoton"
+                  (click)="modificarBase(ComprarFlat, nuevoFlat)">
+                  Modificar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>

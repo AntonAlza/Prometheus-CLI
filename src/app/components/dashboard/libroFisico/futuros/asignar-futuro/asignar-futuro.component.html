@@ -1,0 +1,134 @@
+<div role="document" class="card"> <!--class="msg_card_body" -->
+    <div class="modal-header">
+        <h5 class="modal-title">Asignar Futuros</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cerrarAsignarFuturo()">
+          <mat-icon  >close</mat-icon>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-1">
+        <form class="form" novalidate="">
+          <div class="row">
+            <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Físico </label>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                        <input
+                            id="deshabilitado"
+                            class="form-control"
+                            type="text"
+                            placeholder="Operación"
+                            name="t072_ID"
+                            [(ngModel)]="objetoInitAsignarFuturo.codFisico"
+                            readonly/>
+                    </div>
+                </div>                
+            </div>
+            <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">CAKS</label>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <input
+                        class="form-control"
+                        type="number"
+                        name="precioCosto"
+                        [(ngModel)]="objetoInitAsignarFuturo.caks"
+                        readonly/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="table-responsive">
+                <div class="tabla-table-container">
+                  <table
+                    mat-table
+                    class="table table-bordered text-nowrap"
+                    class="example-table table-bordered"
+                    matSort matSortActive="created" matSortDisableClear matSortDirection="desc" style="width: 100%"
+                    [dataSource]="listaFuturosDS">
+      
+                    <ng-container matColumnDef="opcion">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Asignar</th>
+                      <td mat-cell *matCellDef="let element"><mat-icon (click)="asignarFuturo(element.s069_CodigoFuturo,element.s069_CaksDisponibles,element.s069_CaksAsignados)">add_task</mat-icon></td>
+                    </ng-container>
+                    <ng-container class="border-bottom-0" matColumnDef="s069_CodigoFuturo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Futuro</th>
+                        <td mat-cell *matCellDef="let element">{{ element.s069_CodigoFuturo }}</td>
+                    </ng-container>
+                    <ng-container class="border-bottom-0" matColumnDef="s069_Futuro">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Contrato</th>
+                        <td mat-cell *matCellDef="let element">{{ element.s069_Futuro }}</td>
+                    </ng-container>
+                    <ng-container class="border-bottom-0" matColumnDef="s069_CaksTotal">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Total CAKS</th>
+                        <td mat-cell *matCellDef="let element">{{ element.s069_CaksTotal }}</td>
+                    </ng-container>
+                    <ng-container class="border-bottom-0" matColumnDef="s069_CaksDisponibles">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>CAKS Disponibles</th>
+                        <td mat-cell *matCellDef="let element">{{ element.s069_CaksDisponibles | number:'1.0-0'}}</td>
+                    </ng-container>
+                    <ng-container class="border-bottom-0" matColumnDef="s069_CaksAsignados">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>CAKS Asignados</th>
+                        <td mat-cell *matCellDef="let element">{{ element.s069_CaksAsignados }}</td>
+                    </ng-container>
+                    <ng-container class="border-bottom-0" matColumnDef="s069_Motivo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Motivo</th>
+                        <td mat-cell *matCellDef="let element">{{ element.s069_Motivo }}</td>
+                    </ng-container>
+
+                    <tr mat-header-row
+                      *matHeaderRowDef="displayedColumns; sticky: true"
+                      style="text-align: center; vertical-align: middle"></tr>
+      
+                    <tr class="tbody"
+                      mat-row
+                      *matRowDef="let element; columns: displayedColumns"
+                      style="text-align: center; vertical-align: middle"
+                      [class.selected]="element.selected"
+                      (click)="element.selected= !element.selected"></tr>
+                  </table>
+                </div>
+              </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col col-xl-3 col-lg-3 col-md-3">
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <div class="col-xl-6 col-lg-6 col-md-6">
+                        <label class="form-label">Total Asignado</label>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6">
+                        <input
+                            class="form-control"
+                            type="number"
+                            name="precioCosto"
+                            [(ngModel)]="totalAsignado"
+                            readonly/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <span class="br"></span>
+          <div class="row">
+            <div class="col d-flex justify-content-end">
+              <button
+                class="btn btn-green"
+                type="submit"
+                [disabled]="!flgBoton"
+                (click)="guardarAsignacionFuturo()">
+                Aceptar
+              </button>
+            </div>
+          </div> -->
+        </form>
+      </div>
+    </div>
+  </div>

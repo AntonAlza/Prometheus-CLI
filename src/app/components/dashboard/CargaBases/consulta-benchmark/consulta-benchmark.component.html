@@ -1,0 +1,103 @@
+
+     
+<div class="row">     
+     <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-5">
+                 <label class="form-label">Subyacente</label>
+            </div>
+            <div class="col-md-5">
+              <ng-select [(ngModel)]="selectedOption">
+                   <ng-option *ngFor="let option of options" [value]="option.value">{{ option.viewValue }}</ng-option>
+              </ng-select>
+            </div>
+        </div>
+     </div>
+	 <div class="col-md-5">
+        <div style="width: 80%; ">
+            <div class="row">
+                <div class="col-md-5">
+                    <label class="form-label"> Fecha de Reporte </label>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field appearance="outline" (click)="picker?.open()" style="width: 100%">
+                        <input matInput [ngModel]="this.dtpFecIni | date: 'yyyy/MM/dd'" name="dateFieldView" style="width: 100%; cursor: pointer" (focus)="picker?.open()" (dateChange)="setDateInicio(dateField.value)" readonly/>
+                        <input style="width: 100%;" matInput [matDatepicker]="picker" name="dateField" #dateField required (dateChange)="setDateInicio(dateField.value)" hidden/>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                </div>						
+            </div>				
+        </div>
+         
+     </div>		
+	 <div class="col-md-3" >
+        <button class="btn btn-green" type="submit" (click)="Consultar()">Consultar</button> 
+     </div>
+</div>
+
+<div class="table-container">
+	<table  mat-table class="table table-bordered text-nowrap" #MatSortSQL="matSort" matSort matSortActive="created"
+	 matSortDisableClear matSortDirection="desc" style="width:100%" [dataSource]="CalculoDS" class="mat-elevation-z8">
+	  <!-- Position Column -->
+	  <ng-container matColumnDef="s344_Tipo_Valor">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>Tipovalor</th>
+		<td mat-cell *matCellDef="let element">{{element.s344_Tipo_Valor}}</td>
+	  </ng-container>
+	
+	  <ng-container matColumnDef="s344_Subyacente">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>
+		 <mat-form-field>
+			<mat-label>Subyacente</mat-label>
+			<mat-select (selectionChange)="filtroSubyacente($event.value)" multiple>
+				<mat-option *ngFor="let opcion of oblistaSubyacente()" [value]="opcion">{{ opcion }}</mat-option>
+			</mat-select>
+		  </mat-form-field>
+		</th>
+		<td mat-cell *matCellDef="let element">{{element.s344_Subyacente}}</td>
+	  </ng-container>
+
+	  <ng-container matColumnDef="s344_Proteina">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>Proteina</th>
+		<td mat-cell *matCellDef="let element">{{element.s344_Proteina}}</td>
+	  </ng-container>
+
+	  <ng-container matColumnDef="s344_Puerto">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>
+			<mat-form-field>
+				<mat-label>Puerto</mat-label>
+				<mat-select (selectionChange)="filtroPuerto($event.value)" multiple>
+					<mat-option *ngFor="let opcion of oblistaPuerto()" [value]="opcion">{{ opcion }}</mat-option>
+				</mat-select>
+			  </mat-form-field>
+		</th>
+		<td mat-cell *matCellDef="let element">{{element.s344_Puerto}}</td>
+	  </ng-container>
+
+	  <ng-container matColumnDef="s344_Mercado">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>Mercado</th>
+		<td mat-cell *matCellDef="let element">{{element.s344_Mercado}}</td>
+	  </ng-container>
+
+	  <ng-container matColumnDef="s344_Tipo_Benchmark">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>
+			<mat-form-field>
+				<mat-label>Tipo</mat-label>
+				<mat-select (selectionChange)="filtroTipoBench($event.value)" multiple>
+					<mat-option *ngFor="let opcion of oblistaTipoBench()" [value]="opcion">{{ opcion }}</mat-option>
+				</mat-select>
+			  </mat-form-field>
+		</th>
+		<td mat-cell *matCellDef="let element">{{element.s344_Tipo_Benchmark}}</td>
+	  </ng-container>
+
+	  <ng-container *ngFor="let column of mesesContrato; let i = index" [matColumnDef]="column">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 80px;">{{ column }}</th>
+		<td mat-cell *matCellDef="let element" style="width: 80px;">{{element[column]}}</td>					                       
+		
+	  </ng-container> 
+
+	   <tr mat-header-row *matHeaderRowDef="columnasNewResult;sticky: true"></tr>
+	  <tr mat-row *matRowDef="let row; columns: columnasNewResult;" [ngClass]="getEstadoClass(row.s344_Tipo_Valor)"></tr>
+	  </table>
+	</div>

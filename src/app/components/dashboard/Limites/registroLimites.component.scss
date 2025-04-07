@@ -1,0 +1,92 @@
+.tabla-table-container {
+  position: relative;
+  min-height: 150px;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.mat-row {
+  min-height: 20px !important;
+  max-height: 20px !important;
+}
+
+.mat-sort-header-container{
+  justify-content: center;
+  position: relative;
+}
+
+.mat-header-cell {
+  text-align: center !important;
+  position: relative;
+}
+
+.mat-row:hover {
+  background-color: rgba(120, 185, 40, 0.205);
+  cursor: pointer;
+}
+
+.mat-cell {
+  text-align: center;
+  justify-content:center;
+  vertical-align: middle;
+}
+
+.mat-header-cell {
+  background:  #37aaf1;
+  color: white;
+  justify-content:center;
+  vertical-align: middle;
+  font-size: 14px;
+  height: 10px !important;
+  min-height: 10px !important;
+  max-height: 10px !important;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+}   
+
+table {
+  width: 100%;
+}
+
+th, td{
+  padding: 0 !important;
+}
+
+.btn-green {
+  color: #fff !important;
+  background-color: rgb(75, 130, 45);
+  border-color: rgb(75, 130, 45);
+  -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.39);
+  box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+}
+
+.btn-green:hover {
+  color: #fff !important;
+  background-color: rgba(120, 185, 40, 0.397);;
+  border-color: rgb(120, 185, 40);
+}
+
+mat-form-field.caksutilizar {
+  width: 110px !important;
+  text-align: right;
+  padding: 0;
+  margin: 0 5px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.mi-clase {
+  pointer-events: none;
+  background-color:white;
+}
+
+.mi-clase2 {
+  background-color:rgba(120, 185, 40, 0.205);
+}
+
+input {
+  width: 90% !important;
+  padding: 0 !important;
+  border: 0;
+}

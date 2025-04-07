@@ -1,0 +1,196 @@
+  <div role="document" class="msg_card_body">
+   
+    <div class="modal-header">
+      <!-- <h5 *ngIf="!flgIngresarContrato" class="modal-title">Modificar IFD</h5> -->
+      <h5  class="modal-title">Campaña</h5> 
+      <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+        <mat-icon  >close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-1">
+        <form class="form" novalidate="">
+          <div class="row">
+                  <div style="width: 15%;">
+                    <label  style="margin: 15% 0%;">Producto </label>
+                  </div>
+                  <div style="width: 45%;">
+                    <input style="width: 100%;"
+                      id="deshabilitado"
+                      class="form-control"
+                      type="text"
+                      placeholder="Código"
+                      name="descProducto"
+                      [(ngModel)]="descProducto"
+                      readonly
+                    />
+                  </div>
+              </div>
+              <br>
+              <div class="row">
+                <div style="width: 15%; ">
+                  <label  style="margin: 15% 0%;">Estación </label>
+              </div>
+                <div style="width: 45%;">
+                  <input style="width: 100%;"
+                    id="deshabilitado"
+                    class="form-control"
+                    type="text"
+                    placeholder="Código"
+                    name="descSeason"
+                    [(ngModel)]="descSeason"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div style="width: 15%;">
+                  <label  style="margin: 15% 0%;">Año </label>
+              </div>
+                <div style="width: 45%;">
+                  <input style="width: 100%;"
+                    id="deshabilitado"
+                    class="form-control"
+                    type="text"
+                    placeholder="Código"
+                    name="pAnho"
+                    [(ngModel)]="pAnho"
+                    readonly
+                  />
+                </div>
+            </div>
+            <br>
+            <div class="row">
+              <div style="width: 15%;">
+                <label  style="margin: 15% 0%;"> Inicio </label>
+            </div>
+            
+            <mat-form-field appearance="outline" 
+            (click)="picker?.open()"
+            style="width: 45%;   " >
+            <input 
+              matInput 
+              [ngModel]="dateField.value | date: 'yyyy/MM/dd'"
+              name="dateFieldView"
+              style="width: 100%; cursor: pointer "
+              (focus)="picker?.open()"
+              (dateChange)="setDateInicio(dateField.value)"
+              readonly
+              
+            />
+            <input style="width: 30%; "
+              matInput 
+              [matDatepicker]="picker"
+              name="dateField"
+              #dateField
+              [formControl]="dateInicio"
+              required
+              (dateChange)="setDateInicio(dateField.value)"
+              hidden
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker  #picker></mat-datepicker>
+          </mat-form-field>
+          </div>
+          <br>
+            <div class="row">
+              <div style="width: 15%; ">
+                <label  style="margin: 15% 0%;">Fin </label>
+              </div>
+              <div style="width: 45%;">
+                <mat-form-field appearance="outline"
+                (click)="picker1?.open()"
+                style="width: 100%; font-size: 14px; vertical-align: top; ">
+                <input 
+                  matInput
+                  [ngModel]="dateField1.value | date: 'yyyy/MM/dd'"
+                  name="dateFieldView1"
+                  style="cursor: pointer"
+                  (focus)="picker1?.open()"
+                  (dateChange)="setDateFin(dateField1.value)"
+                  readonly
+                />
+                <input
+                  matInput
+                  [matDatepicker]="picker1"
+                  name="dateField1"
+                  [formControl]="dateFin"
+                  #dateField1
+                  required
+                  (dateChange)="setDateFin(dateField1.value)"
+                  hidden
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+
+
+              </div>
+              <br>
+              <div class="row">
+                <div style="width: 15%;">
+                  <label  style="margin: 15% 0%;">Vol. Esperado </label>
+              </div>
+                <div style="width: 45%;">
+                  <input style="width: 100%;"
+                    id="deshabilitado"
+                    class="form-control"
+                    type="text"
+                    placeholder="Código"
+                    name="pVolumenEsperado"
+                    [(ngModel)]="pVolumenEsperado"
+                    
+                  />
+                </div>
+            </div>
+            <br>
+              <span class="br"></span>
+           
+              <div class="row">
+                <table >
+                  <tr>
+                    <br>
+                  </tr>
+                  <tr>
+                    <td style="width: 50%; text-align: right;"  >
+                    <button
+                        class="btn btn-green"
+                        type="submit" 
+                        (click)="actualizarCampanha()"
+                        >
+                        <!-- <button
+                        class="btn btn-green"
+                        type="submit"> -->
+
+                        Aceptar
+                      </button>
+
+                    </td>
+                    <td style="width: 50%;   text-align: left;"  >
+                      <div style="text-align: left;" >
+                    
+                      <button
+                        class="btn btn-green"
+                        type="submit"  (click)="cerrar()">
+                        
+                        Cancelar
+                      </button>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                </div>    
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,103 @@
+<div role="document" class="card"> <!--class="msg_card_body" -->
+    <div class="modal-header">
+        <h5 class="modal-title"> Modificar Futuro</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cerrarModificacionFuturo()">
+          <mat-icon  >close</mat-icon>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-1">
+        <form class="form" novalidate="">
+          <div class="row">
+            <div class="col col-xl-12 col-lg-12 col-md-12">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Futuro </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            id="deshabilitado"
+                            class="form-control"
+                            type="text"
+                            placeholder="Futuro"
+                            name="t072_ID"
+                            [(ngModel)]="closingPrice.t072_ID"
+                            readonly/>
+                    </div>
+                </div>                
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Precio {{ticker}}</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            class="form-control"
+                            type="number"
+                            placeholder="Precio"
+                            name="t072_FutureUSD"
+                            [(ngModel)]="closingPrice.t072_FutureUSD"/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Contratos</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            class="form-control"
+                            type="number"
+                            placeholder="Contratos"
+                            name="t072_VolumeContract"
+                            [(ngModel)]="closingPrice.t072_VolumeContract"
+                            (change)="obtenerTM()"/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Toneladas Métricas </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            id="deshabilitado"
+                            class="form-control"
+                            type="number"
+                            name="t072_MetricTons"
+                            [(ngModel)]="closingPrice.t072_MetricTons"
+                            readonly/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Comentario </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            class="form-control"
+                            type="text"
+                            name="comentarioFuturo"
+                            [(ngModel)]="comentarioFuturo"/>
+                    </div>
+                </div>
+            </div>
+          <br>
+        </div>
+        <span class="br"></span>
+          <div class="row">
+            <div class="col d-flex justify-content-end">
+              <button
+                class="btn btn-green"
+                type="submit"
+                [disabled]="!flgBoton"
+                (click)="guardarModificacionFuturo()">
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

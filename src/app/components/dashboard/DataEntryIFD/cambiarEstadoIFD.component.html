@@ -1,0 +1,289 @@
+<div role="document" >
+   
+  <div class="modal-header">
+    <!-- <h5 *ngIf="!flgIngresarContrato" class="modal-title">Modificar IFD</h5> -->
+    <h5  class="modal-title">Cambiar estado IFD</h5> 
+    <!-- <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+      <mat-icon  >close</mat-icon>
+    </button> -->
+  </div>
+  <div class="modal-body">
+    <div class="py-1">
+      <form class="form" novalidate="">
+        <div class="row">
+                <div style="width: 6%; padding: 0% 0% 1.5% 1%;">
+                  <label  style="margin: 15% 0%;">Código </label>
+                </div>
+                <div style="width: 15%;">
+                  <input style="width: 100%;"
+                    id="idCodigo"
+                    class="form-control"
+                    type="text"
+                    placeholder="Código"
+                    name="idCodigo"
+                    [(ngModel)]="idCodigo"
+                    
+                  />
+                </div>
+                <div style="width: 6%; padding: 0% 0% 1.5% 1%;">
+                  <label  style="margin: 15% 0%;">Estado </label>
+                </div>
+                <div style="width: 15%;">
+                  <ng-select style="width:  95%;"  
+                                class="form-control form-select" 
+                                name="idEstadoIFD" 
+                                [(ngModel)]="idEstadoIFD"
+                                (change)="onSelectEstadoIFD($event)" >  
+                              <ng-option
+                                  value="{{lista.s114_Codigo}}"
+                                  *ngFor="let lista of listaEstadoIFD"
+                                  >{{ lista.s114_Descripcion }}
+                              </ng-option>
+                  </ng-select>
+                </div>
+
+              <div style="width: 6%; padding: 0.3% 0% 1.5% 1%;">
+              <label  style="margin: 15% 0%;"> Inicio </label>
+            </div>
+            <div style="width: 15%; padding: 0% 0% 1.5% 1%; text-align: center;">
+
+          <mat-form-field appearance="outline" 
+          (click)="picker?.open()"
+          style="width: 100%;   " >
+          <input 
+            matInput 
+            [ngModel]="dateField.value | date: 'yyyy/MM/dd'"
+            name="dateFieldView"
+            style="width: 100%; cursor: pointer "
+            (focus)="picker?.open()"
+            (dateChange)="setDateInicio(dateField.value)"
+            readonly
+            
+          />
+          <input style="width: 30%; "
+            matInput 
+            [matDatepicker]="picker"
+            name="dateField"
+            #dateField
+            [formControl]="dateInicio"
+            required
+            (dateChange)="setDateInicio(dateField.value)"
+            hidden
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker  #picker></mat-datepicker>
+        </mat-form-field>
+            </div>
+
+            <div style="width: 5%; padding: 0.3% 0% 1.5% 1%;">
+              <label  style="margin: 15% 0%;"> Fin </label>
+            </div>
+            <div style="width: 15%; padding: 0% 0% 1.5% 1%;">
+              <mat-form-field appearance="outline"
+              (click)="picker1?.open()"
+              style="width: 100%; font-size: 14px; vertical-align: top; ">
+              <input 
+                matInput
+                [ngModel]="dateField1.value | date: 'yyyy/MM/dd'"
+                name="dateFieldView1"
+                style="cursor: pointer"
+                (focus)="picker1?.open()"
+                (dateChange)="setDateFin(dateField1.value)"
+                readonly
+              />
+              <input
+                matInput
+                [matDatepicker]="picker1"
+                name="dateField1"
+                [formControl]="dateFin"
+                #dateField1
+                required
+                (dateChange)="setDateFin(dateField1.value)"
+                hidden
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+            
+            <div style="width: 15%;padding: 0.3% 0% 1.5% 1%;">
+                  <button
+                    class="btn btn-green"
+                    type="submit" 
+                    (click)="actualizarListaIFDs()"
+                    >
+                    Buscar
+                  </button>
+            </div>
+            
+        </div>
+
+      </form>
+    </div>
+  </div>
+  
+  
+  <div class="tabla-table-container">
+    <table mat-table
+    
+    matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+    style="width:100%"
+    [dataSource]="dataSource" >
+
+      <ng-container  class="border-bottom-0" matColumnDef="s235_ID">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.s235_ID}} </td>
+      </ng-container>
+
+
+        <ng-container  matColumnDef="s235_Fecha">
+          <th  mat-header-cell class="border-bottom-0"  *matHeaderCellDef mat-sort-header> Fecha Registro </th>
+          <td  data-type="date" mat-cell *matCellDef="let element"
+          >
+          {{element.s235_Fecha.substr(6)+'/' +element.s235_Fecha.substr(4,2)+'/'+element.s235_Fecha.substr(0,4) }}
+        </td>
+        </ng-container>
+
+
+    <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th class="border-bottom-0"  mat-header-cell *matHeaderCellDef><br>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox  (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="s235_Ticker">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticker </th>
+      <td mat-cell *matCellDef="let element"> {{element.s235_Ticker}} </td>
+      </ng-container>
+
+      <ng-container  class="border-bottom-0" matColumnDef="s235_Instrumento">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Instrumento </th>
+              <td mat-cell *matCellDef="let element"> {{element.s235_Instrumento}} </td>
+      </ng-container>
+
+      <ng-container  class="border-bottom-0" matColumnDef="s235_IdEstrategia">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id Estrategia </th>
+        <td mat-cell *matCellDef="let element"> {{element.s235_IdEstrategia}} </td>
+      </ng-container>
+
+      <ng-container  class="border-bottom-0" matColumnDef="s235_Estrategia">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Estrategia </th>
+              <td mat-cell *matCellDef="let element"> {{element.s235_Estrategia}} </td>
+      </ng-container>
+
+      <ng-container  class="border-bottom-0" matColumnDef="s235_TipoOperacion">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Operacion </th>
+              <td mat-cell *matCellDef="let element"> {{element.s235_TipoOperacion}} </td>
+      </ng-container>
+
+      <ng-container  class="border-bottom-0" matColumnDef="s235_Caks">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Caks </th>
+              <td mat-cell *matCellDef="let element"> {{element.s235_Caks}} </td>
+      </ng-container>
+
+      
+      <ng-container  class="border-bottom-0" matColumnDef="s235_PrecioEjercicio">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Strike </th>
+              <td mat-cell *matCellDef="let element"> {{element.s235_PrecioEjercicio | number:'1.2-2'}} </td>
+      </ng-container>
+      
+      <ng-container  class="border-bottom-0" matColumnDef="s235_Prima">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Prima </th>
+              <td mat-cell *matCellDef="let element"> {{element.s235_Prima | number:'1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container  matColumnDef="s235_FechaExpiracion">
+        <th  mat-header-cell class="border-bottom-0"  *matHeaderCellDef mat-sort-header> Fecha Expiración </th>
+        <td  data-type="date" mat-cell *matCellDef="let element"
+        >
+        {{element.s235_FechaExpiracion.substr(6)+'/' +element.s235_FechaExpiracion.substr(4,2)+'/'+element.s235_FechaExpiracion.substr(0,4) }}
+        
+      </td>
+      </ng-container>
+
+      
+
+      <ng-container  class="border-bottom-0" matColumnDef="s235_EstadoOperacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+        <td mat-cell *matCellDef="let element"> {{element.s235_EstadoOperacion}} </td>
+      </ng-container>
+
+      
+        <ng-container  matColumnDef="s235_FechaLiquidacion">
+          <th  mat-header-cell class="border-bottom-0"  *matHeaderCellDef mat-sort-header> Fecha Liquidación </th>
+          <td  data-type="date" mat-cell *matCellDef="let element"
+          >
+          {{element.s235_FechaLiquidacion }}
+        </td>
+        </ng-container>
+
+
+      <ng-container  class="border-bottom-0" matColumnDef="s235_IDPadre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Padre</th>
+        
+          <td  data-type="text" mat-cell  *matCellDef="let element"
+          >
+          {{element.s235_IDPadre}}
+          </td>
+        
+      </ng-container>
+
+      <ng-container  class="border-bottom-0" matColumnDef="s235_IDHijo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Hijo</th>
+        
+          <td  data-type="text" mat-cell  *matCellDef="let element"
+          >
+          {{element.s235_IDHijo}}
+          </td>
+        
+      </ng-container>
+
+
+      <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true"
+      style="text-align: center; vertical-align: middle;"
+
+      ></tr>
+
+      <tr mat-row *matRowDef="let element columns: displayedColumns;" style="text-align: center; vertical-align: middle;" 
+      class="my-mat-row" >
+      </tr>
+
+
+  </table>
+  
+  </div>
+<mat-paginator [pageSizeOptions]="[10, 20, 30, 40]" aria-label="Select page of users"></mat-paginator>
+
+<div class="row">
+
+  <div class="col d-flex justify-content-end">
+        <table style=" width: 28%; border-bottom:1px solid #ffffff;"  >
+          <tr   style="width:100%" >
+              <td   style="text-align:right;  padding-right:1.3%">
+                <button class="btn btn-green" type="submit" (click)="ReprocesarOperacionesSQL()">Reprocesar Portafolio</button>
+              </td>
+              
+          </tr>
+        </table>
+
+  </div>
+  </div>
+  <br>
+
+</div>

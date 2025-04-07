@@ -1,0 +1,290 @@
+
+      <!-- <div role="document" class="msg_card_body" >
+        
+        <div class="modal-header">
+                    <table style=" width: 100%; border-bottom:1px solid #ffffff;"  >
+                      <tr   style="width:100%" >
+                          <td   style="text-align:left;  padding: 0% 0% 0.5% 1%">
+                            <h3 class="modal-title">Campaña</h3>
+                          </td>
+                          <td style="text-align:right;  padding-right:1.3% ">
+                            <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+                              </button>
+
+                          </td>
+                      </tr>
+                    </table>
+      </div>
+    </div> -->
+
+    <div class="page-header">
+      <div class="page-leftheader">
+        <h4 class="page-title">Campaña</h4>
+      </div>
+    
+      <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a class="d-flex">
+              <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+                <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/>
+              </svg>
+              <span class="breadcrumb-icon">Home</span>
+            </a>
+          </li>
+          <li class="breadcrumb-item">Mantenedor</li>
+          <li class="breadcrumb-item active" aria-current="page">Registro Campaña</li>
+        </ol>
+      </div>
+    </div>
+   
+    <div class="card">
+      <div class="card-body">
+
+        <div class="row">
+        <div  style="width: 13%; padding: 0.5% 0% 0.5% 1%">
+              <label style="width: 100%;" class="form-label">Subyacente</label>
+              <ng-select    
+              class="form-control form-select" 
+              name="idSubyacente" 
+              [(ngModel)]="idSubyacente"
+              >  
+            <ng-option
+                value="{{lista.s114_Codigo}}"
+                *ngFor="let lista of listaSubyacente"
+                >{{ lista.s114_Descripcion}}
+            </ng-option>
+          </ng-select>
+        </div>
+        <div style="width: 15%; padding: 0.5% 0% 0.5% 1%">
+
+          <label class="form-label">Estación </label>
+          <ng-select   
+                class="form-control form-select" 
+                name="idSeason" 
+                [(ngModel)]="idSeason"
+                >  
+              <ng-option
+                  value="{{lista.s114_Codigo}}"
+                  *ngFor="let lista of listaSeason"
+                  >{{ lista.s114_Descripcion }}
+              </ng-option>
+        </ng-select>
+        </div>
+        <div style="width: 12%; padding: 0.5% 0% 0.5% 1%">
+
+        <label class="form-label">Año</label>
+            <input style="width: 100%; "
+                            
+            class="form-control"
+            type="number"
+            min="1"  max="5000" 
+
+            oninput="validity.valid||(value='');"
+            placeholder="Año"
+            name="pAnho"
+            [(ngModel)]="pAnho"
+            required
+          />
+        </div>
+        <div style="width: 13%; padding: 0.3% 0% 1.5% 1%">
+
+           <label class="form-label">Fecha Inicio </label>
+            <mat-form-field appearance="outline"
+            (click)="picker?.open()"
+            style="width: 100%" >
+            <input 
+              matInput
+              [ngModel]="dateField.value | date: 'yyyy/MM/dd'"
+              name="dateFieldView"
+              style="width: 100%; cursor: pointer"
+              (focus)="picker?.open()"
+              (dateChange)="setDateInicio(dateField.value)"
+              readonly
+            />
+            <input style="width: 100%;"
+              matInput
+              [matDatepicker]="picker"
+              name="dateField"
+              #dateField
+              required
+              (dateChange)="setDateInicio(dateField.value)"
+              hidden
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker  #picker></mat-datepicker>
+          </mat-form-field>
+       </div>
+       <div style="width: 13%; padding: 0.3% 0% 0.5% 1%">
+        <label class="form-label">Fecha Fin </label>
+       <mat-form-field appearance="outline"
+       (click)="picker1?.open()"
+       style="width: 100%; font-size: 14px; vertical-align: top; ">
+       <input 
+         matInput
+         [ngModel]="dateField1.value | date: 'yyyy/MM/dd'"
+         name="dateFieldView1"
+         style="cursor: pointer"
+         (focus)="picker1?.open()"
+         (dateChange)="setDateFin(dateField1.value)"
+         readonly
+       />
+       <input
+         matInput
+         [matDatepicker]="picker1"
+         name="dateField1"
+         #dateField1
+         required
+         (dateChange)="setDateFin(dateField1.value)"
+         hidden
+       />
+       <mat-datepicker-toggle
+         matSuffix
+         [for]="picker1"
+       ></mat-datepicker-toggle>
+       <mat-datepicker #picker1></mat-datepicker>
+     </mat-form-field>
+       </div>
+
+       <div style="width: 12%; padding: 0.5% 0% 0.5% 1%">
+
+        <label class="form-label"> Volumen Esperado</label>
+            <input style="width: 100%; "
+                            
+            class="form-control"
+            type="number"
+            min="1"  max="5000" 
+
+            oninput="validity.valid||(value='');"
+            placeholder="Volumen"
+            name="pVolumenEsperado"
+            [(ngModel)]="pVolumenEsperado"
+            required
+          />
+        </div>
+
+
+       <div style="width: 14%; padding: 1.7% 0% 0.5% 1%">
+
+     <!-- <button
+            class="btn btn-green"
+            type="submit"
+            (click)="ActualizarRegistro()"
+          > -->
+          
+          <button style="width: 100%;"
+            class="btn btn-green"
+            type="submit"
+            (click)="AgregarCampanha()"
+            [disabled]="!estadoRegistrarCampaign">Agregar
+          </button>
+
+       </div>
+     </div>
+      </div>
+      
+      <div class="card-body">
+        <table mat-table
+        class="example-table table-bordered"
+        
+        matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+        style="width:100%"
+        [dataSource]="dataSource" >
+        
+        <ng-container  class="border-bottom-0 t204_Actividad" matColumnDef="t204_Actividad">
+          <th class="text-center border-bottom-0" mat-header-cell *matHeaderCellDef> Habilitado en MTM
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox (change)="inhabilitarCampania(element, $event)" [checked]="element.t204_Actividad === 1" ></mat-checkbox>
+          </td>
+        </ng-container>
+        
+        <ng-container  class="border-bottom-0" matColumnDef="t204_DescSeason">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Estacion </th>
+          <td mat-cell *matCellDef="let element"> {{element.t204_DescSeason}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="t204_DescUnderlying">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+                  <td mat-cell *matCellDef="let element"> {{element.t204_DescUnderlying}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="t204_Anho">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Año </th>
+                  <td mat-cell *matCellDef="let element"> {{element.t204_Anho}} </td>
+          </ng-container>
+          <ng-container  class="border-bottom-0" matColumnDef="t204_FechaInicio">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Inicio </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    {{element.t204_FechaInicio.toString().substr(6)+'/' 
+                    +element.t204_FechaInicio.toString().substr(4,2)+'/'
+                    +element.t204_FechaInicio.toString().substr(0,4) }}
+              
+                  </td>
+                    
+          </ng-container>
+          <ng-container  class="border-bottom-0" matColumnDef="t204_FechaFin">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Fin </th>
+            <td mat-cell *matCellDef="let element">
+              
+              {{element.t204_FechaFin.toString().substr(6)+'/' 
+              +element.t204_FechaFin.toString().substr(4,2)+'/'
+              +element.t204_FechaFin.toString().substr(0,4) }}
+              
+
+            </td>
+          </ng-container>
+        <ng-container  class="border-bottom-0" matColumnDef="t204_Descripcion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
+            <td mat-cell *matCellDef="let element"> {{element.t204_Descripcion}}  </td>
+        </ng-container>
+
+        <ng-container  class="border-bottom-0" matColumnDef="t204_VolumenEsperado">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Volumen Esperado </th>
+          <td mat-cell *matCellDef="let element"> {{element.t204_VolumenEsperado}}  </td>
+      </ng-container>
+        
+          <ng-container  matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+            <td mat-cell *matCellDef="let element"> 
+                    
+                <button class="btn btn-green" type="submit" mat-icon-button  (click)="editarCampanha(registroCampanhaForm, element)"
+                [disabled]="!estadoRegistrarCampaign">
+                  <mat-icon class="customIconSize" color = "primary">edit</mat-icon>
+                </button>
+                  &nbsp;&nbsp;
+                <button class="btn btn-eliminar" type="submit" mat-icon-button (click)="eliminarCampanha(element)"
+                [disabled]="!estadoRegistrarCampaign">
+                  <mat-icon class="customIconSize" color = "primary">delete</mat-icon>
+                </button>
+
+
+            </td>
+          </ng-container>
+
+          
+          <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true"
+          style="text-align: center; vertical-align: middle;"
+
+          ></tr>
+
+          <tr mat-row *matRowDef="let element columns: displayedColumns;" style="text-align: center; vertical-align: middle;" 
+          class="my-mat-row" >
+          </tr>
+
+
+      </table>
+      </div>
+      <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+
+  <ng-template #registroCampanhaForm let-modal>
+    <app-registroCampanha [visible]="myModal"  (close)="cerrarModal($event)"></app-registroCampanha>                         
+    <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+    
+  </ng-template>

@@ -1,0 +1,251 @@
+<div class="page-header">
+    <div class="page-leftheader">
+        <h4 class="page-title">Reporte Contabilidad</h4>
+    </div>
+
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a class="d-flex">
+                    <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                        <path d="M0 0h24v24H0V0z" fill="none" />
+                        <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+                        <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" />
+                    </svg>
+                    <span class="breadcrumb-icon">Home</span>
+                </a>
+            </li>
+            <li class="breadcrumb-item">IFD</li>
+            <li class="breadcrumb-item active" aria-current="page">Reporte Contabilidad</li>
+        </ol>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+
+            <div style="width: 20%; ">
+                <label class="form-label">Subyacente</label>
+                <ng-select style="margin-top: 10px;" class="form-control" [items]="listaSubyacente"
+                    bindLabel="s204_Description" bindValue="s204_ID" [(ngModel)]="idSubyacente"></ng-select>
+            </div>
+
+            <div style="width: 15%; ">
+                <label class="form-label"> Fecha de reporte </label>
+                <mat-form-field appearance="outline" (click)="pickerIni?.open()" style="width: 100%">
+                    <input matInput [ngModel]="this.strFecReporte | date: 'yyyy/MM/dd'" name="dateFieldIniView" style="cursor: pointer" (focus)="pickerIni?.open()" (dateChange)="setFechaReporte(dateFieldIni.value)" readonly/>
+                    <input matInput [matDatepicker]="pickerIni" name="dateFieldIni" #dateFieldIni required (dateChange)="setFechaReporte(dateFieldIni.value)" [matDatepickerFilter]="fechasPermitidas" hidden/>
+                    <mat-datepicker-toggle matSuffix [for]="pickerIni"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerIni></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div style="width: 15%;">
+                <label class="form-label">&nbsp;</label>
+                <button style="width: 100%; margin-top: 5px;" class="btn btn-green" type="submit"
+                    (click)="consultarReporte()" [disabled]="this.idSubyacente == undefined">
+                    Buscar </button>
+            </div>
+
+            <div style="width: 35%;">
+            </div>
+
+            <div style="width: 15%;">
+                <label class="form-label">&nbsp;</label>
+                <button style="width: 100%; margin-top: 5px;" class="btn btn-green" type="submit"
+                    (click)="descargarExcel()" [disabled]="!(this.listReporteContabilidadTomados.length > 0 || this.listReporteContabilidadLiquidados.length > 0 || this.listReporteContabilidadVigentes.length > 0)">
+                    <i _ngcontent-juj-c346="" class="fa fa-file-excel-o"></i> Exportar Excel
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <mat-tab-group style="width: 100%;" animationDuration="0ms" (selectedTabChange)="selectedTabChange($event)"
+        [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
+        <mat-tab *ngFor="let tab of listaEstado; let index = index" [label]="tab.s204_Description">
+
+            <div class="card-body table-responsive">
+                <div class="row" style="width: 100%;">
+                    <div style="width:100%;">
+                        <table mat-table style="width:100%" [dataSource]="dataSource">
+                            <ng-container matColumnDef="id_Operacion">
+                                <th mat-header-cell *matHeaderCellDef> ID Operación </th>
+                                <td mat-cell *matCellDef="let element"> {{element.id_Operacion}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="estado_Operacion">
+                                <th mat-header-cell *matHeaderCellDef> Estado Operación </th>
+                                <td mat-cell *matCellDef="let element"> {{element.estado_Operacion}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="underlying">
+                                <th mat-header-cell *matHeaderCellDef> Underlying </th>
+                                <td mat-cell *matCellDef="let element"> {{element.underlying}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="product">
+                                <th mat-header-cell *matHeaderCellDef> Producto </th>
+                                <td mat-cell *matCellDef="let element"> {{element.product}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="estrategia">
+                                <th mat-header-cell *matHeaderCellDef> Estrategia </th>
+                                <td mat-cell *matCellDef="let element"> {{element.estrategia}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="tipo_Cobertura">
+                                <th mat-header-cell *matHeaderCellDef> Tipo Cobertura </th>
+                                <td mat-cell *matCellDef="let element"> {{element.tipo_Cobertura}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="strike">
+                                <th mat-header-cell *matHeaderCellDef> Strike </th>
+                                <td mat-cell *matCellDef="let element"> {{element.strike | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status_Cobertura">
+                                <th mat-header-cell *matHeaderCellDef> Status Cobertura </th>
+                                <td mat-cell *matCellDef="let element"> {{element.status_Cobertura}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="broker">
+                                <th mat-header-cell *matHeaderCellDef> Broker </th>
+                                <td mat-cell *matCellDef="let element"> {{element.broker}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="ref">
+                                <th mat-header-cell *matHeaderCellDef> Ref. </th>
+                                <td mat-cell *matCellDef="let element"> {{element.ref}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="expiration">
+                                <th mat-header-cell *matHeaderCellDef> Expiracion </th>
+                                <td mat-cell *matCellDef="let element"> {{element.expiration | date:'dd/MM/yyyy'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="quantity">
+                                <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+                                <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="tm">
+                                <th mat-header-cell *matHeaderCellDef> TM </th>
+                                <td mat-cell *matCellDef="let element"> {{element.tm | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="trade_Date">
+                                <th mat-header-cell *matHeaderCellDef> Trade Date </th>
+                                <td mat-cell *matCellDef="let element"> {{element.trade_Date | date:'dd/MM/yyyy'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="mtm_Activo">
+                                <th mat-header-cell *matHeaderCellDef> MtM Activo </th>
+                                <td mat-cell *matCellDef="let element"> {{element.mtm_Activo | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="mtm_Pasivo">
+                                <th mat-header-cell *matHeaderCellDef> MtM Pasivo </th>
+                                <td mat-cell *matCellDef="let element"> {{element.mtm_Pasivo | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status_Operation">
+                                <th mat-header-cell *matHeaderCellDef> Status Operación </th>
+                                <td mat-cell *matCellDef="let element"> {{element.status_Operation}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fecha_Liquidacion">
+                                <th mat-header-cell *matHeaderCellDef> Fecha Liquidación </th>
+                                <td mat-cell *matCellDef="let element"> {{element.fecha_Liquidacion}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="settlement">
+                                <th mat-header-cell *matHeaderCellDef> Settlement </th>
+                                <td mat-cell *matCellDef="let element"> {{element.settlement | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="option_USD">
+                                <th mat-header-cell *matHeaderCellDef> Option USD </th>
+                                <td mat-cell *matCellDef="let element"> {{element.option_USD | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="spot_Cierre">
+                                <th mat-header-cell *matHeaderCellDef> Spot Cierre </th>
+                                <td mat-cell *matCellDef="let element"> {{element.spot_Cierre | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="prima_Pagada">
+                                <th mat-header-cell *matHeaderCellDef> Prima Pagada </th>
+                                <td mat-cell *matCellDef="let element"> {{element.prima_Pagada | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="prima_Recibida">
+                                <th mat-header-cell *matHeaderCellDef> Prima Recibida </th>
+                                <td mat-cell *matCellDef="let element"> {{element.prima_Recibida | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="com_CRM">
+                                <th mat-header-cell *matHeaderCellDef> Com. CRM </th>
+                                <td mat-cell *matCellDef="let element"> {{element.com_CRM | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="prima_MTM">
+                                <th mat-header-cell *matHeaderCellDef> Prima MTM </th>
+                                <td mat-cell *matCellDef="let element"> {{element.prima_MTM | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="mmPP">
+                                <th mat-header-cell *matHeaderCellDef> MMPP </th>
+                                <td mat-cell *matCellDef="let element"> {{element.mmPP}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="tipo_Trigo">
+                                <th mat-header-cell *matHeaderCellDef> Tipo Trigo </th>
+                                <td mat-cell *matCellDef="let element"> {{element.tipo_Trigo}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fecha_Estimada_Embarque">
+                                <th mat-header-cell *matHeaderCellDef> Fecha Estimada Embarque </th>
+                                <td mat-cell *matCellDef="let element"> {{element.fecha_Estimada_Embarque}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fecha_Estimada_Llegada">
+                                <th mat-header-cell *matHeaderCellDef> Fecha Estimada Llegada </th>
+                                <td mat-cell *matCellDef="let element"> {{element.fecha_Estimada_Llegada}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="semestre">
+                                <th mat-header-cell *matHeaderCellDef> Semestre </th>
+                                <td mat-cell *matCellDef="let element"> {{element.semestre}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="papeleta">
+                                <th mat-header-cell *matHeaderCellDef> Papeleta </th>
+                                <td mat-cell *matCellDef="let element"> {{element.papeleta}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="exceso_Rango_Delta_P2">
+                                <th mat-header-cell *matHeaderCellDef> Exceso Rango Delta P2 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.exceso_Rango_Delta_P2 | number:'1.2-2'}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"
+                                style="text-align: center; vertical-align: middle;">
+                            </tr>
+
+                            <tr mat-row *matRowDef="let element columns: displayedColumns;"
+                                style="text-align: center; vertical-align: middle;" class="my-mat-row">
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
+</div>

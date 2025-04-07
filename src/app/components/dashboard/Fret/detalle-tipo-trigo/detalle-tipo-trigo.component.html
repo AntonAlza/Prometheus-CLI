@@ -1,0 +1,53 @@
+<div id="myModalAsociar" tabindex="-1" appJpDraggableDialog>
+    <div class="row">
+        <div style="width: 40%;  padding: 0% 0% 0% 0%;">
+          <h5 class="modal-title">Detalle de Trigo </h5>
+        </div>
+        <div style="width: 60%; padding: 0% 0% 0% 0%;">
+          <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive ">
+          <div class="scroll-container">
+            <table class="table tablaDetalle text-nowrap" style="width:100%;">
+                <thead style="height: 60px;">
+                  <tr style="align-items: center; vertical-align: middle;">
+                    <th class="text-center inputTable" style="width:60px"
+                        *ngFor="let columna of columnas">
+                        {{ columna[0]}}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let registro of tablaDetalle; let rowIndex = index"> 
+                    <ng-container *ngFor="let columna of columnas; let i = index">
+                        <ng-container *ngIf="i != 0">
+                          <td class="text-center"
+                              [class.selected]="isCellSelected(rowIndex, columna[0])"
+                              (mousedown)="startSelection($event, rowIndex, columna[0])"
+                              (mousemove)="addToSelection($event, rowIndex, columna[0])"
+                              (mouseup)="endSelection()"
+                              matTooltip="{{selectionSum | number:'1.0-0'}}">
+                              {{ registro[columna[0]] | number:'1.2-2'}}
+                          </td>
+                        </ng-container> 
+                        <ng-container *ngIf="i == 0">
+                          <td class="text" style="width: 15%;">
+                            {{ registro[columna[0]]}}
+                          </td>
+                        </ng-container> 
+                    </ng-container>
+                  </tr>
+
+
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+

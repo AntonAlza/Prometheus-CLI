@@ -1,0 +1,327 @@
+<div role="document" class="card"> 
+    <div class="modal-header">
+        <h5 *ngIf="flgIngresarPapel" class="modal-title">Ingresar Papel</h5>
+        <h5 *ngIf="!flgIngresarPapel" class="modal-title">Modificar Papel</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cerrargestionPapel()">
+          <mat-icon  >close</mat-icon>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-1">
+        <form class="form" novalidate="">
+          <div class="row">
+            <div class="col col-xl-6 col-lg-6 col-md-6">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Código</label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                      <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="text"
+                        placeholder="Código"
+                        name="t271_ID"
+                        [(ngModel)]="papelGestion.t271_ID"
+                        readonly/>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label"> Compra/Venta </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select
+                        class="form-control form-select"
+                        name="t271_SellBuy"
+                        [(ngModel)]="papelGestion.t271_SellBuy">
+                        <ng-option value="{{ item.s204_ID }}"
+                        *ngFor="let item of objForm.comboTipoOperacion">{{ item.s204_Description }}</ng-option>
+                      </ng-select>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Fecha </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                    class="form-control"
+                    type="date"
+                    placeholder="YYYY-MM-DD"
+                    ngbDatepicker
+                    [(ngModel)]="fechaPapel"
+                    [minDate]="minDate"
+                    [maxDate]="maxDate"
+                    (click)="d1.toggle()"
+                    #d1="ngbDatepicker"
+                    name="fechaPapel"
+                    readonly/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label"> Contraparte </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select
+                        class="form-control form-select"
+                        name="t271_PhysicalSeller"
+                        [(ngModel)]="papelGestion.t271_PhysicalSeller">
+                        <ng-option value="{{ item.s204_ID }}"
+                        *ngFor="let item of objForm.comboContraparte">{{ item.s204_Description }}</ng-option>
+                      </ng-select>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label"> Bolsa </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="bolsaSelected"
+                      [(ngModel)]="bolsaSelected"
+                      (change)="obtenerContratos()">
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboBolsa">{{ item.s204_Description }}</ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Contrato</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                      <ng-select
+                        class="form-control form-select"
+                        name="t271_Contract"
+                        [(ngModel)]="papelGestion.t271_Contract">
+                        <ng-option value="{{ item.s204_ID }}"
+                        *ngFor="let item of objForm.comboContrato">{{ item.s204_Description }}</ng-option>
+                      </ng-select>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label"> Origen </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t271_Country"
+                      [(ngModel)]="papelGestion.t271_Country"
+                      (change)="cambioOrigen()">
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboOrigen">{{ item.s204_Description }}</ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label"> Indice </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t271_Index"
+                      [(ngModel)]="papelGestion.t271_Index"
+                      [readonly] = flgIndice>
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboIndice">{{ item.s204_Description }}</ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label"> Tipo Precio </label>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8">
+                    <ng-select
+                      class="form-control form-select"
+                      name="t271_TypeOfBenchmark"
+                      [(ngModel)]="papelGestion.t271_TypeOfBenchmark">
+                      <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboTipoPrecio">{{ item.s204_Description }}</ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <span class="br"></span>
+            </div>
+            <div class="col col-xl-6 col-lg-6 col-md-6">
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Fecha desde </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                  class="form-control"
+                  type="date"
+                  placeholder="YYYY-MM-DD"
+                  ngbDatepicker
+                  [(ngModel)]="fechaDesde"
+                  [minDate]="minDate"
+                  [maxDate]="maxDate"
+                  (click)="d2.toggle()"
+                  #d2="ngbDatepicker"
+                  name="fechaDesde"
+                  readonly/>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Fecha Hasta </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <input
+                  class="form-control"
+                  type="date"
+                  placeholder="YYYY-MM-DD"
+                  ngbDatepicker
+                  [(ngModel)]="fechaHasta"
+                  [minDate]="minDate"
+                  [maxDate]="maxDate"
+                  (click)="d3.toggle()"
+                  #d3="ngbDatepicker"
+                  name="fechaHasta"
+                  readonly/>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label"> Incoterm </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                    class="form-control form-select"
+                    name="t271_Incoterm"
+                    [(ngModel)]="papelGestion.t271_Incoterm">
+                    <ng-option value="{{ item.s204_ID }}"
+                    *ngFor="let item of objForm.comboIncoterm">{{ item.s204_Description }}</ng-option>
+                  </ng-select>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label"> Campaña </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                    class="form-control form-select"
+                    name="t271_Campaign"
+                    [(ngModel)]="papelGestion.t271_Campaign">
+                    <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboCampania">{{ item.s204_Description }}</ng-option>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label"> Mes Cobertura</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                  <ng-select
+                    class="form-control form-select"
+                    name="t271_MonthContract"
+                    [(ngModel)]="papelGestion.t271_MonthContract">
+                    <ng-option value="{{ item.s204_ID }}"
+                      *ngFor="let item of objForm.comboMesCobertura">{{ item.s204_Description }}</ng-option>
+                  </ng-select>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Contrato Externo</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="t271_PaperContract"
+                      [(ngModel)]="papelGestion.t271_PaperContract"/>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label">Toneldas M.</label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="number"
+                      name="t271_MetricTons"
+                      [(ngModel)]="papelGestion.t271_MetricTons"/>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label"> Precio </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="number"
+                      name="t271_Value"
+                      [(ngModel)]="papelGestion.t271_Value"/>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                  <label class="form-label"> Comentarios </label>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="t271_Observations"
+                      [(ngModel)]="papelGestion.t271_Observations"/>
+                </div>
+              </div>
+              <span class="br"></span>
+              <div class="row">
+                  <mat-checkbox name="eu2" [(ngModel)]="checkedHEDGE" >Cobertura Estratégica </mat-checkbox>
+              </div>
+            </div>
+          </div>
+          <br>
+          <!-- <div><b><span class="text-red">*</span> Campo no necesario.</b></div> -->
+          <span class="br"></span>
+          <div class="row">
+            <div class="col d-flex justify-content-end">
+              <button
+                *ngIf="flgIngresarPapel"
+                class="btn btn-green"
+                type="submit"
+                [disabled]="!flgBoton"
+                (click)="guardarPapel()">
+                Guardar
+              </button>
+              <button
+                *ngIf="!flgIngresarPapel"
+                class="btn btn-green"
+                type="submit"
+                [disabled]="!flgBoton"
+                (click)="modificarPapel()">
+                Modificar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,206 @@
+  .modal-dialog { 
+    background-color: yellow;
+    width: 100%;
+  }  
+  .modal-content {
+    color: white;
+  }
+  
+
+
+.app-modal-window .modal-dialog {
+  width: 60px;
+}
+
+.close {
+    color: #111111; 
+    opacity: 1;
+    font-size: 20px;
+}
+
+// if you want to change the color of the icon
+.close-button{
+  float: right;
+  top:-20px;
+  right:-20px;
+}
+
+  .tabla-table-container {
+    position: relative;
+//    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+
+
+
+  
+  
+
+[role="button_modal"] {
+    padding: 2px;
+    background-color:white;
+    color:  rgb(75, 130, 45);
+    cursor: default;
+    
+  }
+  [role="button_modal"]:hover,
+  [role="button_modal"]:focus,
+  [role="button_modal"]:active {
+     background-color:  rgb(75, 130, 45);
+     color: white;
+  }
+
+  :host ::ng-deep  .mat-checkbox-checked .mat-checkbox-background {
+    background-color: #37aaf1;
+    border-color: black 
+} 
+:ng-deep .mat-checkbox-indeterminate  .mat-checkbox .mat-checkbox-frame { 
+    border-color: black 
+    
+
+}
+
+
+.file-upload {
+    border: 1px solid rgb(75, 130, 45);
+    border-radius: 5px;
+    padding: 0 5ex 0  5ex;
+    color:  rgb(75, 130, 45);
+    font-size: 15px;    
+  }
+  
+  .file-upload input {
+    overflow: hidden;
+    width: 0;
+  }
+
+.mat-badge-content {
+    
+    background-color: #37aaf1;
+    color: white;
+}
+:host ::ng-deep .mat-sort-header-container { 
+    display: flex;  
+    justify-content: center; 
+    vertical-align: middle;
+    padding: 0 3ex 0  2ex;
+}
+
+
+
+::ng-deep  .mat-sort-header-arrow {
+    color: #fff;
+    justify-content:center;
+    vertical-align: middle;
+}
+
+.mat-row:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+  }
+
+input {
+    width: 270px;
+    padding: 6px 0;
+  }
+  .redondeado {
+    border-radius: 5px;
+    border: 1px solid rgb(146, 146, 146) !important;
+    
+  }
+
+.mat-checkbox {
+    padding: 10px;
+}
+
+
+  
+.mat-cell {
+    text-align: center;
+    justify-content:center;
+    vertical-align: middle;
+  }
+
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    vertical-align: middle;
+    font-size: 18px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}   
+
+//caso de input de table
+mat-form-field {
+    width: 40px;
+  }
+.mat-column-s210_CAKS_UTILIZAR {
+    flex: 0 0 20px;
+    max-width: 40px;
+}
+
+.mat-column-s210_NOMBREOPCION {
+    min-width: 130px;
+    max-width: 460px;
+}
+
+
+.button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    float: right;
+  }
+
+.myCustomModalClass .modal-dialog {
+    max-width: 20px;
+  }
+
+.cdk-overlay-container {
+    z-index: 99999 !important;
+}
+.cdk-overlay-container {
+    z-index: 99999 !important;
+}
+
+
+
+.btn-green {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.39);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+
+  .btn-abierto {
+    color: #fff !important;
+    background-color: rgb(75, 130, 45);
+    border-color: rgb(75, 130, 45);
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.336);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+  .btn-cerrado {
+    color: #fff !important;
+    background-color: #37aaf1;
+    border-color: #a1000096;
+    -webkit-box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+            box-shadow: 0 0px 10px -5px rgba(120, 185, 40, 0.5);
+  }
+  
+  .btn-green:hover {
+    color: #fff !important;
+    background-color: rgba(120, 185, 40, 0.397);;
+    border-color: rgb(120, 185, 40);
+  }
+
+  .modal-header {
+    background-color: #37aaf1;
+    color: white;
+}

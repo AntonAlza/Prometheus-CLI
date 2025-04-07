@@ -1,0 +1,272 @@
+
+      <!-- <div role="document" class="msg_card_body" >
+        
+        <div class="modal-header">
+                    <table style=" width: 100%; border-bottom:1px solid #ffffff;"  >
+                      <tr   style="width:100%" >
+                          <td   style="text-align:left;  padding: 0% 0% 0.5% 1%">
+                            <h3 class="modal-title">Aprobar cambios Estrategia</h3>
+                          </td>
+                          <td style="text-align:right;  padding-right:1.3% ">
+                            <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+                              </button>
+
+                          </td>
+                      </tr>
+                    </table>
+      </div>
+    </div> -->
+
+    <div class="page-header">
+      <div class="page-leftheader">
+        <h4 class="page-title">Aprobar cambios Estrategia</h4>
+      </div>
+    
+      <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a class="d-flex">
+              <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+                <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/>
+              </svg>
+              <span class="breadcrumb-icon">Home</span>
+            </a>
+          </li>
+          <li class="breadcrumb-item">Administrador</li>
+          <li class="breadcrumb-item active" aria-current="page">Aprobación Estrategia</li>
+        </ol>
+      </div>
+    </div>
+   
+    <div class="card">
+      <div class="card-body">
+
+        <div class="row">
+        <div  style="width: 23%; padding: 0.5% 0% 0.5% 1%">
+              <label style="width: 100%;" class="form-label">Estado</label>
+              <ng-select    
+              class="form-control form-select" 
+              name="idEstado" 
+              [(ngModel)]="idEstado"
+              >  
+            <ng-option
+                value="{{lista.s114_Codigo}}"
+                *ngFor="let lista of listaEstado"
+                >{{ lista.s114_Descripcion}}
+            </ng-option>
+          </ng-select>
+        </div>
+        
+        <div style="width: 18%; padding: 0.3% 0% 1.5% 1%">
+
+           <label class="form-label">Fecha Inicio </label>
+            <mat-form-field appearance="outline"
+            (click)="picker?.open()"
+            style="width: 100%" >
+            <input 
+              matInput
+              [ngModel]="dateField.value | date: 'yyyy/MM/dd'"
+              name="dateFieldView"
+              style="width: 100%; cursor: pointer"
+              (focus)="picker?.open()"
+              (dateChange)="setDateInicio(dateField.value)"
+              readonly
+            />
+            <input style="width: 100%;"
+              matInput
+              [matDatepicker]="picker"
+              name="dateField"
+              #dateField
+              required
+              (dateChange)="setDateInicio(dateField.value)"
+              hidden
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker  #picker></mat-datepicker>
+          </mat-form-field>
+       </div>
+       <div style="width: 18%; padding: 0.3% 0% 0.5% 1%">
+        <label class="form-label">Fecha Fin </label>
+       <mat-form-field appearance="outline"
+       (click)="picker1?.open()"
+       style="width: 100%; font-size: 14px; vertical-align: top; ">
+       <input 
+         matInput
+         [ngModel]="dateField1.value | date: 'yyyy/MM/dd'"
+         name="dateFieldView1"
+         style="cursor: pointer"
+         (focus)="picker1?.open()"
+         (dateChange)="setDateFin(dateField1.value)"
+         readonly
+       />
+       <input
+         matInput
+         [matDatepicker]="picker1"
+         name="dateField1"
+         #dateField1
+         required
+         (dateChange)="setDateFin(dateField1.value)"
+         hidden
+       />
+       <mat-datepicker-toggle
+         matSuffix
+         [for]="picker1"
+       ></mat-datepicker-toggle>
+       <mat-datepicker #picker1></mat-datepicker>
+     </mat-form-field>
+       </div>
+       <div style="width: 14%; padding: 2% 0% 0.5% 1%">
+
+     <!-- <button
+            class="btn btn-green"
+            type="submit"
+            (click)="ActualizarRegistro()"
+          > -->
+          
+          <button style="width: 100%;"
+            class="btn btn-green"
+            type="submit"
+            (click)="BuscarAprobacion()"
+            >Buscar
+          </button>
+
+       </div>
+     </div>
+      </div>
+      
+      <div class="card-body">
+        <table mat-table
+        class="example-table table-bordered"
+        
+        matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+        style="width:100%"
+        [dataSource]="dataSource" >
+
+        <ng-container  class="border-bottom-0" matColumnDef="temp_ID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.temp_ID}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="temp_GroupOptions">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Estrategia </th>
+                  <td mat-cell *matCellDef="let element"> {{element.temp_GroupOptions}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Estrategia">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Estrategia </th>
+            <td mat-cell *matCellDef="let element"> {{element.temp_Estrategia}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Fecha">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+            <td mat-cell *matCellDef="let element"> 
+              {{element.temp_Fecha.toString().substr(6)+'/' 
+              +element.temp_Fecha.toString().substr(4,2)+'/'
+              +element.temp_Fecha.toString().substr(0,4) }}
+        
+            </td>
+              
+
+          </ng-container>
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Hora">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    {{element.temp_Hora.toString().substr(0,2)+':' 
+                    +element.temp_Hora.toString().substr(2,2)+':'
+                    +element.temp_Hora.toString().substr(4) }}
+              
+                  </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Solicitante">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Solicitante </th>
+            <td mat-cell *matCellDef="let element"> {{element.temp_Solicitante}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Estado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element.temp_Estado}} </td>
+          </ng-container>
+    
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Campo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Campo </th>
+            <td mat-cell *matCellDef="let element"> {{element.temp_Campo}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Inicial">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Inicial </th>
+            <td mat-cell *matCellDef="let element"> {{element.temp_Inicial}} </td>
+          </ng-container>
+
+
+          <ng-container  class="border-bottom-0" matColumnDef="temp_Cambio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Final </th>
+            <td mat-cell *matCellDef="let element"> {{element.temp_Cambio}} </td>
+          </ng-container>
+
+          <ng-container  matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+            <td mat-cell *matCellDef="let element"> 
+                    
+                <button class="btn btn-green" 
+                  type="submit" mat-icon-button  
+                  data-toggle="tooltip" data-placement="top"
+                  title="Aprobar"
+
+
+                  (click)="aprobar(element)"
+                  [disabled]="!estadoAprobar">
+                  <!-- <mat-icon class="customIconSize" color = "primary">edit</mat-icon> -->
+                  <!-- <i class="ion-checkmark-circled"></i> -->
+                  <i class="ion-checkmark"></i>
+                </button>
+                  &nbsp;&nbsp;
+                <button class="btn btn-eliminar" 
+                type="submit" mat-icon-button 
+                data-toggle="tooltip" data-placement="top"
+                title="No Aprobar"
+                (click)="noAprobar(element)"
+                [disabled]="!estadoAprobar">
+                  <!-- <mat-icon class="customIconSize" color = "primary">delete</mat-icon> -->
+                  <i class="ion-close"></i>
+                </button>
+                <!-- &nbsp;&nbsp;
+                <button class="btn btn-dark" 
+                type="submit" mat-icon-button 
+                data-toggle="tooltip" data-placement="top"
+                title="Eliminar"
+                (click)="eliminarPeticion(element)"
+                >
+                  <i class="ion-trash-b"></i>
+                </button> -->
+
+
+            </td>
+          </ng-container>
+
+          
+          <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true"
+          style="text-align: center; vertical-align: middle;"
+
+          ></tr>
+
+          <tr mat-row *matRowDef="let element columns: displayedColumns;" style="text-align: center; vertical-align: middle;" 
+          class="my-mat-row" >
+          </tr>
+
+
+      </table>
+      </div>
+      <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+
+  <ng-template #registroCampanhaForm let-modal>
+    <app-registroCampanha [visible]="myModal"  (close)="cerrarModal($event)"></app-registroCampanha>                         
+    <!-- <app-registrosRJO [visible]="myModal"  (close)="modal.dismiss('Cross click')"></app-registrosRJO> -->
+    
+  </ng-template>

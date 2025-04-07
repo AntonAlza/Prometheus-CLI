@@ -1,0 +1,202 @@
+<div class="page-header">
+    <div class="page-leftheader">
+      <h4 class="page-title">Inputs Fret</h4>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a class="d-flex">
+                <svg
+                class="svg-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path
+                        d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+                <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" /></svg><span class="breadcrumb-icon"> Home</span></a>
+        </li>
+        <li class="breadcrumb-item"><span>Fret</span></li>
+        <li class="breadcrumb-item">Data Entry</li>
+        <li class="breadcrumb-item active" aria-current="page">Ingreso</li>
+      </ol>
+    </div>
+</div>
+
+<br>
+  
+  <div class="row row-deck">
+  <div class="container">
+    <div class="row">
+      <!-- <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="card">
+          <div class="card-body">
+           
+          </div>
+        
+        </div>
+      </div> -->
+     
+      
+      <!-- </div> -->
+      
+      <div class="col-xl-12 col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <!-- <div class="btn-group ms-1 mb-0 justify-content-start">
+            
+            </div> -->
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-3">
+                  <label class="col-form-label" for="fechaVigente">Fecha:</label>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-md-9">
+                  <input type="date" class="form-control text-center p-0 m-0" placeholder="yyyy-mm-dd"
+                  [(ngModel)]="fechaVigente" ngbDatepicker (click)="f.toggle()" #f="ngbDatepicker" name="fechaVigente" 
+                  readonly (ngModelChange)="changeDataEntryFecha()" >
+                </div>
+            </div> 
+
+            <div class="row">
+              <div>
+                <div class="col col-xl-6 col-lg-6 col-md-6">
+                  <button
+                    class="btn"
+                    [class]="claseCSSEstado"
+                    type="submit"
+                    (click)="confirmarIngreso()"
+                    [ngbTooltip]="tooltipText">
+                    <i [class]="iconoEstado" aria-hidden="true"> </i> {{ nombreEstado }}
+                  </button>
+                </div>
+              </div>
+            </div> 
+            
+            
+
+            <div role="listbox" aria-label="Fish selection" class="mat-chip-listbox" style="margin-left:auto;">
+                <div class="mat-chip-option" (click)="toggleSelection('Llegada')" [ngClass]="{'selected': selectedOptions.includes('Llegada')}">Llegadas TM</div>
+                <div class="mat-chip-option" (click)="toggleSelection('Fletes')" [ngClass]="{'selected': selectedOptions.includes('Fletes')}">Fletes</div>
+                <div class="mat-chip-option" (click)="toggleSelection('diasGiro')" [ngClass]="{'selected': selectedOptions.includes('diasGiro')}">Días Giro</div>
+                <div class="mat-chip-option" (click)="toggleSelection('presupuestoBase')" [ngClass]="{'selected': selectedOptions.includes('presupuestoBase')}">Presupuesto Base</div>
+                <div class="mat-chip-option" (click)="toggleSelection('proyecto')" [ngClass]="{'selected': selectedOptions.includes('proyecto')}">Proyectado del Mes</div>
+                <div class="mat-chip-option" (click)="toggleSelection('calidad')" [ngClass]="{'selected': selectedOptions.includes('calidad')}">Calidad</div>
+                <div class="mat-chip-option" (click)="toggleSelection('mercadoFOB')" [ngClass]="{'selected': selectedOptions.includes('mercadoFOB')}">Mercado FOB</div>
+                <div class="mat-chip-option" (click)="toggleSelection('ajusteFret')" [ngClass]="{'selected': selectedOptions.includes('ajusteFret')}">Ajuste</div>
+                <div class="mat-chip-option" (click)="toggleSelection('spreadFret')" [ngClass]="{'selected': selectedOptions.includes('spreadFret')}">Spread</div>
+              </div>
+
+            <div class="card-options" ngbDropdown>
+
+              <div  class="col-xl-12 col-lg-12 col-md-12">
+                <ng-container *ngIf="tabSeleccionado=='Llegada' || tabSeleccionado=='Fletes'">
+                  <label class="form-label" 
+                  >Sociedad <span class="text-red">*</span>
+                </label>
+                <ng-select
+                    class="form-control form-select"
+                    name="t039_Contract"
+                    [(ngModel)]="selectedSociety"
+                    (change)="onSelectCompania()">
+                    <ng-option
+                      value="{{ item.s204_ID }}"
+                      *ngFor="let item of comboSociedades">{{ item.s204_Description }}</ng-option>
+                  </ng-select>
+                </ng-container>
+                
+              </div>
+
+                
+            </div>
+          </div>
+
+          <div class="card-body">
+            
+            <div  class="table-responsive">
+             
+              <div class="tabla-container">
+                      <div *ngFor="let tabla of listaTablas ; let indTabla = index">
+                        <br>
+                        <div class="row">
+                          <div class="col col-xl-3 col-lg-3 col-md-3">
+                            <div class="row">
+                              <div class="col col-xl-7 col-lg-7 col-md-7">
+                                <h3>{{tabla.nombreTabla}}</h3>
+                              </div>
+                              <div class="col col-xl-2 col-lg-2 col-md-2">
+                                <ng-container *ngIf="tabla.flgReplicar && tabla.flgReplicarData > 1">
+                                  <button id="copy-button" class="icon-button" title="replicar primera fila" (click)="replicarGrupo(tabla)">
+                                      <span class="material-icons">content_copy</span>
+                                  </button>
+                                </ng-container>                            
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="table-container">
+                          <table mat-table class="table table-bordered text-nowrap"
+                                 matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+                                 style="width:100%;" [dataSource]="tabla.dataSource">
+                        
+                            <ng-container *ngFor="let column of columnas; let i = index">
+                              <ng-container [matColumnDef]="column.nombre_Columna">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                    [ngClass]="{'headcol': i === 1, 'headcol-header': i === 1}">
+                                  {{ column.descripcion }}
+                                </th>
+                                <td mat-cell *matCellDef="let element; let rowIndex = index" 
+                                    [style.border-color]="getBackgroundColor(element, column)"
+                                    [ngClass]="{'headcol': i === 1, 'selected': isCellSelected(element, column)}"
+                                    (mousedown)="onMouseDown(element, column)"
+                                    (mouseenter)="onMouseEnter(element, column, indTabla)"
+                                    (mouseup)="onMouseUp()"
+                                    >
+                                <!-- <td mat-cell *matCellDef="let element" 
+                                    [style.border-color]="getBackgroundColor(element, column)"
+                                    > -->
+                                  <ng-container *ngIf="i === 1  ; else inputCell">
+                                    {{ element[column.nombre_Columna] }}
+                                  </ng-container>
+                                  
+                                  <ng-template #inputCell>
+                                    <ng-container *ngIf="i !== 1 && !element['descripcion'].includes(' Tipo Trigo');">
+                                      <input matInput [(ngModel)]="element[column.nombre_Columna]" 
+                                            (ngModelChange)="onCellValueChange(element, column)"  
+                                            (input)="element[column.nombre_Columna] = _handleInput(element[column.nombre_Columna])" 
+                                            (change)="guardadoAutomatico(element, column)" 
+                                            (paste)="onPaste($event, element, column, tabla)"
+                                            type="number">
+                                    </ng-container>
+
+                                    <ng-container *ngIf="rowIndex === 0  && element['descripcion'].includes(' Tipo Trigo');">
+                                      <input matInput [(ngModel)]="element[column.nombre_Columna]" 
+                                              (ngModelChange)="onCellValueChange(element, column)"  
+                                              (change)="guardadoAutomatico(element, column)" 
+                                              (paste)="onPaste($event, element, column, tabla)"
+                                              type="text">
+                                    </ng-container>
+
+                                    <ng-container *ngIf="i === 1">
+                                      {{ element[column.nombre_Columna] }}
+                                    </ng-container>
+                                  </ng-template>
+                                </td>
+                              </ng-container>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns" style="text-align: center; vertical-align: middle;"></tr>
+                            <tr class="tbody" mat-row *matRowDef="let element; columns: displayedColumns;"
+                                style="text-align: center; vertical-align: middle;">
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+              </div>
+      </div>
+      <mat-paginator [pageSizeOptions]="[25, 100]"></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,423 @@
+
+      <!-- <div role="document" class="msg_card_body" >
+        
+        <div class="modal-header">
+                    <table style=" width: 100%; border-bottom:1px solid #ffffff;"  >
+                      <tr   style="width:100%" >
+                          <td   style="text-align:left;  padding: 0% 0% 0.5% 1%">
+                            <h3 class="modal-title">Resultados Portafolio Vigente</h3>
+                          </td>
+                          <td style="text-align:right;  padding-right:1.3% ">
+                            <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+                          </button>
+
+                          </td>
+                      </tr>
+                    </table>
+      </div>
+    </div> -->
+
+    <div class="page-header">
+      <div class="page-leftheader">
+        <h4 class="page-title">Resultados Portafolio Vigente</h4>
+      </div>
+    
+      <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a class="d-flex">
+              <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+                <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/>
+              </svg>
+              <span class="breadcrumb-icon">Home</span>
+            </a>
+          </li>
+          <li class="breadcrumb-item">IFD</li>
+          <li class="breadcrumb-item active" aria-current="page">Resultado Métrica IFD</li>
+        </ol>
+      </div>
+    </div>
+   
+    <div class="card">
+      <div class="card-body">
+
+        <div class="row">
+        <div style="width: 10%; padding: 0.3% 0% 1.5% 1%">
+
+           <label class="form-label">Fecha Inicio </label>
+            <mat-form-field appearance="outline"
+            (click)="picker?.open()"
+            style="width: 100%" >
+            <input 
+              matInput
+              [ngModel]="dateField.value | date: 'yyyy/MM/dd'"
+              name="dateFieldView"
+              style="width: 100%; cursor: pointer"
+              (focus)="picker?.open()"
+              (dateChange)="setDateReporte(dateField.value)"
+              readonly
+            />
+            <input style="width: 100%;"
+              matInput
+              [matDatepicker]="picker"
+              [formControl]="date1"
+              name="dateField"
+              #dateField
+              required
+              (dateChange)="setDateReporte(dateField.value)"
+              hidden
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker  #picker></mat-datepicker>
+          </mat-form-field>
+       </div>
+       <div style="width: 10%; padding: 1.7% 0% 0.5% 1%">
+         <button style="width: 100%;"
+            class="btn btn-green"
+            type="submit"
+            (click)="BuscarReporteMetricaIFD()"
+            >Buscar
+          </button>
+       </div>
+       <div style="width: 10%; padding: 1.7% 0% 0.5% 1%">
+        <button style="width: 100%;"
+        class="btn btn-green"
+        type="submit"
+        (click)="exporter.exportTable('csv')"
+        ><i class="fa fa-file-excel-o"></i>
+          Exportar
+            
+           </button>
+          
+       </div>
+       <div style="width: 10%; padding: 1.7% 0% 0.5% 1%">
+        <button style="width: 100%;"
+        class="btn btn-green"
+        type="submit"
+        (click)="descargarPDF()"
+        >
+        Ver Detalle MTM
+            
+           </button>
+          
+       </div>
+      
+
+     </div>
+      </div>
+      
+      <div class="card-body">
+      <div   class="scroll-container" style="width:100%;">
+        <table mat-table matTableExporter 
+        #exporter="matTableExporter"
+        class="example-table table-bordered"
+        
+        matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+        style="width:100%"
+        [dataSource]="dataSource" >
+
+        <ng-container  class="border-bottom-0" matColumnDef="t386_Date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+          <td mat-cell *matCellDef="let element"> 
+            {{element.t386_Date.toString().substr(6)+'/' 
+              +element.t386_Date.toString().substr(4,2)+'/'
+              +element.t386_Date.toString().substr(0,4) }}
+        
+          </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Operation">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Operación </th>
+                  <td mat-cell *matCellDef="let element"> {{element.t386_Operation}} </td>
+          </ng-container>
+
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Scenary">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Escenario </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Scenary}} </td>
+        </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="t386_BrokerRef">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Broker Ref. </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_BrokerRef}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Ticker">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticker </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Ticker}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="t386_UnderlyingType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Underlying Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_UnderlyingType}} </td>
+          </ng-container>
+    
+          <ng-container  class="border-bottom-0" matColumnDef="t386_DerivativeType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Derivative Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_DerivativeType}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="t386_DerivativeSpec">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Derivative Spec </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_DerivativeSpec}} </td>
+          </ng-container>
+
+
+          <ng-container  class="border-bottom-0" matColumnDef="t386_DerivativeSubSpec">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>  Derivative SubSpec </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_DerivativeSubSpec}} </td>
+          </ng-container>
+
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Caks">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Caks </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Caks}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_PriceStrike">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price Strike </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_PriceStrike | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_PriceBarrier">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price Barrier </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_PriceBarrier | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_DateSettle">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>  Date Settle </th>
+            <td mat-cell *matCellDef="let element"> 
+              {{element.t386_DateSettle.toString().substr(6)+'/' 
+              +element.t386_DateSettle.toString().substr(4,2)+'/'
+              +element.t386_DateSettle.toString().substr(0,4) }}
+       
+            </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_DateMaturity">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Maturity</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.t386_DateMaturity.toString().substr(6)+'/' 
+              +element.t386_DateMaturity.toString().substr(4,2)+'/'
+              +element.t386_DateMaturity.toString().substr(0,4) }}
+            </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_DateSimulation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Simulation</th>
+            <td mat-cell *matCellDef="let element"> 
+              {{element.t386_DateSimulation.toString().substr(6)+'/' 
+              +element.t386_DateSimulation.toString().substr(4,2)+'/'
+              +element.t386_DateSimulation.toString().substr(0,4) }}
+            </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_PriceAsset">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>  Price Asset </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_PriceAsset | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Volatility">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>  Volatility</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Volatility | number:'1.1-2' }} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Rate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rate </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Rate | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_DigitalPayment">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>  Digital Payment</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_DigitalPayment | number:'1.1-2' }} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_PremiumPaid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>  Premium Paid </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_PremiumPaid | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_PremiumToday">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>  Premium Today </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_PremiumToday | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Delta">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delta</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Delta | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Gamma">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Gamma  </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Gamma | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Vega">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Vega </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Vega | number:'1.1-2' }} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Theta">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Theta</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Theta | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Rho">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rho</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Rho | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Lambda">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Lambda</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Lambda | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_DeltaCAK">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delta CAK</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_DeltaCAK | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_GammaCAK">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Gamma CAK </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_GammaCAK | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_CashPaid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cash Paid</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_CashPaid | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_CashToday">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cash Today</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_CashToday | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_CashVI">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cash VI</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_CashVI | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_CashNetToday">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CashNetToday </th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_CashNetToday | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_IDStrategy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Strategy</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_IDStrategy}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Strategy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Strategy</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Strategy}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_ByPortfolio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> By Portfolio</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_ByPortfolio}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_ByGroup">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> By Group</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_ByGroup}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_ByPosition">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> By Position</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_ByPosition}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_ByAgrupDelta">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> By Agrup Delta</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_ByAgrupDelta}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_ByTrimestre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> By Trimestre</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_ByTrimestre}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_ByApertura">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> By Apertura</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_ByApertura}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_ContabilityType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Contability Type</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_ContabilityType}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_HedgeType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Hedge Type</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_HedgeType}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Society">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Society</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_Society}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_VolumeNetTM">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Volume Net TM</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_VolumeNetTM | number:'1.1-2'}} </td>
+          </ng-container>
+          
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_VolumeMaxTM">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Volume Max TM</th>
+            <td mat-cell *matCellDef="let element"> {{element.t386_VolumeMaxTM | number:'1.1-2' }} </td>
+          </ng-container>
+          
+          <ng-container  class="border-bottom-0" matColumnDef="t386_Curva">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Vol. </th>
+            <td mat-cell *matCellDef="let element"> 
+              <div ngSwitch="{{element.t386_Curva}}">
+                  <div *ngSwitchCase="'1'">
+                    {{'SKEW' }} 
+                  </div>
+                  <div *ngSwitchCase="'2'">
+                    {{'ATM'}}
+                  </div>
+                  <div *ngSwitchCase="'4'">
+                    {{'Histórica'}}
+                  </div>
+              </div>
+            </td>
+          </ng-container>
+      
+          <tr  mat-header-row *matHeaderRowDef="displayedColumns sticky: true"
+          style="text-align: center; vertical-align: middle;"
+
+          ></tr>
+
+          <tr mat-row *matRowDef="let element columns: displayedColumns;" style="text-align: center; vertical-align: middle;" 
+          class="my-mat-row" >
+          </tr>
+
+
+      </table>
+      </div>
+      <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>
+

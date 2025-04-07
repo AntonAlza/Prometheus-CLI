@@ -1,0 +1,121 @@
+
+      <div  id="myModal" tabindex="-1" role="dialog">
+        <div >
+          <div role="document" class="msg_card_body">
+
+            <div class="modal-header">
+              <!-- <h5 *ngIf="!flgIngresarContrato" class="modal-title">Modificar IFD</h5> -->
+              <h5  class="modal-title">Registrar Pricing</h5> 
+              <button type="button" class="close" aria-label="Close" (click)="cerrar()">
+                <mat-icon  >close</mat-icon>
+              </button>
+            </div>
+        
+
+      <div class="card-body">
+        <div class="table-responsive">
+
+        <div style="visibility: hidden; position: fixed"
+          [style.left]="contextMenuPosition.x"
+          [style.top]="contextMenuPosition.y"
+          [matMenuTriggerFor]="contextMenu">
+        </div>
+
+      </div>
+      <br>
+
+      <div class="row">
+        <div style="width: 30%;">
+          <label  style="margin: 15% 0%;">Mes </label>
+        </div>
+        <div style="width: 65%;">
+          <mat-select  style="width: 83%; "
+              class="form-control form-select" 
+              name="idMes" 
+              [(ngModel)]="idMes"
+              (selectionChange)="onSelectMes($event)"
+          >  
+                <mat-option
+                value="{{lista.s114_Codigo}}"
+                *ngFor="let lista of listaMeses"
+                >{{ lista.s114_Descripcion }}
+            </mat-option>
+        </mat-select> 
+    </div>
+    </div>
+    <br>
+    <div class="row">
+
+      <div style="width: 30%; ">
+        <label  style="margin: 15% 0%;">Subyacente </label>
+    </div>
+      <div style="width: 65%;">
+        <mat-select  style="width: 83%; "
+              class="form-control form-select" 
+              name="idTipoProducto" 
+              [(ngModel)]="idTipoProducto"
+              (selectionChange)="onSelectTipoProducto($event)"
+          >  
+                <mat-option
+                value="{{lista.s114_Codigo}}"
+                *ngFor="let lista of listaTipoProducto"
+                >{{ lista.s114_Descripcion }}
+            </mat-option>
+        </mat-select> 
+
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div style="width: 30%;">
+        <label  style="margin: 15% 0%;">Destino </label>
+    </div>
+      <div style="width: 65%;">
+        <mat-select  style="width: 83%; "
+        class="form-control form-select" 
+        name="idDestino" 
+        [(ngModel)]="idDestino"
+        (selectionChange)="onSelectDestino($event)"
+    >  
+          <mat-option
+          value="{{lista.s114_Codigo}}"
+          *ngFor="let lista of listaDestino"
+          >{{ lista.s114_Descripcion }}
+      </mat-option>
+  </mat-select> 
+      </div>
+  </div>
+  <br>
+  <div class="row">
+  
+    <div class="row">
+      <table >
+        <tr>
+          <br>
+        </tr>
+        <tr>
+          <td style="width: 50%; text-align: right;"  >
+          <button
+              class="btn btn-green"
+              type="submit" 
+              (click)="guardarOperacionPricing()"
+              >
+              
+              Aceptar
+            </button>
+          </td>
+          
+        </tr>
+      </table>
+      </div>    
+
+</div>
+
+
+
+    </div>
+
+
+          </div>
+        </div>
+      </div>

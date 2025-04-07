@@ -1,0 +1,20 @@
+.modal-header {
+    background-color: #37aaf1;
+    color: white;
+}
+.buscador {
+    width: 18%;
+    padding: 6px 0;
+}
+.redondeado {
+    border-radius: 5px;
+    border: 1px solid rgb(146, 146, 146) !important;
+}    
+::ng-deep .modal-IngresarBaseCM .modal-dialog { 
+    max-width: 35%;
+    width: 35%;
+}
+.br {
+    display: block;
+    margin-bottom: 0.5em;
+}

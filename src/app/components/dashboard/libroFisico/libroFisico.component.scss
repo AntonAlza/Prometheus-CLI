@@ -1,0 +1,125 @@
+.modal-header {
+    background-color: #37aaf1;
+    color: white;
+}
+.buscador {
+    width: 18%;
+    padding: 6px 0;
+}
+.redondeado {
+    border-radius: 5px;
+    border: 1px solid rgb(146, 146, 146) !important;
+}    
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}  
+.mat-badge-content {
+    background-color: #37aaf1;
+    color: white;
+}
+.mat-row:hover {
+    background-color: rgba(120, 185, 40, 0.205);
+    cursor: pointer;
+}
+.mat-header-cell {
+    background:  #37aaf1;
+    color: white;
+    justify-content:center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}  
+:host ::ng-deep .mat-sort-header-container { 
+    display: flex;  
+    justify-content: center; 
+    vertical-align: middle;
+    padding: 0 5ex 0  5ex;
+}
+::ng-deep  .mat-sort-header-arrow {
+    color: #fff;
+    justify-content:center;
+    vertical-align: middle;
+}
+#b1{
+    white-space: normal;
+}
+.br {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+// ::ng-deep .my-class-Operacion .modal-dialog { 
+//     max-width: 40%;
+//     width: 40%;
+// }
+mat-spinner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+:host ::ng-deep .custom-spinner circle{   
+    stroke:  rgb(75, 130, 45);
+    stroke-opacity: 1 !important;
+}
+
+.theadCarga {
+    background-color: rgb(75, 130, 45);
+}
+.theadFlat {
+    background-color: #dba703;
+}
+.theadFuturo{
+    background-color: #4454c3;
+}
+.theadBase{
+    background-color: #495057;
+}
+.theadMtM{
+    background-color: #03c2db;
+}
+.theadPortafolio {
+    background-color: #37aaf1;
+}
+
+
+::ng-deep .my-class-lista .modal-dialog { 
+    max-width: 50%;
+    width: 50%;
+}
+
+.selected {
+    background-color: rgba(120, 185, 40, 0.205);
+}
+.opcion {
+  background-color: transparent !important;
+  border: none;
+}
+
+#b1{
+    white-space: normal;
+}
+
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #37aaf1 !important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #37aaf1 !important;
+}
+
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: rgb(75, 130, 45) !important;
+}
+
+.mat-checkbox {
+    padding: 10px;
+}

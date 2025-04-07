@@ -1,0 +1,196 @@
+<div role="document" class="card"> <!--class="msg_card_body" -->
+    <div class="modal-header">
+        <h5 class="modal-title">{{titulo}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cerrarVenderFuturo()">
+          <mat-icon  >close</mat-icon>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-1">
+        <form class="form" novalidate="">
+          <div class="row">
+            <div class="col col-xl-4 col-lg-4 col-md-4">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                      <label class="form-label">Operación </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            id="deshabilitado"
+                            class="form-control"
+                            type="text"
+                            placeholder="Operación"
+                            name="t072_ID"
+                            [(ngModel)]="ventaClosingPrice.t072_ID"
+                            readonly/>
+                    </div>
+                </div>                
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Barco</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            id="deshabilitado"
+                            class="form-control"
+                            type="text"
+                            placeholder="Barco"
+                            name="codFisico"
+                            [(ngModel)]="codFisico"
+                            readonly/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Cód. Futuro</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <ng-select
+                          class="form-control form-select"
+                          name="t072_Future"
+                          [(ngModel)]="ventaClosingPrice.t072_Future"
+                          (change)="obtenerPrecioCosto_TotalContratos();obtenerTM();calcularPNL()">
+                          <ng-option value="{{ item.s204_ID }}"
+                          *ngFor="let item of objetoInitVentaFuturo.comboFuturosCM">{{ item.s204_Description }}</ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Total Contratos </label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                            id="deshabilitado"
+                            class="form-control"
+                            type="text"
+                            [(ngModel)]="totalContratos"
+                            readonly/>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xl-4 col-lg-4 col-md-4">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Fecha</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                        class="form-control"
+                        type="date"
+                        placeholder="YYYY-MM-DD"
+                        ngbDatepicker
+                        [(ngModel)]="fecha"
+                        (click)="d1.toggle()"
+                        #d1="ngbDatepicker"
+                        name="fecha"
+                        readonly/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Precio Costos</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                        class="form-control"
+                        type="number"
+                        name="precioCosto"
+                        [(ngModel)]="precioCosto"
+                        readonly/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Precio Venta</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                        class="form-control"
+                        type="number"
+                        name="precioVenta"
+                        [(ngModel)]="precioVenta"
+                        (change)="calcularPNL()"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xl-4 col-lg-4 col-md-4">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Número de Contratos</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <input
+                        class="form-control"
+                        type="number"
+                        name="t072_VolumeContract"
+                        [(ngModel)]="ventaClosingPrice.t072_VolumeContract"
+                        onkeydown="if(event.key==='.'){event.preventDefault();}"
+                        (change)="obtenerTM();calcularPNL()"/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Toneladas Métricas</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                        class="form-control"
+                        type="number"
+                        name="t072_MetricTons"
+                        [(ngModel)]="ventaClosingPrice.t072_MetricTons"
+                        readonly/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">Comentario</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                        class="form-control"
+                        type="text"
+                        name="comentarioFuturo"
+                        [(ngModel)]="comentarioFuturo"/>
+                    </div>
+                </div>
+                <span class="br"></span>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                    <label class="form-label">PnL Venta</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                    <input
+                        id="deshabilitado"
+                        class="form-control"
+                        type="number"
+                        name="pnlVenta"
+                        [(ngModel)]="pnlVenta" readonly/>
+                    </div>
+                </div>
+          </div>
+          <br>
+        </div>
+        <span class="br"></span>
+          <div class="row">
+            <div class="col d-flex justify-content-end">
+              <button
+                class="btn btn-green"
+                type="submit"
+                [disabled]="!flgBoton"
+                (click)="guardarVentaFuturo()">
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

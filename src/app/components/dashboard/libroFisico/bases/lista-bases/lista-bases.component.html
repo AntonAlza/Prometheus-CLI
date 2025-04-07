@@ -1,0 +1,123 @@
+<div role="document" class="card">
+    <div class="card-header">
+        <h3 class="card-title">Lista de Bases</h3>
+          <!-- <button class="card-options" ngbDropdown (click)="cerrargestionOperacion()">
+                <div class="btn-group ms-5 mb-0">
+                        <mat-icon  >close</mat-icon>
+                </div>
+            
+          </button> -->
+                <div class="card-options" ngbDropdown>
+                        <div class="btn-group ms-5 mb-0">
+                                <button
+                                type="button"
+                                class="btn btn-white"
+                                aria-expanded="false"
+                                data-toggle="modal"
+                                (click)="ingresarBaseModal(IngresarBase)">
+                                <i class="fe fe-plus"></i>Agregar Bases
+                                </button>
+                        </div>
+                </div>
+      </div>
+
+    <div class="card-body">
+            <div>
+                      <input type="text" class="redondeado buscador"  size="100"    (keyup)="applyFilterListaBases($event)" placeholder=" Buscar Base" autocomplete="off">
+                     <br><br>
+             </div>
+           <div  class="table-responsive">
+             <div class="tabla-table-container">
+                     <table mat-table 
+                      class="table table-bordered text-nowrap"  
+                      class="example-table table-bordered"
+                      matSort matSortActive="created" matSortDisableClear matSortDirection="desc"
+                      style="width:100%" 
+                     [dataSource]="listaBasesCMDS" >
+
+                        <ng-container  matColumnDef="opciones">
+                                <th  mat-header-cell *matHeaderCellDef mat-sort-header>Opciones</th>
+                                <td mat-cell *matCellDef="let element"
+                                (click)="onContextMenu($event, element.s034_CodigoOperacion)" [matMenuTriggerFor]="contextMenu"> 
+                                <button mat-icon-button class="opcion">
+                                <mat-icon>more_vert</mat-icon>
+                                </button>
+                                </td>
+                        </ng-container>
+
+                             <ng-container matColumnDef="s034_CodigoFisico">
+                               <th class="thead" class="border-bottom-0" mat-header-cell *matHeaderCellDef mat-sort-header> Código de Físico </th>
+                               <td mat-cell *matCellDef="let element"> {{element.s034_CodigoFisico}} </td>
+                             </ng-container>
+
+                             <ng-container class="border-bottom-0" matColumnDef="s034_CodigoOperacion">
+                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Código de Operación </th>
+                               <td mat-cell *matCellDef="let element"> {{element.s034_CodigoOperacion}} </td>
+                             </ng-container>
+                             <ng-container  class="border-bottom-0" matColumnDef="s034_Fecha">
+                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                               <td mat-cell *matCellDef="let element"> {{element.s034_Fecha | date: "dd/MM/yyyy"}} </td>
+                             </ng-container>
+                             <ng-container  class="border-bottom-0" matColumnDef="s034_Futuro">
+                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Futuro </th>
+                                     <td mat-cell *matCellDef="let element"> {{element.s034_Futuro}} </td>
+                             </ng-container>                      
+                             <ng-container class="border-bottom-0" matColumnDef="s034_TipoOperacion">
+                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Operación </th> 
+                                     <td mat-cell *matCellDef="let element">  {{element.s034_TipoOperacion}} </td>
+                             </ng-container>
+                             <ng-container matColumnDef="s034_NumeroContratos">
+                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Número Contratos </th>
+                                     <td mat-cell *matCellDef="let element"> {{element.s034_NumeroContratos | number:'1.0-0' }} </td>
+                             </ng-container>
+                             <ng-container matColumnDef="s034_ToneladasMetricas">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Toneladas Métricas </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.s034_ToneladasMetricas | number:'1.2-2'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="s034_Precio">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.s034_Precio | number:'1.2-2'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="s034_PrecioCosto">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Costo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.s034_PrecioCosto | number:'1.2-2'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="s034_Comentario">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Comentario </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.s034_Comentario }} </td>
+                            </ng-container>
+                             <tr mat-header-row *matHeaderRowDef="columnsBases sticky: true" 
+                             style="text-align: center; vertical-align: middle;" ></tr>
+                             
+                             <tr class="tbody" mat-row *matRowDef="let element; columns: columnsBases;"
+                             style="text-align: center; vertical-align: middle;" 
+                             [class.selected]="element.selected"
+                             (click)="element.selected= !element.selected"
+                             >
+                             </tr>
+                     </table>
+             </div>
+            </div>
+            <mat-paginator [pageSizeOptions]="[15, 25, 100]"></mat-paginator>
+    </div>
+
+</div>
+<!-- <div style="visibility: hidden; position: fixed" [matMenuTriggerFor]="contextMenu"></div> -->
+
+<mat-menu #contextMenu="matMenu" #contextMenu2="matMenu">
+  <ng-template matMenuContent let-item="item">
+    <button mat-menu-item (click)="modificarBase(IngresarBase)">Modificar Base</button>
+    <button mat-menu-item (click)="eliminarBase()">Eliminar Base</button>
+  </ng-template>
+</mat-menu>
+
+<ng-template #IngresarBase let-modal >
+        <app-ingresar-bases (closeAgregarBase)="cerrarModalOperacion(modal)" [objInitIngresoBase] = "objetoInitIngresoBase"></app-ingresar-bases>
+</ng-template>
+
+<mat-spinner  class="custom-spinner"
+        *ngIf="loading$ | async"  
+        [mode]="'indeterminate'"
+        [value]=50
+        [diameter]="50">
+</mat-spinner>
