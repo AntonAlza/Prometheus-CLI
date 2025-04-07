@@ -171,7 +171,6 @@ export class portafolioIFDTiempoRealComponent implements OnInit {
   message: string;
   public tableName: string;
   public tableData: any;
-  token: string='dapi492bfcf262b376249cb041e3e87e96c3-3'
   http: HttpClient
 
   constructor(private modalService: NgbModal, private portafolioMoliendaIFDService: PortafolioIFDMoliendaService,
@@ -193,24 +192,23 @@ export class portafolioIFDTiempoRealComponent implements OnInit {
 
   public DataBricksExecuteSqlQuery(): void {
 
-    var token           = "dapi4269b3ccefbf75b8213167633da920c7-3";
     var server_hostname = "adb-225310297235191.11.azuredatabricks.net";
     var http_path       = "/sql/1.0/warehouses/377759ae8dc269a1";
 
     const sqlQuery = 'SELECT * FROM tablafinalportafolio';
-    this.databricksService.executeSqlQuery(sqlQuery).subscribe(
+    // this.databricksService.executeSqlQuery(sqlQuery).subscribe(
       
-    async (response) => {
-              console.log('Archivo descargado correctamente:', response);
-              this.queryResult = response.result.data_array//JSON.stringify(response, null, 2);
-              console.log('Archivo JSON:', this.queryResult);
+    // async (response) => {
+    //           console.log('Archivo descargado correctamente:', response);
+    //           this.queryResult = response.result.data_array//JSON.stringify(response, null, 2);
+    //           console.log('Archivo JSON:', this.queryResult);
               
-        },
-        (error) => {
-              console.error('Error al descargar el archivo:', error);
-              // Puedes manejar los errores aquí
-            }
-      );
+    //     },
+    //     (error) => {
+    //           console.error('Error al descargar el archivo:', error);
+    //           // Puedes manejar los errores aquí
+    //         }
+    //   );
 
 
 
@@ -269,48 +267,9 @@ export class portafolioIFDTiempoRealComponent implements OnInit {
     //       }
     // );
 
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'Authorization': 'Bearer dapi5b5288f9499f5172d04b03eec8b2224b-3', // Reemplaza <TOKEN_DE_ACCESO> con tu token de acceso a Databricks
-    //     'Content-Type': 'application/octet-stream'
-    //   }),
-    //   responseType: 'arraybuffser'
     // };
     // // Define la URL del archivo de datos Parquet que deseas descargar
-    // const fileUrl = 'https://adb-225310297235191.11.azuredatabricks.net/api/2.0/dbfs/read?path=file:/dbfs/tmp/delta_demo/parquet_file/input.parquet'; // Reemplaza <DOMINIO_DE_DATABRICKS> con la URL de la API de Databricks y <RUTA_DEL_ARCHIVO_PARQUET> con la ruta del archivo Parquet en Databricks
-
-    // // Realiza la petición HTTP para descargar el archivo de datos Parquet desde Databricks
-    // this.http.get(fileUrl,{headers:{
-    //   'Authorization': 'Bearer dapi5b5288f9499f5172d04b03eec8b2224b-3', // Reemplaza <TOKEN_DE_ACCESO> con tu token de acceso a Databricks
-    //   'Content-Type': 'application/octet-stream'
-    // }})
-    //   .subscribe(
-    //     async (response) => {
-    //       console.log('Archivo descargado correctamente:', response);
-
-          // Crea un objeto de lectura de Parquet a partir del archivo descargado
-          //const fileData = new Uint8Array(response);
-          //const parquetReader = ParquetReader.openFile(fileData.buffer);
-          //const cursor = parquetReader.getCursor();
-          //let record = null;
-          //while (record = await cursor.next()) {
-            // Aquí puedes procesar cada registro del archivo de datos Parquet según tus necesidades
-          //}
-      //   },
-      //   (error) => {
-      //     console.error('Error al descargar el archivo:', error);
-      //     // Puedes manejar los errores aquí
-      //   }
-      // );
-    
-    // axios.get('https://adb-225310297235191.11.azuredatabricks.net/api/2.0/dbfs/read?path=file:/dbfs/tmp/delta_demo/parquet_file/input.parquet', {
-    //   headers: {
-    //     'Authorization': 'Bearer ' + this.token,
-    //     'Access-Control-Allow-Origin': '*',
-    //     // 'Access-Control-Allow-Origin': 'http://127.0.0.1:8080'
-        
-    //   }
-    // }).then(response => {
+    // const fileUrl = 'ht
     //   console.log(response.data);
     // }).catch(error => {
     //   console.error('Error: '+error);

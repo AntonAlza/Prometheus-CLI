@@ -38,13 +38,12 @@ export class TokenpbiService {
     try {
       const tokenUrl = 'https://login.microsoftonline.com/common/oauth2/token';
       const clientId = 'e79795d5-d51e-4884-a371-df5a4518fc37';
-      const client_secret='kb~8Q~Cxj~9aj6S~QjmEMPmr~gwRk1a1vNq1mbjy'
       const resource = 'https://analysis.windows.net/powerbi/api';
       const scope = 'https://analysis.windows.net/powerbi/api/.default';
       const username='prometheus@mathrisksolution.com';
       const password='Prueba123';
   
-      const body = `grant_type=password&client_id=${clientId}&username=${username}&password=${password}&resource=${resource}&client_secret=${client_secret}`;
+      const body = `grant_type=password&client_id=${clientId}&username=${username}&password=${password}&resource=${resource}`;
       const headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       });
